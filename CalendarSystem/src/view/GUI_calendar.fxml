@@ -26,5 +26,7 @@
         </columns>
       </TableView>
       <ListView layoutX="14.0" layoutY="256.0" prefHeight="256.0" prefWidth="128.0" />
+      <Button layoutX="14.0" layoutY="527.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="128.0" text="Legg til ny kalender" />
+      <Button layoutX="14.0" layoutY="565.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="128.0" text="Fjern valgt kalender" />
    </children>
 </AnchorPane>
