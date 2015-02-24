@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.newAppointmentController">
+   <children>
+      <SplitPane dividerPositions="0.7906626506024096" layoutX="131.0" layoutY="182.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane fx:id="object" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <Label layoutX="196.0" layoutY="71.0" text="Avtaleskjema" AnchorPane.leftAnchor="125.0" AnchorPane.rightAnchor="0.0">
+                     <font>
+                        <Font name="Calibri Bold" size="31.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="objective" layoutX="125.0" layoutY="126.0" prefHeight="53.0" prefWidth="176.0" promptText="Formål" />
+                  <TextField fx:id="room" layoutX="125.0" layoutY="187.0" prefHeight="25.0" prefWidth="92.0" promptText="Sted" />
+                  <TextField fx:id="setTimeFromHours" layoutX="125.0" layoutY="261.0" prefHeight="25.0" prefWidth="176.0" promptText="Fra-tidspunkt (time)" />
+                  <TextField fx:id="setTimeToHours" layoutX="125.0" layoutY="325.0" prefHeight="25.0" prefWidth="176.0" promptText="Til-tidspunkt (time)" />
+                  <TextField fx:id="repetitionFrequency" layoutX="125.0" layoutY="395.0" prefHeight="25.0" prefWidth="176.0" promptText="Repetisjonsfrekvens (tall)" />
+                  <TextField fx:id="endDate" layoutX="125.0" layoutY="433.0" prefHeight="25.0" prefWidth="176.0" promptText="Slutt-dato (yyyy-mm-dd)" />
+                  <Button fx:id="accept" layoutX="125.0" layoutY="482.0" mnemonicParsing="false" onAction="#acceptAppointment" text="Fullfør" />
+                  <Button fx:id="decline" layoutX="244.0" layoutY="482.0" mnemonicParsing="false" onAction="#cleanAppointment" prefHeight="25.0" prefWidth="56.0" text="Forkast" />
+                  <TextField fx:id="roomNumber" layoutX="230.0" layoutY="187.0" prefHeight="25.0" prefWidth="70.0" promptText="Møterom" />
+                  <TextField fx:id="setTimeFromMinutes" layoutX="125.0" layoutY="293.0" prefHeight="25.0" prefWidth="176.0" promptText="Fra-tidspunkt (min)" />
+                  <TextField fx:id="setTimeToMinutes" layoutX="125.0" layoutY="359.0" prefHeight="25.0" prefWidth="176.0" promptText="Til-tidspunkt (min)" />
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="115.0" prefWidth="419.0">
+               <children>
+                  <Label fx:id="errorLabel" layoutX="69.0" layoutY="28.0" prefHeight="62.0" prefWidth="294.0">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>
