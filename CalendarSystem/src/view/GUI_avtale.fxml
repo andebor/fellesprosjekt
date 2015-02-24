@@ -5,16 +5,23 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Text layoutX="285.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Avtale" wrappingWidth="66.0">
+      <Text layoutX="479.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Avtale" wrappingWidth="66.0">
          <font>
-            <Font name="Arial" size="18.0" />
+            <Font size="24.0" />
          </font>
       </Text>
-      <Button layoutX="220.0" layoutY="344.0" mnemonicParsing="false" text="Endre" />
-      <Button layoutX="351.0" layoutY="344.0" mnemonicParsing="false" text="Slett" />
-      <Button layoutX="277.0" layoutY="67.0" mnemonicParsing="false" text="Ny avtale" />
-      <ListView fixedCellSize="0.0" layoutX="210.0" layoutY="111.0" prefHeight="200.0" prefWidth="200.0" />
+      <Button layoutX="256.0" layoutY="660.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="52.0" text="Endre" />
+      <Button layoutX="716.0" layoutY="660.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="52.0" text="Slett" />
+      <Button layoutX="479.0" layoutY="660.0" mnemonicParsing="false" text="Ny avtale" />
+      <ListView fixedCellSize="0.0" layoutX="256.0" layoutY="128.0" prefHeight="512.0" prefWidth="512.0" />
+      <MenuBar prefHeight="25.0" prefWidth="1024.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Hjem" />
+          <Menu mnemonicParsing="false" text="Avtaler" />
+          <Menu mnemonicParsing="false" text="Invitasjoner" />
+        </menus>
+      </MenuBar>
    </children>
 </AnchorPane>

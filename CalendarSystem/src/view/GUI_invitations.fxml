@@ -6,8 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="768.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+<AnchorPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="448.0" layoutY="71.0" text="Invitasjoner">
          <font>
@@ -17,7 +16,7 @@
       <ListView layoutX="256.0" layoutY="256.0" prefHeight="256.0" prefWidth="512.0" />
       <Button layoutX="832.0" layoutY="320.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Godta invitasjon!" />
       <Button layoutX="832.0" layoutY="399.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Avslå invitasjon!" />
-      <MenuBar>
+      <MenuBar prefHeight="25.0" prefWidth="1024.0">
         <menus>
           <Menu mnemonicParsing="false" text="Hjem" />
           <Menu mnemonicParsing="false" text="Avtaler" />
