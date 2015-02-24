@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <MenuBar>
+        <menus>
+          <Menu mnemonicParsing="false" text="Hjem" />
+          <Menu mnemonicParsing="false" text="Avtaler" />
+          <Menu mnemonicParsing="false" text="Invitasjoner" />
+        </menus>
+      </MenuBar>
+      <TableView layoutX="154.0" layoutY="256.0" prefHeight="256.0" prefWidth="768.0">
+        <columns>
+          <TableColumn prefWidth="110.0" text="Mandag" />
+          <TableColumn prefWidth="110.0" text="Tirsdag" />
+            <TableColumn prefWidth="110.0" text="Onsdag" />
+            <TableColumn prefWidth="110.0" text="Torsdag" />
+            <TableColumn prefWidth="110.0" text="Fredag" />
+            <TableColumn prefWidth="109.0" text="Lørdag" />
+            <TableColumn prefWidth="109.0" text="Søndag" />
+        </columns>
+      </TableView>
+      <ListView layoutX="14.0" layoutY="256.0" prefHeight="256.0" prefWidth="128.0" />
+   </children>
+</AnchorPane>
