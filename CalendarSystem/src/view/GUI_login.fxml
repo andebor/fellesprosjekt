@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TextField fx:id="txtUsername" layoutX="498.0" layoutY="271.0" promptText="Brukernavn" />
+      <PasswordField fx:id="txtPassword" layoutX="498.0" layoutY="321.0" promptText="Passord" />
+      <Button fx:id="btnLogin" layoutX="480.0" layoutY="371.0" mnemonicParsing="false" text="Logg inn!" />
+      <Label fx:id="lblInvalidLogin" layoutX="414.0" layoutY="421.0" text="Ugyldig brukernavn og/eller passord!" textFill="#ee0606" visible="false" />
+      <Label layoutX="451.0" layoutY="71.0" text="Innlogging!">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="411.0" layoutY="275.0" text="Brukernavn:" />
+      <Label layoutX="430.0" layoutY="325.0" text="Passord:" />
+      <MenuBar>
+        <menus>
+          <Menu mnemonicParsing="false" text="Hjem" />
+          <Menu mnemonicParsing="false" text="Avtaler" />
+          <Menu mnemonicParsing="false" text="Invitasjoner" />
+        </menus>
+      </MenuBar>
+   </children>
+</AnchorPane>
