@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TextField layoutX="438.0" layoutY="271.0" promptText="Brukernavn" />
+      <PasswordField layoutX="438.0" layoutY="321.0" promptText="Passord" />
+      <Button layoutX="480.0" layoutY="371.0" mnemonicParsing="false" text="Logg inn!" />
+      <Label layoutX="414.0" layoutY="421.0" text="Ugyldig brukernavn og/eller passord!" textFill="#ee0606" />
+      <Label layoutX="451.0" layoutY="71.0" text="Innlogging!">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
