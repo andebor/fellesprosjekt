@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
@@ -16,34 +17,29 @@ public class newAppointmentController implements Initializable {
 	
 	
 	@FXML
-	TextField objective;
+	TextField description;
 	
 	@FXML 
-	TextField room;
+	TextField place;
 	
 	@FXML
 	TextField roomNumber;
 	
 	@FXML
-	TextField date;
+	DatePicker date;
 	
 	@FXML
-	TextField setTimeFromHours;
+	TextField startHours;
 	
 	@FXML
-	TextField setTimeFromMinutes;
+	TextField startMinutes;
 	
 	@FXML
-	TextField setTimeToHours;
+	TextField endHours;
 	
 	@FXML
-	TextField setTimeToMinutes;
+	TextField endMinutes;
 	
-	@FXML
-	TextField repetitionFrequency;
-	
-	@FXML
-	TextField endDate;
 	
 	@FXML
 	Label errorLabel;
@@ -54,7 +50,7 @@ public class newAppointmentController implements Initializable {
 	@FXML
 	Button decline;
 	
-	final Appointment appointment = new Appointment();
+	final Appointment appointment = new Appointment(); 
 	
 	
 	
@@ -65,138 +61,122 @@ public class newAppointmentController implements Initializable {
 	}	
 
 	
+	
+	public boolean placeValidation(String placeString) {
+		
+		if (placeString.isEmpty()){
+			errorLabel.setText("Trenger navn på bygning");
+			return false;
+			}	
+		return true;
+		
+	}
+	
+	public boolean descriptionValidation(String descriptionString) {
+		
+		if(descriptionString.isEmpty()){
+			errorLabel.setText("Trenger beskrivelse");
+			return false;
+		}
+		return true;	
+		
+	}
+	
+	public boolean dateValidation(LocalDate dateCheck) {
+			
+		if(dateCheck == null){
+			errorLabel.setText("Trenger dato");
+			return false;
+		}
+		
+		if (dateCheck.isAfter(LocalDate.now())){
+			return true;
+		}
+		else {
+			errorLabel.setText("Ugydlig dato!");
+			return false;
+		}
+
+	}
+	
+	public boolean timeValidation(String startHour, String startMin){
+		
+		  try { 
+		        Integer.parseInt(startHour); 
+		        Integer.parseInt(startMin); 
+		   
+		    } catch(NumberFormatException e) { 
+		    	errorLabel.setText("Fra-tidspunkt må bestå av tall");
+		    	return false;
+		    }
+		    int hours = Integer.parseInt(startHour); 
+		    int minutes = Integer.parseInt(startMin); 
+			if(hours>24 || hours<0){
+				errorLabel.setText("Fra-tidspunkt: timer må være på formatet 0-24");
+				return false;
+			}
+			if(minutes>60 || minutes<0){
+				errorLabel.setText("Fra-tidspunkt: minutter må v�ære på formatet 0:60");
+				return false;
+			}
+				
+			return true;
+				
+	}
+	
+	public boolean endTimeValidation(String endHour, String endMin){
+		
+    	int hour = Integer.parseInt(endHour); 
+        int min = Integer.parseInt(endMin);
+		
+        LocalTime endTime = LocalTime.of(hour, min);
+        LocalTime fromTime = LocalTime.of(Integer.parseInt(startHours.getText()), Integer.parseInt(startMinutes.getText()));
+		
+		if(endTime.isBefore(fromTime)){
+			errorLabel.setText("Møter over midnatt støttes ikke");
+			return false;
+		}
+		return true;
+        
+	}
+	
+	
+	
+	
+	
 
 	
 	public void acceptAppointment(ActionEvent event) throws Exception  {
 		
 		errorLabel.setText("");
 		
-		appointment.setFormal(objective.getText());
+		if(!descriptionValidation(description.getText())){
+			return;
+		}
+		appointment.setDescription(description.getText());
+		
+		if(!dateValidation(date.getValue())){
+			return;
+		}
+		appointment.setDate(date.getValue());
+		
+		if(!timeValidation(startHours.getText(), startMinutes.getText())){
+			return;
+		}
+		appointment.setStart(LocalTime.of(Integer.parseInt(startHours.getText()), Integer.parseInt(startMinutes.getText())));
+		
+		if(!timeValidation(endHours.getText(), endMinutes.getText()) && !endTimeValidation(endHours.getText(), endMinutes.getText())){
+			return;
+		}
+		appointment.setFrom(LocalTime.of(Integer.parseInt(endHours.getText()), Integer.parseInt(endMinutes.getText())));
+			
+		if(!placeValidation(place.getText())){
+			return;
+		}
+		appointment.setPlace(place.getText());
 
 		
-		String romString = room.getText();
-		if (romString.isEmpty()){
-			errorLabel.setText("Trenger navn på bygning");
-			return;
-		}
-		String romStringNumber = roomNumber.getText();
-	    try { 
-	        Integer.parseInt(romStringNumber); 
-	    } catch(NumberFormatException e) { 
-	    	errorLabel.setText("Romnummer må være et tall");
-	    	return;
-	    }
-	    appointment.setRom(romString + " " + romStringNumber);
-		
-		
-		
-		String dateString = date.getText();
-		if(dateString.trim().length() == 0){
-			errorLabel.setText("Trenger dato!");
-			return;
-		}
-		try {
-			LocalDate myDate = LocalDate.parse(dateString);
-			if (myDate.isAfter(LocalDate.now())){
-			appointment.setDato(myDate);
-			}
-			else {
-				errorLabel.setText("Ugydlig dato!");
-				return;
-			}
-		} catch (Exception e) {
-			errorLabel.setText("Dato må være på formatet yyyy-mm-dd");
-			date.clear();
-			return;
-		}
-		
-		String setTimeFromHoursString = setTimeFromHours.getText();
-		String setTimeFromMinString = setTimeFromMinutes.getText();
-	    try { 
-	        Integer.parseInt(setTimeFromHoursString); 
-	        Integer.parseInt(setTimeFromMinString); 
-	   
-	    } catch(NumberFormatException e) { 
-	    	errorLabel.setText("Fra-tidspunkt må bestå av tall");
-	    	return;
-	    }
-	    int hours = Integer.parseInt(setTimeFromHoursString); 
-	    int minutes = Integer.parseInt(setTimeFromMinString); 
-		if(hours>24 || hours<0){
-			errorLabel.setText("Fra-tidspunkt: timer må være på formatet 0-24");
-			setTimeFromHours.clear();
-			return;
-		}
-		if(minutes>60 || minutes<0){
-			errorLabel.setText("Fra-tidspunkt: minutter må v�ære på formatet 0:60");
-			setTimeFromMinutes.clear();
-			return;
-		}
-		LocalTime from = LocalTime.of(hours, minutes);
-		appointment.setFra(from);
-		
-		String setTimeToHoursString = setTimeToHours.getText();
-		String setTimeToMinString = setTimeToMinutes.getText();
-	    try { 
-	    	Integer.parseInt(setTimeToHoursString); 
-	        Integer.parseInt(setTimeToMinString); 
-	   
-	    } catch(NumberFormatException e) { 
-	    	errorLabel.setText("Til-tidspunkt må bestå av tall");
-	    	return;
-	    }
-	    int hours2 = Integer.parseInt(setTimeToHoursString); 
-	    int minutes2 = Integer.parseInt(setTimeToMinString); 
-		if(hours2>24 || hours2<0){
-			errorLabel.setText("Til-tidspunkt: timer må være på formatet 0-24");
-			setTimeToHours.clear();
-			return;
-		}
-		if(minutes2>60 || minutes2<0){
-			errorLabel.setText("Til-tidspunkt: minutter må være på formatet 0:60");
-			setTimeToMinutes.clear();
-			return;
-		}
-		LocalTime to = LocalTime.of(hours2, minutes2);
-		if(to.isBefore(from)){
-			errorLabel.setText("Møter over midnatt støttes ikke");
-			setTimeToMinutes.clear();
-			setTimeToHours.clear();
-			return;
-		}
-		appointment.setTil(to);
-		
-		String frequencyString = repetitionFrequency.getText();
-	    try { 
-	        Integer.parseInt(frequencyString);  
-	   
-	    } catch(NumberFormatException e) { 
-	    	errorLabel.setText("Repetisjonsfrekvens må være et tall");
-	    	repetitionFrequency.clear();
-	    	return;
-	    }
-	    int frequencyInt = Integer.parseInt(frequencyString);
-	    appointment.setRepetisjon(frequencyInt);
-	    
-	    String endDateString = endDate.getText();
-		try {
-			LocalDate myEndDate = LocalDate.parse(endDateString);
-			if(appointment.getRepetisjon()<=0) {
-				errorLabel.setText("Ingen repetisjon!");
-				endDate.clear();
-				return;
-			}
-			if (myEndDate.isAfter(appointment.getDato())){
-			appointment.setSlutt(myEndDate);
-			}
-			else {
-				errorLabel.setText("Ugydlig sluttdato!");
-				return;
-			}
-		} catch (Exception e) {
-			errorLabel.setText("Dato må være på formatet yyyy-mm-dd");
-			endDate.clear();
-		}
+
 		errorLabel.setText("Suksess!");
 
 		
@@ -206,16 +186,7 @@ public class newAppointmentController implements Initializable {
 		
 		errorLabel.setText("Skjema nullstilt");
 		
-		roomNumber.clear();
-		objective.clear();
-		room.clear();
-		date.clear();
-		setTimeFromHours.clear();
-		setTimeFromMinutes.clear();
-		setTimeToHours.clear();
-		setTimeToMinutes.clear();
-		repetitionFrequency.clear();
-		endDate.clear();
+
 		
 		
 	}

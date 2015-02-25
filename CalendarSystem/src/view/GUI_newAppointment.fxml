@@ -11,27 +11,39 @@
    <children>
       <SplitPane dividerPositions="0.7906626506024096" layoutX="131.0" layoutY="182.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
-          <AnchorPane fx:id="object" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+          <AnchorPane fx:id="Object" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <Label layoutX="196.0" layoutY="71.0" text="Avtaleskjema" AnchorPane.leftAnchor="125.0" AnchorPane.rightAnchor="0.0">
+                  <Label layoutX="430.0" layoutY="45.0" prefHeight="36.0" prefWidth="294.0" text="    Ny avtale" AnchorPane.leftAnchor="430.0" AnchorPane.rightAnchor="298.0">
                      <font>
                         <Font name="Calibri Bold" size="31.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="objective" layoutX="125.0" layoutY="126.0" prefHeight="53.0" prefWidth="176.0" promptText="Formål" />
-                  <TextField fx:id="room" layoutX="125.0" layoutY="187.0" prefHeight="25.0" prefWidth="92.0" promptText="Sted" />
-                  <TextField fx:id="setTimeFromHours" layoutX="125.0" layoutY="261.0" prefHeight="25.0" prefWidth="176.0" promptText="Fra-tidspunkt (time)" />
-                  <TextField fx:id="setTimeToHours" layoutX="125.0" layoutY="325.0" prefHeight="25.0" prefWidth="176.0" promptText="Til-tidspunkt (time)" />
-                  <TextField fx:id="repetitionFrequency" layoutX="125.0" layoutY="395.0" prefHeight="25.0" prefWidth="176.0" promptText="Repetisjonsfrekvens (tall)" />
-                  <TextField fx:id="endDate" layoutX="125.0" layoutY="433.0" prefHeight="25.0" prefWidth="176.0" promptText="Slutt-dato (yyyy-mm-dd)" />
-                  <Button fx:id="accept" layoutX="125.0" layoutY="482.0" mnemonicParsing="false" onAction="#acceptAppointment" text="Fullfør" />
-                  <Button fx:id="decline" layoutX="244.0" layoutY="482.0" mnemonicParsing="false" onAction="#cleanAppointment" prefHeight="25.0" prefWidth="56.0" text="Forkast" />
-                  <TextField fx:id="roomNumber" layoutX="230.0" layoutY="187.0" prefHeight="25.0" prefWidth="70.0" promptText="Møterom" />
-                  <TextField fx:id="setTimeFromMinutes" layoutX="125.0" layoutY="293.0" prefHeight="25.0" prefWidth="176.0" promptText="Fra-tidspunkt (min)" />
-                  <TextField fx:id="setTimeToMinutes" layoutX="125.0" layoutY="359.0" prefHeight="25.0" prefWidth="176.0" promptText="Til-tidspunkt (min)" />
+                  <TextField fx:id="description" layoutX="150.0" layoutY="125.0" prefHeight="49.0" prefWidth="294.0" />
+                  <TextField fx:id="place" layoutX="148.0" layoutY="295.0" prefHeight="25.0" prefWidth="294.0" />
+                  <TextField fx:id="startHours" layoutX="150.0" layoutY="223.0" prefHeight="25.0" prefWidth="145.0" promptText="time" />
+                  <TextField fx:id="endHours" layoutX="150.0" layoutY="260.0" prefHeight="25.0" prefWidth="145.0" promptText="time" />
+                  <Button fx:id="accept" layoutX="644.0" layoutY="268.0" mnemonicParsing="false" onAction="#acceptAppointment" prefHeight="25.0" prefWidth="145.0" text="Fullfør" />
+                  <Button fx:id="decline" layoutX="802.0" layoutY="268.0" mnemonicParsing="false" onAction="#cleanAppointment" prefHeight="25.0" prefWidth="136.0" text="Forkast" />
+                  <TextField fx:id="startMinutes" layoutX="308.0" layoutY="223.0" prefHeight="25.0" prefWidth="136.0" promptText="min" />
+                  <TextField fx:id="endMinutes" layoutX="308.0" layoutY="260.0" prefHeight="25.0" prefWidth="136.0" promptText="min" />
+                  <Text layoutX="79.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Beskrivelse: " wrappingWidth="92.0" />
+                  <Text fill="#fc0000" layoutX="139.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*" />
+                  <Text layoutX="111.0" layoutY="312.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" Sted:" wrappingWidth="42.384765625" />
+                  <ListView layoutX="148.0" layoutY="330.0" prefHeight="25.0" prefWidth="294.0" />
+                  <Text layoutX="90.0" layoutY="347.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Møterom:" />
+                  <Text layoutX="55.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" Start-tidspunkt:" wrappingWidth="101.13671875" />
+                  <Text layoutX="60.0" layoutY="277.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Slutt-tidspunkt:" wrappingWidth="92.0" />
+                  <DatePicker fx:id="date" layoutX="150.0" layoutY="184.0" prefHeight="25.0" prefWidth="294.0" />
+                  <Text layoutX="111.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dato:" wrappingWidth="66.6171875" />
+                  <ListView layoutX="148.0" layoutY="373.0" prefHeight="200.0" prefWidth="294.0" />
+                  <Text layoutX="96.0" layoutY="459.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ansatte:" />
+                  <ListView layoutX="644.0" layoutY="125.0" prefHeight="49.0" prefWidth="294.0" />
+                  <Text layoutX="583.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Grupper:" wrappingWidth="75.0" />
+                  <ToggleButton layoutX="644.0" layoutY="211.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="145.0" text="Påminnelse" />
+                  <TextField layoutX="802.0" layoutY="211.0" prefHeight="25.0" prefWidth="136.0" text="min (default 15)" />
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="115.0" prefWidth="419.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="136.0" prefWidth="1022.0">
                <children>
                   <Label fx:id="errorLabel" layoutX="69.0" layoutY="28.0" prefHeight="62.0" prefWidth="294.0">
                      <font>

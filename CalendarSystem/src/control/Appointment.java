@@ -64,11 +64,11 @@ public class Appointment {
 		}
 	};
 
-	public String getFormal() {
+	public String getDescription() {
 		return formalProperty.getValue();
 	}
 
-	public void setFormal(String formal) {
+	public void setDescription(String formal) {
 		formalProperty.setValue(formal);
 	}
 
@@ -76,11 +76,11 @@ public class Appointment {
 		return formalProperty;
 	}
 
-	public String getRom() {
+	public String getPlace() {
 		return romProperty.getValue();
 	}
 
-	public void setRom(String rom) {
+	public void setPlace(String rom) {
 		romProperty.setValue(rom);
 	}
 
@@ -88,11 +88,11 @@ public class Appointment {
 		return romProperty;
 	}
 
-	public LocalDate getDato() {
+	public LocalDate getDate() {
 		return datoProperty.getValue();
 	}
 
-	public void setDato(LocalDate dato) {
+	public void setDate(LocalDate dato) {
 		datoProperty.setValue(dato);
 	}
 
@@ -100,11 +100,11 @@ public class Appointment {
 		return datoProperty;
 	}
 
-	public LocalTime getFra() {
+	public LocalTime getStart() {
 		return fraProperty.getValue();
 	}
 
-	public void setFra(LocalTime fra) {
+	public void setStart(LocalTime fra) {
 		fraProperty.setValue(fra);
 	}
 
@@ -112,11 +112,11 @@ public class Appointment {
 		return fraProperty;
 	}
 
-	public LocalTime getTil() {
+	public LocalTime getFrom() {
 		return tilProperty.getValue();
 	}
 
-	public void setTil(LocalTime til) {
+	public void setFrom(LocalTime til) {
 		tilProperty.setValue(til);
 	}
 
@@ -124,23 +124,11 @@ public class Appointment {
 		return tilProperty;
 	}
 
-	public Integer getRepetisjon() {
-		return repetisjonProperty.getValue();
-	}
-
-	public void setRepetisjon(Integer repetisjon) {
-		repetisjonProperty.setValue(repetisjon);
-	}
-
-	public IntegerProperty repetisjonProperty() {
-		return repetisjonProperty;
-	}
-
-	public LocalDate getSlutt() {
+	public LocalDate getEnd() {
 		return sluttProperty.getValue();
 	}
 
-	public void setSlutt(LocalDate slutt) {
+	public void setEnd(LocalDate slutt) {
 		sluttProperty.setValue(slutt);
 	}
 
