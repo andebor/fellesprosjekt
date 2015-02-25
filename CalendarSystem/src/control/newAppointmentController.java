@@ -1,17 +1,23 @@
 package control;
 
+import java.util.List;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 
 public class newAppointmentController implements Initializable {
 	
@@ -22,8 +28,6 @@ public class newAppointmentController implements Initializable {
 	@FXML 
 	TextField place;
 	
-	@FXML
-	TextField roomNumber;
 	
 	@FXML
 	DatePicker date;
@@ -50,13 +54,46 @@ public class newAppointmentController implements Initializable {
 	@FXML
 	Button decline;
 	
-	final Appointment appointment = new Appointment(); 
+	@FXML
+	ListView<String> employers; //String need to be changes to users
+	
+	@FXML
+	ListView<String> groups; //String need to be changes to users
+	
+	@FXML
+	ListView<String> added;
+	
+	@FXML
+	Button addEmployers;
+	
+	@FXML
+	Button addGroups;
+	
+	@FXML
+	Button removeEmployers;
+	
+	@FXML
+	ToggleButton alarmButton;
+	
+	@FXML
+	ToggleButton reservation;
+	
+	@FXML
+	TextField alarm;
+	
+	@FXML
+	ListView<String> room; // String needs to be changed to room object
+	
+	private ObservableList<String> addedList = FXCollections.observableArrayList();
+	
 	
 	
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
+		generateEmployersList();
+		generateGroupsList();
+		generateRoomList();
 		
 	}	
 
@@ -65,7 +102,7 @@ public class newAppointmentController implements Initializable {
 	public boolean placeValidation(String placeString) {
 		
 		if (placeString.isEmpty()){
-			errorLabel.setText("Trenger navn på bygning");
+			place.setPromptText("Trenger navn på bygning");
 			return false;
 			}	
 		return true;
@@ -75,7 +112,7 @@ public class newAppointmentController implements Initializable {
 	public boolean descriptionValidation(String descriptionString) {
 		
 		if(descriptionString.isEmpty()){
-			errorLabel.setText("Trenger beskrivelse");
+			description.setPromptText("Trenger beskrivelse");
 			return false;
 		}
 		return true;	
@@ -85,7 +122,7 @@ public class newAppointmentController implements Initializable {
 	public boolean dateValidation(LocalDate dateCheck) {
 			
 		if(dateCheck == null){
-			errorLabel.setText("Trenger dato");
+			date.setPromptText("Trenger dato");
 			return false;
 		}
 		
@@ -93,30 +130,31 @@ public class newAppointmentController implements Initializable {
 			return true;
 		}
 		else {
-			errorLabel.setText("Ugydlig dato!");
+			date.setPromptText("Ugydlig dato!");
 			return false;
 		}
 
 	}
 	
-	public boolean timeValidation(String startHour, String startMin){
+	public boolean startTimeValidation(String startHour, String startMin){
 		
 		  try { 
 		        Integer.parseInt(startHour); 
 		        Integer.parseInt(startMin); 
 		   
 		    } catch(NumberFormatException e) { 
-		    	errorLabel.setText("Fra-tidspunkt må bestå av tall");
+		    	startHours.setPromptText("Ugyldig input");
+		    	startMinutes.setPromptText("Ugyldig input");
 		    	return false;
 		    }
 		    int hours = Integer.parseInt(startHour); 
 		    int minutes = Integer.parseInt(startMin); 
 			if(hours>24 || hours<0){
-				errorLabel.setText("Fra-tidspunkt: timer må være på formatet 0-24");
+				startHours.setPromptText("Ugydlig input");
 				return false;
 			}
 			if(minutes>60 || minutes<0){
-				errorLabel.setText("Fra-tidspunkt: minutter må v�ære på formatet 0:60");
+				startMinutes.setText("Ugydlig input");
 				return false;
 			}
 				
@@ -124,62 +162,245 @@ public class newAppointmentController implements Initializable {
 				
 	}
 	
+	
+	
 	public boolean endTimeValidation(String endHour, String endMin){
+				
 		
-    	int hour = Integer.parseInt(endHour); 
-        int min = Integer.parseInt(endMin);
-		
-        LocalTime endTime = LocalTime.of(hour, min);
+		try { 
+		        Integer.parseInt(endHour); 
+		        Integer.parseInt(endMin); 
+		   
+		    } catch(NumberFormatException e) { 
+		    	endHours.setPromptText("Ugyldig input");
+		    	endMinutes.setPromptText("Ugyldig input");
+		    	return false;
+		    }
+		    int hours = Integer.parseInt(endHour); 
+		    int minutes = Integer.parseInt(endMin); 
+			if(hours>24 || hours<0){
+				endHours.setPromptText("Ugydlig input");
+				return false;
+			}
+			if(minutes>60 || minutes<0){
+				endMinutes.setText("Ugydlig input");
+				return false;
+			}
+				
+        LocalTime endTime = LocalTime.of(hours, minutes);
         LocalTime fromTime = LocalTime.of(Integer.parseInt(startHours.getText()), Integer.parseInt(startMinutes.getText()));
 		
 		if(endTime.isBefore(fromTime)){
-			errorLabel.setText("Møter over midnatt støttes ikke");
+			endHours.setText("start < slutt");
+			endMinutes.setText("start < slutt");
 			return false;
 		}
 		return true;
         
 	}
 	
+	public void generateEmployersList() {
+		
+		//Get list from database
+		//String need to be changes to users
+		ObservableList<String> list = FXCollections.observableArrayList(
+				"Ansatt 1",
+				"Ansatt 2",
+				"Ansatt 3",
+				"Ansatt 4",
+				"Ansatt 5",
+				"Ansatt 6",
+				"Ansatt 7");
+		employers.setItems(list);									
+	}
+	
+	public void generateGroupsList() {
+		
+		//Get list from database
+		//String need to be changes to users
+		ObservableList<String> list = FXCollections.observableArrayList(
+				"Group 1",
+				"Group 2",
+				"Group 3");
+		groups.setItems(list);	
+		
+	}
+	
+	public void generateRoomList() {
+		
+		//Get list from database
+		//String need to be changes to users
+		ObservableList<String> list = FXCollections.observableArrayList(
+				"Grouproom 1",
+				"Grouproom 2",
+				"Grouproom 3");
+		room.setItems(list);	
+		
+	}
 	
 	
 	
+	public void addEmployers(String user){
+		
+		if(addedList.contains(user)){
+			return;
+		}
+		addedList.add(user);
+		added.setItems(addedList);
+
+		
+	}
+	
+	public void addGroup(String group){
+		
+		if(addedList.contains(group)){
+			return;
+		}
+		addedList.add(group);
+		added.setItems(addedList);
+		
+	}
+	
+	public void remove(String user){
+		
+		if(!addedList.contains(user)){
+			return;
+		}
+		addedList.remove(user);
+		added.setItems(addedList);
+		
+	}
+	
+	public void addButtonAction(ActionEvent event)  {
+		
+		addEmployers(employers.getSelectionModel().getSelectedItem());
+		
+	}
+	
+	public void addGroupButtonAction(ActionEvent event) {
+		
+		addGroup(groups.getSelectionModel().getSelectedItem());
+		
+	}
+	
+	public void removeButtonAction(ActionEvent event) {
+		
+		remove(added.getSelectionModel().getSelectedItem());
+		
+	}
+	
+	public boolean alarmValidation(String alarmString){
+		
+		try { 
+	        Integer.parseInt(alarmString); 
+	   
+	    } catch(NumberFormatException e) { 
+	    	alarm.setPromptText("Ugyldig input");
+	    	return false;
+	    }
+	    int alarmInt = Integer.parseInt(alarmString); 
+		if(alarmInt<0){
+			alarm.setPromptText("Ugydlig input");
+			return false;
+		}
+		
+		return true;
+		
+	}
+	
+	public boolean roomValidation(){
+		
+		if(room.getSelectionModel().isEmpty()){
+			reservation.setText("Reserver m�terom: Velg ledig m�terom");
+			return false;
+		}
+		return true;
+		
+	}
 	
 
-	
+
 	public void acceptAppointment(ActionEvent event) throws Exception  {
+		
+		
+		//Possible refactor: Remove inputs from validation methods.
 		
 		errorLabel.setText("");
 		
+		
+		int validationCheck = 0;
+		
 		if(!descriptionValidation(description.getText())){
-			return;
+			validationCheck++;
 		}
-		appointment.setDescription(description.getText());
 		
 		if(!dateValidation(date.getValue())){
-			return;
+			validationCheck++;
 		}
-		appointment.setDate(date.getValue());
 		
-		if(!timeValidation(startHours.getText(), startMinutes.getText())){
-			return;
+		if(!startTimeValidation(startHours.getText(), startMinutes.getText())){
+			validationCheck++;
 		}
-		appointment.setStart(LocalTime.of(Integer.parseInt(startHours.getText()), Integer.parseInt(startMinutes.getText())));
+
+		if(!endTimeValidation(endHours.getText(), endMinutes.getText())){
+			validationCheck++;
+		}
 		
-		if(!timeValidation(endHours.getText(), endMinutes.getText()) && !endTimeValidation(endHours.getText(), endMinutes.getText())){
-			return;
+		if(reservation.isSelected()){
+			place.setText(null);
+			place.setPromptText("M�TEROM");
+			if(!roomValidation()){
+				validationCheck++;
+			}
 		}
-		appointment.setFrom(LocalTime.of(Integer.parseInt(endHours.getText()), Integer.parseInt(endMinutes.getText())));
+		if(!reservation.isSelected()){
+			if(!placeValidation(place.getText())){
+				validationCheck++;
+			}
+		}
+		if(!addedList.isEmpty()){
+			validationCheck++;
+		}
+		
+		if(alarmButton.isSelected()){
+			if(alarmValidation(alarm.getText())){
+				validationCheck++;
+			}
+		}
+		
+		if(validationCheck==7)	{ 
 			
-		if(!placeValidation(place.getText())){
-			return;
+			Appointment appointment = new Appointment();
+			
+			//Generate unique primary key / ID for appointment object
+			// CODE
+			// CODE
+			appointment.setIdentificationKey("identificationKey");
+			
+			appointment.setDescription(description.getText());
+			appointment.setDate(date.getValue());
+			appointment.setDate(date.getValue());
+			appointment.setStart(LocalTime.of(Integer.parseInt(startHours.getText()), Integer.parseInt(startMinutes.getText())));
+			appointment.setStart(LocalTime.of(Integer.parseInt(startHours.getText()), Integer.parseInt(startMinutes.getText())));
+			appointment.setFrom(LocalTime.of(Integer.parseInt(endHours.getText()), Integer.parseInt(endMinutes.getText())));
+			if(reservation.isSelected()){
+				appointment.setRoom(room.getSelectionModel().getSelectedItem());
+			}
+			if(!reservation.isSelected()){
+			appointment.setPlace(place.getText());
+			}
+			appointment.setAlarm(Integer.parseInt(alarm.getText()));
+			appointment.setUsers(added.getItems());
+			
+			// Transfer generated appointment object to database
+			
+			errorLabel.setText("Ny avtale lagt inn!");
+	
 		}
-		appointment.setPlace(place.getText());
+		else {
+		errorLabel.setText("Feil under utfylling av skjema");
+		}
 
-		
-
-		errorLabel.setText("Suksess!");
-
-		
 	}
 	
 	public void cleanAppointment(ActionEvent event) {

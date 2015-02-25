@@ -2,6 +2,8 @@ package control;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectPropertyBase;
@@ -11,10 +13,13 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Appointment {
-
+	
+	private String room;
+	private List<String> users;
+	private int alarm;
+	private String identificationKey;
 	private StringProperty formalProperty = new SimpleStringProperty();
 	private StringProperty romProperty = new SimpleStringProperty();
-	private IntegerProperty repetisjonProperty = new SimpleIntegerProperty();
 	private Property<LocalDate> datoProperty = new ObjectPropertyBase<LocalDate>(null) {
 
 		@Override
@@ -134,6 +139,38 @@ public class Appointment {
 
 	public Property<LocalDate> sluttProperty() {
 		return sluttProperty;
+	}
+
+	public String getIdentificationKey() {
+		return identificationKey;
+	}
+
+	public void setIdentificationKey(String identificationKey) {
+		this.identificationKey = identificationKey;
+	}
+
+	public int getAlarm() {
+		return alarm;
+	}
+
+	public void setAlarm(int alarm) {
+		this.alarm = alarm;
+	}
+
+	public List<String> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<String> users) {
+		this.users = users;
+	}
+
+	public String getRoom() {
+		return room;
+	}
+
+	public void setRoom(String room) {
+		this.room = room;
 	}
 
 }
