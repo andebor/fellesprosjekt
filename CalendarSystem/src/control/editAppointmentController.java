@@ -10,11 +10,11 @@ import javafx.fxml.Initializable;
 
 public class editAppointmentController extends newAppointmentController implements Initializable {
 
-	private Appointment appointmentToEdit;
 	
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		editNewAppointment = true;
 	}
 	
 	public void initAppointment(Appointment app){

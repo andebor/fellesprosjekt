@@ -1,7 +1,7 @@
 package control;
 
 import java.util.List;
-import java.net.URL;
+import java.net.URL;	
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
@@ -86,7 +86,8 @@ public class newAppointmentController implements Initializable {
 	private ObservableList<String> addedList = FXCollections.observableArrayList();
 	private ObservableList<String> employersList = FXCollections.observableArrayList();
 	private ObservableList<String> groupList = FXCollections.observableArrayList();
-	
+	protected Appointment appointmentToEdit;
+	protected boolean editNewAppointment = false;
 	
 	
 	
@@ -381,12 +382,15 @@ public class newAppointmentController implements Initializable {
 		
 		if(validationCheck==6)	{ 
 			
-			Appointment appointment = new Appointment();
+			Appointment appointment = appointmentToEdit;
 			
+			if(!editNewAppointment){
+			appointment = new Appointment();
+			}
+
 			//Generate unique primary key / ID for appointment object
 			// CODE
 			// CODE
-			appointment.setIdentificationKey("identificationKey");
 			
 			appointment.setDescription(description.getText());
 			appointment.setDate(date.getValue());
@@ -404,8 +408,13 @@ public class newAppointmentController implements Initializable {
 			appointment.setUsers(added.getItems());
 			
 			// Transfer generated appointment object to database
-			
+			if(!editNewAppointment){
 			errorLabel.setText("Ny avtale lagt inn!");
+			}
+			else {
+				errorLabel.setText("Avtale er endret!");
+				//Notify change to users
+			}
 	
 		}
 		else {
