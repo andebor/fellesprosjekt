@@ -1,7 +1,7 @@
 package control;
 
 import java.util.List;
-import java.net.URL;
+import java.net.URL;	
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
@@ -27,7 +27,6 @@ public class newAppointmentController implements Initializable {
 	
 	@FXML 
 	TextField place;
-	
 	
 	@FXML
 	DatePicker date;
@@ -84,8 +83,15 @@ public class newAppointmentController implements Initializable {
 	@FXML
 	ListView<String> room; // String needs to be changed to room object
 	
-	private ObservableList<String> addedList = FXCollections.observableArrayList();
+	@FXML
+	TextField roomAmount;
 	
+	private ObservableList<String> addedList = FXCollections.observableArrayList();
+	private ObservableList<String> employersList = FXCollections.observableArrayList();
+	private ObservableList<String> groupList = FXCollections.observableArrayList();
+	protected Appointment appointmentToEdit;
+	protected boolean editNewAppointment = false;
+	protected boolean cancelAppointment = false;
 	
 	
 	
@@ -212,6 +218,7 @@ public class newAppointmentController implements Initializable {
 				"Ansatt 5",
 				"Ansatt 6",
 				"Ansatt 7");
+		employersList = list;
 		employers.setItems(list);									
 	}
 	
@@ -223,7 +230,8 @@ public class newAppointmentController implements Initializable {
 				"Group 1",
 				"Group 2",
 				"Group 3");
-		groups.setItems(list);	
+		groupList = list;
+		groups.setItems(groupList);	
 		
 	}
 	
@@ -247,6 +255,8 @@ public class newAppointmentController implements Initializable {
 			return;
 		}
 		addedList.add(user);
+		employersList.remove(user);
+		employers.setItems(employersList);
 		added.setItems(addedList);
 
 		
@@ -258,6 +268,8 @@ public class newAppointmentController implements Initializable {
 			return;
 		}
 		addedList.add(group);
+//		groupList.remove(group);
+//		groups.setItems(groupList);
 		added.setItems(addedList);
 		
 	}
@@ -268,6 +280,8 @@ public class newAppointmentController implements Initializable {
 			return;
 		}
 		addedList.remove(user);
+		employersList.add(user);
+		employers.setItems(employersList);
 		added.setItems(addedList);
 		
 	}
@@ -275,6 +289,7 @@ public class newAppointmentController implements Initializable {
 	public void addButtonAction(ActionEvent event)  {
 		
 		addEmployers(employers.getSelectionModel().getSelectedItem());
+		
 		
 	}
 	
@@ -371,12 +386,15 @@ public class newAppointmentController implements Initializable {
 		
 		if(validationCheck==6)	{ 
 			
-			Appointment appointment = new Appointment();
+			Appointment appointment = appointmentToEdit;
 			
+			if(!editNewAppointment){
+			appointment = new Appointment();
+			}
+
 			//Generate unique primary key / ID for appointment object
 			// CODE
 			// CODE
-			appointment.setIdentificationKey("identificationKey");
 			
 			appointment.setDescription(description.getText());
 			appointment.setDate(date.getValue());
@@ -385,6 +403,9 @@ public class newAppointmentController implements Initializable {
 			appointment.setStart(LocalTime.of(Integer.parseInt(startHours.getText()), Integer.parseInt(startMinutes.getText())));
 			appointment.setFrom(LocalTime.of(Integer.parseInt(endHours.getText()), Integer.parseInt(endMinutes.getText())));
 			if(reservation.isSelected()){
+				if(!roomAmount.contains(null) && roomAmountValidation()){
+					appointment.setRoomAmount(Integer.parseInt(roomAmount.getText()));
+				}			
 				appointment.setRoom(room.getSelectionModel().getSelectedItem());
 			}
 			if(!reservation.isSelected()){
@@ -394,8 +415,13 @@ public class newAppointmentController implements Initializable {
 			appointment.setUsers(added.getItems());
 			
 			// Transfer generated appointment object to database
-			
+			if(!editNewAppointment){
 			errorLabel.setText("Ny avtale lagt inn!");
+			}
+			else {
+				errorLabel.setText("Avtale er endret!");
+				//Notify change to users
+			}
 	
 		}
 		else {
@@ -404,12 +430,19 @@ public class newAppointmentController implements Initializable {
 
 	}
 	
+	public boolean roomAmountValidation(){
+		
+		if(Integer.parseInt(roomAmount.getText())<=0){
+			roomAmount.setPromptText("Ugylddig tall");
+			return false;
+		}
+		return true;
+		
+	}
+	
 	public void cleanAppointment(ActionEvent event) {
 		
 		errorLabel.setText("Skjema nullstilt");
-		
-
-		
 		
 	}
 	
