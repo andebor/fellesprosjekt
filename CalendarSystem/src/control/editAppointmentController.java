@@ -48,6 +48,13 @@ public class editAppointmentController extends newAppointmentController implemen
 		
 	}
 	
+	public void cancelApp(){
+		
+		cancelAppointment = true;
+		// NOTIFY
+		
+	}
+	
 	
 
 }

@@ -88,6 +88,7 @@ public class newAppointmentController implements Initializable {
 	private ObservableList<String> groupList = FXCollections.observableArrayList();
 	protected Appointment appointmentToEdit;
 	protected boolean editNewAppointment = false;
+	protected boolean cancelAppointment = false;
 	
 	
 	
