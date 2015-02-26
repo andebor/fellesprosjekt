@@ -16,6 +16,8 @@ import javafx.collections.ObservableList;
 
 public class Appointment {
 	
+	private StringProperty beskrivelse;
+	private StringProperty dato;
 	private String room;
 	private int roomAmount;
 	private List<String> users;
@@ -23,6 +25,33 @@ public class Appointment {
 	private String identificationKey;
 	private StringProperty formalProperty = new SimpleStringProperty();
 	private StringProperty romProperty = new SimpleStringProperty();
+	
+	public Appointment() {
+		
+	}
+	
+	public Appointment(String beskrivelse, String dato) {
+		this.beskrivelse = new SimpleStringProperty(beskrivelse);
+		this.dato = new SimpleStringProperty(dato);
+	}
+	
+	public String getBeskrivelse() {
+		return beskrivelse.get();
+	}
+	
+	public StringProperty beskrivelseProperty() {
+		return beskrivelse;
+	}
+	
+	public String getDato() {
+		return dato.get();
+	}
+	
+	public StringProperty datoProperty() {
+		return dato;
+	}
+	
+	
 	private Property<LocalDate> datoProperty = new ObjectPropertyBase<LocalDate>(null) {
 
 		@Override

@@ -7,6 +7,8 @@ import control.NewAppointmentController;
 import control.AppointmentOverviewController;
 import control.MainApp;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -18,6 +20,12 @@ public class MainApp extends Application {
 	
 	private Stage primaryStage;
 	private BorderPane rootNav;
+	
+    private ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
+    
+	public MainApp() {
+		appointmentList.add(new Appointment("avtaletest", "1. januar"));
+	}
 
 	public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
