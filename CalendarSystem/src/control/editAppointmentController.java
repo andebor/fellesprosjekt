@@ -3,12 +3,13 @@ package control;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import model.Appointment;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 
 
-public class editAppointmentController extends newAppointmentController implements Initializable {
+public class editAppointmentController extends NewAppointmentController implements Initializable {
 
 	
 	

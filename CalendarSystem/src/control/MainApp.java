@@ -2,7 +2,8 @@ package control;
 
 import java.io.IOException;
 
-import control.newAppointmentController;
+import model.Appointment;
+import control.NewAppointmentController;
 import control.AppointmentOverviewController;
 import control.MainApp;
 import javafx.application.Application;
@@ -31,7 +32,7 @@ public class MainApp extends Application {
         try {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("/view/GUI_root_nav.fxml"));
+            loader.setLocation(MainApp.class.getResource("/view/GUI_rootNav.fxml"));
             rootNav = (BorderPane) loader.load();
             
             // Show the scene containing the root layout.
@@ -85,7 +86,7 @@ public class MainApp extends Application {
 			dialogStage.setScene(scene);
 
 			// Set the person into the controller.
-			newAppointmentController controller = loader.getController();
+			NewAppointmentController controller = loader.getController();
 			controller.setDialogStage(dialogStage);
 			//controller.setPerson(person);
 

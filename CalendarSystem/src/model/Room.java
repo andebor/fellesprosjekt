@@ -1,6 +1,6 @@
-package control;
+package model;
 
-public class room {
+public class Room {
 	
 	private boolean reservation;
 	private String name;
