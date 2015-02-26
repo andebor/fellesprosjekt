@@ -77,6 +77,30 @@ public class MainApp extends Application {
             e.printStackTrace();
         }
     }
+
+    public void showAppointmentOverview1() {
+        try {
+            // Load person overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("/view/GUI_appointmentOverview.fxml"));
+            AnchorPane appointmentOverview = (AnchorPane) loader.load();
+        	
+            
+            
+            // Set person overview into the center of root layout.
+            rootNav.setCenter(appointmentOverview);
+            
+            
+            // Give the controller access to the main app.
+            AppointmentOverviewController controller = loader.getController();
+            controller.setMainApp(this);
+            
+
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     
 	public boolean showNewAppointment(Appointment appointment) {
 		try {
@@ -121,10 +145,13 @@ public class MainApp extends Application {
 			return false;
 		}
 	}
-	
     
     public Stage getPrimaryStage() {
     	return primaryStage;
+    }
+    
+    public ObservableList<Appointment> getAppointmentList() {
+    	return appointmentList;
     }
     
     
