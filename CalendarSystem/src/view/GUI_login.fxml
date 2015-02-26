@@ -11,7 +11,7 @@
       <PasswordField fx:id="txtPassword" layoutX="498.0" layoutY="321.0" promptText="Passord" />
       <Button fx:id="btnLogin" layoutX="480.0" layoutY="371.0" mnemonicParsing="false" text="Logg inn!" />
       <Label fx:id="lblInvalidLogin" layoutX="414.0" layoutY="421.0" text="Ugyldig brukernavn og/eller passord!" textFill="#ee0606" visible="false" />
-      <Label layoutX="451.0" layoutY="71.0" text="Innlogging!">
+      <Label layoutX="449.0" layoutY="70.0" text="Innlogging">
          <font>
             <Font size="24.0" />
          </font>

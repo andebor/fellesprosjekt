@@ -1,7 +1,7 @@
 package control;
 
 import java.util.List;
-import java.net.URL;
+import java.net.URL;	
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
@@ -18,6 +18,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
+import javafx.stage.Stage;
 
 public class newAppointmentController implements Initializable {
 	
@@ -27,7 +28,6 @@ public class newAppointmentController implements Initializable {
 	
 	@FXML 
 	TextField place;
-	
 	
 	@FXML
 	DatePicker date;
@@ -84,9 +84,20 @@ public class newAppointmentController implements Initializable {
 	@FXML
 	ListView<String> room; // String needs to be changed to room object
 	
+	@FXML
+	TextField roomAmount;
+	
+
+	private Stage dialogStage;
+
 	private ObservableList<String> addedList = FXCollections.observableArrayList();
+	private ObservableList<String> employersList = FXCollections.observableArrayList();
+	private ObservableList<String> groupList = FXCollections.observableArrayList();
+	protected Appointment appointmentToEdit;
+	protected boolean editNewAppointment = false;
+	protected boolean cancelAppointment = false;
 	
-	
+
 	
 	
 	@Override
@@ -96,6 +107,10 @@ public class newAppointmentController implements Initializable {
 		generateRoomList();
 		
 	}	
+	
+    public void setDialogStage(Stage dialogStage) {
+        this.dialogStage = dialogStage;
+    }
 
 	
 	
@@ -130,6 +145,7 @@ public class newAppointmentController implements Initializable {
 			return true;
 		}
 		else {
+			date.setValue(null);
 			date.setPromptText("Ugydlig dato!");
 			return false;
 		}
@@ -211,6 +227,7 @@ public class newAppointmentController implements Initializable {
 				"Ansatt 5",
 				"Ansatt 6",
 				"Ansatt 7");
+		employersList = list;
 		employers.setItems(list);									
 	}
 	
@@ -222,7 +239,8 @@ public class newAppointmentController implements Initializable {
 				"Group 1",
 				"Group 2",
 				"Group 3");
-		groups.setItems(list);	
+		groupList = list;
+		groups.setItems(groupList);	
 		
 	}
 	
@@ -246,6 +264,8 @@ public class newAppointmentController implements Initializable {
 			return;
 		}
 		addedList.add(user);
+		employersList.remove(user);
+		employers.setItems(employersList);
 		added.setItems(addedList);
 
 		
@@ -257,6 +277,8 @@ public class newAppointmentController implements Initializable {
 			return;
 		}
 		addedList.add(group);
+//		groupList.remove(group);
+//		groups.setItems(groupList);
 		added.setItems(addedList);
 		
 	}
@@ -267,6 +289,8 @@ public class newAppointmentController implements Initializable {
 			return;
 		}
 		addedList.remove(user);
+		employersList.add(user);
+		employers.setItems(employersList);
 		added.setItems(addedList);
 		
 	}
@@ -274,6 +298,7 @@ public class newAppointmentController implements Initializable {
 	public void addButtonAction(ActionEvent event)  {
 		
 		addEmployers(employers.getSelectionModel().getSelectedItem());
+		
 		
 	}
 	
@@ -311,7 +336,7 @@ public class newAppointmentController implements Initializable {
 	public boolean roomValidation(){
 		
 		if(room.getSelectionModel().isEmpty()){
-			reservation.setText("Reserver møterom: Velg ledig møterom");
+			reservation.setText("Reserver mï¿½terom: Velg ledig mï¿½terom");
 			return false;
 		}
 		return true;
@@ -330,31 +355,31 @@ public class newAppointmentController implements Initializable {
 		
 		int validationCheck = 0;
 		
-		if(!descriptionValidation(description.getText())){
+		if(descriptionValidation(description.getText())){
 			validationCheck++;
 		}
 		
-		if(!dateValidation(date.getValue())){
+		if(dateValidation(date.getValue())){
 			validationCheck++;
 		}
 		
-		if(!startTimeValidation(startHours.getText(), startMinutes.getText())){
+		if(startTimeValidation(startHours.getText(), startMinutes.getText())){
 			validationCheck++;
 		}
 
-		if(!endTimeValidation(endHours.getText(), endMinutes.getText())){
+		if(endTimeValidation(endHours.getText(), endMinutes.getText())){
 			validationCheck++;
 		}
 		
 		if(reservation.isSelected()){
 			place.setText(null);
-			place.setPromptText("MØTEROM");
-			if(!roomValidation()){
+			place.setPromptText("Mï¿½TEROM");
+			if(roomValidation()){
 				validationCheck++;
 			}
 		}
 		if(!reservation.isSelected()){
-			if(!placeValidation(place.getText())){
+			if(placeValidation(place.getText())){
 				validationCheck++;
 			}
 		}
@@ -363,19 +388,22 @@ public class newAppointmentController implements Initializable {
 		}
 		
 		if(alarmButton.isSelected()){
-			if(alarmValidation(alarm.getText())){
-				validationCheck++;
+			if(!alarmValidation(alarm.getText())){
+				validationCheck--;
 			}
 		}
 		
-		if(validationCheck==7)	{ 
+		if(validationCheck==6)	{ 
 			
-			Appointment appointment = new Appointment();
+			Appointment appointment = appointmentToEdit;
 			
+			if(!editNewAppointment){
+			appointment = new Appointment();
+			}
+
 			//Generate unique primary key / ID for appointment object
 			// CODE
 			// CODE
-			appointment.setIdentificationKey("identificationKey");
 			
 			appointment.setDescription(description.getText());
 			appointment.setDate(date.getValue());
@@ -384,6 +412,9 @@ public class newAppointmentController implements Initializable {
 			appointment.setStart(LocalTime.of(Integer.parseInt(startHours.getText()), Integer.parseInt(startMinutes.getText())));
 			appointment.setFrom(LocalTime.of(Integer.parseInt(endHours.getText()), Integer.parseInt(endMinutes.getText())));
 			if(reservation.isSelected()){
+				if(!roomAmount.contains(null) && roomAmountValidation()){
+					appointment.setRoomAmount(Integer.parseInt(roomAmount.getText()));
+				}			
 				appointment.setRoom(room.getSelectionModel().getSelectedItem());
 			}
 			if(!reservation.isSelected()){
@@ -393,22 +424,34 @@ public class newAppointmentController implements Initializable {
 			appointment.setUsers(added.getItems());
 			
 			// Transfer generated appointment object to database
-			
+			if(!editNewAppointment){
 			errorLabel.setText("Ny avtale lagt inn!");
+			}
+			else {
+				errorLabel.setText("Avtale er endret!");
+				//Notify change to users
+			}
 	
 		}
 		else {
-		errorLabel.setText("Feil under utfylling av skjema");
+		errorLabel.setText(" "+validationCheck+ " of 7 checks");
 		}
 
+	}
+	
+	public boolean roomAmountValidation(){
+		
+		if(Integer.parseInt(roomAmount.getText())<=0){
+			roomAmount.setPromptText("Ugylddig tall");
+			return false;
+		}
+		return true;
+		
 	}
 	
 	public void cleanAppointment(ActionEvent event) {
 		
 		errorLabel.setText("Skjema nullstilt");
-		
-
-		
 		
 	}
 	

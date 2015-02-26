@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="797.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <StackPane prefHeight="26.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
+         <children>
+            <MenuBar prefHeight="26.0" prefWidth="1024.0">
+               <menus>
+                  <Menu fx:id="menu_home" mnemonicParsing="false" text="Hjem" />
+                  <Menu fx:id="menu_appointments" mnemonicParsing="false" text="Avtaler" />
+                  <Menu fx:id="menu_invitations" mnemonicParsing="false" text="Invitasjoner" />
+               </menus>
+            </MenuBar>
+            <MenuButton fx:id="menubtn_notifications" focusTraversable="false" mnemonicParsing="false" text="Nye varsler!" StackPane.alignment="CENTER_RIGHT">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Nytt varsel 1" />
+                  <MenuItem mnemonicParsing="false" text="Nytt varsel 2" />
+               </items>
+               <StackPane.margin>
+                  <Insets bottom="1.0" right="7.0" />
+               </StackPane.margin>
+            </MenuButton>
+         </children>
+      </StackPane>
+   </top>
+</BorderPane>

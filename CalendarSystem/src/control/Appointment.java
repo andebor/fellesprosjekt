@@ -11,12 +11,15 @@ import javafx.beans.property.Property;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Appointment {
 	
 	private String room;
+	private int roomAmount;
 	private List<String> users;
-	private int alarm;
+	private int alarm = 0;
 	private String identificationKey;
 	private StringProperty formalProperty = new SimpleStringProperty();
 	private StringProperty romProperty = new SimpleStringProperty();
@@ -172,5 +175,15 @@ public class Appointment {
 	public void setRoom(String room) {
 		this.room = room;
 	}
+
+	public int getRoomAmount() {
+		return roomAmount;
+	}
+
+	public void setRoomAmount(int roomAmount) {
+		this.roomAmount = roomAmount;
+	}
+	
+
 
 }
