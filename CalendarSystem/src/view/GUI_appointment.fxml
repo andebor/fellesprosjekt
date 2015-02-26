@@ -5,7 +5,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.AppointmentOverviewController">
    <children>
       <Text layoutX="469.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Avtale" textAlignment="CENTER" wrappingWidth="97.0">
          <font>
@@ -14,7 +14,7 @@
       </Text>
       <Button layoutX="274.0" layoutY="605.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="Endre" />
       <Button layoutX="656.0" layoutY="605.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="Slett" />
-      <Button layoutX="471.0" layoutY="605.0" mnemonicParsing="false" prefWidth="80.0" text="Ny avtale" />
+      <Button layoutX="471.0" layoutY="605.0" mnemonicParsing="false" onAction="#handleNewAppointment" prefWidth="80.0" text="Ny avtale" />
       <SplitPane dividerPositions="0.4192495921696574" layoutX="204.0" layoutY="196.0" prefHeight="376.0" prefWidth="615.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="307.0" prefWidth="229.0">

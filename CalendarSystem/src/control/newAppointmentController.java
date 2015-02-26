@@ -18,6 +18,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
+import javafx.stage.Stage;
 
 public class newAppointmentController implements Initializable {
 	
@@ -86,6 +87,9 @@ public class newAppointmentController implements Initializable {
 	@FXML
 	TextField roomAmount;
 	
+
+	private Stage dialogStage;
+
 	private ObservableList<String> addedList = FXCollections.observableArrayList();
 	private ObservableList<String> employersList = FXCollections.observableArrayList();
 	private ObservableList<String> groupList = FXCollections.observableArrayList();
@@ -93,6 +97,7 @@ public class newAppointmentController implements Initializable {
 	protected boolean editNewAppointment = false;
 	protected boolean cancelAppointment = false;
 	
+
 	
 	
 	@Override
@@ -102,6 +107,10 @@ public class newAppointmentController implements Initializable {
 		generateRoomList();
 		
 	}	
+	
+    public void setDialogStage(Stage dialogStage) {
+        this.dialogStage = dialogStage;
+    }
 
 	
 	
