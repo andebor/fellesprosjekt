@@ -28,7 +28,6 @@ public class newAppointmentController implements Initializable {
 	@FXML 
 	TextField place;
 	
-	
 	@FXML
 	DatePicker date;
 	

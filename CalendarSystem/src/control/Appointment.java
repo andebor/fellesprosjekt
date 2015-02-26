@@ -16,7 +16,7 @@ public class Appointment {
 	
 	private String room;
 	private List<String> users;
-	private int alarm;
+	private int alarm = 0;
 	private String identificationKey;
 	private StringProperty formalProperty = new SimpleStringProperty();
 	private StringProperty romProperty = new SimpleStringProperty();
