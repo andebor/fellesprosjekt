@@ -22,8 +22,8 @@
                   <ListView layoutX="-33.0" layoutY="-10.0" prefHeight="320.0" prefWidth="200.0" />
                   <TableView prefHeight="307.0" prefWidth="167.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="Avtale" />
-                      <TableColumn prefWidth="75.0" text="Dato" />
+                      <TableColumn fx:id="avtaleColumn" prefWidth="75.0" text="Avtale" />
+                      <TableColumn fx:id="datoColumn" prefWidth="75.0" text="Dato" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -51,11 +51,11 @@
                         <Label text="Tidspunkt" GridPane.rowIndex="2" />
                         <Label text="Sted" GridPane.rowIndex="3" />
                         <Label text="Møterom" GridPane.rowIndex="4" />
-                        <Label text="Label" GridPane.columnIndex="1" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label fx:id="beskrivelseLabel" text="Label" GridPane.columnIndex="1" />
+                        <Label fx:id="datoLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="tidspunktLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="stedLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label fx:id="roomLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                      </children>
                   </GridPane>
                </children></AnchorPane>
