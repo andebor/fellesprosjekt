@@ -107,8 +107,9 @@ public class MainApp extends Application {
 			// Load the fxml file and create a new stage for the popup dialog.
 			
 			FXMLLoader loader = new FXMLLoader();
+			// Choose between edit appoint and new appointment
 			if(appointment==null){
-			loader.setLocation(MainApp.class.getResource("/view/GUI_newAppointment.fxml"));
+				loader.setLocation(MainApp.class.getResource("/view/GUI_newAppointment.fxml"));
 			}
 			else {
 				loader.setLocation(MainApp.class.getResource("/view/GUI_editnewAppointment.fxml"));
@@ -131,6 +132,7 @@ public class MainApp extends Application {
 			else { 
 				editAppointmentController controller = loader.getController();
 				controller.initAppointment(appointment);
+				controller.loadAppointment();
 				controller.setDialogStage(dialogStage);
 			}
 			//controller.setPerson(person);

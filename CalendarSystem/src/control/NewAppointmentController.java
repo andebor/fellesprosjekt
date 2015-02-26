@@ -35,8 +35,7 @@ public class NewAppointmentController implements Initializable {
 	DatePicker date;
 	
 	@FXML
-	TextField start;
-	
+	TextField start;	
 	
 	@FXML
 	TextField end;
@@ -86,18 +85,19 @@ public class NewAppointmentController implements Initializable {
 
 	private Stage dialogStage;
 
-	private ObservableList<String> addedList = FXCollections.observableArrayList();
-	private ObservableList<String> employersList = FXCollections.observableArrayList();
-	private ObservableList<String> groupList = FXCollections.observableArrayList();
-	protected Appointment appointmentToEdit;
-	protected boolean editNewAppointment = false;
-	protected boolean cancelAppointment = false;
+	private ObservableList<String> addedList = FXCollections.observableArrayList(); // currently list over added employers
+	private ObservableList<String> employersList = FXCollections.observableArrayList(); //currently list over employers
+	private ObservableList<String> groupList = FXCollections.observableArrayList(); // // currently over groups
+	protected Appointment appointmentToEdit; // appointment to be edited
+	protected boolean editNewAppointment = false; // true if appointment is to be edited
+	protected boolean cancelAppointment = false; // set true to cancel appointment (on edit appointment)
 	
 
 	
 		
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		// initialize tableviews 
 		generateEmployersList();
 		generateGroupsList();
 		generateRoomList();
@@ -111,7 +111,7 @@ public class NewAppointmentController implements Initializable {
 	
 	
 	public boolean placeValidation(String placeString) {
-		
+		// Validate "sted" input
 		if (placeString.isEmpty()){
 			place.setPromptText("Trenger navn på bygning");
 			return false;
@@ -121,7 +121,7 @@ public class NewAppointmentController implements Initializable {
 	}
 	
 	public boolean descriptionValidation(String descriptionString) {
-		
+		// Valide "beskrivelse" input
 		if(descriptionString.isEmpty()){
 			description.setPromptText("Trenger beskrivelse");
 			return false;
@@ -131,7 +131,7 @@ public class NewAppointmentController implements Initializable {
 	}
 	
 	public boolean dateValidation(LocalDate dateCheck) {
-			
+		// Validate dato input
 		if(dateCheck == null){
 			date.setPromptText("Trenger dato");
 			return false;
@@ -149,7 +149,7 @@ public class NewAppointmentController implements Initializable {
 	}
 	
 	public boolean startTimeValidation(String starts){
-		
+		// Validate "Fra-tid"
 		
 		  try { 
 				LocalTime startTime = LocalTime.of(Integer.parseInt(starts.substring(0,2)), Integer.parseInt(starts.substring(2,4)));
@@ -163,7 +163,7 @@ public class NewAppointmentController implements Initializable {
 	}
 	
 	public boolean endTimeValidation(String ends){
-				
+		// validate "til-tid"
 		  try { 
 				LocalTime endTime = LocalTime.of(Integer.parseInt(ends.substring(0,2)), Integer.parseInt(ends.substring(2,4)));
 		    } catch(Exception e) { 
@@ -171,7 +171,7 @@ public class NewAppointmentController implements Initializable {
 		    	return false;
 		    }
 
-
+		  // Check if start time is before end time
 		LocalTime startTime = LocalTime.of(Integer.parseInt(start.getText().substring(0,2)), Integer.parseInt(start.getText().substring(2,4)));
 		LocalTime endTime = LocalTime.of(Integer.parseInt(ends.substring(0,2)), Integer.parseInt(ends.substring(2,4)));
 				
@@ -188,6 +188,7 @@ public class NewAppointmentController implements Initializable {
 		
 		//Get list from database
 		//String need to be changes to users
+		// Using a example list to test functionality
 		ObservableList<String> list = FXCollections.observableArrayList(
 				"Ansatt 1",
 				"Ansatt 2",
@@ -204,6 +205,7 @@ public class NewAppointmentController implements Initializable {
 		
 		//Get list from database
 		//String need to be changes to users
+		// Using a example list to test functionality
 		ObservableList<String> list = FXCollections.observableArrayList(
 				"Group 1",
 				"Group 2",
@@ -217,6 +219,8 @@ public class NewAppointmentController implements Initializable {
 		
 		//Get list from database
 		//String need to be changes to users
+		// Using a example list to test functionality
+
 		ObservableList<String> list = FXCollections.observableArrayList(
 				"Grouproom 1",
 				"Grouproom 2",
@@ -228,7 +232,7 @@ public class NewAppointmentController implements Initializable {
 	
 	
 	public void addEmployers(String user){
-		
+		// Move employers from "ansatte" table view to "deltaker" table view
 		if(addedList.contains(user) || employersList.isEmpty()){
 			return;
 		}
@@ -241,7 +245,7 @@ public class NewAppointmentController implements Initializable {
 	}
 	
 	public void addGroup(String group){
-		
+		// Move group(employers) from "group" table view to "deltaker" table view
 		if(addedList.contains(group)){
 			return;
 		}
@@ -253,7 +257,7 @@ public class NewAppointmentController implements Initializable {
 	}
 	
 	public void remove(String user){
-		
+		// Remove employers from "deltakere" table view back to "ansatte" table view
 		if(!addedList.contains(user) || addedList.isEmpty()){
 			return;
 		}
@@ -303,7 +307,7 @@ public class NewAppointmentController implements Initializable {
 	}
 	
 	public boolean roomValidation(){
-		
+		// Check if reservation button is pressed
 		if(room.getSelectionModel().isEmpty()){
 			reservation.setText("Reserver m�terom: Velg ledig m�terom");
 			return false;
@@ -318,10 +322,10 @@ public class NewAppointmentController implements Initializable {
 		
 		
 		//Possible refactor: Remove inputs from validation methods.
-		
+		// Errorlabel for debugging
 		errorLabel.setText("");
 		
-		
+		// Need to pass 6 validations checks for new appointment to be created
 		int validationCheck = 0;
 		
 		if(descriptionValidation(description.getText())){
@@ -364,16 +368,16 @@ public class NewAppointmentController implements Initializable {
 		
 		if(validationCheck==6)	{ 
 			
+			// Validation passed. Creating new appointment
 			
 			Appointment appointment = new Appointment();
 			
+			// If edit appointment is selected, the appointment selected to be edited will be updated instead of creating a new one. 
 			if(editNewAppointment){
 				appointment = appointmentToEdit;
 			}
 
-			//Generate unique primary key / ID for appointment object
-			// CODE
-			// CODE
+
 			
 			appointment.setDescription(description.getText());
 			appointment.setDate(date.getValue());
@@ -420,6 +424,7 @@ public class NewAppointmentController implements Initializable {
 	
 	public void cleanAppointment(ActionEvent event) {
 		
+		// Clean form. Not complete
 		errorLabel.setText("Skjema nullstilt");
 		
 	}
