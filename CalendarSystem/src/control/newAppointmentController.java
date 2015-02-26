@@ -85,6 +85,8 @@ public class newAppointmentController implements Initializable {
 	ListView<String> room; // String needs to be changed to room object
 	
 	private ObservableList<String> addedList = FXCollections.observableArrayList();
+	private ObservableList<String> employersList = FXCollections.observableArrayList();
+	private ObservableList<String> groupList = FXCollections.observableArrayList();
 	
 	
 	
@@ -212,6 +214,7 @@ public class newAppointmentController implements Initializable {
 				"Ansatt 5",
 				"Ansatt 6",
 				"Ansatt 7");
+		employersList = list;
 		employers.setItems(list);									
 	}
 	
@@ -223,7 +226,8 @@ public class newAppointmentController implements Initializable {
 				"Group 1",
 				"Group 2",
 				"Group 3");
-		groups.setItems(list);	
+		groupList = list;
+		groups.setItems(groupList);	
 		
 	}
 	
@@ -247,6 +251,8 @@ public class newAppointmentController implements Initializable {
 			return;
 		}
 		addedList.add(user);
+		employersList.remove(user);
+		employers.setItems(employersList);
 		added.setItems(addedList);
 
 		
@@ -258,6 +264,8 @@ public class newAppointmentController implements Initializable {
 			return;
 		}
 		addedList.add(group);
+//		groupList.remove(group);
+//		groups.setItems(groupList);
 		added.setItems(addedList);
 		
 	}
@@ -268,6 +276,8 @@ public class newAppointmentController implements Initializable {
 			return;
 		}
 		addedList.remove(user);
+		employersList.add(user);
+		employers.setItems(employersList);
 		added.setItems(addedList);
 		
 	}
@@ -275,6 +285,7 @@ public class newAppointmentController implements Initializable {
 	public void addButtonAction(ActionEvent event)  {
 		
 		addEmployers(employers.getSelectionModel().getSelectedItem());
+		
 		
 	}
 	
