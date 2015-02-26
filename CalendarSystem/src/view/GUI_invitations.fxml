@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?> 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
@@ -13,15 +13,8 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <ListView layoutX="256.0" layoutY="256.0" prefHeight="256.0" prefWidth="512.0" />
-      <Button layoutX="832.0" layoutY="320.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Godta invitasjon!" />
-      <Button layoutX="832.0" layoutY="399.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Avslå invitasjon!" />
-      <MenuBar prefHeight="25.0" prefWidth="1024.0">
-        <menus>
-          <Menu mnemonicParsing="false" text="Hjem" />
-          <Menu mnemonicParsing="false" text="Avtaler" />
-          <Menu mnemonicParsing="false" text="Invitasjoner" />
-        </menus>
-      </MenuBar>
+      <ListView layoutX="256.0" layoutY="174.0" prefHeight="338.0" prefWidth="512.0" />
+      <Button layoutX="832.0" layoutY="320.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Godta invitasjon!" />
+      <Button layoutX="832.0" layoutY="371.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Avslå invitasjon!" />
    </children>
 </AnchorPane>
