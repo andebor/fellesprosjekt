@@ -1,5 +1,6 @@
 package control;
 
+
 import java.util.List;
 import java.net.URL;	
 import java.time.LocalDate;
@@ -34,16 +35,11 @@ public class NewAppointmentController implements Initializable {
 	DatePicker date;
 	
 	@FXML
-	TextField startHours;
+	TextField start;
+	
 	
 	@FXML
-	TextField startMinutes;
-	
-	@FXML
-	TextField endHours;
-	
-	@FXML
-	TextField endMinutes;
+	TextField end;
 	
 	
 	@FXML
@@ -56,7 +52,7 @@ public class NewAppointmentController implements Initializable {
 	Button decline;
 	
 	@FXML
-	ListView<String> employers; //String need to be changes to users
+	ListView<String> employers; //String need to be changes to userss
 	
 	@FXML
 	ListView<String> groups; //String need to be changes to users
@@ -100,7 +96,7 @@ public class NewAppointmentController implements Initializable {
 	
 
 	
-	
+		
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		generateEmployersList();
@@ -153,25 +149,28 @@ public class NewAppointmentController implements Initializable {
 
 	}
 	
-	public boolean startTimeValidation(String startHour, String startMin){
+	public boolean startTimeValidation(String starts){
+		
+
 		
 		  try { 
-		        Integer.parseInt(startHour); 
-		        Integer.parseInt(startMin); 
+				String hour = starts.substring(0,1);
+				String min = starts.substring(2,3);
+		        Integer.parseInt(hour); 
+		        Integer.parseInt(min); 
 		   
 		    } catch(NumberFormatException e) { 
-		    	startHours.setPromptText("Ugyldig input");
-		    	startMinutes.setPromptText("Ugyldig input");
+		    	start.setPromptText("Ugyldig input");
 		    	return false;
 		    }
-		    int hours = Integer.parseInt(startHour); 
-		    int minutes = Integer.parseInt(startMin); 
+		    int hours = Integer.parseInt(starts.substring(0,1)); 
+		    int minutes = Integer.parseInt(starts.substring(2,3)); 
 			if(hours>24 || hours<0){
-				startHours.setPromptText("Ugydlig input");
+				start.setPromptText("Ugydlig input");
 				return false;
 			}
 			if(minutes>60 || minutes<0){
-				startMinutes.setText("Ugydlig input");
+				start.setPromptText("Ugydlig input");
 				return false;
 			}
 				
@@ -181,35 +180,35 @@ public class NewAppointmentController implements Initializable {
 	
 	
 	
-	public boolean endTimeValidation(String endHour, String endMin){
+	public boolean endTimeValidation(String ends){
 				
 		
 		try { 
-		        Integer.parseInt(endHour); 
-		        Integer.parseInt(endMin); 
+				String hour = ends.substring(0,1);
+				String min = ends.substring(2,3);
+		        Integer.parseInt(hour); 
+		        Integer.parseInt(min); 
 		   
 		    } catch(NumberFormatException e) { 
-		    	endHours.setPromptText("Ugyldig input");
-		    	endMinutes.setPromptText("Ugyldig input");
+		    	end.setPromptText("Ugyldig input");
 		    	return false;
 		    }
-		    int hours = Integer.parseInt(endHour); 
-		    int minutes = Integer.parseInt(endMin); 
-			if(hours>24 || hours<0){
-				endHours.setPromptText("Ugydlig input");
+	   			int hours = Integer.parseInt(ends.substring(0,1)); 
+	   			int minutes = Integer.parseInt(ends.substring(2,3)); 
+	   			if(hours>24 || hours<0){
+	   				end.setPromptText("Ugydlig input");
 				return false;
 			}
 			if(minutes>60 || minutes<0){
-				endMinutes.setText("Ugydlig input");
+				end.setPromptText("Ugydlig input");
 				return false;
 			}
 				
         LocalTime endTime = LocalTime.of(hours, minutes);
-        LocalTime fromTime = LocalTime.of(Integer.parseInt(startHours.getText()), Integer.parseInt(startMinutes.getText()));
+        LocalTime fromTime = LocalTime.of(Integer.parseInt(start.getText().substring(0,1)), Integer.parseInt(start.getText().substring(2,3)));
 		
 		if(endTime.isBefore(fromTime)){
-			endHours.setText("start < slutt");
-			endMinutes.setText("start < slutt");
+			end.setText("start < slutt");
 			return false;
 		}
 		return true;
@@ -261,7 +260,7 @@ public class NewAppointmentController implements Initializable {
 	
 	public void addEmployers(String user){
 		
-		if(addedList.contains(user)){
+		if(addedList.contains(user) || employersList.isEmpty()){
 			return;
 		}
 		addedList.add(user);
@@ -286,7 +285,7 @@ public class NewAppointmentController implements Initializable {
 	
 	public void remove(String user){
 		
-		if(!addedList.contains(user)){
+		if(!addedList.contains(user) || addedList.isEmpty()){
 			return;
 		}
 		addedList.remove(user);
@@ -364,11 +363,11 @@ public class NewAppointmentController implements Initializable {
 			validationCheck++;
 		}
 		
-		if(startTimeValidation(startHours.getText(), startMinutes.getText())){
+		if(startTimeValidation(start.getText())){
 			validationCheck++;
 		}
 
-		if(endTimeValidation(endHours.getText(), endMinutes.getText())){
+		if(endTimeValidation(end.getText())){
 			validationCheck++;
 		}
 		
@@ -396,10 +395,11 @@ public class NewAppointmentController implements Initializable {
 		
 		if(validationCheck==6)	{ 
 			
-			Appointment appointment = appointmentToEdit;
 			
-			if(!editNewAppointment){
-			appointment = new Appointment();
+			Appointment appointment = new Appointment();
+			
+			if(editNewAppointment){
+				appointment = appointmentToEdit;
 			}
 
 			//Generate unique primary key / ID for appointment object
@@ -409,9 +409,8 @@ public class NewAppointmentController implements Initializable {
 			appointment.setDescription(description.getText());
 			appointment.setDate(date.getValue());
 			appointment.setDate(date.getValue());
-			appointment.setStart(LocalTime.of(Integer.parseInt(startHours.getText()), Integer.parseInt(startMinutes.getText())));
-			appointment.setStart(LocalTime.of(Integer.parseInt(startHours.getText()), Integer.parseInt(startMinutes.getText())));
-			appointment.setFrom(LocalTime.of(Integer.parseInt(endHours.getText()), Integer.parseInt(endMinutes.getText())));
+			appointment.setStart(LocalTime.of(Integer.parseInt(start.getText().substring(0,1)), Integer.parseInt(start.getText().substring(2,3))));
+			appointment.setFrom(LocalTime.of(Integer.parseInt(end.getText().substring(0,1)), Integer.parseInt(end.getText().substring(2,3))));
 			if(reservation.isSelected()){
 				if(!roomAmount.contains(null) && roomAmountValidation()){
 					appointment.setRoomAmount(Integer.parseInt(roomAmount.getText()));
@@ -435,7 +434,7 @@ public class NewAppointmentController implements Initializable {
 	
 		}
 		else {
-		errorLabel.setText(" "+validationCheck+ " of 7 checks");
+		errorLabel.setText(" "+validationCheck+ " of 6 checks");
 		}
 
 	}

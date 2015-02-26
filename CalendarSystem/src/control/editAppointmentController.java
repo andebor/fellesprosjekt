@@ -29,10 +29,8 @@ public class editAppointmentController extends NewAppointmentController implemen
 		super.description.setText(appointmentToEdit.getDescription());
 		super.place.setText(appointmentToEdit.getPlace());
 		super.date.setValue(appointmentToEdit.getDate());
-		super.startHours.setText(Integer.toString(appointmentToEdit.getStart().getHour()));
-		super.startMinutes.setText(Integer.toString(appointmentToEdit.getStart().getMinute()));
-		super.endHours.setText(Integer.toString(appointmentToEdit.getFrom().getHour()));
-		super.endMinutes.setText(Integer.toString(appointmentToEdit.getFrom().getMinute()));
+		super.start.setText(Integer.toString(appointmentToEdit.getStart().getHour() + appointmentToEdit.getStart().getMinute()));
+		super.end.setText(Integer.toString(appointmentToEdit.getFrom().getHour() + appointmentToEdit.getFrom().getMinute()));
 		ObservableList<String> list = FXCollections.observableArrayList(appointmentToEdit.getUsers());
 		super.added.setItems(list);
 		if(!(appointmentToEdit.getAlarm()==0)){
