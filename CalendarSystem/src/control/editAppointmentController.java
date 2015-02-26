@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 
+
 public class editAppointmentController extends newAppointmentController implements Initializable {
 
 	private Appointment appointmentToEdit;
@@ -36,8 +37,14 @@ public class editAppointmentController extends newAppointmentController implemen
 		if(!(appointmentToEdit.getAlarm()==0)){
 			super.alarm.setText(Integer.toString(appointmentToEdit.getAlarm()));
 		}
+			
+	}
+	
+	public Appointment testAppointment(){
 		
-
+		Appointment test = new Appointment();
+//		test.createExampleAppointment();
+		return test;
 		
 	}
 	
