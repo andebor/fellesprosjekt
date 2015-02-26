@@ -1,0 +1,28 @@
+.label {
+	-fx-text-alignment: right;
+	-fx-padding: 5;
+	/*-fx-border-color: blue;*/
+}
+
+.text-field {
+	-fx-padding: 5;
+	-fx-spacing: 30;
+	/*-fx-border-color: red;*/
+	-fx-alignment: TOP_RIGHT;
+}
+
+.hbox {
+	-fx-padding: 5;
+	-fx-spacing: 5;
+	/*-fx-border-color: green;*/
+	-fx-aligment: TOP_RIGHT;
+}
+
+.rightAlign {
+	-fx-alignment: CENTER_RIGHT;
+}
+
+.button {
+	-fx-margin: 50;
+	/*-fx-border-color: green;*/
+}
