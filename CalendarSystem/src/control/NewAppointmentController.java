@@ -41,7 +41,6 @@ public class NewAppointmentController implements Initializable {
 	@FXML
 	TextField end;
 	
-	
 	@FXML
 	Label errorLabel;
 	

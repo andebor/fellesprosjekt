@@ -24,7 +24,7 @@
                         <HBox layoutY="89.0" styleClass="hbox" AnchorPane.rightAnchor="5.0">
                            <children>
                               <Label layoutX="62.0" layoutY="228.0" text="Start-tidspunkt" />
-                              <TextField fx:id="startMinutes" layoutX="308.0" layoutY="223.0" prefHeight="25.0" prefWidth="300.0" promptText="Please use the format hhmm" />
+                              <TextField fx:id="start" layoutX="308.0" layoutY="223.0" prefHeight="25.0" prefWidth="300.0" promptText="Please use the format hhmm" />
                            </children>
                         </HBox>
                         <HBox layoutY="169.0" styleClass="hbox" AnchorPane.rightAnchor="5.0">
@@ -58,7 +58,7 @@
                         <HBox layoutY="129.0" styleClass="hbox" AnchorPane.rightAnchor="5.0">
                            <children>
                               <Label layoutX="63.0" layoutY="265.0" text="Slutt-tidspunkt" />
-                              <TextField fx:id="endMinutes" layoutX="308.0" layoutY="260.0" prefHeight="25.0" prefWidth="300.0" promptText="Please use the format hhmm" />
+                              <TextField fx:id="end" layoutX="308.0" layoutY="260.0" prefHeight="25.0" prefWidth="300.0" promptText="Please use the format hhmm" />
                            </children>
                         </HBox>
                      </children>
@@ -132,6 +132,7 @@
                         <Label text="Grupper" />
                      </children>
                   </AnchorPane>
+                  <Label fx:id="errorLabel" layoutX="811.0" layoutY="33.0" prefHeight="25.0" prefWidth="165.0" />
                </children>
             </AnchorPane>
         </items>

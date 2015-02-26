@@ -50,7 +50,7 @@ public class MainApp extends Application {
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("/view/GUI_appointment.fxml"));
+            loader.setLocation(MainApp.class.getResource("/view/GUI_appointmentOverview.fxml"));
             AnchorPane appointmentOverview = (AnchorPane) loader.load();
         	
             
