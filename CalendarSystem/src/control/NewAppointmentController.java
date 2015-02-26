@@ -403,7 +403,7 @@ public class NewAppointmentController implements Initializable {
 	
 		}
 		else {
-		errorLabel.setText(" "+validationCheck+ " of 6 checks");
+		errorLabel.setText(" "+validationCheck+ " of  6 checks");
 		}
 
 	}
