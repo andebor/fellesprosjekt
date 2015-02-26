@@ -130,6 +130,7 @@ public class newAppointmentController implements Initializable {
 			return true;
 		}
 		else {
+			date.setValue(null);
 			date.setPromptText("Ugydlig dato!");
 			return false;
 		}
@@ -311,7 +312,7 @@ public class newAppointmentController implements Initializable {
 	public boolean roomValidation(){
 		
 		if(room.getSelectionModel().isEmpty()){
-			reservation.setText("Reserver møterom: Velg ledig møterom");
+			reservation.setText("Reserver mï¿½terom: Velg ledig mï¿½terom");
 			return false;
 		}
 		return true;
@@ -330,31 +331,31 @@ public class newAppointmentController implements Initializable {
 		
 		int validationCheck = 0;
 		
-		if(!descriptionValidation(description.getText())){
+		if(descriptionValidation(description.getText())){
 			validationCheck++;
 		}
 		
-		if(!dateValidation(date.getValue())){
+		if(dateValidation(date.getValue())){
 			validationCheck++;
 		}
 		
-		if(!startTimeValidation(startHours.getText(), startMinutes.getText())){
+		if(startTimeValidation(startHours.getText(), startMinutes.getText())){
 			validationCheck++;
 		}
 
-		if(!endTimeValidation(endHours.getText(), endMinutes.getText())){
+		if(endTimeValidation(endHours.getText(), endMinutes.getText())){
 			validationCheck++;
 		}
 		
 		if(reservation.isSelected()){
 			place.setText(null);
-			place.setPromptText("MØTEROM");
-			if(!roomValidation()){
+			place.setPromptText("Mï¿½TEROM");
+			if(roomValidation()){
 				validationCheck++;
 			}
 		}
 		if(!reservation.isSelected()){
-			if(!placeValidation(place.getText())){
+			if(placeValidation(place.getText())){
 				validationCheck++;
 			}
 		}
@@ -363,12 +364,12 @@ public class newAppointmentController implements Initializable {
 		}
 		
 		if(alarmButton.isSelected()){
-			if(alarmValidation(alarm.getText())){
-				validationCheck++;
+			if(!alarmValidation(alarm.getText())){
+				validationCheck--;
 			}
 		}
 		
-		if(validationCheck==7)	{ 
+		if(validationCheck==6)	{ 
 			
 			Appointment appointment = new Appointment();
 			
@@ -398,7 +399,7 @@ public class newAppointmentController implements Initializable {
 	
 		}
 		else {
-		errorLabel.setText("Feil under utfylling av skjema");
+		errorLabel.setText(" "+validationCheck+ " of 7 checks");
 		}
 
 	}
