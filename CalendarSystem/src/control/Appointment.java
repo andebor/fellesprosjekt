@@ -17,6 +17,7 @@ import javafx.collections.ObservableList;
 public class Appointment {
 	
 	private String room;
+	private int roomAmount;
 	private List<String> users;
 	private int alarm = 0;
 	private String identificationKey;
@@ -173,6 +174,14 @@ public class Appointment {
 
 	public void setRoom(String room) {
 		this.room = room;
+	}
+
+	public int getRoomAmount() {
+		return roomAmount;
+	}
+
+	public void setRoomAmount(int roomAmount) {
+		this.roomAmount = roomAmount;
 	}
 	
 

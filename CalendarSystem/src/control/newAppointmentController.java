@@ -83,6 +83,9 @@ public class newAppointmentController implements Initializable {
 	@FXML
 	ListView<String> room; // String needs to be changed to room object
 	
+	@FXML
+	TextField roomAmount;
+	
 	private ObservableList<String> addedList = FXCollections.observableArrayList();
 	private ObservableList<String> employersList = FXCollections.observableArrayList();
 	private ObservableList<String> groupList = FXCollections.observableArrayList();
@@ -400,6 +403,9 @@ public class newAppointmentController implements Initializable {
 			appointment.setStart(LocalTime.of(Integer.parseInt(startHours.getText()), Integer.parseInt(startMinutes.getText())));
 			appointment.setFrom(LocalTime.of(Integer.parseInt(endHours.getText()), Integer.parseInt(endMinutes.getText())));
 			if(reservation.isSelected()){
+				if(!roomAmount.contains(null) && roomAmountValidation()){
+					appointment.setRoomAmount(Integer.parseInt(roomAmount.getText()));
+				}			
 				appointment.setRoom(room.getSelectionModel().getSelectedItem());
 			}
 			if(!reservation.isSelected()){
@@ -424,12 +430,19 @@ public class newAppointmentController implements Initializable {
 
 	}
 	
+	public boolean roomAmountValidation(){
+		
+		if(Integer.parseInt(roomAmount.getText())<=0){
+			roomAmount.setPromptText("Ugylddig tall");
+			return false;
+		}
+		return true;
+		
+	}
+	
 	public void cleanAppointment(ActionEvent event) {
 		
 		errorLabel.setText("Skjema nullstilt");
-		
-
-		
 		
 	}
 	
