@@ -150,63 +150,33 @@ public class NewAppointmentController implements Initializable {
 	
 	public boolean startTimeValidation(String starts){
 		
-
 		
 		  try { 
-				String hour = starts.substring(0,1);
-				String min = starts.substring(2,3);
-		        Integer.parseInt(hour); 
-		        Integer.parseInt(min); 
-		   
-		    } catch(NumberFormatException e) { 
-		    	start.setPromptText("Ugyldig input");
+				LocalTime startTime = LocalTime.of(Integer.parseInt(starts.substring(0,2)), Integer.parseInt(starts.substring(2,4)));
+		    } catch(Exception e) { 
+		    	start.setText("Ugyldig input");
 		    	return false;
 		    }
-		    int hours = Integer.parseInt(starts.substring(0,1)); 
-		    int minutes = Integer.parseInt(starts.substring(2,3)); 
-			if(hours>24 || hours<0){
-				start.setPromptText("Ugydlig input");
-				return false;
-			}
-			if(minutes>60 || minutes<0){
-				start.setPromptText("Ugydlig input");
-				return false;
-			}
-				
-			return true;
+		  return true;
+		  
 				
 	}
 	
-	
-	
 	public boolean endTimeValidation(String ends){
 				
-		
-		try { 
-				String hour = ends.substring(0,1);
-				String min = ends.substring(2,3);
-		        Integer.parseInt(hour); 
-		        Integer.parseInt(min); 
-		   
-		    } catch(NumberFormatException e) { 
-		    	end.setPromptText("Ugyldig input");
+		  try { 
+				LocalTime endTime = LocalTime.of(Integer.parseInt(ends.substring(0,2)), Integer.parseInt(ends.substring(2,4)));
+		    } catch(Exception e) { 
+		    	start.setText("Ugyldig input");
 		    	return false;
 		    }
-	   			int hours = Integer.parseInt(ends.substring(0,1)); 
-	   			int minutes = Integer.parseInt(ends.substring(2,3)); 
-	   			if(hours>24 || hours<0){
-	   				end.setPromptText("Ugydlig input");
-				return false;
-			}
-			if(minutes>60 || minutes<0){
-				end.setPromptText("Ugydlig input");
-				return false;
-			}
+
+
+		LocalTime startTime = LocalTime.of(Integer.parseInt(start.getText().substring(0,2)), Integer.parseInt(start.getText().substring(2,4)));
+		LocalTime endTime = LocalTime.of(Integer.parseInt(ends.substring(0,2)), Integer.parseInt(ends.substring(2,4)));
 				
-        LocalTime endTime = LocalTime.of(hours, minutes);
-        LocalTime fromTime = LocalTime.of(Integer.parseInt(start.getText().substring(0,1)), Integer.parseInt(start.getText().substring(2,3)));
-		
-		if(endTime.isBefore(fromTime)){
+        
+		if(endTime.isBefore(startTime)){
 			end.setText("start < slutt");
 			return false;
 		}
