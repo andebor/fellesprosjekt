@@ -19,7 +19,7 @@
                         <Font name="Calibri Bold" size="31.0" />
                      </font>
                   </Label>
-                  <AnchorPane layoutX="62.0" layoutY="174.0" prefHeight="464.0" prefWidth="436.0" AnchorPane.topAnchor="120.0">
+                  <AnchorPane layoutX="62.0" layoutY="130.0" prefHeight="311.0" prefWidth="436.0" AnchorPane.topAnchor="125.0">
                      <children>
                         <HBox layoutY="89.0" styleClass="hbox" AnchorPane.rightAnchor="5.0">
                            <children>
@@ -40,19 +40,12 @@
                            </children>
                         </HBox>
                         <ToggleButton fx:id="reservation" layoutY="270.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="300.0" text="Reserver møterom" AnchorPane.rightAnchor="10.0" />
-                        <HBox layoutY="296.0" prefHeight="200.0" styleClass="hbox" AnchorPane.rightAnchor="5.0">
-                           <children>
-                              <Label layoutX="88.0" layoutY="439.0" text="Ansatte" />
-                              <ListView fx:id="employers" layoutX="148.0" layoutY="426.0" maxHeight="130.0" prefWidth="300.0" />
-                           </children>
-                        </HBox>
                         <HBox layoutY="49.0" styleClass="hbox" AnchorPane.rightAnchor="5.0">
                            <children>
                               <Label text="Dato" />
                               <DatePicker fx:id="date" prefHeight="25.0" prefWidth="300.0" styleClass="rightAlign" />
                            </children>
                         </HBox>
-                        <Button fx:id="addEmployers" layoutY="439.0" mnemonicParsing="false" onAction="#addButtonAction" prefHeight="25.0" prefWidth="300.0" text="Legg til" AnchorPane.rightAnchor="10.0" />
                         <HBox alignment="TOP_RIGHT" prefHeight="49.0" prefWidth="408.0" styleClass="hbox" AnchorPane.rightAnchor="5.0">
                            <children>
                               <Label text="Beskrivelse" />
@@ -72,21 +65,7 @@
                   </AnchorPane>
                   <AnchorPane layoutX="573.0" layoutY="125.0" AnchorPane.topAnchor="120.0">
                      <children>
-                        <HBox layoutY="177.0" AnchorPane.rightAnchor="10.0">
-                           <children>
-                              <Label layoutX="573.0" layoutY="347.0" text="Deltakere" />
-                              <ListView fx:id="added" layoutX="644.0" layoutY="302.0" prefHeight="200.0" prefWidth="300.0" />
-                           </children>
-                        </HBox>
-                        <Button fx:id="removeEmployers" layoutX="71.0" layoutY="387.0" mnemonicParsing="false" onAction="#removeButtonAction" prefHeight="25.0" prefWidth="300.0" text="Fjern" AnchorPane.rightAnchor="10.0" />
-                        <Button fx:id="addGroups" layoutX="71.0" layoutY="106.0" mnemonicParsing="false" onAction="#addGroupButtonAction" prefHeight="25.0" prefWidth="300.0" text="Legg til" AnchorPane.rightAnchor="10.0" />
-                        <HBox layoutX="4.0" styleClass="hbox" AnchorPane.rightAnchor="5.0">
-                           <children>
-                              <Label layoutX="577.0" layoutY="149.0" text="Grupper" />
-                              <ListView fx:id="groups" layoutX="644.0" layoutY="125.0" prefHeight="95.0" prefWidth="300.0" />
-                           </children>
-                        </HBox>
-                        <HBox layoutX="71.0" layoutY="423.0" prefHeight="26.0" prefWidth="300.0" AnchorPane.rightAnchor="10.0">
+                        <HBox layoutX="69.0" layoutY="293.0" prefHeight="26.0" prefWidth="300.0" AnchorPane.rightAnchor="10.0">
                            <children>
                               <Button fx:id="accept" layoutX="644.0" layoutY="548.0" mnemonicParsing="false" onAction="#acceptAppointment" prefHeight="25.0" prefWidth="147.5" text="Fullfør">
                                  <HBox.margin>
@@ -110,6 +89,47 @@
                               <TextField fx:id="alarm" layoutX="802.0" layoutY="269.0" prefHeight="25.0" prefWidth="147.5" promptText="min (default 15)" />
                            </children>
                         </HBox>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="519.0" layoutY="563.0" prefHeight="226.0" prefWidth="374.0">
+                     <children>
+                        <VBox prefHeight="175.0" prefWidth="300.0" AnchorPane.rightAnchor="5.0">
+                           <children>
+                              <ListView fx:id="added" layoutX="67.0" prefHeight="130.0" prefWidth="300.0">
+                                 <VBox.margin>
+                                    <Insets bottom="2.5" />
+                                 </VBox.margin>
+                              </ListView>
+                              <Button fx:id="removeEmployers" layoutX="-105.0" layoutY="149.0" mnemonicParsing="false" onAction="#removeButtonAction" prefHeight="25.0" prefWidth="300.0" text="Fjern" AnchorPane.rightAnchor="184.0">
+                                 <VBox.margin>
+                                    <Insets top="2.5" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                        </VBox>
+                        <Label text="Deltakere" />
+                     </children>
+                  </AnchorPane>
+                  <Label layoutX="163.0" layoutY="563.0" text="Ansatte" />
+                  <VBox layoutX="219.0" layoutY="563.0" prefHeight="175.0" prefWidth="300.0">
+                     <children>
+                        <ListView fx:id="employers" layoutX="366.0" maxHeight="130.0" prefWidth="300.0">
+                           <VBox.margin>
+                              <Insets bottom="2.5" />
+                           </VBox.margin>
+                        </ListView>
+                        <Button fx:id="addEmployers" layoutX="61.0" mnemonicParsing="false" onAction="#addButtonAction" prefHeight="25.0" prefWidth="300.0" text="Legg til">
+                           <VBox.margin>
+                              <Insets top="2.5" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <AnchorPane layoutX="153.0" layoutY="441.0">
+                     <children>
+                        <ListView fx:id="groups" layoutX="64.0" prefHeight="95.0" prefWidth="300.0" AnchorPane.rightAnchor="5.0" />
+                        <Button fx:id="addGroups" layoutX="731.0" layoutY="100.0" mnemonicParsing="false" onAction="#addGroupButtonAction" prefHeight="25.0" prefWidth="300.0" text="Legg til" AnchorPane.rightAnchor="5.0" />
+                        <Label text="Grupper" />
                      </children>
                   </AnchorPane>
                </children>
