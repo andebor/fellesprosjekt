@@ -10,7 +10,7 @@ import javafx.scene.layout.BorderPane;
 
 
 
-public class newAppointmentControllerApp extends Application {
+public class NewAppointmentControllerApp extends Application {
 	
 	public static void main(String[] args) {
 		launch(args);
