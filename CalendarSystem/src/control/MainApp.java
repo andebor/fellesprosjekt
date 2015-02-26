@@ -81,8 +81,14 @@ public class MainApp extends Application {
 	public boolean showNewAppointment(Appointment appointment) {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
+			
 			FXMLLoader loader = new FXMLLoader();
+			if(appointment==null){
 			loader.setLocation(MainApp.class.getResource("/view/GUI_newAppointment.fxml"));
+			}
+			else {
+				loader.setLocation(MainApp.class.getResource("/view/GUI_editnewAppointment.fxml"));
+			}
 			AnchorPane page = (AnchorPane) loader.load();
 
 			// Create the dialog Stage.
@@ -94,8 +100,15 @@ public class MainApp extends Application {
 			dialogStage.setScene(scene);
 
 			// Set the person into the controller.
+			if(appointment==null){
 			NewAppointmentController controller = loader.getController();
 			controller.setDialogStage(dialogStage);
+			}
+			else { 
+				editAppointmentController controller = loader.getController();
+				controller.initAppointment(appointment);
+				controller.setDialogStage(dialogStage);
+			}
 			//controller.setPerson(person);
 
 			// Show the dialog and wait until the user closes it
@@ -108,6 +121,7 @@ public class MainApp extends Application {
 			return false;
 		}
 	}
+	
     
     public Stage getPrimaryStage() {
     	return primaryStage;

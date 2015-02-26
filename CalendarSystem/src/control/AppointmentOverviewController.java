@@ -58,6 +58,11 @@ public class AppointmentOverviewController {
 		mainApp.showNewAppointment(null);
 	}
 	
+	@FXML
+	private void handleEditAppointment() {
+		mainApp.showNewAppointment(appointmentTable.getSelectionModel().getSelectedItem());
+	}
+	
 	 public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
 
