@@ -50,7 +50,7 @@
                         <Label text="Dato" GridPane.rowIndex="1" />
                         <Label text="Tidspunkt" GridPane.rowIndex="2" />
                         <Label text="Sted" GridPane.rowIndex="3" />
-                        <Label text="Møterom" GridPane.rowIndex="4" />
+                        <Label text="Møterom " GridPane.rowIndex="4" />
                         <Label fx:id="beskrivelseLabel" text="Label" GridPane.columnIndex="1" />
                         <Label fx:id="datoLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label fx:id="tidspunktLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
