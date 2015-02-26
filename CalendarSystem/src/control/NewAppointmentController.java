@@ -167,7 +167,7 @@ public class NewAppointmentController implements Initializable {
 		  try { 
 				LocalTime endTime = LocalTime.of(Integer.parseInt(ends.substring(0,2)), Integer.parseInt(ends.substring(2,4)));
 		    } catch(Exception e) { 
-		    	start.setText("Ugyldig input");
+		    	end.setText("Ugyldig input");
 		    	return false;
 		    }
 
