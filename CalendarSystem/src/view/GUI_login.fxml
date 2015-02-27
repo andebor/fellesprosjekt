@@ -1,22 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.LoginController">
-   <children>
-      <TextField fx:id="txtUsername" layoutX="498.0" layoutY="271.0" promptText="Brukernavn" />
-      <PasswordField fx:id="txtPassword" layoutX="498.0" layoutY="321.0" promptText="Passord" />
-      <Button fx:id="btnLogin" layoutX="480.0" layoutY="371.0" mnemonicParsing="false" onAction="#handleLogin" text="Logg inn!" />
-      <Label fx:id="lblInvalidLogin" layoutX="414.0" layoutY="421.0" text="Ugyldig brukernavn og/eller passord!" textFill="#ee0606" visible="false" />
-      <Label layoutX="449.0" layoutY="70.0" text="Innlogging">
+<BorderPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.LoginController">
+   <center>
+      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="409.0" layoutY="187.0" text="Brukernavn:" />
+            <TextField fx:id="txtUsername" layoutX="498.0" layoutY="182.0" promptText="Brukernavn" />
+            <PasswordField fx:id="txtPassword" layoutX="498.0" layoutY="221.0" promptText="Passord" />
+            <Label layoutX="432.0" layoutY="226.0" text="Passord:" />
+            <Label fx:id="lblInvalidLogin" layoutX="409.0" layoutY="319.0" text="Ugyldig brukernavn og/eller passord!" textFill="#ee0606" visible="false" />
+            <Button fx:id="btnLogin" layoutX="473.0" layoutY="274.0" mnemonicParsing="false" onAction="#handleLogin" text="Logg inn!" />
+         </children>
+      </Pane>
+   </center>
+   <top>
+      <Label text="Innlogging" BorderPane.alignment="CENTER">
          <font>
             <Font size="24.0" />
          </font>
+         <BorderPane.margin>
+            <Insets top="70.0" />
+         </BorderPane.margin>
       </Label>
-      <Label layoutX="411.0" layoutY="275.0" text="Brukernavn:" />
-      <Label layoutX="430.0" layoutY="325.0" text="Passord:" />
-   </children>
-</AnchorPane>
+   </top>
+</BorderPane>
