@@ -6,12 +6,19 @@ import java.util.ResourceBundle;
 import model.Appointment;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-//asda
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ToggleButton;
 
 public class editAppointmentController extends NewAppointmentController implements Initializable {
 
+
 	
+	@FXML
+	Label cancelAppointmentLabel;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -39,6 +46,7 @@ public class editAppointmentController extends NewAppointmentController implemen
 	    super.endField.setText(appointmentToEdit.getFrom().toString());
 		ObservableList<String> list = FXCollections.observableArrayList(appointmentToEdit.getUsers());
 		if(!(appointmentToEdit.getAlarm()==0)){
+		super.alarmButton.setSelected(true);
 		super.alarmField.setText(Integer.toString(appointmentToEdit.getAlarm()));
 		}
 		super.generateRoomList();
@@ -48,17 +56,24 @@ public class editAppointmentController extends NewAppointmentController implemen
 			super.addEmployers(employer1);
 		}
 		super.dateCalenderfix();
+		cancelAppointmentLabel.setText(""+appointmentToEdit.isCancel());
+		
 	}
 	
 
 	
-	public void cancelApp(){
+	public void cancelApp(ActionEvent event){
 		
-		cancelAppointment = true;
-		// NOTIFY
+		if(appointmentToEdit.isCancel()==true){
+			appointmentToEdit.setCancel(false);
+			cancelAppointmentLabel.setText(""+appointmentToEdit.isCancel());
+		}
+		else{
+			appointmentToEdit.setCancel(true);
+			cancelAppointmentLabel.setText(""+appointmentToEdit.isCancel());
+		}
 		
 	}
-	
 	
 
 }

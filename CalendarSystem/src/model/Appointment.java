@@ -16,6 +16,7 @@ import javafx.collections.ObservableList;
 
 public class Appointment {
 	
+	private boolean cancel;
 	private StringProperty beskrivelse;
 	private StringProperty dato;
 	private String room;
@@ -219,6 +220,14 @@ public class Appointment {
 
 	public void setRoomAmount(int roomAmount) {
 		this.roomAmount = roomAmount;
+	}
+
+	public boolean isCancel() {
+		return cancel;
+	}
+
+	public void setCancel(boolean cancel) {
+		this.cancel = cancel;
 	}
 	
 
