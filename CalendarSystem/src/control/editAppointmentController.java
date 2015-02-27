@@ -27,19 +27,26 @@ public class editAppointmentController extends NewAppointmentController implemen
 	public void loadAppointment(){
 		
 		super.description.setText(appointmentToEdit.getDescription());
-		super.place.setText(appointmentToEdit.getPlace());
-		super.date.setValue(appointmentToEdit.getDate());
-		super.start.setText(Integer.toString(appointmentToEdit.getStart().getHour() + appointmentToEdit.getStart().getMinute()));
-		super.end.setText(Integer.toString(appointmentToEdit.getFrom().getHour() + appointmentToEdit.getFrom().getMinute()));
-		ObservableList<String> list = FXCollections.observableArrayList(appointmentToEdit.getUsers());
-		super.added.setItems(list);
-		if(!(appointmentToEdit.getAlarm()==0)){
-			super.alarm.setText(Integer.toString(appointmentToEdit.getAlarm()));
+		if(appointmentToEdit.getPlace()==null){
+			super.place.setText(appointmentToEdit.getRoom());
 		}
-			
+		else{
+			super.place.setText(appointmentToEdit.getPlace());
+		}
+		super.date.setValue(appointmentToEdit.getDate());
+	//    super.start.setText(appointmentToEdit.getStart().toString());
+	   // super.end.setText("appointmentToEdit.getEnd().toString()");
+	//	ObservableList<String> list = FXCollections.observableArrayList(appointmentToEdit.getUsers());
+	//	super.added.setItems(list);
+	//	if(!(appointmentToEdit.getAlarm()==0)){
+	//		super.alarm.setText(Integer.toString(appointmentToEdit.getAlarm()));
+	//	}
+	
 	}
 	
-	public Appointment testAppointment(){
+	public Appointment testAppointment(){//	ObservableList<String> list = FXCollections.observableArrayList(appointmentToEdit.getUsers());
+	
+
 		
 		Appointment test = new Appointment();
 //		test.createExampleAppointment();

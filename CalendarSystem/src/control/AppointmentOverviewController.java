@@ -2,6 +2,7 @@ package control;
 
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import model.Appointment;
 import javafx.collections.FXCollections;
@@ -75,6 +76,11 @@ public class AppointmentOverviewController {
     	Appointment appointment = new Appointment();
     	appointment.setDescription("test");
     	appointment.setDate(LocalDate.of(2015,12,12));
+    	appointment.setPlace("sted");
+    	appointment.setStart(LocalTime.of(10,30));
+    	appointment.setFrom(LocalTime.of(11,30));
+    	ObservableList<String> list2 = FXCollections.observableArrayList("Ole");
+    	appointment.setUsers(list2);
     	ObservableList<Appointment> list = FXCollections.observableArrayList();
     	list.add(appointment);
     	return list;
