@@ -87,7 +87,7 @@
                            <children>
                               <VBox prefHeight="162.0" prefWidth="300.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                                  <children>
-                                    <ListView fx:id="addedTablr" layoutX="64.0" prefHeight="293.0" prefWidth="300.0">
+                                    <ListView fx:id="addedTable" layoutX="64.0" prefHeight="293.0" prefWidth="300.0">
                                        <VBox.margin>
                                           <Insets bottom="2.5" />
                                        </VBox.margin>
