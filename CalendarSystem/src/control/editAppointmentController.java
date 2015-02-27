@@ -49,15 +49,7 @@ public class editAppointmentController extends NewAppointmentController implemen
 		}
 	}
 	
-	public Appointment testAppointment(){//	ObservableList<String> list = FXCollections.observableArrayList(appointmentToEdit.getUsers());
-	
 
-		
-		Appointment test = new Appointment();
-//		test.createExampleAppointment();
-		return test;
-		
-	}
 	
 	public void cancelApp(){
 		
