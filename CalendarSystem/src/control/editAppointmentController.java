@@ -16,6 +16,7 @@ public class editAppointmentController extends NewAppointmentController implemen
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		editNewAppointment = true;
+		
 	}
 	
 	public void initAppointment(Appointment app){
@@ -34,14 +35,23 @@ public class editAppointmentController extends NewAppointmentController implemen
 			super.place.setText(appointmentToEdit.getPlace());
 		}
 		super.date.setValue(appointmentToEdit.getDate());
-	//    super.start.setText(appointmentToEdit.getStart().toString());
-	//    super.end.setText(appointmentToEdit.getEnd().toString());
+	    super.start.setText(appointmentToEdit.getStart().toString());
+	    super.end.setText(appointmentToEdit.getFrom().toString());
 		ObservableList<String> list = FXCollections.observableArrayList(appointmentToEdit.getUsers());
 		super.added.setItems(list);
 		if(!(appointmentToEdit.getAlarm()==0)){
 		super.alarm.setText(Integer.toString(appointmentToEdit.getAlarm()));
 		}
-	
+		super.generateRoomList();
+		super.generateGroupsList();
+	//	ObservableList<String> newEmployerList = FXCollections.observableArrayList(appointmentToEdit.getUsers();
+	//	for(String employer1 : super.employerList) {
+	//		if(!list.contains(employer1)){
+	//			newEmployerList.add(employer1);
+	//		}
+	//	}
+	//	super.employersList = new newEmployerList;
+	//	super.employers.setItems(super.employersList);
 	}
 	
 	public Appointment testAppointment(){//	ObservableList<String> list = FXCollections.observableArrayList(appointmentToEdit.getUsers());
