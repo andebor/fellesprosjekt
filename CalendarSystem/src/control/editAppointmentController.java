@@ -47,6 +47,7 @@ public class editAppointmentController extends NewAppointmentController implemen
 		for(String employer1 : list) {
 			super.addEmployers(employer1);
 		}
+		super.dateCalenderfix();
 	}
 	
 

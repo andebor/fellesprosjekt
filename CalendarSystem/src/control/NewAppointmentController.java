@@ -78,9 +78,18 @@ public class NewAppointmentController implements Initializable {
 		generateEmployersList();
 		generateGroupsList();
 		generateRoomList();
+		dateCalenderfix();
 		
 		
-		// gjør datoer før dagens dato utilgjengelige
+		
+	}	
+	
+    public void setDialogStage(Stage dialogStage) {
+        this.dialogStage = dialogStage;
+    }
+    
+    public void dateCalenderfix(){
+		// gjï¿½r datoer fï¿½r dagens dato utilgjengelige
 		datePicker.setValue(LocalDate.now());
 
         Callback<DatePicker, DateCell> dayCellFactory = dp -> new DateCell() {
@@ -125,11 +134,6 @@ public class NewAppointmentController implements Initializable {
         datePicker.setDayCellFactory(dayCellFactory);
         datePicker.setConverter(converter);
         datePicker.setPromptText("dd/MM/yyyy");
-		
-	}	
-	
-    public void setDialogStage(Stage dialogStage) {
-        this.dialogStage = dialogStage;
     }
 
 	
@@ -438,12 +442,16 @@ public class NewAppointmentController implements Initializable {
 	
 	public boolean roomAmountValidation(){
 		
-		if(Integer.parseInt(roomAmountField.getText())<=0){
-			roomAmountField.setPromptText("Ugylddig tall");
+		try {
+			if (Integer.parseInt(roomAmountField.getText())<=0){
+				roomAmountField.setPromptText("Ugylddig tall");
+				return false;
+			}
+		}
+		catch(Exception e){
 			return false;
 		}
 		return true;
-		
 	}
 	
 	public void cleanAppointment(ActionEvent event) {
