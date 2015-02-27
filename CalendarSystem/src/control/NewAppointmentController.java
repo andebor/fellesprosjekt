@@ -182,7 +182,8 @@ public class NewAppointmentController implements Initializable {
 		  try { 
 				LocalTime startTime = LocalTime.of(Integer.parseInt(starts.substring(0,2)), Integer.parseInt(starts.substring(2,4)));
 		    } catch(Exception e) { 
-		    	startField.setText("Ugyldig input");
+		    	startField.setText("");
+		    	startField.setPromptText("Ugyldig input");
 		    	return false;
 		    }
 		  return true;
@@ -195,7 +196,8 @@ public class NewAppointmentController implements Initializable {
 		  try { 
 				LocalTime endTime = LocalTime.of(Integer.parseInt(ends.substring(0,2)), Integer.parseInt(ends.substring(2,4)));
 		    } catch(Exception e) { 
-		    	endField.setText("Ugyldig input");
+		    	endField.setText("");
+		    	endField.setPromptText("Ugyldig input");
 		    	return false;
 		    }
 
@@ -320,12 +322,14 @@ public class NewAppointmentController implements Initializable {
 		try { 
 	        Integer.parseInt(alarmString); 
 	   
-	    } catch(NumberFormatException e) { 
+	    } catch(Exception e) { 
+	    	alarmField.setText("");
 	    	alarmField.setPromptText("Ugyldig input");
 	    	return false;
 	    }
 	    int alarmInt = Integer.parseInt(alarmString); 
 		if(alarmInt<0){
+			alarmField.setText("");
 			alarmField.setPromptText("Ugydlig input");
 			return false;
 		}
@@ -388,11 +392,21 @@ public class NewAppointmentController implements Initializable {
 			validationCheck++;
 		}
 		
+
+		
 		if(alarmButton.isSelected()){
 			if(!alarmValidation(alarmField.getText())){
 				validationCheck--;
 			}
 		}
+		
+		if(reservationButton.isSelected()){
+			if(!roomAmountValidation()){
+				validationCheck--;
+			}
+		
+		}
+				
 		
 		if(validationCheck==6)	{ 
 			
@@ -413,15 +427,15 @@ public class NewAppointmentController implements Initializable {
 			appointment.setStart(LocalTime.of(Integer.parseInt(startField.getText().substring(0,1)), Integer.parseInt(startField.getText().substring(2,3))));
 			appointment.setFrom(LocalTime.of(Integer.parseInt(endField.getText().substring(0,1)), Integer.parseInt(endField.getText().substring(2,3))));
 			if(reservationButton.isSelected()){
-				if(!roomAmountField.contains(null) && roomAmountValidation()){
-					appointment.setRoomAmount(Integer.parseInt(roomAmountField.getText()));
-				}			
+				appointment.setRoomAmount(Integer.parseInt(roomAmountField.getText()));		
 				appointment.setRoom(roomTable.getSelectionModel().getSelectedItem());
 			}
 			if(!reservationButton.isSelected()){
 			appointment.setPlace(placeField.getText());
 			}
+			if(alarmButton.isSelected()){
 			appointment.setAlarm(Integer.parseInt(alarmField.getText()));
+			}
 			appointment.setUsers(addedTable.getItems());
 			
 			// Transfer generated appointment object to database
@@ -444,15 +458,20 @@ public class NewAppointmentController implements Initializable {
 		
 		try {
 			if (Integer.parseInt(roomAmountField.getText())<=0){
-				roomAmountField.setPromptText("Ugylddig tall");
+				roomAmountField.setText("");
+				roomAmountField.setPromptText("Ugyldig tall");
 				return false;
 			}
 		}
 		catch(Exception e){
+			roomAmountField.setText("");
+			roomAmountField.setPromptText("Ugyldig tall");
 			return false;
 		}
 		return true;
 	}
+	
+
 	
 	public void cleanAppointment(ActionEvent event) {
 		

@@ -54,7 +54,7 @@
                                     <Insets right="2.5" />
                                  </HBox.margin>
                               </ToggleButton>
-                              <TextField fx:id="alarm" layoutX="802.0" layoutY="269.0" prefHeight="25.0" prefWidth="147.5" promptText="min (default 15)">
+                              <TextField fx:id="alarmField" layoutX="802.0" layoutY="269.0" prefHeight="25.0" prefWidth="147.5" promptText="min (default 15)">
                                  <HBox.margin>
                                     <Insets left="2.5" />
                                  </HBox.margin>
