@@ -40,20 +40,7 @@ public class AppointmentOverviewController {
 
     @FXML
     private void initialize() {
-    	initAppointmetTable();
-    	
-    	//row selection
-    	appointmentTable.setRowFactory( tv -> {
-    	    TableRow<Appointment> row = new TableRow<>();
-    	    row.setOnMouseClicked(event -> {
-    	        if (event.getClickCount() == 1 && (! row.isEmpty()) ) {
-    	            Appointment rowData = row.getItem();
-    	            showAppointmentDetails(rowData);
-    	            
-    	        }
-    	    });
-    	    return row;
-    	});
+
     	
     	// Initialize the person table with the two columns.
     	
@@ -103,8 +90,8 @@ public class AppointmentOverviewController {
     	if (appointment != null) {
     		// Fill the labels with info from the person object.
  
-    		beskrivelseLabel.setText(appointment.getDescription());
-    		datoLabel.setText(appointment.getDate().toString());
+    		beskrivelseLabel.setText(appointment.getBeskrivelse());
+    		datoLabel.setText(appointment.getDato());
     	} else {
     		// Person is null, remove all the text.
     		beskrivelseLabel.setText("");
