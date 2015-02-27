@@ -13,7 +13,7 @@
          </font>
       </Text>
       <Button layoutX="274.0" layoutY="605.0" mnemonicParsing="false" onAction="#handleEditAppointment" prefHeight="25.0" prefWidth="80.0" text="Endre" />
-      <Button layoutX="656.0" layoutY="605.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="Slett" />
+      <Button layoutX="656.0" layoutY="605.0" mnemonicParsing="false" onAction="#handleDelete" prefHeight="25.0" prefWidth="80.0" text="Slett" />
       <Button layoutX="471.0" layoutY="605.0" mnemonicParsing="false" onAction="#handleNewAppointment" prefWidth="80.0" text="Ny avtale" />
       <SplitPane dividerPositions="0.4192495921696574" layoutX="204.0" layoutY="196.0" prefHeight="376.0" prefWidth="615.0">
         <items>
