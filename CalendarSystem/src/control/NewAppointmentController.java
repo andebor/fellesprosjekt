@@ -86,8 +86,8 @@ public class NewAppointmentController implements Initializable {
 	private Stage dialogStage;
 
 	private ObservableList<String> addedList = FXCollections.observableArrayList(); // currently list over added employers
-	private ObservableList<String> employersList = FXCollections.observableArrayList(); //currently list over employers
-	private ObservableList<String> groupList = FXCollections.observableArrayList(); // // currently over groups
+	protected ObservableList<String> employersList = FXCollections.observableArrayList(); //currently list over employers
+	protected ObservableList<String> groupList = FXCollections.observableArrayList(); // // currently over groups
 	protected Appointment appointmentToEdit; // appointment to be edited
 	protected boolean editNewAppointment = false; // true if appointment is to be edited
 	protected boolean cancelAppointment = false; // set true to cancel appointment (on edit appointment)
