@@ -21,7 +21,7 @@
                   </Label>
                   <AnchorPane layoutX="62.0" layoutY="140.0" prefHeight="212.0" prefWidth="433.0" AnchorPane.topAnchor="120.0">
                      <children>
-                        <HBox layoutX="83.0" layoutY="49.0" styleClass="hbox" AnchorPane.rightAnchor="0.0">
+                        <HBox layoutY="169.0" styleClass="hbox" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
                            <children>
                               <Label layoutX="105.0" layoutY="300.0" text="Sted" />
                               <TextField fx:id="place" layoutX="148.0" layoutY="295.0" prefHeight="25.0" prefWidth="300.0" text="Firma X" />
@@ -152,6 +152,7 @@
                         </Button>
                      </children>
                   </HBox>
+                  <Label fx:id="errorLabel" layoutX="811.0" layoutY="33.0" prefHeight="25.0" prefWidth="165.0" />
                </children>
             </AnchorPane>
         </items>

@@ -10,28 +10,59 @@ import javafx.scene.control.TableView;
 public class AppointmentOverviewController {
 
     @FXML
-    private TableView<Appointment> appointmentTable;
+    TableView<Appointment> appointmentTable;
     @FXML
-    private TableColumn<Appointment, String> avtaleColumn;
+    TableColumn<Appointment, String> avtaleColumn;
     @FXML
-    private TableColumn<Appointment, String> datoColumn;	
+    TableColumn<Appointment, String> datoColumn;
 	
 	@FXML
-	private Label beskrivelseLable;
+	Label beskrivelseLabel;
 	@FXML
-	private Label datoLable;
+	Label datoLabel;
 	@FXML
-	private Label tidspunktLable;
+	Label tidspunktLabel;
 	@FXML
-	private Label stedLable;
+	Label stedLabel;
 	@FXML
-	private Label moteromLable;
+	Label moteromLable;
 	
-	private MainApp mainApp;
+	MainApp mainApp;
 	
-	public AppointmentOverviewController() {
-		
-	}
+
+
+    @FXML
+    private void initialize() {
+    	stedLabel.setText("test");
+    	// Initialize the person table with the two columns.
+    	
+        avtaleColumn.setCellValueFactory(
+        		cellData -> cellData.getValue().beskrivelseProperty());
+        datoColumn.setCellValueFactory(
+        		cellData -> cellData.getValue().datoProperty());
+        
+        
+        // Clear person details.
+        showPersonDetails(null);
+
+        // Listen for selection changes and show the person details when changed.
+		//appointmentTable.getSelectionModel().selectedItemProperty().addListener(
+				//(observable, oldValue, newValue) -> showPersonDetails(newValue));
+    }
+	
+    
+    private void showPersonDetails(Appointment appointment) {
+    	if (appointment != null) {
+    		// Fill the labels with info from the person object.
+    		beskrivelseLabel.setText(appointment.getBeskrivelse());
+    		datoLabel.setText(appointment.getDato());
+    	} else {
+    		// Person is null, remove all the text.
+    		beskrivelseLabel.setText("");
+    		datoLabel.setText("");
+    	}
+    }
+	
 	
 	@FXML
 	private void handleNewAppointment() {
@@ -42,6 +73,15 @@ public class AppointmentOverviewController {
         this.mainApp = mainApp;
 
         // Add observable list data to the table
-        //personTable.setItems(mainApp.getPersonData());
+        //appointmentTable.setItems(mainApp.getAppointmentList());
 	 }
+
+	
+	@FXML
+	private void handleEditAppointment() {
+		mainApp.showNewAppointment(appointmentTable.getSelectionModel().getSelectedItem());
+	}
 }
+	
+
+
