@@ -92,6 +92,14 @@ public class AppointmentOverviewController {
  
     		beskrivelseLabel.setText(appointment.getDescription());
     		datoLabel.setText(appointment.getDate().toString());
+    		tidspunktLabel.setText(appointment.getStart().toString() + " til "  + appointment.getFrom().toString());
+    		if(appointment.getPlace()!=null){
+    		stedLabel.setText(appointment.getPlace());
+    		}
+    		if(appointment.getRoom()!=null){
+    		moteromLabel.setText(appointment.getRoom());
+    		}
+    		
     	} else {
     		// Person is null, remove all the text.
     		beskrivelseLabel.setText("");
@@ -129,6 +137,3 @@ public class AppointmentOverviewController {
 
 
 }
-	
-
-
