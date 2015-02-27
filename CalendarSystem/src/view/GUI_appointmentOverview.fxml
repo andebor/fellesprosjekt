@@ -51,11 +51,11 @@
                         <Label text="Tidspunkt" GridPane.rowIndex="2" />
                         <Label text="Sted" GridPane.rowIndex="3" />
                         <Label text="Møterom " GridPane.rowIndex="4" />
-                        <Label fx:id="beskrivelseLabel" GridPane.columnIndex="1" />
-                        <Label fx:id="datoLabel" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label fx:id="tidspunktLabel" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label fx:id="stedLabel" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Label fx:id="roomLabel" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label fx:id="beskrivelseLabel" text="label" GridPane.columnIndex="1" />
+                        <Label fx:id="datoLabel" text="label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="tidspunktLabel" text="label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="stedLabel" text="label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label fx:id="moteromLabel" text="label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                      </children>
                   </GridPane>
                </children></AnchorPane>
