@@ -24,20 +24,20 @@
                         <HBox layoutY="169.0" styleClass="hbox" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
                            <children>
                               <Label layoutX="105.0" layoutY="300.0" text="Sted" />
-                              <TextField fx:id="place" layoutX="148.0" layoutY="295.0" prefHeight="25.0" prefWidth="300.0" />
+                              <TextField fx:id="placeField" layoutX="148.0" layoutY="295.0" prefHeight="25.0" prefWidth="300.0" />
                            </children>
                         </HBox>
                         <HBox layoutX="57.0" layoutY="85.0" prefHeight="95.0" prefWidth="379.0" styleClass="hbox" AnchorPane.rightAnchor="0.0">
                            <children>
                               <Label layoutX="62.0" layoutY="278.0" text="Møterom" />
-                              <ListView fx:id="room" layoutX="128.0" layoutY="278.0" prefHeight="49.0" prefWidth="300.0" />
+                              <ListView fx:id="roomTable" layoutX="128.0" layoutY="278.0" prefHeight="49.0" prefWidth="300.0" />
                            </children>
                         </HBox>
-                        <ToggleButton fx:id="reservation" layoutX="131.0" layoutY="144.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="300.0" text="Reserver møterom" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+                        <ToggleButton fx:id="reservationButton" layoutX="131.0" layoutY="144.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="300.0" text="Reserver møterom" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" />
                         <HBox alignment="TOP_RIGHT" prefHeight="49.0" prefWidth="408.0" styleClass="hbox" AnchorPane.rightAnchor="0.0">
                            <children>
                               <Label text="Beskrivelse" />
-                              <TextField fx:id="description" alignment="TOP_RIGHT" layoutX="150.0" layoutY="125.0" prefHeight="49.0" prefWidth="300.0" />
+                              <TextField fx:id="descriptionField" alignment="TOP_RIGHT" layoutX="150.0" layoutY="125.0" prefHeight="49.0" prefWidth="300.0" />
                            </children>
                            <VBox.margin>
                               <Insets />
@@ -64,19 +64,19 @@
                         <HBox layoutX="-159.0" layoutY="-3.0" styleClass="hbox" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <Label text="Dato" />
-                              <DatePicker fx:id="date" prefHeight="25.0" prefWidth="300.0" styleClass="rightAlign" />
+                              <DatePicker fx:id="datePicker" prefHeight="25.0" prefWidth="300.0" styleClass="rightAlign" />
                            </children>
                         </HBox>
                         <HBox layoutX="6.0" layoutY="36.0" styleClass="hbox" AnchorPane.rightAnchor="5.0">
                            <children>
                               <Label layoutX="62.0" layoutY="228.0" text="Start-tidspunkt" />
-                              <TextField fx:id="start" layoutX="308.0" layoutY="223.0" prefHeight="25.0" prefWidth="300.0" promptText="Please use the format hhmm" />
+                              <TextField fx:id="startField" layoutX="308.0" layoutY="223.0" prefHeight="25.0" prefWidth="300.0" promptText="Please use the format hhmm" />
                            </children>
                         </HBox>
                         <HBox layoutX="7.0" layoutY="72.0" styleClass="hbox" AnchorPane.rightAnchor="5.0">
                            <children>
                               <Label layoutX="63.0" layoutY="265.0" text="Slutt-tidspunkt" />
-                              <TextField fx:id="end" layoutX="308.0" layoutY="260.0" prefHeight="25.0" prefWidth="300.0" promptText="Please use the format hhmm" />
+                              <TextField fx:id="endField" layoutX="308.0" layoutY="260.0" prefHeight="25.0" prefWidth="300.0" promptText="Please use the format hhmm" />
                            </children>
                         </HBox>
                      </children>
@@ -87,7 +87,7 @@
                            <children>
                               <VBox prefHeight="162.0" prefWidth="300.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                                  <children>
-                                    <ListView fx:id="added" layoutX="64.0" prefHeight="293.0" prefWidth="300.0">
+                                    <ListView fx:id="addedTable" layoutX="64.0" prefHeight="293.0" prefWidth="300.0">
                                        <VBox.margin>
                                           <Insets bottom="2.5" />
                                        </VBox.margin>
@@ -106,12 +106,12 @@
                            <children>
                               <AnchorPane prefHeight="146.0" prefWidth="379.0" AnchorPane.leftAnchor="5.0">
                                  <children>
-                                    <ListView fx:id="groups" layoutX="64.0" prefHeight="111.0" prefWidth="300.0" AnchorPane.rightAnchor="0.0">
+                                    <ListView fx:id="groupsTable" layoutX="64.0" prefHeight="111.0" prefWidth="300.0" AnchorPane.rightAnchor="0.0">
                                        <padding>
                                           <Insets left="2.5" />
                                        </padding>
                                     </ListView>
-                                    <Button fx:id="addGroups" layoutX="731.0" layoutY="100.0" mnemonicParsing="false" onAction="#addGroupButtonAction" prefHeight="25.0" prefWidth="300.0" text="Legg til" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="0.0" />
+                                    <Button fx:id="addGroupsButton" layoutX="731.0" layoutY="100.0" mnemonicParsing="false" onAction="#addGroupButtonAction" prefHeight="25.0" prefWidth="300.0" text="Legg til" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="0.0" />
                                     <Label text="Grupper" />
                                  </children>
                               </AnchorPane>
@@ -120,12 +120,12 @@
                                     <Label text="Ansatte" />
                                     <VBox layoutX="56.0" prefHeight="162.0" prefWidth="300.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
                                        <children>
-                                          <ListView fx:id="employers" layoutX="366.0" maxHeight="130.0" prefHeight="130.0" prefWidth="300.0">
+                                          <ListView fx:id="employersTable" layoutX="366.0" maxHeight="130.0" prefHeight="130.0" prefWidth="300.0">
                                              <VBox.margin>
                                                 <Insets bottom="2.5" />
                                              </VBox.margin>
                                           </ListView>
-                                          <Button fx:id="addEmployers" layoutX="61.0" mnemonicParsing="false" onAction="#addButtonAction" prefHeight="25.0" prefWidth="300.0" text="Legg til">
+                                          <Button fx:id="addEmployersButton" layoutX="61.0" mnemonicParsing="false" onAction="#addButtonAction" prefHeight="25.0" prefWidth="300.0" text="Legg til">
                                              <VBox.margin>
                                                 <Insets top="2.5" />
                                              </VBox.margin>
@@ -140,12 +140,12 @@
                   </AnchorPane>
                   <HBox layoutX="682.0" layoutY="343.0" prefHeight="26.0" prefWidth="300.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0">
                      <children>
-                        <Button fx:id="accept" layoutX="644.0" layoutY="548.0" mnemonicParsing="false" onAction="#acceptAppointment" prefHeight="25.0" prefWidth="147.5" text="Fullfør">
+                        <Button fx:id="acceptButton" layoutX="644.0" layoutY="548.0" mnemonicParsing="false" onAction="#acceptAppointment" prefHeight="25.0" prefWidth="147.5" text="Fullfør">
                            <HBox.margin>
                               <Insets right="2.5" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="decline" layoutX="802.0" layoutY="548.0" mnemonicParsing="false" onAction="#cleanAppointment" prefHeight="25.0" prefWidth="147.5" text="Forkast">
+                        <Button fx:id="declineButton" layoutX="802.0" layoutY="548.0" mnemonicParsing="false" onAction="#cleanAppointment" prefHeight="25.0" prefWidth="147.5" text="Forkast">
                            <HBox.margin>
                               <Insets left="2.5" />
                            </HBox.margin>

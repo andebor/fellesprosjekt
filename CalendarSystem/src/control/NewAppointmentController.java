@@ -26,43 +26,43 @@ public class NewAppointmentController implements Initializable {
 	
 	
 	@FXML
-	TextField description;
+	TextField descriptionField;
 	
 	@FXML 
-	TextField place;
+	TextField placeField;
 	
 	@FXML
-	DatePicker date;
+	DatePicker datePicker;
 	
 	@FXML
-	TextField start;	
+	TextField startField;	
 	
 	@FXML
-	TextField end;
+	TextField endField;
 	
 	@FXML
 	Label errorLabel;
 	
 	@FXML
-	Button accept;
+	Button acceptButton;
 	
 	@FXML
-	Button decline;
+	Button declineButton;
 	
 	@FXML
-	ListView<String> employers; //String need to be changes to userss
+	ListView<String> employersTable; //String need to be changes to userss
 	
 	@FXML
-	ListView<String> groups; //String need to be changes to users
+	ListView<String> groupsTable; //String need to be changes to users
 	
 	@FXML
-	ListView<String> added;
+	ListView<String> addedTable;
 	
 	@FXML
-	Button addEmployers;
+	Button addEmployersButton;
 	
 	@FXML
-	Button addGroups;
+	Button addGroupsButton;
 	
 	@FXML
 	Button removeEmployers;
@@ -71,21 +71,21 @@ public class NewAppointmentController implements Initializable {
 	ToggleButton alarmButton;
 	
 	@FXML
-	ToggleButton reservation;
+	ToggleButton reservationButton;
 	
 	@FXML
-	TextField alarm;
+	TextField alarmField;
 	
 	@FXML
-	ListView<String> room; // String needs to be changed to room object
+	ListView<String> roomTable; // String needs to be changed to room object
 	
 	@FXML
-	TextField roomAmount;
+	TextField roomAmountField;
 	
 
 	private Stage dialogStage;
 
-	private ObservableList<String> addedList = FXCollections.observableArrayList(); // currently list over added employers
+	protected ObservableList<String> addedList = FXCollections.observableArrayList(); // currently list over added employers
 	protected ObservableList<String> employersList = FXCollections.observableArrayList(); //currently list over employers
 	protected ObservableList<String> groupList = FXCollections.observableArrayList(); // // currently over groups
 	protected Appointment appointmentToEdit; // appointment to be edited
@@ -113,7 +113,7 @@ public class NewAppointmentController implements Initializable {
 	public boolean placeValidation(String placeString) {
 		// Validate "sted" input
 		if (placeString.isEmpty()){
-			place.setPromptText("Trenger navn på bygning");
+			placeField.setPromptText("Trenger navn på bygning");
 			return false;
 			}	
 		return true;
@@ -123,7 +123,7 @@ public class NewAppointmentController implements Initializable {
 	public boolean descriptionValidation(String descriptionString) {
 		// Valide "beskrivelse" input
 		if(descriptionString.isEmpty()){
-			description.setPromptText("Trenger beskrivelse");
+			descriptionField.setPromptText("Trenger beskrivelse");
 			return false;
 		}
 		return true;	
@@ -133,7 +133,7 @@ public class NewAppointmentController implements Initializable {
 	public boolean dateValidation(LocalDate dateCheck) {
 		// Validate dato input
 		if(dateCheck == null){
-			date.setPromptText("Trenger dato");
+			datePicker.setPromptText("Trenger dato");
 			return false;
 		}
 		
@@ -141,8 +141,8 @@ public class NewAppointmentController implements Initializable {
 			return true;
 		}
 		else {
-			date.setValue(null);
-			date.setPromptText("Ugydlig dato!");
+			datePicker.setValue(null);
+			datePicker.setPromptText("Ugydlig dato!");
 			return false;
 		}
 
@@ -154,7 +154,7 @@ public class NewAppointmentController implements Initializable {
 		  try { 
 				LocalTime startTime = LocalTime.of(Integer.parseInt(starts.substring(0,2)), Integer.parseInt(starts.substring(2,4)));
 		    } catch(Exception e) { 
-		    	start.setText("Ugyldig input");
+		    	startField.setText("Ugyldig input");
 		    	return false;
 		    }
 		  return true;
@@ -167,17 +167,17 @@ public class NewAppointmentController implements Initializable {
 		  try { 
 				LocalTime endTime = LocalTime.of(Integer.parseInt(ends.substring(0,2)), Integer.parseInt(ends.substring(2,4)));
 		    } catch(Exception e) { 
-		    	end.setText("Ugyldig input");
+		    	endField.setText("Ugyldig input");
 		    	return false;
 		    }
 
 		  // Check if start time is before end time
-		LocalTime startTime = LocalTime.of(Integer.parseInt(start.getText().substring(0,2)), Integer.parseInt(start.getText().substring(2,4)));
+		LocalTime startTime = LocalTime.of(Integer.parseInt(startField.getText().substring(0,2)), Integer.parseInt(startField.getText().substring(2,4)));
 		LocalTime endTime = LocalTime.of(Integer.parseInt(ends.substring(0,2)), Integer.parseInt(ends.substring(2,4)));
 				
         
 		if(endTime.isBefore(startTime)){
-			end.setText("start < slutt");
+			endField.setText("start < slutt");
 			return false;
 		}
 		return true;
@@ -198,7 +198,7 @@ public class NewAppointmentController implements Initializable {
 				"Ansatt 6",
 				"Ansatt 7");
 		employersList = list;
-		employers.setItems(list);									
+		employersTable.setItems(list);									
 	}
 	
 	public void generateGroupsList() {
@@ -211,7 +211,7 @@ public class NewAppointmentController implements Initializable {
 				"Group 2",
 				"Group 3");
 		groupList = list;
-		groups.setItems(groupList);	
+		groupsTable.setItems(groupList);	
 		
 	}
 	
@@ -225,7 +225,7 @@ public class NewAppointmentController implements Initializable {
 				"Grouproom 1",
 				"Grouproom 2",
 				"Grouproom 3");
-		room.setItems(list);	
+		roomTable.setItems(list);	
 		
 	}
 	
@@ -238,8 +238,8 @@ public class NewAppointmentController implements Initializable {
 		}
 		addedList.add(user);
 		employersList.remove(user);
-		employers.setItems(employersList);
-		added.setItems(addedList);
+		employersTable.setItems(employersList);
+		addedTable.setItems(addedList);
 
 		
 	}
@@ -252,7 +252,7 @@ public class NewAppointmentController implements Initializable {
 		addedList.add(group);
 //		groupList.remove(group);
 //		groups.setItems(groupList);
-		added.setItems(addedList);
+		addedTable.setItems(addedList);
 		
 	}
 	
@@ -263,27 +263,27 @@ public class NewAppointmentController implements Initializable {
 		}
 		addedList.remove(user);
 		employersList.add(user);
-		employers.setItems(employersList);
-		added.setItems(addedList);
+		employersTable.setItems(employersList);
+		addedTable.setItems(addedList);
 		
 	}
 	
 	public void addButtonAction(ActionEvent event)  {
 		
-		addEmployers(employers.getSelectionModel().getSelectedItem());
+		addEmployers(employersTable.getSelectionModel().getSelectedItem());
 		
 		
 	}
 	
 	public void addGroupButtonAction(ActionEvent event) {
 		
-		addGroup(groups.getSelectionModel().getSelectedItem());
+		addGroup(groupsTable.getSelectionModel().getSelectedItem());
 		
 	}
 	
 	public void removeButtonAction(ActionEvent event) {
 		
-		remove(added.getSelectionModel().getSelectedItem());
+		remove(addedTable.getSelectionModel().getSelectedItem());
 		
 	}
 	
@@ -293,12 +293,12 @@ public class NewAppointmentController implements Initializable {
 	        Integer.parseInt(alarmString); 
 	   
 	    } catch(NumberFormatException e) { 
-	    	alarm.setPromptText("Ugyldig input");
+	    	alarmField.setPromptText("Ugyldig input");
 	    	return false;
 	    }
 	    int alarmInt = Integer.parseInt(alarmString); 
 		if(alarmInt<0){
-			alarm.setPromptText("Ugydlig input");
+			alarmField.setPromptText("Ugydlig input");
 			return false;
 		}
 		
@@ -308,8 +308,8 @@ public class NewAppointmentController implements Initializable {
 	
 	public boolean roomValidation(){
 		// Check if reservation button is pressed
-		if(room.getSelectionModel().isEmpty()){
-			reservation.setText("Reserver m�terom: Velg ledig m�terom");
+		if(roomTable.getSelectionModel().isEmpty()){
+			reservationButton.setText("Reserver m�terom: Velg ledig m�terom");
 			return false;
 		}
 		return true;
@@ -328,31 +328,31 @@ public class NewAppointmentController implements Initializable {
 		// Need to pass 6 validations checks for new appointment to be created
 		int validationCheck = 0;
 		
-		if(descriptionValidation(description.getText())){
+		if(descriptionValidation(descriptionField.getText())){
 			validationCheck++;
 		}
 		
-		if(dateValidation(date.getValue())){
+		if(dateValidation(datePicker.getValue())){
 			validationCheck++;
 		}
 		
-		if(startTimeValidation(start.getText())){
+		if(startTimeValidation(startField.getText())){
 			validationCheck++;
 		}
 
-		if(endTimeValidation(end.getText())){
+		if(endTimeValidation(endField.getText())){
 			validationCheck++;
 		}
 		
-		if(reservation.isSelected()){
-			place.setText(null);
-			place.setPromptText("M�TEROM");
+		if(reservationButton.isSelected()){
+			placeField.setText(null);
+			placeField.setPromptText("M�TEROM");
 			if(roomValidation()){
 				validationCheck++;
 			}
 		}
-		if(!reservation.isSelected()){
-			if(placeValidation(place.getText())){
+		if(!reservationButton.isSelected()){
+			if(placeValidation(placeField.getText())){
 				validationCheck++;
 			}
 		}
@@ -361,7 +361,7 @@ public class NewAppointmentController implements Initializable {
 		}
 		
 		if(alarmButton.isSelected()){
-			if(!alarmValidation(alarm.getText())){
+			if(!alarmValidation(alarmField.getText())){
 				validationCheck--;
 			}
 		}
@@ -379,22 +379,22 @@ public class NewAppointmentController implements Initializable {
 
 
 			
-			appointment.setDescription(description.getText());
-			appointment.setDate(date.getValue());
-			appointment.setDate(date.getValue());
-			appointment.setStart(LocalTime.of(Integer.parseInt(start.getText().substring(0,1)), Integer.parseInt(start.getText().substring(2,3))));
-			appointment.setFrom(LocalTime.of(Integer.parseInt(end.getText().substring(0,1)), Integer.parseInt(end.getText().substring(2,3))));
-			if(reservation.isSelected()){
-				if(!roomAmount.contains(null) && roomAmountValidation()){
-					appointment.setRoomAmount(Integer.parseInt(roomAmount.getText()));
+			appointment.setDescription(descriptionField.getText());
+			appointment.setDate(datePicker.getValue());
+			appointment.setDate(datePicker.getValue());
+			appointment.setStart(LocalTime.of(Integer.parseInt(startField.getText().substring(0,1)), Integer.parseInt(startField.getText().substring(2,3))));
+			appointment.setFrom(LocalTime.of(Integer.parseInt(endField.getText().substring(0,1)), Integer.parseInt(endField.getText().substring(2,3))));
+			if(reservationButton.isSelected()){
+				if(!roomAmountField.contains(null) && roomAmountValidation()){
+					appointment.setRoomAmount(Integer.parseInt(roomAmountField.getText()));
 				}			
-				appointment.setRoom(room.getSelectionModel().getSelectedItem());
+				appointment.setRoom(roomTable.getSelectionModel().getSelectedItem());
 			}
-			if(!reservation.isSelected()){
-			appointment.setPlace(place.getText());
+			if(!reservationButton.isSelected()){
+			appointment.setPlace(placeField.getText());
 			}
-			appointment.setAlarm(Integer.parseInt(alarm.getText()));
-			appointment.setUsers(added.getItems());
+			appointment.setAlarm(Integer.parseInt(alarmField.getText()));
+			appointment.setUsers(addedTable.getItems());
 			
 			// Transfer generated appointment object to database
 			if(!editNewAppointment){
@@ -414,8 +414,8 @@ public class NewAppointmentController implements Initializable {
 	
 	public boolean roomAmountValidation(){
 		
-		if(Integer.parseInt(roomAmount.getText())<=0){
-			roomAmount.setPromptText("Ugylddig tall");
+		if(Integer.parseInt(roomAmountField.getText())<=0){
+			roomAmountField.setPromptText("Ugylddig tall");
 			return false;
 		}
 		return true;

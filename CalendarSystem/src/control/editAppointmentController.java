@@ -27,20 +27,20 @@ public class editAppointmentController extends NewAppointmentController implemen
 	
 	public void loadAppointment(){
 		
-		super.description.setText(appointmentToEdit.getDescription());
+		super.descriptionField.setText(appointmentToEdit.getDescription());
 		if(appointmentToEdit.getPlace()==null){
-			super.place.setText(appointmentToEdit.getRoom());
+			super.placeField.setText(appointmentToEdit.getRoom());
 		}
 		else{
-			super.place.setText(appointmentToEdit.getPlace());
+			super.placeField.setText(appointmentToEdit.getPlace());
 		}
-		super.date.setValue(appointmentToEdit.getDate());
-	    super.start.setText(appointmentToEdit.getStart().toString());
-	    super.end.setText(appointmentToEdit.getFrom().toString());
+		super.datePicker.setValue(appointmentToEdit.getDate());
+	    super.startField.setText(appointmentToEdit.getStart().toString());
+	    super.endField.setText(appointmentToEdit.getFrom().toString());
 		ObservableList<String> list = FXCollections.observableArrayList(appointmentToEdit.getUsers());
-		super.added.setItems(list);
+		super.addedTable.setItems(list);
 		if(!(appointmentToEdit.getAlarm()==0)){
-		super.alarm.setText(Integer.toString(appointmentToEdit.getAlarm()));
+		super.alarmField.setText(Integer.toString(appointmentToEdit.getAlarm()));
 		}
 		super.generateRoomList();
 		super.generateGroupsList();
