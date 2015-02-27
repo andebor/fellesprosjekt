@@ -43,6 +43,14 @@ public class Appointment {
 		return beskrivelse;
 	}
 	
+	public StringProperty descriptionProperty() {
+		return formalProperty;
+	}
+	
+	public StringProperty dateProperty(){
+		return new SimpleStringProperty(getDate().toString());
+	}
+	
 	public String getDato() {
 		return dato.get();
 	}

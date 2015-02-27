@@ -45,9 +45,9 @@ public class AppointmentOverviewController {
     	// Initialize the person table with the two columns.
     	
         avtaleColumn.setCellValueFactory(
-        		cellData -> cellData.getValue().beskrivelseProperty());
+        		cellData -> cellData.getValue().descriptionProperty());
         datoColumn.setCellValueFactory(
-        		cellData -> cellData.getValue().datoProperty());
+        		cellData -> cellData.getValue().dateProperty());
         
         
         // Clear person details.
@@ -90,8 +90,8 @@ public class AppointmentOverviewController {
     	if (appointment != null) {
     		// Fill the labels with info from the person object.
  
-    		beskrivelseLabel.setText(appointment.getBeskrivelse());
-    		datoLabel.setText(appointment.getDato());
+    		beskrivelseLabel.setText(appointment.getDescription());
+    		datoLabel.setText(appointment.getDate().toString());
     	} else {
     		// Person is null, remove all the text.
     		beskrivelseLabel.setText("");
@@ -109,7 +109,7 @@ public class AppointmentOverviewController {
         this.mainApp = mainApp;
 
         // Add observable list data to the table
-        appointmentTable.setItems(mainApp.getAppointmentList());
+        initAppointmetTable();
 	 }
 
 	

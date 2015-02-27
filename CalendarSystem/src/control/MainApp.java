@@ -24,7 +24,6 @@ public class MainApp extends Application {
     private ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
     
 	public MainApp() {
-		appointmentList.add(new Appointment("avtaletest", "1. januar"));
 	}
 
 	public void start(Stage primaryStage) {
