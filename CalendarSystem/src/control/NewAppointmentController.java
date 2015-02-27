@@ -107,6 +107,12 @@ public class NewAppointmentController implements Initializable {
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
     }
+    
+    public void setAppointment(Appointment appointment) {
+        this.appointmentToEdit = appointment;
+
+        description.setText(appointment.getBeskrivelse());
+    }
 
 	
 	
