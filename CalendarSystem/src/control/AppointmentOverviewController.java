@@ -66,7 +66,7 @@ public class AppointmentOverviewController {
     	appointment.setPlace("sted");
     	appointment.setStart(LocalTime.of(10,30));
     	appointment.setFrom(LocalTime.of(11,30));
-    	ObservableList<String> list2 = FXCollections.observableArrayList("Ole");
+    	ObservableList<String> list2 = FXCollections.observableArrayList("Ole", "Ansatt 1");
     	appointment.setUsers(list2);
     	ObservableList<Appointment> list = FXCollections.observableArrayList();
     	list.add(appointment);
