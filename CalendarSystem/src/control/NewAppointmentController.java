@@ -5,6 +5,7 @@ import java.util.List;
 import java.net.URL;	
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 import model.Appointment;
@@ -14,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -21,6 +23,8 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.stage.Stage;
+import javafx.util.Callback;
+import javafx.util.StringConverter;
 
 public class NewAppointmentController implements Initializable {
 	
@@ -29,25 +33,19 @@ public class NewAppointmentController implements Initializable {
 	TextField descriptionField;
 	
 	@FXML 
-	TextField placeField;
+	TextField placeField, startField, endField, alarmField, roomAmountField;
 	
 	@FXML
 	DatePicker datePicker;
 	
 	@FXML
-	TextField startField;	
-	
-	@FXML
-	TextField endField;
-	
-	@FXML
 	Label errorLabel;
 	
 	@FXML
-	Button acceptButton;
+	Button acceptButton, declineButton, addEmployersButton, addGroupsButton, removeEmployers;
 	
 	@FXML
-	Button declineButton;
+	ToggleButton alarmButton, reservationButton;
 	
 	@FXML
 	ListView<String> employersTable; //String need to be changes to userss
@@ -59,28 +57,7 @@ public class NewAppointmentController implements Initializable {
 	ListView<String> addedTable;
 	
 	@FXML
-	Button addEmployersButton;
-	
-	@FXML
-	Button addGroupsButton;
-	
-	@FXML
-	Button removeEmployers;
-	
-	@FXML
-	ToggleButton alarmButton;
-	
-	@FXML
-	ToggleButton reservationButton;
-	
-	@FXML
-	TextField alarmField;
-	
-	@FXML
 	ListView<String> roomTable; // String needs to be changed to room object
-	
-	@FXML
-	TextField roomAmountField;
 	
 
 	private Stage dialogStage;
@@ -101,6 +78,53 @@ public class NewAppointmentController implements Initializable {
 		generateEmployersList();
 		generateGroupsList();
 		generateRoomList();
+		
+		
+		// gjør datoer før dagens dato utilgjengelige
+		datePicker.setValue(LocalDate.now());
+
+        Callback<DatePicker, DateCell> dayCellFactory = dp -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (item.isBefore(LocalDate.now())) {
+                    setStyle("-fx-background-color: #ffc0cb;");
+                    setDisable(true);
+                }
+            }
+        };
+
+        StringConverter converter = new StringConverter<LocalDate>() {
+            final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+
+            @Override
+            public String toString(LocalDate date) {
+                if (date != null)
+                	return dateFormatter.format(date);
+                else
+                	return "";
+            }
+
+            @Override
+            public LocalDate fromString(String string) {
+                if (string != null && !string.isEmpty()) {
+                    LocalDate date = LocalDate.parse(string, dateFormatter);
+
+                    if (date.isBefore(LocalDate.now())) {
+                        return datePicker.getValue();
+                    }
+                    else
+                    	return date;
+                }
+                else
+                	return null;
+            }
+        };
+
+        datePicker.setDayCellFactory(dayCellFactory);
+        datePicker.setConverter(converter);
+        datePicker.setPromptText("dd/MM/yyyy");
 		
 	}	
 	
