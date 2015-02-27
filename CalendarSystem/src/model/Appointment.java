@@ -15,7 +15,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Appointment {
-	
+	//as
 	private boolean cancel;
 	private StringProperty beskrivelse;
 	private StringProperty dato;

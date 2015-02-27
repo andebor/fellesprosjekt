@@ -25,7 +25,7 @@ public class editAppointmentController extends NewAppointmentController implemen
 		editNewAppointment = true;
 		
 	}
-	
+	//as
 	public void initAppointment(Appointment app){
 		
 		this.appointmentToEdit = app;

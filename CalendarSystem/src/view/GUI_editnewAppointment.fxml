@@ -153,7 +153,7 @@
                      </children>
                   </HBox>
                   <Label fx:id="errorLabel" layoutX="811.0" layoutY="33.0" prefHeight="25.0" prefWidth="165.0" />
-                  <Label fx:id="cancelAppointmentLabel" layoutX="862.0" layoutY="681.0" text="Label" />
+                  <Label fx:id="cancelAppointmentLabel" layoutX="863.0" layoutY="681.0" text="Label" />
                   <Button layoutX="749.0" layoutY="681.0" mnemonicParsing="false" onAction="#cancelApp" text="Avlys møte" />
                </children>
             </AnchorPane>
