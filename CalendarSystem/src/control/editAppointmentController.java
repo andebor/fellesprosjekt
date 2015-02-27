@@ -38,19 +38,15 @@ public class editAppointmentController extends NewAppointmentController implemen
 	    super.startField.setText(appointmentToEdit.getStart().toString());
 	    super.endField.setText(appointmentToEdit.getFrom().toString());
 		ObservableList<String> list = FXCollections.observableArrayList(appointmentToEdit.getUsers());
-//		super.addedList = list;
 		if(!(appointmentToEdit.getAlarm()==0)){
 		super.alarmField.setText(Integer.toString(appointmentToEdit.getAlarm()));
 		}
 		super.generateRoomList();
 		super.generateGroupsList();
 		super.generateEmployersList();
-		for(String employer1 : super.employersList) {
-			if(list.contains(employer1)){
-				super.remove(employer1);
-			}
+		for(String employer1 : list) {
+			super.addEmployers(employer1);
 		}
-		super.employersTable.setItems(super.employersList);
 	}
 	
 	public Appointment testAppointment(){//	ObservableList<String> list = FXCollections.observableArrayList(appointmentToEdit.getUsers());
