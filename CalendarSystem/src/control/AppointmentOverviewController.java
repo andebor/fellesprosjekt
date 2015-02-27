@@ -48,7 +48,7 @@ public class AppointmentOverviewController {
     	    row.setOnMouseClicked(event -> {
     	        if (event.getClickCount() == 1 && (! row.isEmpty()) ) {
     	            Appointment rowData = row.getItem();
-    	            showPersonDetails(rowData);
+    	            showAppointmentDetails(rowData);
     	            
     	        }
     	    });
@@ -64,11 +64,11 @@ public class AppointmentOverviewController {
         
         
         // Clear person details.
-        showPersonDetails(null);
+        showAppointmentDetails(null);
 
         // Listen for selection changes and show the person details when changed.
-		//appointmentTable.getSelectionModel().selectedItemProperty().addListener(
-				//(observable, oldValue, newValue) -> showPersonDetails(newValue));
+		appointmentTable.getSelectionModel().selectedItemProperty().addListener(
+				(observable, oldValue, newValue) -> showAppointmentDetails(newValue));
     }
     
     public ObservableList<Appointment> generateExampleAppointment() {
@@ -99,7 +99,7 @@ public class AppointmentOverviewController {
 	
 
     
-    private void showPersonDetails(Appointment appointment) {
+    private void showAppointmentDetails(Appointment appointment) {
     	if (appointment != null) {
     		// Fill the labels with info from the person object.
  
@@ -122,7 +122,7 @@ public class AppointmentOverviewController {
         this.mainApp = mainApp;
 
         // Add observable list data to the table
-        //appointmentTable.setItems(mainApp.getAppointmentList());
+        appointmentTable.setItems(mainApp.getAppointmentList());
 	 }
 
 	
