@@ -36,7 +36,7 @@ public class AppointmentOverviewController {
 	
 	MainApp mainApp;
 	
-	private ObservableList<Appointment> appointmentList = FXCollections.observableArrayList(); // Currently list over appointments in appointmentTable
+	public static ObservableList<Appointment> appointmentList = FXCollections.observableArrayList(); // Currently list over appointments in appointmentTable
 
     @FXML
     private void initialize() {
@@ -56,6 +56,10 @@ public class AppointmentOverviewController {
         // Listen for selection changes and show the person details when changed.
 		appointmentTable.getSelectionModel().selectedItemProperty().addListener(
 				(observable, oldValue, newValue) -> showAppointmentDetails(newValue));
+    }
+    
+    public static ObservableList<Appointment> getAppointmentList() {
+    	return appointmentList;
     }
     
     public ObservableList<Appointment> generateExampleAppointment() {
@@ -111,6 +115,7 @@ public class AppointmentOverviewController {
 	@FXML
 	private void handleNewAppointment() {
 		mainApp.showNewAppointment(null);
+		
 	}
 	
 	 public void setMainApp(MainApp mainApp) {

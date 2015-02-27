@@ -147,7 +147,7 @@
                               <Insets right="2.5" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="declineButton" layoutX="802.0" layoutY="548.0" mnemonicParsing="false" onAction="#cleanAppointment" prefHeight="25.0" prefWidth="147.5" text="Forkast">
+                        <Button fx:id="declineButton" layoutX="802.0" layoutY="548.0" mnemonicParsing="false" onAction="#cleanAppointment" prefHeight="25.0" prefWidth="147.5" text="Avbryt">
                            <HBox.margin>
                               <Insets left="2.5" />
                            </HBox.margin>

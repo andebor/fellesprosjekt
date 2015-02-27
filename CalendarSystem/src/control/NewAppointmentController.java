@@ -440,7 +440,9 @@ public class NewAppointmentController implements Initializable {
 			
 			// Transfer generated appointment object to database
 			if(!editNewAppointment){
-			errorLabel.setText("Ny avtale lagt inn!");
+				errorLabel.setText("Ny avtale lagt inn!");
+				AppointmentOverviewController.getAppointmentList().add(appointment);
+				dialogStage.close();
 			}
 			else {
 				errorLabel.setText("Avtale er endret!");
@@ -476,7 +478,7 @@ public class NewAppointmentController implements Initializable {
 	public void cleanAppointment(ActionEvent event) {
 		
 		// Clean form. Not complete
-		errorLabel.setText("Skjema nullstilt");
+		dialogStage.close();
 		
 	}
 	
