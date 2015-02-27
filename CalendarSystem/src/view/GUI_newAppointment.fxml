@@ -79,6 +79,8 @@
                               <TextField fx:id="endField" layoutX="308.0" layoutY="260.0" prefHeight="25.0" prefWidth="300.0" promptText="Please use the format hhmm" />
                            </children>
                         </HBox>
+                        <Label layoutX="25.0" layoutY="158.0" text="Antall personer" />
+                        <TextField fx:id="roomAmountField" layoutX="157.0" layoutY="158.0" />
                      </children>
                   </AnchorPane>
                   <AnchorPane layoutX="106.0" layoutY="342.0" prefHeight="310.0" prefWidth="821.0" AnchorPane.rightAnchor="90.0">
