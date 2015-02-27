@@ -139,6 +139,18 @@ public class AppointmentOverviewController {
 			return;
 		}
 	}
+	
+	@FXML
+	private void handleDelete() {
+		Appointment appointment = appointmentTable.getSelectionModel().getSelectedItem();
+		if(appointment == null){ // Check if any appointment is selected from list
+			return;
+		}
+		else {
+			getAppointmentList().remove(appointment);
+		}
+		
+	}
 
 
 }
