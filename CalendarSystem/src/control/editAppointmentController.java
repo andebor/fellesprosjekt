@@ -35,12 +35,12 @@ public class editAppointmentController extends NewAppointmentController implemen
 		}
 		super.date.setValue(appointmentToEdit.getDate());
 	//    super.start.setText(appointmentToEdit.getStart().toString());
-	   // super.end.setText("appointmentToEdit.getEnd().toString()");
-	//	ObservableList<String> list = FXCollections.observableArrayList(appointmentToEdit.getUsers());
-	//	super.added.setItems(list);
-	//	if(!(appointmentToEdit.getAlarm()==0)){
-	//		super.alarm.setText(Integer.toString(appointmentToEdit.getAlarm()));
-	//	}
+	//    super.end.setText(appointmentToEdit.getEnd().toString());
+		ObservableList<String> list = FXCollections.observableArrayList(appointmentToEdit.getUsers());
+		super.added.setItems(list);
+		if(!(appointmentToEdit.getAlarm()==0)){
+		super.alarm.setText(Integer.toString(appointmentToEdit.getAlarm()));
+		}
 	
 	}
 	
