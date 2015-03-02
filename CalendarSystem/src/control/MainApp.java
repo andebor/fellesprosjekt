@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 public class MainApp extends Application {
 	
 	private Stage primaryStage;
+	private BorderPane loginView;
 	private BorderPane rootNav;
 	
     private ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
@@ -30,7 +31,7 @@ public class MainApp extends Application {
         this.primaryStage = primaryStage;
         //this.primaryStage.setTitle("AvtaleApp");
 
-        initRootNav();
+//        initRootNav();
 
         showLogin();
 	}
@@ -41,14 +42,27 @@ public class MainApp extends Application {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("/view/GUI_rootNav.fxml"));
             rootNav = (BorderPane) loader.load();
-            
-            // Show the scene containing the root layout.
+
+            //Close login stage
+            primaryStage.close();
+            //Create new stage for main window
             Scene scene = new Scene(rootNav);
+            primaryStage.setResizable(false);
+            primaryStage.setTitle("Kalender");
             primaryStage.setScene(scene);
+            //Show the scene containing the root layout.
             primaryStage.show();
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    
+    public void loginSuccess() {
+    	System.out.println("testing root init..");
+    	initRootNav();
+    	System.out.println("Navigation loaded, loading calendar...");
+    	showCalendar();
     }
 
     
@@ -57,12 +71,15 @@ public class MainApp extends Application {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("/view/GUI_login.fxml"));
-            AnchorPane appointmentOverview = (AnchorPane) loader.load();
+            loginView = (BorderPane) loader.load();
         	
-            
-            
-            // Set person overview into the center of root layout.
-            rootNav.setCenter(appointmentOverview);
+            //Create login stage
+            Scene scene = new Scene(loginView);
+            primaryStage.setResizable(false);
+            primaryStage.setTitle("Kalender");
+            primaryStage.setScene(scene);
+            primaryStage.show();
+
             
             
             // Give the controller access to the main app.
@@ -75,33 +92,28 @@ public class MainApp extends Application {
             e.printStackTrace();
         }
     }
-		
-
-    public void showAppointmentOverview() {
-        try {
-            // Load person overview.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("/view/GUI_appointmentOverview.fxml"));
-            AnchorPane appointmentOverview = (AnchorPane) loader.load();
-        	
+    
+    public void showCalendar() {
+    	try {
+    		//load main calendar view
+    		FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("/view/GUI_calendar.fxml"));
+            AnchorPane calendarView = (AnchorPane) loader.load();
             
-            
-            // Set person overview into the center of root layout.
-            rootNav.setCenter(appointmentOverview);
-            
+            rootNav.setCenter(calendarView);
             
             // Give the controller access to the main app.
-            AppointmentOverviewController controller = loader.getController();
+            CalendarController controller = loader.getController();
             controller.setMainApp(this);
             
-
-            
-        } catch (IOException e) {
+    	} catch (IOException e) {
             e.printStackTrace();
         }
     }
+    
 
-    public void showAppointmentOverview1() {
+
+    public void showAppointmentOverview() {
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
