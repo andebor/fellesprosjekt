@@ -424,14 +424,16 @@ public class NewAppointmentController implements Initializable {
 			appointment.setDescription(descriptionField.getText());
 			appointment.setDate(datePicker.getValue());
 			appointment.setDate(datePicker.getValue());
-			appointment.setStart(LocalTime.of(Integer.parseInt(startField.getText().substring(0,1)), Integer.parseInt(startField.getText().substring(2,3))));
-			appointment.setFrom(LocalTime.of(Integer.parseInt(endField.getText().substring(0,1)), Integer.parseInt(endField.getText().substring(2,3))));
+			appointment.setStart(LocalTime.of(Integer.parseInt(startField.getText().substring(0,2)), Integer.parseInt(startField.getText().substring(2,4))));
+			appointment.setFrom(LocalTime.of(Integer.parseInt(endField.getText().substring(0,2)), Integer.parseInt(endField.getText().substring(2,4))));
 			if(reservationButton.isSelected()){
 				appointment.setRoomAmount(Integer.parseInt(roomAmountField.getText()));		
 				appointment.setRoom(roomTable.getSelectionModel().getSelectedItem());
+				appointment.setPlace(null);
 			}
 			if(!reservationButton.isSelected()){
 			appointment.setPlace(placeField.getText());
+			appointment.setRoom(null);
 			}
 			if(alarmButton.isSelected()){
 			appointment.setAlarm(Integer.parseInt(alarmField.getText()));

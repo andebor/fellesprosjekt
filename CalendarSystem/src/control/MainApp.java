@@ -72,6 +72,7 @@ public class MainApp extends Application {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("/view/GUI_login.fxml"));
             loginView = (BorderPane) loader.load();
+
         	
             //Create login stage
             Scene scene = new Scene(loginView);

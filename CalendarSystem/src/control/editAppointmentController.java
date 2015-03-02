@@ -41,7 +41,6 @@ public class editAppointmentController extends NewAppointmentController implemen
 		else{
 			super.placeField.setText(appointmentToEdit.getPlace());
 		}
-		super.datePicker.setValue(appointmentToEdit.getDate());
 	    super.startField.setText(appointmentToEdit.getStart().toString());
 	    super.endField.setText(appointmentToEdit.getFrom().toString());
 		ObservableList<String> list = FXCollections.observableArrayList(appointmentToEdit.getUsers());
@@ -56,6 +55,7 @@ public class editAppointmentController extends NewAppointmentController implemen
 			super.addEmployers(employer1);
 		}
 		super.dateCalenderfix();
+		super.datePicker.setValue(appointmentToEdit.getDate());
 		cancelAppointmentLabel.setText(""+appointmentToEdit.isCancel());
 		
 	}
