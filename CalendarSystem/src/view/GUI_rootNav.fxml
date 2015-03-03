@@ -6,15 +6,17 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="797.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="797.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.RootNavController">
    <top>
       <StackPane prefHeight="26.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
          <children>
-            <MenuBar prefHeight="26.0" prefWidth="1024.0">
+            <MenuBar prefHeight="28.0" prefWidth="1024.0">
                <menus>
-                  <Menu fx:id="menu_home" mnemonicParsing="false" text="Hjem" />
-                  <Menu fx:id="menu_appointments" mnemonicParsing="false" text="Avtaler" />
-                  <Menu fx:id="menu_invitations" mnemonicParsing="false" text="Invitasjoner" />
+                  <Menu mnemonicParsing="false">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Action 1" />
+                    </items>
+                  </Menu>
                </menus>
             </MenuBar>
             <MenuButton fx:id="menubtn_notifications" focusTraversable="false" mnemonicParsing="false" text="Nye varsler!" StackPane.alignment="CENTER_RIGHT">
@@ -29,6 +31,21 @@
                   <Insets bottom="1.0" right="7.0" />
                </StackPane.margin>
             </MenuButton>
+            <Button mnemonicParsing="false" onAction="#gotoCalendar" prefWidth="91.0" text="Hjem" StackPane.alignment="CENTER_LEFT">
+               <StackPane.margin>
+                  <Insets bottom="1.0" left="1.0" />
+               </StackPane.margin>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#gotoAppointments" prefWidth="91.0" text="Avtaler" StackPane.alignment="CENTER_LEFT">
+               <StackPane.margin>
+                  <Insets bottom="1.0" left="95.0" />
+               </StackPane.margin>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#gotoInvitations" text="Invitasjoner" StackPane.alignment="CENTER_LEFT">
+               <StackPane.margin>
+                  <Insets bottom="1.0" left="189.0" />
+               </StackPane.margin>
+            </Button>
          </children>
       </StackPane>
    </top>

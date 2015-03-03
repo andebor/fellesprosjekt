@@ -29,10 +29,6 @@ public class MainApp extends Application {
 
 	public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        //this.primaryStage.setTitle("AvtaleApp");
-
-//        initRootNav();
-
         showLogin();
 	}
 	
@@ -52,6 +48,10 @@ public class MainApp extends Application {
             primaryStage.setScene(scene);
             //Show the scene containing the root layout.
             primaryStage.show();
+            
+            // Give the controller access to the main app.
+            RootNavController controller = loader.getController();
+            controller.setMainApp(this);
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -80,14 +80,10 @@ public class MainApp extends Application {
             primaryStage.setTitle("Kalender");
             primaryStage.setScene(scene);
             primaryStage.show();
-
-            
             
             // Give the controller access to the main app.
             LoginController controller = loader.getController();
             controller.setMainApp(this);
-            
-
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -104,8 +100,26 @@ public class MainApp extends Application {
             rootNav.setCenter(calendarView);
             
             // Give the controller access to the main app.
-            CalendarController controller = loader.getController();
-            controller.setMainApp(this);
+//            CalendarController controller = loader.getController();
+//            controller.setMainApp(this);
+            
+    	} catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void showInvitations() {
+    	try {
+    		//load main calendar view
+    		FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("/view/GUI_invitations.fxml"));
+            AnchorPane invitationsView = (AnchorPane) loader.load();
+            
+            rootNav.setCenter(invitationsView);
+            
+            // Give the controller access to the main app.
+//            CalendarController controller = loader.getController();
+//            controller.setMainApp(this);
             
     	} catch (IOException e) {
             e.printStackTrace();
