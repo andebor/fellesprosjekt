@@ -35,14 +35,6 @@ public class editAppointmentController extends NewAppointmentController implemen
 	public void loadAppointment(){
 		
 		super.descriptionField.setText(appointmentToEdit.getDescription());
-		if(appointmentToEdit.getRoom()!=null){
-			super.placeField.setPromptText(appointmentToEdit.getRoom());
-			super.reservationButton.setSelected(true);
-			super.roomTable.getSelectionModel().select(appointmentToEdit.getRoom());
-		}
-		else{
-			super.placeField.setText(appointmentToEdit.getPlace());
-		}
 	    super.startField.setText(appointmentToEdit.getStart().toString());
 	    super.endField.setText(appointmentToEdit.getFrom().toString());
 		ObservableList<String> list = FXCollections.observableArrayList(appointmentToEdit.getUsers());
@@ -55,6 +47,15 @@ public class editAppointmentController extends NewAppointmentController implemen
 		super.generateEmployersList();
 		for(String employer1 : list) {
 			super.addEmployers(employer1);
+		}
+		if(appointmentToEdit.getRoom()!=null){
+			super.placeField.setPromptText(appointmentToEdit.getRoom());
+			super.roomAmountField.setText(Integer.toString(appointmentToEdit.getRoomAmount()));
+			super.reservationButton.setSelected(true);
+			super.roomTable.getSelectionModel().select(appointmentToEdit.getRoom());
+		}
+		else{
+			super.placeField.setText(appointmentToEdit.getPlace());
 		}
 		super.dateCalenderfix();
 		super.datePicker.setValue(appointmentToEdit.getDate());

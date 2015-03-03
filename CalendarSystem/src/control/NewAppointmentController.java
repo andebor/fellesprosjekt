@@ -466,14 +466,14 @@ public class NewAppointmentController implements Initializable {
 	public boolean roomAmountValidation(){
 		
 		try {
+			if(roomAmountField.getText().isEmpty()){
+				roomAmountField.setText("Trenger tall");
+				return true;
+			}
 			if (Integer.parseInt(roomAmountField.getText())<=0){
 				roomAmountField.setText("");
 				roomAmountField.setPromptText("Ugyldig tall");
 				return false;
-			}
-			if(roomAmountField.getText().isEmpty()){
-				roomAmountField.setText("15");
-				return true;
 			}
 		}
 		catch(Exception e){
