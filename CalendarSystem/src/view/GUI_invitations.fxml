@@ -7,7 +7,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.AppointmentOverviewController">
    <children>
-      <Text layoutX="469.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invitasjoner" textAlignment="CENTER" wrappingWidth="127.0">
+      <Text layoutX="441.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invitasjoner" textAlignment="CENTER" wrappingWidth="141.0">
          <font>
             <Font size="24.0" />
          </font>
@@ -61,7 +61,7 @@
                </children></AnchorPane>
         </items>
       </SplitPane>
-      <Button layoutX="403.0" layoutY="615.0" mnemonicParsing="false" text="Godta" />
-      <Button layoutX="486.0" layoutY="615.0" mnemonicParsing="false" text="Avslå" />
+      <Button layoutX="403.0" layoutY="615.0" mnemonicParsing="false" prefWidth="80.0" text="Godta" />
+      <Button layoutX="502.0" layoutY="615.0" mnemonicParsing="false" prefWidth="80.0" text="Avslå" />
    </children>
 </AnchorPane>
