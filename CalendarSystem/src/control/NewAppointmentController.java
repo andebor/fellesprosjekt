@@ -66,7 +66,7 @@ public class NewAppointmentController implements Initializable {
 	ListView<String> roomTable; // String needs to be changed to room object
 	
 	@FXML
-	ComboBox startHourField;
+	ComboBox startHourField, startMinuteField, endHourField, endMinuteField;
 	
 
 	private Stage dialogStage;
