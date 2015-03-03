@@ -67,20 +67,100 @@
                               <DatePicker fx:id="datePicker" prefHeight="25.0" prefWidth="300.0" styleClass="rightAlign" />
                            </children>
                         </HBox>
-                        <HBox layoutX="6.0" layoutY="36.0" styleClass="hbox" AnchorPane.rightAnchor="5.0">
-                           <children>
-                              <Label layoutX="62.0" layoutY="228.0" text="Start-tidspunkt" />
-                              <TextField fx:id="startField" layoutX="308.0" layoutY="223.0" prefHeight="25.0" prefWidth="300.0" promptText="Please use the format hhmm" />
-                           </children>
-                        </HBox>
-                        <HBox layoutX="7.0" layoutY="72.0" styleClass="hbox" AnchorPane.rightAnchor="5.0">
-                           <children>
-                              <Label layoutX="63.0" layoutY="265.0" text="Slutt-tidspunkt" />
-                              <TextField fx:id="endField" layoutX="308.0" layoutY="260.0" prefHeight="25.0" prefWidth="300.0" promptText="Please use the format hhmm" />
-                           </children>
-                        </HBox>
+                        <HBox layoutX="6.0" layoutY="36.0" styleClass="hbox" AnchorPane.rightAnchor="5.0" />
+                        <HBox layoutX="7.0" layoutY="72.0" styleClass="hbox" AnchorPane.rightAnchor="5.0" />
                         <Label layoutX="25.0" layoutY="158.0" text="Antall personer" />
                         <TextField fx:id="roomAmountField" layoutX="157.0" layoutY="158.0" />
+                        <Label layoutX="25.0" layoutY="46.0" text="Start-tidspunkt" />
+                        <Label layoutX="26.0" layoutY="79.0" text="Slutt-tidspunkt" />
+                        <MenuButton fx:id="startHourField" layoutX="127.0" layoutY="47.0" mnemonicParsing="false" text="Time">
+                          <items>
+                            <MenuItem mnemonicParsing="false" text="00" />
+                            <MenuItem mnemonicParsing="false" text="01" />
+                            <MenuItem mnemonicParsing="false" text="02" />
+                            <MenuItem mnemonicParsing="false" text="03" />
+                            <MenuItem mnemonicParsing="false" text="04" />
+                            <MenuItem mnemonicParsing="false" text="05" />
+                            <MenuItem mnemonicParsing="false" text="06" />
+                            <MenuItem mnemonicParsing="false" text="07" />
+                            <MenuItem mnemonicParsing="false" text="08" />
+                            <MenuItem mnemonicParsing="false" text="09" />
+                            <MenuItem mnemonicParsing="false" text="10" />
+                            <MenuItem mnemonicParsing="false" text="11" />
+                            <MenuItem mnemonicParsing="false" text="12" />
+                            <MenuItem mnemonicParsing="false" text="13" />
+                            <MenuItem mnemonicParsing="false" text="14" />
+                            <MenuItem mnemonicParsing="false" text="15" />
+                            <MenuItem mnemonicParsing="false" text="16" />
+                            <MenuItem mnemonicParsing="false" text="17" />
+                            <MenuItem mnemonicParsing="false" text="18" />
+                            <MenuItem mnemonicParsing="false" text="19" />
+                            <MenuItem mnemonicParsing="false" text="20" />
+                            <MenuItem mnemonicParsing="false" text="21" />
+                            <MenuItem mnemonicParsing="false" text="22" />
+                            <MenuItem mnemonicParsing="false" text="23" />
+                              
+                          </items>
+                        </MenuButton>
+                        <MenuButton fx:id="startMinuteField" layoutX="213.0" layoutY="47.0" mnemonicParsing="false" text="Minutt">
+                          <items>
+                            <MenuItem mnemonicParsing="false" text="05" />
+                            <MenuItem mnemonicParsing="false" text="10" />
+                            <MenuItem mnemonicParsing="false" text="15" />
+                            <MenuItem mnemonicParsing="false" text="20" />
+                            <MenuItem mnemonicParsing="false" text="25" />
+                            <MenuItem mnemonicParsing="false" text="30" />
+                            <MenuItem mnemonicParsing="false" text="35" />
+                            <MenuItem mnemonicParsing="false" text="40" />
+                            <MenuItem mnemonicParsing="false" text="45" />
+                            <MenuItem mnemonicParsing="false" text="50" />
+                            <MenuItem mnemonicParsing="false" text="55" />
+                            
+                          </items>
+                        </MenuButton>
+                        <MenuButton fx:id="endHourField" layoutX="127.0" layoutY="80.0" mnemonicParsing="false" text="Time">
+                          <items>
+                            <MenuItem mnemonicParsing="false" text="00" />
+                            <MenuItem mnemonicParsing="false" text="01" />
+                            <MenuItem mnemonicParsing="false" text="02" />
+                            <MenuItem mnemonicParsing="false" text="03" />
+                            <MenuItem mnemonicParsing="false" text="04" />
+                            <MenuItem mnemonicParsing="false" text="05" />
+                            <MenuItem mnemonicParsing="false" text="06" />
+                            <MenuItem mnemonicParsing="false" text="07" />
+                            <MenuItem mnemonicParsing="false" text="08" />
+                            <MenuItem mnemonicParsing="false" text="09" />
+                            <MenuItem mnemonicParsing="false" text="10" />
+                            <MenuItem mnemonicParsing="false" text="11" />
+                            <MenuItem mnemonicParsing="false" text="12" />
+                            <MenuItem mnemonicParsing="false" text="13" />
+                            <MenuItem mnemonicParsing="false" text="14" />
+                            <MenuItem mnemonicParsing="false" text="15" />
+                            <MenuItem mnemonicParsing="false" text="16" />
+                            <MenuItem mnemonicParsing="false" text="17" />
+                            <MenuItem mnemonicParsing="false" text="18" />
+                            <MenuItem mnemonicParsing="false" text="19" />
+                            <MenuItem mnemonicParsing="false" text="20" />
+                            <MenuItem mnemonicParsing="false" text="21" />
+                            <MenuItem mnemonicParsing="false" text="22" />
+                            <MenuItem mnemonicParsing="false" text="23" />
+                          </items>
+                        </MenuButton>
+                        <MenuButton fx:id="endMinuteField" layoutX="213.0" layoutY="80.0" mnemonicParsing="false" text="Minutt">
+                          <items>
+                            <MenuItem mnemonicParsing="false" text="05" />
+                            <MenuItem mnemonicParsing="false" text="10" />
+                            <MenuItem mnemonicParsing="false" text="15" />
+                            <MenuItem mnemonicParsing="false" text="20" />
+                            <MenuItem mnemonicParsing="false" text="25" />
+                            <MenuItem mnemonicParsing="false" text="30" />
+                            <MenuItem mnemonicParsing="false" text="35" />
+                            <MenuItem mnemonicParsing="false" text="40" />
+                            <MenuItem mnemonicParsing="false" text="45" />
+                            <MenuItem mnemonicParsing="false" text="50" />
+                            <MenuItem mnemonicParsing="false" text="55" />
+                          </items>
+                        </MenuButton>
                      </children>
                   </AnchorPane>
                   <AnchorPane layoutX="106.0" layoutY="342.0" prefHeight="310.0" prefWidth="821.0" AnchorPane.rightAnchor="90.0">
@@ -155,6 +235,8 @@
                      </children>
                   </HBox>
                   <Label fx:id="errorLabel" layoutX="811.0" layoutY="33.0" prefHeight="25.0" prefWidth="165.0" />
+                  <TextField fx:id="startField" layoutX="647.0" layoutY="17.0" prefHeight="25.0" prefWidth="300.0" promptText="Please use the format hhmm" />
+                  <TextField fx:id="endField" layoutX="621.0" layoutY="48.0" prefHeight="25.0" prefWidth="300.0" promptText="Please use the format hhmm" />
                </children>
             </AnchorPane>
         </items>
