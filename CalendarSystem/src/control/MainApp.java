@@ -147,8 +147,10 @@ public class MainApp extends Application {
             // Give the controller access to the main app.
             AppointmentOverviewController controller = loader.getController();
             controller.setMainApp(this);
+            controller.initAppointmetTable();
             
-
+//
+            
             
         } catch (IOException e) {
             e.printStackTrace();
