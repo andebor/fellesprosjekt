@@ -3,7 +3,7 @@ package control;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-
+//asd
 import model.Appointment;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -36,7 +36,7 @@ public class AppointmentOverviewController {
 	
 	MainApp mainApp;
 	
-	private ObservableList<Appointment> appointmentList = FXCollections.observableArrayList(); // Currently list over appointments in appointmentTable
+	public static ObservableList<Appointment> appointmentList = FXCollections.observableArrayList(); // Currently list over appointments in appointmentTable
 
     @FXML
     private void initialize() {
@@ -45,9 +45,9 @@ public class AppointmentOverviewController {
     	// Initialize the person table with the two columns.
     	
         avtaleColumn.setCellValueFactory(
-        		cellData -> cellData.getValue().beskrivelseProperty());
+        		cellData -> cellData.getValue().descriptionProperty());
         datoColumn.setCellValueFactory(
-        		cellData -> cellData.getValue().datoProperty());
+        		cellData -> cellData.getValue().dateProperty());
         
         
         // Clear person details.
@@ -58,6 +58,10 @@ public class AppointmentOverviewController {
 				(observable, oldValue, newValue) -> showAppointmentDetails(newValue));
     }
     
+    public static ObservableList<Appointment> getAppointmentList() {
+    	return appointmentList;
+    }
+    
     public ObservableList<Appointment> generateExampleAppointment() {
     	// Just for testing functionality 
     	Appointment appointment = new Appointment();
@@ -66,8 +70,9 @@ public class AppointmentOverviewController {
     	appointment.setPlace("sted");
     	appointment.setStart(LocalTime.of(10,30));
     	appointment.setFrom(LocalTime.of(11,30));
-    	ObservableList<String> list2 = FXCollections.observableArrayList("Ole");
+    	ObservableList<String> list2 = FXCollections.observableArrayList("Ole", "Ansatt 1");
     	appointment.setUsers(list2);
+    	appointment.setRoom("R123");
     	ObservableList<Appointment> list = FXCollections.observableArrayList();
     	list.add(appointment);
     	return list;
@@ -90,12 +95,24 @@ public class AppointmentOverviewController {
     	if (appointment != null) {
     		// Fill the labels with info from the person object.
  
-    		beskrivelseLabel.setText(appointment.getBeskrivelse());
-    		datoLabel.setText(appointment.getDato());
+    		beskrivelseLabel.setText(appointment.getDescription());
+    		datoLabel.setText(appointment.getDate().toString());
+    		tidspunktLabel.setText(appointment.getStart().toString() + " til "  + appointment.getFrom().toString());
+    		if(appointment.getPlace()!=null){
+    		stedLabel.setText(appointment.getPlace());
+    		}
+    		if(appointment.getRoom()!=null){
+    		moteromLabel.setText(appointment.getRoom());
+    		}
+    		
     	} else {
     		// Person is null, remove all the text.
     		beskrivelseLabel.setText("");
     		datoLabel.setText("");
+    		tidspunktLabel.setText("");
+    		datoLabel.setText("");
+    		stedLabel.setText("");
+    		moteromLabel.setText("");
     	}
     }
 	
@@ -103,13 +120,14 @@ public class AppointmentOverviewController {
 	@FXML
 	private void handleNewAppointment() {
 		mainApp.showNewAppointment(null);
+		
 	}
 	
 	 public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
 
         // Add observable list data to the table
-        appointmentTable.setItems(mainApp.getAppointmentList());
+        initAppointmetTable();
 	 }
 
 	
@@ -126,9 +144,18 @@ public class AppointmentOverviewController {
 			return;
 		}
 	}
+	
+	@FXML
+	private void handleDelete() {
+		Appointment appointment = appointmentTable.getSelectionModel().getSelectedItem();
+		if(appointment == null){ // Check if any appointment is selected from list
+			return;
+		}
+		else {
+			getAppointmentList().remove(appointment);
+		}
+		
+	}
 
 
 }
-	
-
-

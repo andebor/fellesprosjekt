@@ -24,7 +24,6 @@ public class MainApp extends Application {
     private ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
     
 	public MainApp() {
-		appointmentList.add(new Appointment("avtaletest", "1. januar"));
 	}
 
 	public void start(Stage primaryStage) {
@@ -33,7 +32,7 @@ public class MainApp extends Application {
 
         initRootNav();
 
-        showAppointmentOverview();
+        showLogin();
 	}
 	
     public void initRootNav() {
@@ -52,6 +51,30 @@ public class MainApp extends Application {
         }
     }
 
+    
+    public void showLogin() {
+        try {
+            // Load person overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("/view/GUI_login.fxml"));
+            AnchorPane appointmentOverview = (AnchorPane) loader.load();
+        	
+            
+            
+            // Set person overview into the center of root layout.
+            rootNav.setCenter(appointmentOverview);
+            
+            
+            // Give the controller access to the main app.
+            LoginController controller = loader.getController();
+            controller.setMainApp(this);
+            
+
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 		
 
     public void showAppointmentOverview() {

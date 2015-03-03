@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-
+// asd
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectPropertyBase;
 import javafx.beans.property.Property;
@@ -15,7 +15,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Appointment {
-	
+	//as
+	private boolean cancel;
 	private StringProperty beskrivelse;
 	private StringProperty dato;
 	private String room;
@@ -41,6 +42,14 @@ public class Appointment {
 	
 	public StringProperty beskrivelseProperty() {
 		return beskrivelse;
+	}
+	
+	public StringProperty descriptionProperty() {
+		return formalProperty;
+	}
+	
+	public StringProperty dateProperty(){
+		return new SimpleStringProperty(getDate().toString());
 	}
 	
 	public String getDato() {
@@ -211,6 +220,14 @@ public class Appointment {
 
 	public void setRoomAmount(int roomAmount) {
 		this.roomAmount = roomAmount;
+	}
+
+	public boolean isCancel() {
+		return cancel;
+	}
+
+	public void setCancel(boolean cancel) {
+		this.cancel = cancel;
 	}
 	
 
