@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.collections.*?>
 <?import java.net.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
@@ -74,7 +75,7 @@
                         <TextField fx:id="roomAmountField" layoutX="157.0" layoutY="158.0" />
                         <Label layoutX="25.0" layoutY="46.0" text="Start-tidspunkt" />
                         <Label layoutX="26.0" layoutY="79.0" text="Slutt-tidspunkt" />
-                        <ComboBox fx:id="startHourField" layoutX="116.0" layoutY="47.0" prefWidth="70.0" promptText="Time" value="08" >
+                        <ComboBox fx:id="startHourField" layoutX="116.0" layoutY="47.0" prefWidth="70.0" promptText="Time" value="08">
                         	<items>
                         		<FXCollections fx:factory="observableArrayList">
                         			<String fx:value="00" /><String fx:value="01" /><String fx:value="02" /><String fx:value="03" /><String fx:value="04" /><String fx:value="05" />
@@ -84,7 +85,7 @@
                         		</FXCollections>
                         	</items>
                         </ComboBox>                        
-                        <ComboBox fx:id="startMinuteField" layoutX="186.0" layoutY="47.0" prefWidth="78.0" promptText="Minutt" value="15" >
+                        <ComboBox fx:id="startMinuteField" layoutX="186.0" layoutY="47.0" prefWidth="78.0" promptText="Minutt" value="15">
                         	<items>
                         		<FXCollections fx:factory="observableArrayList">
                         			<String fx:value="00" /><String fx:value="05" /><String fx:value="10" /><String fx:value="15" /><String fx:value="20" /><String fx:value="25" />
@@ -92,7 +93,7 @@
                         		</FXCollections>
                         	</items>
                         </ComboBox>
-                        <ComboBox fx:id="endHourField" layoutX="116.0" layoutY="80.0" prefWidth="70.0" promptText="Time" value="09" >
+                        <ComboBox fx:id="endHourField" layoutX="116.0" layoutY="80.0" prefWidth="70.0" promptText="Time" value="09">
                         	<items>
                         		<FXCollections fx:factory="observableArrayList">
                         			<String fx:value="00" /><String fx:value="01" /><String fx:value="02" /><String fx:value="03" /><String fx:value="04" /><String fx:value="05" />
@@ -102,7 +103,7 @@
                         		</FXCollections>
                         	</items>
                         </ComboBox>
-                        <ComboBox fx:id="endMinuteField" layoutX="186.0" layoutY="80.0" prefWidth="78.0" promptText="Minutt" value="00" >
+                        <ComboBox fx:id="endMinuteField" layoutX="186.0" layoutY="80.0" prefWidth="78.0" promptText="Minutt" value="00">
                         	<items>
                         		<FXCollections fx:factory="observableArrayList">
                         			<String fx:value="00" /><String fx:value="05" /><String fx:value="10" /><String fx:value="15" /><String fx:value="20" /><String fx:value="25" />
@@ -184,8 +185,6 @@
                      </children>
                   </HBox>
                   <Label fx:id="errorLabel" layoutX="811.0" layoutY="33.0" prefHeight="25.0" prefWidth="165.0" />
-                  <TextField fx:id="startField" layoutX="160.0" layoutY="47.0" prefHeight="25.0" prefWidth="300.0" promptText="Please use the format hhmm" />
-                  <TextField fx:id="endField" layoutX="160.0" layoutY="78.0" prefHeight="25.0" prefWidth="300.0" promptText="Please use the format hhmm" />
                </children>
             </AnchorPane>
         </items>

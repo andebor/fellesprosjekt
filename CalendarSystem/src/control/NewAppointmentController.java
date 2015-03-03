@@ -184,9 +184,10 @@ public class NewAppointmentController implements Initializable {
 
 	}
 	
+	
 	public boolean startTimeValidation(String starts){
 		// Validate "Fra-tid"
-		
+		/*
 		  try { 
 				LocalTime startTime = LocalTime.of(Integer.parseInt(starts.substring(0,2)), Integer.parseInt(starts.substring(2,4)));
 		    } catch(Exception e) { 
@@ -194,8 +195,8 @@ public class NewAppointmentController implements Initializable {
 		    	startField.setPromptText("Ugyldig input");
 		    	return false;
 		    }
+		    */
 		  return true;
-		  
 				
 	}
 	
@@ -204,18 +205,16 @@ public class NewAppointmentController implements Initializable {
 		  try { 
 				LocalTime endTime = LocalTime.of(Integer.parseInt(ends.substring(0,2)), Integer.parseInt(ends.substring(2,4)));
 		    } catch(Exception e) { 
-		    	endField.setText("");
-		    	endField.setPromptText("Ugyldig input");
+		    	endHourField.setPromptText("Ugyldig input");
 		    	return false;
 		    }
 
 		  // Check if start time is before end time
-		LocalTime startTime = LocalTime.of(Integer.parseInt(startField.getText().substring(0,2)), Integer.parseInt(startField.getText().substring(2,4)));
-		LocalTime endTime = LocalTime.of(Integer.parseInt(ends.substring(0,2)), Integer.parseInt(ends.substring(2,4)));
+		LocalTime startTime = LocalTime.of(Integer.parseInt(startHourField.getValue().toString()), Integer.parseInt(startMinuteField.getValue().toString()));
+		LocalTime endTime = LocalTime.of(Integer.parseInt(endHourField.getValue().toString()), Integer.parseInt(endMinuteField.getValue().toString()));
 				
         
 		if(endTime.isBefore(startTime)){
-			endField.setText("start < slutt");
 			return false;
 		}
 		return true;
@@ -376,11 +375,11 @@ public class NewAppointmentController implements Initializable {
 			validationCheck++;
 		}
 		
-		if(startTimeValidation(startField.getText())){
+		if(startTimeValidation(startHourField.getValue().toString())){
 			validationCheck++;
 		}
 
-		if(endTimeValidation(endField.getText())){
+		if(endTimeValidation(endHourField.getValue().toString())){
 			validationCheck++;
 		}
 		
@@ -452,7 +451,7 @@ public class NewAppointmentController implements Initializable {
 			if(!editNewAppointment){
 				errorLabel.setText("Ny avtale lagt inn!");
 				AppointmentOverviewController.getAppointmentList().add(appointment);
-				dialogStage.close();
+				mainApp.showAppointmentOverview();
 			}
 			else {
 				errorLabel.setText("Avtale er endret!");
