@@ -73,6 +73,8 @@
                               <TextField fx:id="startField" layoutX="308.0" layoutY="223.0" prefHeight="25.0" prefWidth="300.0" promptText="Please use the format hhmm" />
                            </children>
                         </HBox>
+                        <Label layoutX="25.0" layoutY="158.0" text="Antall personer" />
+                        <TextField fx:id="roomAmountField" layoutX="157.0" layoutY="158.0" />
                         <HBox layoutX="7.0" layoutY="72.0" styleClass="hbox" AnchorPane.rightAnchor="5.0">
                            <children>
                               <Label layoutX="63.0" layoutY="265.0" text="Slutt-tidspunkt" />
