@@ -67,7 +67,6 @@ public class AppointmentOverviewController {
     	Appointment appointment = new Appointment();
     	appointment.setDescription("test");
     	appointment.setDate(LocalDate.of(2015,12,12));
-    	appointment.setPlace("sted");
     	appointment.setStart(LocalTime.of(10,30));
     	appointment.setFrom(LocalTime.of(11,30));
     	ObservableList<String> list2 = FXCollections.observableArrayList("Ole", "Ansatt 1");
@@ -94,7 +93,7 @@ public class AppointmentOverviewController {
     private void showAppointmentDetails(Appointment appointment) {
     	if (appointment != null) {
     		// Fill the labels with info from the person object.
- 
+    		
     		beskrivelseLabel.setText(appointment.getDescription());
     		datoLabel.setText(appointment.getDate().toString());
     		tidspunktLabel.setText(appointment.getStart().toString() + " til "  + appointment.getFrom().toString());

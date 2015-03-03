@@ -14,7 +14,10 @@ public class LoginController {
 	
 	@FXML
 	private void handleLogin() {
-		mainApp.showAppointmentOverview();
+		System.out.println("Her okja");
+//		mainApp.initRootNav();
+		mainApp.loginSuccess();
+//		mainApp.showAppointmentOverview();
 	}
 
 }
