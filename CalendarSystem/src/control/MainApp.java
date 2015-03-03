@@ -149,7 +149,8 @@ public class MainApp extends Application {
             controller.setMainApp(this);
             controller.initAppointmetTable();
             
-
+//
+            
             
         } catch (IOException e) {
             e.printStackTrace();
