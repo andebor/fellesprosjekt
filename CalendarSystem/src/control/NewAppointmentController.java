@@ -15,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -64,6 +65,9 @@ public class NewAppointmentController implements Initializable {
 	@FXML
 	ListView<String> roomTable; // String needs to be changed to room object
 	
+	@FXML
+	ComboBox startHourField;
+	
 
 	private Stage dialogStage;
 
@@ -74,7 +78,6 @@ public class NewAppointmentController implements Initializable {
 	protected boolean editNewAppointment = false; // true if appointment is to be edited
 	protected boolean cancelAppointment = false; // set true to cancel appointment (on edit appointment)
 	
-
 	
 		
 	@Override
