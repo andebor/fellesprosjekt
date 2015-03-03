@@ -14,6 +14,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 
+
 public class AppointmentOverviewController {
 
     @FXML
@@ -72,6 +73,7 @@ public class AppointmentOverviewController {
     	ObservableList<String> list2 = FXCollections.observableArrayList("Ole", "Ansatt 1");
     	appointment.setUsers(list2);
     	appointment.setRoom("R123");
+    	appointment.setPlace("Dragvoll");
     	ObservableList<Appointment> list = FXCollections.observableArrayList();
     	list.add(appointment);
     	return list;

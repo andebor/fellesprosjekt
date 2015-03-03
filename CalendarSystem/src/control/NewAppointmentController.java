@@ -471,11 +471,15 @@ public class NewAppointmentController implements Initializable {
 				roomAmountField.setPromptText("Ugyldig tall");
 				return false;
 			}
+			if(roomAmountField.getText().isEmpty()){
+				roomAmountField.setText("15");
+				return true;
+			}
 		}
 		catch(Exception e){
 			roomAmountField.setText("");
 			roomAmountField.setPromptText("Ugyldig tall");
-			return false;
+		return false;
 		}
 		return true;
 	}
