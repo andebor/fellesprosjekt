@@ -169,14 +169,8 @@ public class MainApp extends Application {
 			}
 			AnchorPane page = (AnchorPane) loader.load();
 
+			// Set new/change appointment into the center of root layout
 			rootNav.setCenter(page);
-			// Create the dialog Stage.
-//			Stage dialogStage = new Stage();
-//			//dialogStage.setTitle("Endre avtale");
-//			dialogStage.initModality(Modality.WINDOW_MODAL);
-//			dialogStage.initOwner(primaryStage);
-//			Scene scene = new Scene(page);
-//			dialogStage.setScene(scene);
 
 			// Set the person into the controller.
 			if(appointment==null){
@@ -189,9 +183,6 @@ public class MainApp extends Application {
 				controller.loadAppointment();
 				controller.setMainApp(this);
 			}
-
-			// Show the dialog and wait until the user closes it
-//			dialogStage.showAndWait();
 
 			//return controller.isOkClicked();
 			return true;
