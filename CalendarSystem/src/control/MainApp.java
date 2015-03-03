@@ -175,9 +175,17 @@ public class MainApp extends Application {
 			dialogStage.setScene(scene);
 
 			// Set the person into the controller.
+			if(appointment==null){
 			NewAppointmentController controller = loader.getController();
 			controller.setDialogStage(dialogStage);
-			controller.setAppointment(appointment);
+			}
+			else { 
+				editAppointmentController controller = loader.getController();
+				controller.initAppointment(appointment);
+				controller.loadAppointment();
+				controller.setDialogStage(dialogStage);
+			}
+			//controller.setPerson(person);
 
 			// Show the dialog and wait until the user closes it
 			dialogStage.showAndWait();
