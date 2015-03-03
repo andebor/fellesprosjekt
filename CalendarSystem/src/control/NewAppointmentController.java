@@ -415,7 +415,7 @@ public class NewAppointmentController implements Initializable {
 		}
 				
 		
-		if(validationCheck == 6)	{ 
+		if(validationCheck > 1)	{ 
 			
 			// Validation passed. Creating new appointment
 			
@@ -431,8 +431,8 @@ public class NewAppointmentController implements Initializable {
 			appointment.setDescription(descriptionField.getText());
 			appointment.setDate(datePicker.getValue());
 			appointment.setDate(datePicker.getValue());
-			appointment.setStart(LocalTime.of(Integer.parseInt(startHourField.getValue().toString()), Integer.parseInt(startField.getText().substring(2,4))));
-			appointment.setFrom(LocalTime.of(Integer.parseInt(endHourField.getValue().toString()), Integer.parseInt(endField.getText().substring(2,4))));
+			appointment.setStart(LocalTime.of(Integer.parseInt(startHourField.getValue().toString()), Integer.parseInt(startHourField.getValue().toString())));
+			appointment.setFrom(LocalTime.of(Integer.parseInt(endHourField.getValue().toString()), Integer.parseInt(endHourField.getValue().toString())));
 			if(reservationButton.isSelected()){
 				appointment.setRoomAmount(Integer.parseInt(roomAmountField.getText()));		
 				appointment.setRoom(roomTable.getSelectionModel().getSelectedItem());
