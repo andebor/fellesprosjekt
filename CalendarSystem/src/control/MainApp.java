@@ -177,17 +177,15 @@ public class MainApp extends Application {
 
 			// Set the person into the controller.
 			if(appointment==null){
-			NewAppointmentController controller = loader.getController();
-//			controller.setDialogStage(dialogStage);
-			controller.setMainApp(this);
-			}
-			else { 
-				editAppointmentController controller = loader.getController();
-				controller.initAppointment(appointment);
-				controller.loadAppointment();
+				NewAppointmentController controller = loader.getController();
 				controller.setMainApp(this);
-			}
-			//controller.setPerson(person);
+				}
+				else { 
+					editAppointmentController controller = loader.getController();
+					controller.initAppointment(appointment);
+					controller.loadAppointment();
+					controller.setMainApp(this);
+				}
 
 			// Show the dialog and wait until the user closes it
 //			dialogStage.showAndWait();
@@ -196,7 +194,7 @@ public class MainApp extends Application {
 			return true;
 		} catch (IOException e) {
 			e.printStackTrace();
-			return false;
+			return false;	
 		}
 	}
     

@@ -24,7 +24,7 @@
                         <HBox layoutY="169.0" styleClass="hbox" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
                            <children>
                               <Label layoutX="105.0" layoutY="300.0" text="Sted" />
-                              <TextField fx:id="placeField" layoutX="148.0" layoutY="295.0" prefHeight="25.0" prefWidth="300.0" />
+                              <TextField fx:id="placeField" layoutX="148.0" layoutY="295.0" prefHeight="25.0" prefWidth="300.0" text="Firma X" />
                            </children>
                         </HBox>
                         <HBox layoutX="57.0" layoutY="85.0" prefHeight="95.0" prefWidth="379.0" styleClass="hbox" AnchorPane.rightAnchor="0.0">
@@ -89,12 +89,12 @@
                            <children>
                               <VBox prefHeight="162.0" prefWidth="300.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                                  <children>
-                                    <ListView fx:id="addedTable" layoutX="64.0" prefHeight="293.0" prefWidth="300.0">
+                                    <ListView fx:id="added" layoutX="64.0" prefHeight="293.0" prefWidth="300.0">
                                        <VBox.margin>
                                           <Insets bottom="2.5" />
                                        </VBox.margin>
                                     </ListView>
-                                    <Button fx:id="removeEmployersButton" layoutX="-105.0" layoutY="149.0" mnemonicParsing="false" onAction="#removeButtonAction" prefHeight="25.0" prefWidth="300.0" text="Fjern" AnchorPane.rightAnchor="184.0">
+                                    <Button fx:id="removeEmployeesButton" layoutX="-105.0" layoutY="149.0" mnemonicParsing="false" onAction="#removeButtonAction" prefHeight="25.0" prefWidth="300.0" text="Fjern" AnchorPane.rightAnchor="184.0">
                                        <VBox.margin>
                                           <Insets top="2.5" />
                                        </VBox.margin>
@@ -122,12 +122,12 @@
                                     <Label text="Ansatte" />
                                     <VBox layoutX="56.0" prefHeight="162.0" prefWidth="300.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
                                        <children>
-                                          <ListView fx:id="employersTable" layoutX="366.0" maxHeight="130.0" prefHeight="130.0" prefWidth="300.0">
+                                          <ListView fx:id="employeesTable" layoutX="366.0" maxHeight="130.0" prefHeight="130.0" prefWidth="300.0">
                                              <VBox.margin>
                                                 <Insets bottom="2.5" />
                                              </VBox.margin>
                                           </ListView>
-                                          <Button fx:id="addEmployersButton" layoutX="61.0" mnemonicParsing="false" onAction="#addButtonAction" prefHeight="25.0" prefWidth="300.0" text="Legg til">
+                                          <Button fx:id="addEmployeesButton" layoutX="61.0" mnemonicParsing="false" onAction="#addButtonAction" prefHeight="25.0" prefWidth="300.0" text="Legg til">
                                              <VBox.margin>
                                                 <Insets top="2.5" />
                                              </VBox.margin>

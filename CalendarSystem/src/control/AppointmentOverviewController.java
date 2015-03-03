@@ -133,11 +133,11 @@ public class AppointmentOverviewController {
 	@FXML
 	private void handleEditAppointment() {
 		try {
-			Appointment appointment = appointmentTable.getSelectionModel().getSelectedItem();
-			if(appointment == null){ // Check if any appointment is selected from list
+			Appointment selectedAppointment = appointmentTable.getSelectionModel().getSelectedItem();
+			if(selectedAppointment == null){ // Check if any appointment is selected from list
 				return;
 			}
-			mainApp.showNewAppointment(appointment);
+			mainApp.showNewAppointment(selectedAppointment);
 		}
 		catch(Exception e){
 			return;
