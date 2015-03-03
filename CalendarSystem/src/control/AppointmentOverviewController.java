@@ -3,6 +3,8 @@ package control;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
+
 //asd
 import model.Appointment;
 import javafx.collections.FXCollections;
@@ -34,6 +36,8 @@ public class AppointmentOverviewController {
 	Label stedLabel;
 	@FXML
 	Label moteromLabel;
+	@FXML
+	Label deltagereLabel;
 	
 	MainApp mainApp;
 	
@@ -105,6 +109,16 @@ public class AppointmentOverviewController {
     		if(appointment.getRoom()!=null){
     		moteromLabel.setText(appointment.getRoom());
     		}
+    		List<String> users = appointment.getUsers();
+    		
+    		String listString = "";
+
+    		for (String s : users)
+    		{
+    		    listString += s + "\n";
+    		}
+    		
+    		deltagereLabel.setText(listString);
     		
     	} else {
     		// Person is null, remove all the text.
@@ -114,6 +128,7 @@ public class AppointmentOverviewController {
     		datoLabel.setText("");
     		stedLabel.setText("");
     		moteromLabel.setText("");
+    		deltagereLabel.setText("");
     	}
     }
 	
