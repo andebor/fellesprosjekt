@@ -28,7 +28,12 @@ import javafx.util.StringConverter;
 
 public class NewAppointmentController implements Initializable {
 	
+	MainApp mainApp;
 	
+	 public void setMainApp(MainApp mainApp) {
+	        this.mainApp = mainApp;
+		 }
+	 
 	@FXML
 	TextField descriptionField;
 	
@@ -480,7 +485,8 @@ public class NewAppointmentController implements Initializable {
 	public void cleanAppointment(ActionEvent event) {
 		
 		// Clean form. Not complete
-		dialogStage.close();
+//		dialogStage.close();
+		mainApp.showAppointmentOverview();
 		
 	}
 	

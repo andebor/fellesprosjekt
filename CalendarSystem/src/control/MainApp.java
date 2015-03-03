@@ -166,29 +166,31 @@ public class MainApp extends Application {
 			}
 			AnchorPane page = (AnchorPane) loader.load();
 
+			rootNav.setCenter(page);
 			// Create the dialog Stage.
-			Stage dialogStage = new Stage();
-			//dialogStage.setTitle("Endre avtale");
-			dialogStage.initModality(Modality.WINDOW_MODAL);
-			dialogStage.initOwner(primaryStage);
-			Scene scene = new Scene(page);
-			dialogStage.setScene(scene);
+//			Stage dialogStage = new Stage();
+//			//dialogStage.setTitle("Endre avtale");
+//			dialogStage.initModality(Modality.WINDOW_MODAL);
+//			dialogStage.initOwner(primaryStage);
+//			Scene scene = new Scene(page);
+//			dialogStage.setScene(scene);
 
 			// Set the person into the controller.
 			if(appointment==null){
 			NewAppointmentController controller = loader.getController();
-			controller.setDialogStage(dialogStage);
+//			controller.setDialogStage(dialogStage);
+			controller.setMainApp(this);
 			}
 			else { 
 				editAppointmentController controller = loader.getController();
 				controller.initAppointment(appointment);
 				controller.loadAppointment();
-				controller.setDialogStage(dialogStage);
+				controller.setMainApp(this);
 			}
 			//controller.setPerson(person);
 
 			// Show the dialog and wait until the user closes it
-			dialogStage.showAndWait();
+//			dialogStage.showAndWait();
 
 			//return controller.isOkClicked();
 			return true;
