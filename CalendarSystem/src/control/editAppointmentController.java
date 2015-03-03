@@ -36,7 +36,9 @@ public class editAppointmentController extends NewAppointmentController implemen
 		
 		super.descriptionField.setText(appointmentToEdit.getDescription());
 		if(appointmentToEdit.getPlace()==null){
-			super.placeField.setText(appointmentToEdit.getRoom());
+			super.placeField.setPromptText(appointmentToEdit.getRoom());
+			super.reservationButton.setSelected(true);
+			super.roomTable.getSelectionModel().select(appointmentToEdit.getRoom());
 		}
 		else{
 			super.placeField.setText(appointmentToEdit.getPlace());
