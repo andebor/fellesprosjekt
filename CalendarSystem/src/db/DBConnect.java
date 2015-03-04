@@ -57,16 +57,25 @@ public class DBConnect {
 	}
 	
 	public void close() {
+		//Closes all resources.
 		try {
-			this.connection.close();
+			if (connection != null) {
+				connection.close();
+			}
+			if (statement != null) {
+				statement.close();
+			}
+			if (results != null) {
+				results.close();
+			}
 		} catch (SQLException e) {
-			System.out.println("Connection could not be closed:");
+			System.out.println("One or more resources could not be closed:");
 			System.out.println(e);
 		}
 	}
 	
 	private String getPassword(String user) {
-		//This method takes a username ("something@firmax.no") and returns that user's password.
+		//This method takes a username ("something@firmax.no") and returns that user's password. Returns null if user does not exist.
 		String query = "SELECT * FROM ansatt WHERE brukernavn = '" + user + "'";
 		String result = null;
 		try {
@@ -76,17 +85,56 @@ public class DBConnect {
 			result = results.getString("passord");
 		} catch (SQLException e) {
 			System.out.println("Unable to obtain password.");
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		return result;
 	}
 	
+	private boolean addNewAppointment(String description, String startTime, String endTime, String location, Integer meetingRoom, int owner) {
+		//Adds new appointment to the DB.
+		//description, location and meetingRoom may be null.
+		//owner should be employee number of whomever created the appointment.
+		//start time and end time must be formatted strings. Correct format is "CCYY-MM-12 HH:MM:SS".
+		String query = "INSERT INTO avtale (formål, starttid, sluttid, ";
+		if (location != null) {
+			query += "sted, ";
+		}
+		if (meetingRoom != null) {
+			query += "møteromNR, ";
+		}
+		query += "ansvarlig) VALUES ('";
+		if (description != null) {
+			query += description + "', '";
+		}else {
+			query += "Ny avtale', '";
+		}
+		query += startTime + "', '" + endTime + "', ";
+		if (location != null) {
+			query += "'" + location + "', ";
+		}
+		if (meetingRoom != null) {
+			query += "'" + meetingRoom + "', ";
+		}
+		query += owner + ");";
+		System.out.println(query);
+		try {
+			statement = connection.createStatement();
+			statement.executeUpdate(query);
+		}catch (SQLException e) {
+			System.out.println("Unable to create appointment.");
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+	
 	public static void main(String[] args) {
 		DBConnect dbc = new DBConnect();
-		//dbc.printData("ansatt");
+		dbc.printData("ansatt");
 		String domain = "@firmax.no";
-		String password = dbc.getPassword("hermoine" + domain);
-		System.out.println(password);
+		String password = dbc.getPassword("gordonfreeman" + domain);
+		//System.out.println(password);
+		dbc.addNewAppointment("Planlegge fest hos Mange", "2012-06-15 09:15:00", "2012-06-15 16:00:00", null, 203, 623901);
 		dbc.close();
 	}
 
