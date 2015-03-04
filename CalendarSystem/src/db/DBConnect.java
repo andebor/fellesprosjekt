@@ -128,13 +128,52 @@ public class DBConnect {
 		return true;
 	}
 	
+	private boolean isExistingAppointment1(int appointmentID) {
+		//Returns true if record of the appointment exists in the DB.
+		boolean exists = false;
+		String query = "SELECT COUNT(*) FROM avtale WHERE avtaleID = " + appointmentID;
+		try {
+			statement = connection.createStatement();
+			results = statement.executeQuery(query); //Results is a 1x1 table containing the number of appointments corresponding to the appointmentID. Should be 0 or 1.
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		try {
+			results.next();
+			exists = results.getInt(1) == 1;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return exists;
+	}
+	
+	private boolean isExistingAppointment(int appointmentID) {
+		String query = "SELECT * FROM avtale WHERE avtaleID = " + appointmentID;
+		try {
+			statement = connection.createStatement();
+			results = statement.executeQuery(query);
+			return results.next();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	private boolean removeAppointment(int appointmentID) {
+		//Removes appointment from the DB.
+		String query = "DELETE FROM avtale WHERE avtaleID = " + appointmentID;
+		return true;
+	}
+	
 	public static void main(String[] args) {
 		DBConnect dbc = new DBConnect();
 		dbc.printData("ansatt");
 		String domain = "@firmax.no";
 		String password = dbc.getPassword("gordonfreeman" + domain);
 		//System.out.println(password);
-		dbc.addNewAppointment("Planlegge fest hos Mange", "2012-06-15 09:15:00", "2012-06-15 16:00:00", null, 203, 623901);
+		//dbc.addNewAppointment("Planlegge fest hos Mange", "2012-06-15 09:15:00", "2012-06-15 16:00:00", null, 203, 623901);
+		System.out.println(dbc.isExistingAppointment(2));
+		System.out.println(dbc.isExistingAppointment(7));
 		dbc.close();
 	}
 
