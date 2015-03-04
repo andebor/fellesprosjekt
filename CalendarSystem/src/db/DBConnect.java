@@ -1,11 +1,14 @@
 package db;
 
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Stack;
 
 public class DBConnect {
 	//This class establishes a connection to the database, enabling the server to execute queries
@@ -158,12 +161,25 @@ public class DBConnect {
 		try {
 			statement = connection.createStatement();
 			statement.executeUpdate(query);
+			//Appointment should be in the DB by now. The final step is adding the owner of the appointment to the appointment.
+			return addEmployeeToAppointment(getLatestAddition("avtale", "avtaleID"), owner);
 		}catch (SQLException e) {
 			System.out.println("Unable to create appointment.");
 			e.printStackTrace();
 			return false;
 		}
-		return true;
+	}
+	
+	private boolean addEmployeeToAppointment(int appointmenID, int empNo) {
+		String query = "INSERT INTO avtaleAnsatt (avtaleID, ansattNR) VALUES (" + appointmenID + ", " + empNo + ")";
+		try {
+			statement = connection.createStatement();
+			statement.executeUpdate(query);
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
 //	private boolean isExistingAppointment1(int appointmentID) {
@@ -227,9 +243,9 @@ public class DBConnect {
 	}
 	
 	/**
-	 * 
-	 * @param table
-	 * @param primaryKey
+	 * Finds the latest addition to a table.
+	 * @param table Name of table.
+	 * @param primaryKey Name of primary key, should have auto_increment.
 	 * @return Returns the ID of the latest addition to any table in the DB with auto_increment.
 	 */
 	private int getLatestAddition(String table, String primaryKey) {	
@@ -240,10 +256,37 @@ public class DBConnect {
 			results = statement.executeQuery(query);
 			results.next();
 			return results.getInt(primaryKey);
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return -1;
+		}
+	}
+	
+	/**
+	 * Removes the latest addition to a table.
+	 * @param table Name of table.
+	 * @param primaryKey Name of primary key, should have auto_increment.
+	 * @return True if removal is successful, false otherwise.
+	 */
+	private boolean removeLatest(String table, String primaryKey) {
+		int index = getLatestAddition(table, primaryKey);
+		return removeAppointment(index);
+	}
+	
+	private Stack<Integer> getGroup (int groupID) {
+		String query = "SELECT ansatt.ansattNR FROM ansatt JOIN gruppeAnsatt ON ansatt.ansattNR = gruppeAnsatt.ansattNR JOIN gruppe ON gruppe.gruppeID = gruppeAnsatt.gruppeID WHERE gruppe.gruppeID = " + groupID;
+		Stack<Integer> group = new Stack<Integer>();
+		try {
+			statement = connection.createStatement();
+			results = statement.executeQuery(query);
+			while (results.next()) {
+				group.push(results.getInt(1));
+			}
+			return group;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
 		}
 	}
 	
@@ -251,13 +294,13 @@ public class DBConnect {
 		DBConnect dbc = new DBConnect();
 		dbc.printData("avtale");
 		String domain = "@firmax.no";
-		String password = dbc.getPassword("gordonfreeman" + domain);
-		//System.out.println(password);
-		dbc.addNewAppointment("Kate's birthday party", "2012-06-15 09:15:00", "2012-06-15 16:00:00", null, 203, 623901);
-		//System.out.println(dbc.isExistingAppointment(2));
-		//System.out.println(dbc.isExistingAppointment(7));
-		System.out.println(dbc.getLatestAddition("avtale", "avtaleID"));
-		dbc.removeAppointment(4);
+		String table1 = "avtale";
+		String table2 = "avtaleAnsatt";
+		String primaryKey = "avtaleID";
+		//dbc.addNewAppointment("Something", "2012-06-15 19:15:00", "2012-06-15 23:00:00", null, 203, 623900);
+		//dbc.addEmployeeToAppointment(1, 623904);
+		//dbc.printData(table2);
+		System.out.println(dbc.getGroup(1));
 		dbc.close();
 	}
 

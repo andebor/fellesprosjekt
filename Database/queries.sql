@@ -10,8 +10,8 @@ ON gruppe.gruppeID = gruppeAnsatt.gruppeID
 WHERE gruppe.gruppeID =  --?
 ;
 
--- Finds all employees attending appointment ?
-SELECT fornavn, etternavn
+-- Finds all employees invited to appointment ?
+SELECT ansatt.ansattNR, fornavn, etternavn
 FROM ansatt
 JOIN avtaleAnsatt
 ON avtaleAnsatt.ansattNR = ansatt.ansattNR
