@@ -35,8 +35,10 @@ public class editAppointmentController extends NewAppointmentController implemen
 	public void loadAppointment(){
 		
 		super.descriptionField.setText(appointmentToEdit.getDescription());
-	    super.startField.setText(appointmentToEdit.getStart().toString());
-	    super.endField.setText(appointmentToEdit.getFrom().toString());
+	    super.startHourField.setValue(Integer.toString(appointmentToEdit.getStart().getHour()));
+	    super.startMinuteField.setValue(Integer.toString(appointmentToEdit.getStart().getMinute()));
+	    super.endHourField.setValue(Integer.toString(appointmentToEdit.getFrom().getHour()));
+	    super.endMinuteField.setValue(Integer.toString(appointmentToEdit.getFrom().getMinute()));
 		ObservableList<String> list = FXCollections.observableArrayList(appointmentToEdit.getUsers());
 		if(!(appointmentToEdit.getAlarm()==0)){
 		super.alarmButton.setSelected(true);

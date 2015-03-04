@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.collections.*?>
 <?import java.net.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
@@ -67,20 +68,111 @@
                               <DatePicker fx:id="datePicker" prefHeight="25.0" prefWidth="300.0" styleClass="rightAlign" />
                            </children>
                         </HBox>
-                        <HBox layoutX="6.0" layoutY="36.0" styleClass="hbox" AnchorPane.rightAnchor="5.0">
-                           <children>
-                              <Label layoutX="62.0" layoutY="228.0" text="Start-tidspunkt" />
-                              <TextField fx:id="startField" layoutX="308.0" layoutY="223.0" prefHeight="25.0" prefWidth="300.0" promptText="Please use the format hhmm" />
-                           </children>
-                        </HBox>
+                        <HBox layoutX="6.0" layoutY="36.0" styleClass="hbox" AnchorPane.rightAnchor="5.0" />
                         <Label layoutX="25.0" layoutY="158.0" text="Antall personer" />
                         <TextField fx:id="roomAmountField" layoutX="157.0" layoutY="158.0" />
-                        <HBox layoutX="7.0" layoutY="72.0" styleClass="hbox" AnchorPane.rightAnchor="5.0">
+                        <HBox layoutX="17.0" layoutY="74.0" styleClass="hbox" AnchorPane.rightAnchor="310.0">
                            <children>
                               <Label layoutX="63.0" layoutY="265.0" text="Slutt-tidspunkt" />
-                              <TextField fx:id="endField" layoutX="308.0" layoutY="260.0" prefHeight="25.0" prefWidth="300.0" promptText="Please use the format hhmm" />
                            </children>
                         </HBox>
+                        <Label layoutX="21.0" layoutY="42.0" text="Start-tidspunkt" />
+                        <ComboBox fx:id="startHourField" layoutX="116.0" layoutY="46.0" prefWidth="70.0" promptText="Time" value="08">
+                           <items>
+                              <FXCollections fx:factory="observableArrayList">
+                                 <String fx:value="00" />
+                                 <String fx:value="01" />
+                                 <String fx:value="02" />
+                                 <String fx:value="03" />
+                                 <String fx:value="04" />
+                                 <String fx:value="05" />
+                                 <String fx:value="06" />
+                                 <String fx:value="07" />
+                                 <String fx:value="08" />
+                                 <String fx:value="09" />
+                                 <String fx:value="10" />
+                                 <String fx:value="10" />
+                                 <String fx:value="12" />
+                                 <String fx:value="13" />
+                                 <String fx:value="14" />
+                                 <String fx:value="15" />
+                                 <String fx:value="16" />
+                                 <String fx:value="17" />
+                                 <String fx:value="18" />
+                                 <String fx:value="19" />
+                                 <String fx:value="20" />
+                                 <String fx:value="21" />
+                                 <String fx:value="22" />
+                                 <String fx:value="23" />
+                              </FXCollections>
+                           </items>
+                        </ComboBox>
+                        <ComboBox fx:id="startMinuteField" layoutX="186.0" layoutY="46.0" prefWidth="78.0" promptText="Minutt" value="15">
+                           <items>
+                              <FXCollections fx:factory="observableArrayList">
+                                 <String fx:value="00" />
+                                 <String fx:value="05" />
+                                 <String fx:value="10" />
+                                 <String fx:value="15" />
+                                 <String fx:value="20" />
+                                 <String fx:value="25" />
+                                 <String fx:value="30" />
+                                 <String fx:value="35" />
+                                 <String fx:value="40" />
+                                 <String fx:value="45" />
+                                 <String fx:value="50" />
+                                 <String fx:value="55" />
+                              </FXCollections>
+                           </items>
+                        </ComboBox>
+                        <ComboBox fx:id="endHourField" layoutX="116.0" layoutY="80.0" prefWidth="70.0" promptText="Time" value="09">
+                           <items>
+                              <FXCollections fx:factory="observableArrayList">
+                                 <String fx:value="00" />
+                                 <String fx:value="01" />
+                                 <String fx:value="02" />
+                                 <String fx:value="03" />
+                                 <String fx:value="04" />
+                                 <String fx:value="05" />
+                                 <String fx:value="06" />
+                                 <String fx:value="07" />
+                                 <String fx:value="08" />
+                                 <String fx:value="09" />
+                                 <String fx:value="10" />
+                                 <String fx:value="10" />
+                                 <String fx:value="12" />
+                                 <String fx:value="13" />
+                                 <String fx:value="14" />
+                                 <String fx:value="15" />
+                                 <String fx:value="16" />
+                                 <String fx:value="17" />
+                                 <String fx:value="18" />
+                                 <String fx:value="19" />
+                                 <String fx:value="20" />
+                                 <String fx:value="21" />
+                                 <String fx:value="22" />
+                                 <String fx:value="23" />
+                              </FXCollections>
+                           </items>
+                        </ComboBox>
+                        <ComboBox fx:id="endMinuteField" layoutX="186.0" layoutY="80.0" prefWidth="78.0" promptText="Minutt" value="00">
+                           <items>
+                              <FXCollections fx:factory="observableArrayList">
+                                 <String fx:value="00" />
+                                 <String fx:value="05" />
+                                 <String fx:value="10" />
+                                 <String fx:value="15" />
+                                 <String fx:value="20" />
+                                 <String fx:value="25" />
+                                 <String fx:value="30" />
+                                 <String fx:value="35" />
+                                 <String fx:value="40" />
+                                 <String fx:value="45" />
+                                 <String fx:value="50" />
+                                 <String fx:value="55" />
+                              </FXCollections>
+                           </items>
+                        </ComboBox>
                      </children>
                   </AnchorPane>
                   <AnchorPane layoutX="106.0" layoutY="342.0" prefHeight="310.0" prefWidth="821.0" AnchorPane.rightAnchor="90.0">
@@ -147,7 +239,7 @@
                               <Insets right="2.5" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="declineButton" layoutX="802.0" layoutY="548.0" mnemonicParsing="false" onAction="#cleanAppointment" prefHeight="25.0" prefWidth="147.5" text="Forkast">
+                        <Button fx:id="declineButton" layoutX="802.0" layoutY="548.0" mnemonicParsing="false" onAction="#cleanAppointment" prefHeight="25.0" prefWidth="147.5" text="Avbryt">
                            <HBox.margin>
                               <Insets left="2.5" />
                            </HBox.margin>
