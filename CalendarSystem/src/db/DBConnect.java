@@ -65,9 +65,28 @@ public class DBConnect {
 		}
 	}
 	
+	private String getPassword(String user) {
+		//This method takes a username ("something@firmax.no") and returns that user's password.
+		String query = "SELECT * FROM ansatt WHERE brukernavn = '" + user + "'";
+		String result = null;
+		try {
+			statement = connection.createStatement();
+			results = statement.executeQuery(query);
+			results.next(); //Gets the next and only result of this query
+			result = results.getString("passord");
+		} catch (SQLException e) {
+			System.out.println("Unable to obtain password.");
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
 	public static void main(String[] args) {
 		DBConnect dbc = new DBConnect();
-		dbc.printData("ansatt");
+		//dbc.printData("ansatt");
+		String domain = "@firmax.no";
+		String password = dbc.getPassword("hermoine" + domain);
+		System.out.println(password);
 		dbc.close();
 	}
 
