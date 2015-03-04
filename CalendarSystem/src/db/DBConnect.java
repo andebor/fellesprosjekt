@@ -101,8 +101,12 @@ public class DBConnect {
 		}
 	}
 	
+	/**
+	 * Retrieves a user's password from the DB.
+	 * @param user Username on the format "something@firmax.no"
+	 * @return Password of the user, null if user does not exist.
+	 */
 	private String getPassword(String user) {
-		//This method takes a username ("something@firmax.no") and returns that user's password. Returns null if user does not exist.
 		String query = "SELECT * FROM ansatt WHERE brukernavn = '" + user + "'";
 		String result = null;
 		try {
@@ -117,11 +121,18 @@ public class DBConnect {
 		return result;
 	}
 	
+	/**
+	 * Adds new appointment to the DB.
+	 * 
+	 * @param description If null the default is "Ny avtale".
+	 * @param startTime Must be formatted string. Accepted format is "CCYY-MM-DD HH:MM:SS".
+	 * @param endTime Must be formatted string. Accepted format is "CCYY-MM-DD HH:MM:SS".
+	 * @param location Can be null.
+	 * @param meetingRoom Can be null.
+	 * @param owner ansattNR of whomever created the appointment.
+	 * @return True if addition was successful, false otherwise.
+	 */
 	private boolean addNewAppointment(String description, String startTime, String endTime, String location, Integer meetingRoom, int owner) {
-		//Adds new appointment to the DB.
-		//description, location and meetingRoom may be null.
-		//owner should be employee number of whomever created the appointment.
-		//start time and end time must be formatted strings. Correct format is "CCYY-MM-12 HH:MM:SS".
 		String query = "INSERT INTO avtale (formål, starttid, sluttid, ";
 		if (location != null) {
 			query += "sted, ";
@@ -129,18 +140,18 @@ public class DBConnect {
 		if (meetingRoom != null) {
 			query += "møteromNR, ";
 		}
-		query += "ansvarlig) VALUES ('";
+		query += "ansvarlig) VALUES (\"";
 		if (description != null) {
-			query += description + "', '";
+			query += description + "\", \"";
 		}else {
-			query += "Ny avtale', '";
+			query += "Ny avtale\", \"";
 		}
-		query += startTime + "', '" + endTime + "', ";
+		query += startTime + "\", \"" + endTime + "\", ";
 		if (location != null) {
-			query += "'" + location + "', ";
+			query += "\"" + location + "\", ";
 		}
 		if (meetingRoom != null) {
-			query += "'" + meetingRoom + "', ";
+			query += "\"" + meetingRoom + "\", ";
 		}
 		query += owner + ");";
 		System.out.println(query);
@@ -175,8 +186,12 @@ public class DBConnect {
 //		return exists;
 //	}
 	
+	/**
+	 * 
+	 * @param appointmentID
+	 * @return True if record of the appointment exists in the DB, false otherwise.
+	 */
 	private boolean isExistingAppointment(int appointmentID) {
-		//Returns true if record of the appointment exists in the DB.
 		String query = "SELECT * FROM avtale WHERE avtaleID = " + appointmentID;
 		try {
 			statement = connection.createStatement();
@@ -188,10 +203,16 @@ public class DBConnect {
 		return false;
 	}
 	
+	/**
+	 * Removes appointment from the DB, if it exists.
+	 * CAUTION: Irreversible deletion
+	 * @param appointmentID
+	 * @return Returns true if the appointment was successfully removed, false otherwise.
+	 */
 	private boolean removeAppointment(int appointmentID) {
-		//Removes appointment from the DB, if it exists.
+		//
 		if (!isExistingAppointment(appointmentID)) {
-			System.out.println("There is no record of an appointment with the ID " + appointmentID + "in the database.");
+			System.out.println("There is no record of an appointment with the ID " + appointmentID + " in the database.");
 			return false;
 		}
 		String query = "DELETE FROM avtale WHERE avtaleID = " + appointmentID;
@@ -205,15 +226,38 @@ public class DBConnect {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param table
+	 * @param primaryKey
+	 * @return Returns the ID of the latest addition to any table in the DB with auto_increment.
+	 */
+	private int getLatestAddition(String table, String primaryKey) {	
+		String query = "SELECT * FROM " + table + " WHERE " + primaryKey + " = (SELECT MAX(" + primaryKey + ") FROM " + table + ")";
+		System.out.println(query);
+		try {
+			statement = connection.createStatement();
+			results = statement.executeQuery(query);
+			results.next();
+			return results.getInt(primaryKey);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
+	
 	public static void main(String[] args) {
 		DBConnect dbc = new DBConnect();
 		dbc.printData("avtale");
 		String domain = "@firmax.no";
 		String password = dbc.getPassword("gordonfreeman" + domain);
 		//System.out.println(password);
-		//dbc.addNewAppointment("Planlegge fest hos Mange", "2012-06-15 09:15:00", "2012-06-15 16:00:00", null, 203, 623901);
+		dbc.addNewAppointment("Kate's birthday party", "2012-06-15 09:15:00", "2012-06-15 16:00:00", null, 203, 623901);
 		//System.out.println(dbc.isExistingAppointment(2));
 		//System.out.println(dbc.isExistingAppointment(7));
+		System.out.println(dbc.getLatestAddition("avtale", "avtaleID"));
+		dbc.removeAppointment(4);
 		dbc.close();
 	}
 
