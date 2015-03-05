@@ -45,7 +45,7 @@ CREATE TABLE avtale (
 
 	PRIMARY KEY (avtaleID),
 	FOREIGN KEY (møteromNR) REFERENCES møterom(møteromNR),
-	FOREIGN KEY (ansvarlig) REFERENCES ansatt(ansattNR)
+	FOREIGN KEY (ansvarlig) REFERENCES ansatt(ansattNR),
 	);
 
 -- CREATE TABLE avtaleMøterom (
