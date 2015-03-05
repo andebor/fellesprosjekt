@@ -99,12 +99,12 @@ public class MainApp extends Application {
     		FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("/view/GUI_calendar.fxml"));
             AnchorPane calendarView = (AnchorPane) loader.load();
+
             
             rootNav.setCenter(calendarView);
-            
             // Give the controller access to the main app.
-//            CalendarController controller = loader.getController();
-//            controller.setMainApp(this);
+            CalendarController controller = loader.getController();
+            controller.setMainApp(this);
             
     	} catch (IOException e) {
             e.printStackTrace();

@@ -69,8 +69,6 @@ public class NewAppointmentController implements Initializable {
 	ComboBox startHourField, startMinuteField, endHourField, endMinuteField;
 	
 
-	private Stage dialogStage;
-
 	protected ObservableList<String> addedList = FXCollections.observableArrayList(); // currently list over added employers
 	protected ObservableList<String> employersList = FXCollections.observableArrayList(); //currently list over employers
 	protected ObservableList<String> groupList = FXCollections.observableArrayList(); // // currently over groups
@@ -92,9 +90,6 @@ public class NewAppointmentController implements Initializable {
 		
 	}	
 	
-    public void setDialogStage(Stage dialogStage) {
-        this.dialogStage = dialogStage;
-    }
     
     public void dateCalenderfix(){
 		// gj�r datoer f�r dagens dato utilgjengelige
@@ -489,9 +484,6 @@ public class NewAppointmentController implements Initializable {
 
 	
 	public void cleanAppointment(ActionEvent event) {
-		
-		// Clean form. Not complete
-//		dialogStage.close();
 		mainApp.showAppointmentOverview();
 		
 	}
