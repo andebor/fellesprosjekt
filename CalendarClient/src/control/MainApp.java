@@ -102,7 +102,6 @@ public class MainApp extends Application {
 
             
             rootNav.setCenter(calendarView);
-            
             // Give the controller access to the main app.
             CalendarController controller = loader.getController();
             controller.setMainApp(this);

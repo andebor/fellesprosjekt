@@ -35,7 +35,6 @@ public class CalendarController {
 		generateCalendar(generateExampleAppointment());
 
 
-		
 	}
 	
 	public void generateCalendar(Appointment appointment){
