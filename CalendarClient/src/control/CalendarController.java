@@ -147,7 +147,6 @@ public class CalendarController {
     	calendarGridPane.add(hour15, 0, 15);
     	calendarGridPane.add(hour16, 0, 16);
     	
-    	
     }
 	
 	public void generateCalendar(Appointment appointment){
