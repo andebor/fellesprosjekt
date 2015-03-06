@@ -40,6 +40,8 @@ public class Client
 			
 			sendToServer("hei server, fra client");
 			
+			
+			
 			//s.close(); //Denne linjen fikser alt.
 		} 
 		catch(Exception ConnectException){
@@ -67,6 +69,9 @@ public class Client
 		return output;
 	}
 	
+	public void closeClient() throws IOException {
+		s.close();
+	}
 	
    public static void main(String [] args) throws Exception {
 	   
