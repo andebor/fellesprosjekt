@@ -88,9 +88,9 @@ public class Client
 	}
 	
 	public static String getAppointmentList() throws IOException {
+	
 		
 		String response = sendToServer("getAppointmentList " + Client.username);
-		
 		return response;
 		
 	}

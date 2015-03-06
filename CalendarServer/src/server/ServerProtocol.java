@@ -30,7 +30,8 @@ public class ServerProtocol {
 				
 			case "GETAPPOINTMENTLIST":
 				
-				return "test";
+				String response = database.getAppointments(input[1]);
+				return response;
 				
 				
 			}
