@@ -11,6 +11,9 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
+//
+
+
 public class Client
 {
 	
@@ -37,7 +40,7 @@ public class Client
 			
 			sendToServer("hei server, fra client");
 			
-			s.close(); //Denne linjen fikser alt.
+			//s.close(); //Denne linjen fikser alt.
 		} 
 		catch(Exception ConnectException){
 			System.out.println("Could not connect to server");

@@ -1,5 +1,7 @@
 package server;
 
+//
+
 public class ServerProtocol {
 
 	public String processInput(String rawInput) throws Exception{
