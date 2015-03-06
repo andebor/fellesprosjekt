@@ -23,6 +23,9 @@ import javafx.scene.layout.GridPane;
 public class CalendarController {
 	
  
+	private ObservableList<Appointment> personalAppointmentList = FXCollections.observableArrayList();
+	
+	
     @FXML
     GridPane calendarGridPane;
     
@@ -147,51 +150,54 @@ public class CalendarController {
     	calendarGridPane.add(hour15, 0, 15);
     	calendarGridPane.add(hour16, 0, 16);
     	
-    	
     }
 	
-	public void generateCalendar(Appointment appointment){
+	public void generateCalendar(ObservableList<Appointment> appointmentList){
 		
 		//Clear calendar
 		calendarGridPane.getChildren().clear();
 		// Generate GUI
 		generateGUICalendar();
 		
-		//Check week
-		LocalDate appointmentDate = appointment.getDate();
-		TemporalField woy = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear(); 
-		int appointmentWeek = appointmentDate.get(woy);
 		
-		if(appointmentWeek==Integer.parseInt(weekLabel.getText())){
-			//Find column
-			int column = appointment.getDate().getDayOfWeek().getValue();
+		for(Appointment appointment : appointmentList){
+		
+			//Check week
+			LocalDate appointmentDate = appointment.getDate();
+			TemporalField woy = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear(); 
+			int appointmentWeek = appointmentDate.get(woy);
+		
+			if(appointmentWeek==Integer.parseInt(weekLabel.getText())){
+				//Find column
+				int column = appointment.getDate().getDayOfWeek().getValue();
 			
-			//Find rows
-			int start = appointment.getStart().getHour();
-			if(start<8){
-				start = 0;
-			}
-			else{
-				start = start - 6;
-			}
-			int end = appointment.getFrom().getHour();
-			if(end<8){
-				end = 0;
-			}
-			else{
-				end = end - 6;
-			}
+				//Find rows
+				int start = appointment.getStart().getHour();
+				if(start<8){
+					start = 0;
+				}
+				else{
+					start = start - 6;
+				}
+				int end = appointment.getFrom().getHour();
+				if(end<8){
+					end = 0;
+				}
+				else{
+					end = end - 6;
+				}
 		
-		// Generate appointment in calendar
-		for(int row = start; row<=end; row++){
-			Label appointmentLabel = new Label(appointment.getDescription());
-			appointmentLabel.setTranslateX(30);
-			calendarGridPane.add(appointmentLabel, column, row);
-		}	
+			// Generate appointment in calendar
+			for(int row = start; row<=end; row++){
+				Label appointmentLabel = new Label(appointment.getDescription());
+				appointmentLabel.setTranslateX(30);
+				calendarGridPane.add(appointmentLabel, column, row);
+			}	
+			}
 		}
 	}
 	
-    public Appointment generateExampleAppointment() {
+    public ObservableList<Appointment> generateExampleAppointment() {
     	// Just for testing functionality 
     	Appointment appointment = new Appointment();
     	appointment.setDescription("test");
@@ -202,7 +208,9 @@ public class CalendarController {
     	appointment.setUsers(list2);
     	appointment.setRoom("Grouproom 1");
     	appointment.setRoomAmount(2);
-    	return appointment;
+    	ObservableList<Appointment> list = FXCollections.observableArrayList();
+    	list.add(appointment);
+    	return list;
 
     	
     }

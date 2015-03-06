@@ -19,13 +19,12 @@
                   </Menu>
                </menus>
             </MenuBar>
-            <MenuButton fx:id="menubtn_notifications" focusTraversable="false" mnemonicParsing="false" text="Nye varsler!" StackPane.alignment="CENTER_RIGHT">
+            <Button mnemonicParsing="false" onAction="#testAdd" text="Add(testing)" />
+            <MenuButton fx:id="menubtn_notifications" focusTraversable="false" mnemonicParsing="false" text="Nye varsler!" visible="false" StackPane.alignment="CENTER_RIGHT">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
                <items>
-                  <MenuItem mnemonicParsing="false" text="Nytt varsel 1" />
-                  <MenuItem mnemonicParsing="false" text="Nytt varsel 2" />
                </items>
                <StackPane.margin>
                   <Insets bottom="1.0" right="7.0" />
