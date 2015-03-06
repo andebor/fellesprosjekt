@@ -40,7 +40,7 @@ public class ServerThread extends Thread {
             }
             socket.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         } catch (Exception e) {
 			//e.printStackTrace();
 		}

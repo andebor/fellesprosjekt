@@ -69,13 +69,29 @@ public class Client
 		return output;
 	}
 	
-	public void closeClient() throws IOException {
-		s.close();
+	public static boolean login(String username, String password) throws IOException{	
+		
+		
+
+		String response = sendToServer("login " + username + " " + password);
+		
+		if (response.trim().equals("OK")) {
+			System.out.println("ja");
+			return true;
+		}
+		else {
+			System.out.println("nei");
+			return false;
+		}
 	}
+	
+	
 	
    public static void main(String [] args) throws Exception {
 	   
-	   Client client = new Client();
+	   //Client client = new Client();
+	   
+	   //Client.login("lol", "lol");
 	   
 	   
    }
