@@ -1,0 +1,83 @@
+package control;
+
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.Socket;
+import java.net.SocketException;
+import java.net.UnknownHostException;
+
+//
+
+
+public class Client
+{
+	
+	private Socket s;
+	public static DataOutputStream outToServer;
+	public static BufferedReader inFromServer;
+	
+	public Client() throws IOException {
+		init();
+	}
+	
+	public void init() throws UnknownHostException, IOException {
+		
+		String host = "localhost";
+		int port = 6066;
+		
+		try {
+			s = new Socket(host, port);
+			
+			outToServer = new DataOutputStream(s.getOutputStream());
+			inFromServer = new BufferedReader(new InputStreamReader(s.getInputStream()));
+			
+			System.out.println("Connected to serverhost " + host + " with port " + port);
+			
+			sendToServer("hei server, fra client");
+			
+			
+			
+			//s.close(); //Denne linjen fikser alt.
+		} 
+		catch(Exception ConnectException){
+			System.out.println("Could not connect to server");
+		}
+		
+		
+	}
+	
+	
+	public static String sendToServer(String message) throws IOException {
+		String modifiedSentence;
+		try {
+			outToServer.writeBytes(message + "\r\n");
+		}
+		catch (SocketException e) {
+			
+		}
+		String output = "";
+		String tempString = inFromServer.readLine();
+		while(tempString.length() > 0) {
+			output += modifiedSentence = tempString + "\r\n";
+			tempString = inFromServer.readLine();
+		}
+		return output;
+	}
+	
+	public void closeClient() throws IOException {
+		s.close();
+	}
+	
+   public static void main(String [] args) throws Exception {
+	   
+	   Client client = new Client();
+	   
+	   
+   }
+	   
+   }
