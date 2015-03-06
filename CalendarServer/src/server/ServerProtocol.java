@@ -26,6 +26,13 @@ public class ServerProtocol {
 				else {
 					return "NOK";
 				}
+			
+				
+			case "GETAPPOINTMENTLIST":
+				
+				return "test";
+				
+				
 			}
 		}
 		

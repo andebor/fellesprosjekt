@@ -1,9 +1,11 @@
 package control;
 
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+
 
 //asd
 import model.Appointment;
@@ -63,11 +65,43 @@ public class AppointmentOverviewController {
 				(observable, oldValue, newValue) -> showAppointmentDetails(newValue));
     }
     
+    public void initAppointmetTable() throws IOException{
+    	
+    	// Using generateExampleAppointment for testing. Need a new method for retrieving appointment-list from database
+    	//appointmentList = generateExampleAppointment();
+    	
+    	appointmentList.clear();
+    	
+    	String str = Client.getAppointmentList();
+    	
+    	addAppointment(str);
+    	
+    	
+    	appointmentTable.setItems(appointmentList);
+    	
+    }
+    
+    public void addAppointment(String str) {
+    	Appointment appointment = new Appointment();
+    	appointment.setDescription(str);
+    	
+    	appointment.setDate(LocalDate.of(2015,12,12));
+    	appointment.setStart(LocalTime.of(10,30));
+    	appointment.setFrom(LocalTime.of(11,30));
+    	ObservableList<String> list2 = FXCollections.observableArrayList("Ole", "Ansatt 1");
+    	appointment.setUsers(list2);
+    	appointment.setRoom("Grouproom 1");
+    	appointment.setRoomAmount(2);
+    	
+    	appointmentList.add(appointment);
+    	
+    }
+    
     public static ObservableList<Appointment> getAppointmentList() {
     	return appointmentList;
     }
     
-    public ObservableList<Appointment> generateExampleAppointment() {
+    public Appointment generateExampleAppointment() {
     	// Just for testing functionality 
     	Appointment appointment = new Appointment();
     	appointment.setDescription("test");
@@ -78,21 +112,12 @@ public class AppointmentOverviewController {
     	appointment.setUsers(list2);
     	appointment.setRoom("Grouproom 1");
     	appointment.setRoomAmount(2);
-    	ObservableList<Appointment> list = FXCollections.observableArrayList();
-    	list.add(appointment);
-    	return list;
+    	return appointment;
     	
     }
     
     
-    public void initAppointmetTable(){
-    	
-    	// Using generateExampleAppointment for testing. Need a new method for retrieving appointment-list from database
-    	appointmentList = generateExampleAppointment(); 
-    	appointmentTable.setItems(appointmentList);
-    	
-    	
-    }
+
 	
 
     
@@ -139,7 +164,7 @@ public class AppointmentOverviewController {
 		
 	}
 	
-	 public void setMainApp(MainApp mainApp) {
+	 public void setMainApp(MainApp mainApp) throws IOException {
         this.mainApp = mainApp;
 
         // Add observable list data to the table

@@ -20,6 +20,7 @@ public class Client
 	private Socket s;
 	public static DataOutputStream outToServer;
 	public static BufferedReader inFromServer;
+	public static String username;
 	
 	public Client() throws IOException {
 		init();
@@ -36,9 +37,9 @@ public class Client
 			outToServer = new DataOutputStream(s.getOutputStream());
 			inFromServer = new BufferedReader(new InputStreamReader(s.getInputStream()));
 			
+			
 			System.out.println("Connected to serverhost " + host + " with port " + port);
 			
-			sendToServer("hei server, fra client");
 			
 			
 			
@@ -77,12 +78,21 @@ public class Client
 		
 		if (response.trim().equals("OK")) {
 			System.out.println("ja");
+			Client.username = username;
 			return true;
 		}
 		else {
 			System.out.println("nei");
 			return false;
 		}
+	}
+	
+	public static String getAppointmentList() throws IOException {
+		
+		String response = sendToServer("getAppointmentList " + Client.username);
+		
+		return response;
+		
 	}
 	
 	

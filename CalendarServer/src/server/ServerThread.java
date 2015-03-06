@@ -32,8 +32,16 @@ public class ServerThread extends Thread {
             	} catch(Exception ArrayIndexOutOfBoudsException){
         			outputLine = "Invalid input \r\n";
         		}
-                System.out.println(outputLine);
-                out.println(outputLine);
+            	
+            	System.out.println(outputLine);
+            	
+            	
+            	if(outputLine instanceof String) {
+            		
+            	}
+            	if(outputLine != "") {            		
+            		out.println(outputLine);
+            	}
                 
                 if (outputLine.equals("Bye.\r\n"))
                     break;

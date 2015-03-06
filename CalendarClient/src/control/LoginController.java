@@ -35,6 +35,7 @@ public class LoginController {
 //		mainApp.initRootNav();
 		if(correctLogin) {
 			mainApp.loginSuccess();
+			Client.getAppointmentList();
 		}
 		else {
 			feedbackLabel.setVisible(true);

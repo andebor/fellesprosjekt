@@ -17,6 +17,7 @@ public class Server {
             }
         } catch (IOException e) {
             System.err.println("Could not listen on port " + port);
+            System.err.println("U probably have another server open");
             System.exit(-1);
         }
     }
