@@ -7,6 +7,8 @@ import java.time.LocalTime;
 import java.util.List;
 
 
+import java.util.regex.Pattern;
+
 //asd
 import model.Appointment;
 import javafx.collections.FXCollections;
@@ -72,9 +74,29 @@ public class AppointmentOverviewController {
     	
     	appointmentList.clear();
     	
+    	
+    	
     	String str = Client.getAppointmentList();
     	
-    	addAppointment(str);
+    	System.out.println(str);
+    	
+    	
+    	String[] appStrings = str.split(Pattern.quote("$%"));
+    	/*
+    	for(int i = 0; i < appStrings.length; i++) {
+    		System.out.println(appStrings[i] + "\n");
+    	}
+    	*/
+    	
+    	/*
+    	for(int i = 0; i < appStrings.length; i++) {
+    		addAppointment(appStrings[i]);
+    	}
+    	*/
+    	
+    	addAppointment(appStrings[0]);
+    	
+    	
     	
     	
     	appointmentTable.setItems(appointmentList);
@@ -83,14 +105,38 @@ public class AppointmentOverviewController {
     
     public void addAppointment(String str) {
     	Appointment appointment = new Appointment();
-    	appointment.setDescription(str);
     	
-    	appointment.setDate(LocalDate.of(2015,12,12));
-    	appointment.setStart(LocalTime.of(10,30));
+    	String[] z = str.split(Pattern.quote("%$"));
+    	
+    	//System.out.println("LENGDE: " + z.length);
+    	
+    	for(int i = 0; i < z.length; i++) {
+    		System.out.println(z[i] + "\n");
+    	}
+    	
+    	
+    	appointment.setDescription(z[0]);
+    	
+    	String[] startDate = z[1].split(" ");
+    	
+    	String dato = startDate[0];
+    	String[] datoList = dato.split("-");
+    	
+    	String[] endDate = z[2].split(" ");
+    	
+    	String startTid = startDate[1];
+    	String[] startTidList = startTid.split(":");
+    	
+    	String endTid = endDate[1];
+    	String[] endTidList = startTid.split(":");
+    	
+    	
+    	appointment.setDate(LocalDate.of(Integer.parseInt(datoList[0]), Integer.parseInt(datoList[1]), Integer.parseInt(datoList[2])));
+    	appointment.setStart(LocalTime.of(Integer.parseInt(startTidList[0]), Integer.parseInt(startTidList[1])));
     	appointment.setFrom(LocalTime.of(11,30));
     	ObservableList<String> list2 = FXCollections.observableArrayList("Ole", "Ansatt 1");
     	appointment.setUsers(list2);
-    	appointment.setRoom("Grouproom 1");
+    	appointment.setRoom(z[4]);
     	appointment.setRoomAmount(2);
     	
     	appointmentList.add(appointment);
