@@ -1,13 +1,11 @@
 package control;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.Button;
 
 public class RootNavController {
 	
+	// SET MAINAPP
 	MainApp mainApp;
 	
     public void setMainApp(MainApp mainApp) {
@@ -37,67 +35,20 @@ public class RootNavController {
 	@FXML
 	private void gotoNotifications() {
 		System.out.println("Opening NotificationsView..");
+		mainApp.showNotifications();
 	}
 	
 	// NOTIFICATIONS
+		
+	@FXML private Button btn_notifications;
 	
-	@FXML private MenuButton menubtn_notifications;
-	
-	// Add notification to notification list
-	@FXML
-	private void testAdd() {
-		System.out.println("trykker");
-		newNotification("appointment", "Fiskerimøte");
+	public void removeNotificationBold() {
+		btn_notifications.setStyle("-fx-font-weight: normal;");
+		btn_notifications.setText("Varsler");
 	}
 	
-	
-	private boolean newNotification(String appointmentType, String appointmentName) {
-		if (appointmentType.equals("appointment")) {
-			MenuItem item = new MenuItem("Avtalen " + appointmentName + " er blitt endret");
-			item.setOnAction(new EventHandler<ActionEvent>() {
-				public void handle(ActionEvent event) {
-					gotoAppointments();	
-				}
-			});
-			menubtn_notifications.getItems().add(item);
-			if (menubtn_notifications.getItems().size() != 0) {
-				menubtn_notifications.setVisible(true);
-			} else {
-				menubtn_notifications.setVisible(false);
-			}
-			System.out.println("Appointment change added.");
-			return true;
-		}else if (appointmentType.equals("invitation")) {
-			MenuItem item = new MenuItem("Du er invitert til " + appointmentName);
-			item.setOnAction(new EventHandler<ActionEvent>() {
-				public void handle(ActionEvent event) {
-					gotoNotifications();	
-				}
-			});
-			menubtn_notifications.getItems().add(item);
-			if (menubtn_notifications.getItems().size() != 0) {
-				menubtn_notifications.setVisible(true);
-			} else {
-				menubtn_notifications.setVisible(false);
-			}
-			System.out.println("Invitation added");
-			return true;
-			
-		}else {
-			if (menubtn_notifications.getItems().size() != 0) {
-				menubtn_notifications.setVisible(true);
-			} else {
-				menubtn_notifications.setVisible(false);
-			}
-			System.out.println("hva skjer?");
-			return false;
-		}
-		// Show notifications button only if new notifications
-		//This will probably be done somewhere else in the future.
-		
-		
-				
+	public void setNotificationBold() {
+		btn_notifications.setStyle("-fx-font-weight: bold;");
+		btn_notifications.setText("Nye varsler!");
 	}
-	
-
 }

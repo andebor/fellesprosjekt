@@ -19,30 +19,32 @@
                   </Menu>
                </menus>
             </MenuBar>
-            <Button mnemonicParsing="false" onAction="#testAdd" text="Add(testing)" />
             <MenuButton fx:id="menubtn_notifications" focusTraversable="false" mnemonicParsing="false" text="Nye varsler!" visible="false" StackPane.alignment="CENTER_RIGHT">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
-               <items>
-               </items>
                <StackPane.margin>
                   <Insets bottom="1.0" right="7.0" />
                </StackPane.margin>
             </MenuButton>
-            <Button mnemonicParsing="false" onAction="#gotoCalendar" prefWidth="91.0" text="Hjem" StackPane.alignment="CENTER_LEFT">
+            <Button mnemonicParsing="false" onAction="#gotoCalendar" prefWidth="100.0" text="Hjem" StackPane.alignment="CENTER_LEFT">
                <StackPane.margin>
                   <Insets bottom="1.0" left="1.0" />
                </StackPane.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#gotoAppointments" prefWidth="91.0" text="Avtaler" StackPane.alignment="CENTER_LEFT">
+            <Button mnemonicParsing="false" onAction="#gotoAppointments" prefWidth="100.0" text="Avtaler" StackPane.alignment="CENTER_LEFT">
                <StackPane.margin>
-                  <Insets bottom="1.0" left="95.0" />
+                  <Insets bottom="1.0" left="104.0" />
                </StackPane.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#gotoInvitations" text="Invitasjoner" StackPane.alignment="CENTER_LEFT">
+            <Button mnemonicParsing="false" onAction="#gotoInvitations" prefWidth="100.0" text="Invitasjoner" StackPane.alignment="CENTER_LEFT">
                <StackPane.margin>
-                  <Insets bottom="1.0" left="189.0" />
+                  <Insets bottom="1.0" left="207.0" />
+               </StackPane.margin>
+            </Button>
+            <Button fx:id="btn_notifications" mnemonicParsing="false" onAction="#gotoNotifications" prefWidth="100.0" text="Varsler" StackPane.alignment="CENTER_LEFT">
+               <StackPane.margin>
+                  <Insets bottom="1.0" left="310.0" />
                </StackPane.margin>
             </Button>
          </children>
