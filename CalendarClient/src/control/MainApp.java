@@ -193,6 +193,24 @@ public class MainApp extends Application {
 			return false;	
 		}
 	}
+	
+	public void showNotifications() {
+    	try {
+    		//load main calendar view
+    		FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("/view/GUI_notifications.fxml"));
+            AnchorPane notificationsView = (AnchorPane) loader.load();
+
+            
+            rootNav.setCenter(notificationsView);
+            // Give the controller access to the main app.
+            NotificationsController controller = loader.getController();
+            controller.setMainApp(this);
+            
+    	} catch (IOException e) {
+            e.printStackTrace();
+        }
+	}
     
     public Stage getPrimaryStage() {
     	return primaryStage;
