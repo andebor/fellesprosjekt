@@ -1,5 +1,6 @@
 package control;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -7,6 +8,7 @@ import java.time.temporal.TemporalField;
 import java.time.temporal.WeekFields;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 
 import model.Appointment;
 import javafx.collections.FXCollections;
@@ -23,7 +25,7 @@ import javafx.scene.layout.GridPane;
 public class CalendarController {
 	
  
-	private ObservableList<Appointment> personalAppointmentList = FXCollections.observableArrayList();
+	private ObservableList<Appointment> PersonalAppointmentList = FXCollections.observableArrayList();
 	
 	
     @FXML
@@ -42,15 +44,37 @@ public class CalendarController {
 	private int weekNumber;
 
     @FXML
-    private void initialize() {
+    private void initialize() throws IOException {
     	
     	//Set correct week:
     	LocalDate date = LocalDate.now();
     	TemporalField woy = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear(); 
     	this.weekNumber = date.get(woy);
     	weekLabel.setText(Integer.toString(weekNumber));
-    	   	
-		generateCalendar(generateExampleAppointment());
+    	generateExampleAppointment();
+    	
+    	String str = Client.getAppointmentList();
+    	
+    	System.out.println(str);
+    	
+    	
+    	String[] appStrings = str.split(Pattern.quote("$%"));
+    	/*
+    	for(int i = 0; i < appStrings.length; i++) {
+    		System.out.println(appStrings[i] + "\n");
+    	}
+    	*/
+    	
+    	/*
+    	for(int i = 0; i < appStrings.length; i++) {
+    		addAppointment(appStrings[i]);
+    	}
+    	*/
+    	
+    	addAppointment(appStrings[0]);
+    	
+    	
+		generateCalendar();
 
 
 	}
@@ -59,7 +83,7 @@ public class CalendarController {
     	
     	weekNumber++;
     	weekLabel.setText(Integer.toString(weekNumber));
-    	generateCalendar(generateExampleAppointment());
+    	generateCalendar();
     	
     }
     
@@ -68,7 +92,7 @@ public class CalendarController {
     	if(weekNumber>0){
     	weekNumber--;
     	weekLabel.setText(Integer.toString(weekNumber));
-    	generateCalendar(generateExampleAppointment());;
+    	generateCalendar();;
     	}
     	
     }
@@ -152,7 +176,7 @@ public class CalendarController {
     	
     }
 	
-	public void generateCalendar(ObservableList<Appointment> appointmentList){
+	public void generateCalendar(){
 		
 		//Clear calendar
 		calendarGridPane.getChildren().clear();
@@ -160,7 +184,7 @@ public class CalendarController {
 		generateGUICalendar();
 		
 		
-		for(Appointment appointment : appointmentList){
+		for(Appointment appointment : PersonalAppointmentList){
 		
 			//Check week
 			LocalDate appointmentDate = appointment.getDate();
@@ -197,7 +221,7 @@ public class CalendarController {
 		}
 	}
 	
-    public ObservableList<Appointment> generateExampleAppointment() {
+    public void generateExampleAppointment() {
     	// Just for testing functionality 
     	Appointment appointment = new Appointment();
     	appointment.setDescription("test");
@@ -208,10 +232,51 @@ public class CalendarController {
     	appointment.setUsers(list2);
     	appointment.setRoom("Grouproom 1");
     	appointment.setRoomAmount(2);
-    	ObservableList<Appointment> list = FXCollections.observableArrayList();
-    	list.add(appointment);
-    	return list;
+    	PersonalAppointmentList.add(appointment);
+   
 
+    	
+    }
+    
+    public void addAppointment(String str) {
+    		
+    	
+    	Appointment appointment = new Appointment();
+    	
+    	String[] z = str.split(Pattern.quote("%$"));
+    	
+    	//System.out.println("LENGDE: " + z.length);
+    	
+    	for(int i = 0; i < z.length; i++) {
+    		System.out.println(z[i] + "\n");
+    	}
+    	
+    	
+    	appointment.setDescription(z[0]);
+    	
+    	String[] startDate = z[1].split(" ");
+    	
+    	String dato = startDate[0];
+    	String[] datoList = dato.split("-");
+    	
+    	String[] endDate = z[2].split(" ");
+    	
+    	String startTid = startDate[1];
+    	String[] startTidList = startTid.split(":");
+    	
+    	String endTid = endDate[1];
+    	String[] endTidList = startTid.split(":");
+    	
+    	
+    	appointment.setDate(LocalDate.of(Integer.parseInt(datoList[0]), Integer.parseInt(datoList[1]), Integer.parseInt(datoList[2])));
+    	appointment.setStart(LocalTime.of(Integer.parseInt(startTidList[0]), Integer.parseInt(startTidList[1])));
+    	appointment.setFrom(LocalTime.of(11,30));
+    	ObservableList<String> list2 = FXCollections.observableArrayList("Ole", "Ansatt 1");
+    	appointment.setUsers(list2);
+    	appointment.setRoom(z[4]);
+    	appointment.setRoomAmount(2);
+    	
+    	PersonalAppointmentList.add(appointment);
     	
     }
     
