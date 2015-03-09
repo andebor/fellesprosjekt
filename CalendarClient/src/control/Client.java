@@ -11,6 +11,8 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
+import model.Appointment;
+
 //
 
 
@@ -92,6 +94,24 @@ public class Client
 		
 		String response = sendToServer("getAppointmentList " + Client.username);
 		return response;
+		
+	}
+	
+	public static boolean addAppointment(Appointment appointment) throws IOException {
+		
+		
+		
+		String response1 = sendToServer("addNewAppointment " + appointment.getDescription() + " " + appointment.getStart().toString() + " " + appointment.getFrom().toString() + " " 
+				+ appointment.getPlace() + " " + appointment.getRoom() + " " + Client.username);
+		
+		// TODO add employees
+		/**
+		for (String employee : appointment.getUsers()){
+			String response2 = sendToServer("addEmployeeToAppointment " +  )
+		}
+		*/
+		
+		return Boolean.valueOf(response1);
 		
 	}
 	
