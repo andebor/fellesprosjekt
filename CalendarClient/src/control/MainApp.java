@@ -33,6 +33,7 @@ public class MainApp extends Application {
         showLogin();
      // legger til ikon
         this.primaryStage.getIcons().add(new Image("file:resources/images/icon.png"));
+
 	}
 	
     public void initRootNav() {

@@ -1,9 +1,13 @@
 package control;
 
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+
+
+import java.util.regex.Pattern;
 
 //asd
 import model.Appointment;
@@ -63,11 +67,87 @@ public class AppointmentOverviewController {
 				(observable, oldValue, newValue) -> showAppointmentDetails(newValue));
     }
     
+    public void initAppointmetTable() throws IOException{
+    	
+    	// Using generateExampleAppointment for testing. Need a new method for retrieving appointment-list from database
+    	//appointmentList = generateExampleAppointment();
+    	
+    	appointmentList.clear();
+    	
+    	
+    	
+    	String str = Client.getAppointmentList();
+    	
+    	System.out.println(str);
+    	
+    	
+    	String[] appStrings = str.split(Pattern.quote("$%"));
+    	/*
+    	for(int i = 0; i < appStrings.length; i++) {
+    		System.out.println(appStrings[i] + "\n");
+    	}
+    	*/
+    	
+    	/*
+    	for(int i = 0; i < appStrings.length; i++) {
+    		addAppointment(appStrings[i]);
+    	}
+    	*/
+    	
+    	addAppointment(appStrings[0]);
+    	
+    	
+    	
+    	
+    	appointmentTable.setItems(appointmentList);
+    	
+    }
+    
+    public void addAppointment(String str) {
+    	Appointment appointment = new Appointment();
+    	
+    	String[] z = str.split(Pattern.quote("%$"));
+    	
+    	//System.out.println("LENGDE: " + z.length);
+    	
+    	for(int i = 0; i < z.length; i++) {
+    		System.out.println(z[i] + "\n");
+    	}
+    	
+    	
+    	appointment.setDescription(z[0]);
+    	
+    	String[] startDate = z[1].split(" ");
+    	
+    	String dato = startDate[0];
+    	String[] datoList = dato.split("-");
+    	
+    	String[] endDate = z[2].split(" ");
+    	
+    	String startTid = startDate[1];
+    	String[] startTidList = startTid.split(":");
+    	
+    	String endTid = endDate[1];
+    	String[] endTidList = startTid.split(":");
+    	
+    	
+    	appointment.setDate(LocalDate.of(Integer.parseInt(datoList[0]), Integer.parseInt(datoList[1]), Integer.parseInt(datoList[2])));
+    	appointment.setStart(LocalTime.of(Integer.parseInt(startTidList[0]), Integer.parseInt(startTidList[1])));
+    	appointment.setFrom(LocalTime.of(11,30));
+    	ObservableList<String> list2 = FXCollections.observableArrayList("Ole", "Ansatt 1");
+    	appointment.setUsers(list2);
+    	appointment.setRoom(z[4]);
+    	appointment.setRoomAmount(2);
+    	
+    	appointmentList.add(appointment);
+    	
+    }
+    
     public static ObservableList<Appointment> getAppointmentList() {
     	return appointmentList;
     }
     
-    public ObservableList<Appointment> generateExampleAppointment() {
+    public Appointment generateExampleAppointment() {
     	// Just for testing functionality 
     	Appointment appointment = new Appointment();
     	appointment.setDescription("test");
@@ -78,21 +158,12 @@ public class AppointmentOverviewController {
     	appointment.setUsers(list2);
     	appointment.setRoom("Grouproom 1");
     	appointment.setRoomAmount(2);
-    	ObservableList<Appointment> list = FXCollections.observableArrayList();
-    	list.add(appointment);
-    	return list;
+    	return appointment;
     	
     }
     
     
-    public void initAppointmetTable(){
-    	
-    	// Using generateExampleAppointment for testing. Need a new method for retrieving appointment-list from database
-    	appointmentList = generateExampleAppointment(); 
-    	appointmentTable.setItems(appointmentList);
-    	
-    	
-    }
+
 	
 
     
@@ -139,7 +210,7 @@ public class AppointmentOverviewController {
 		
 	}
 	
-	 public void setMainApp(MainApp mainApp) {
+	 public void setMainApp(MainApp mainApp) throws IOException {
         this.mainApp = mainApp;
 
         // Add observable list data to the table
