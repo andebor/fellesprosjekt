@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.NotificationsController">
+   <children>
+      <Text layoutX="469.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Varsler" textAlignment="CENTER" wrappingWidth="97.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <TableView fx:id="appointmentTable" layoutX="199.0" layoutY="175.0" prefHeight="365.0" prefWidth="636.0" AnchorPane.bottomAnchor="228.0" AnchorPane.leftAnchor="199.0" AnchorPane.rightAnchor="189.0" AnchorPane.topAnchor="175.0">
+        <columns>
+          <TableColumn fx:id="avtaleColumn" prefWidth="111.7347412109375" text="Type" />
+          <TableColumn fx:id="datoColumn" prefWidth="118.2652587890625" text="Tidspunkt" />
+            <TableColumn fx:id="datoColumn1" prefWidth="338.5799865722656" text="Beskrivelse" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
