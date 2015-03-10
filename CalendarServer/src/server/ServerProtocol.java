@@ -56,6 +56,15 @@ public class ServerProtocol {
 					return "user is not appointment owner";
 				}
 				
+			case "ADDNEWUSER":
+				String userName = input[1];
+				String firstName = input[2];
+				String lastName = input[3];
+				String passWord = input[4];
+				
+				String response2 = database.addUser(userName, firstName, lastName, passWord);
+				return response2;
+				
 		}
 		
 		return "OK";
