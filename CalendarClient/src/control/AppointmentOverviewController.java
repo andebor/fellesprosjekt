@@ -141,7 +141,7 @@ public class AppointmentOverviewController {
     	appointment.setRoom(z[4]);
     	appointment.setRoomAmount(2);
     	appointment.setID(z[6]);
-    	
+    	//
     	appointmentList.add(appointment);
     	
     }
