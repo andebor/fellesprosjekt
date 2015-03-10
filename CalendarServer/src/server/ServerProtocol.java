@@ -33,17 +33,26 @@ public class ServerProtocol {
 				String response = database.getAppointments(input[1]);
 				return response;
 			
-			case "ADDNEWAPOINTMENT":
+			case "ADDNEWAPPOINTMENT":
 				
 				String description = input[1];
-				String startTime = input[2];
-				String endTime = input[3];
-				String location = input[4];
-				String meetingRoom = input[5];
-				String owner = input[6];
+				String startTime = input[4] + " " + input[2] + ":00";
+				String endTime = input[4] + " " + input[3] + ":00";
+				String location = input[5];
+				String meetingRoom = input[6];
+				String owner = input[7];
 				
-				String respone = database.addNewAppointment(description, startTime, endTime, location, meetingRoom, owner);
-				return response;
+				System.out.println("description: " + description);
+				System.out.println("startTime: " + startTime);
+				System.out.println("endTime: " + endTime);
+				System.out.println("location: " + location);
+				System.out.println("meetingRoom: " + meetingRoom);
+				System.out.println("owner: " + owner);
+				
+				System.out.println("database.addNewAppointment(" + description + ", " + startTime + ", " + endTime + ", " + location + ", " + "null" + ", " + owner + ")");
+				Boolean response2 = database.addNewAppointment(description, startTime, endTime, location, null, owner);
+
+				return String.valueOf(response2);
 				
 			case "DELETEAPPOINTMENT":
 				
@@ -56,6 +65,15 @@ public class ServerProtocol {
 					return "user is not appointment owner";
 				}
 				
+			case "ADDNEWUSER":
+				String userName = input[1];
+				String firstName = input[2];
+				String lastName = input[3];
+				String passWord = input[4];
+				
+				String response3 = database.addUser(userName, firstName, lastName, passWord);
+				return response3;
+
 			case "CHECKAPPOINTMENTOWNERSHIP":
 				//
 				if(database.getEmpno(input[2])==database.getAppointmentOwner(Integer.parseInt(input[1]))){
@@ -70,8 +88,6 @@ public class ServerProtocol {
 				
 	
 				}
-				
-				
 		}
 		
 		return "OK";

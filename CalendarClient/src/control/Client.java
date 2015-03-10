@@ -100,8 +100,7 @@ public class Client
 	public static boolean addAppointment(Appointment appointment) throws IOException {
 		
 		
-		
-		String response1 = sendToServer("addNewAppointment " + appointment.getDescription() + " " + appointment.getStart().toString() + " " + appointment.getFrom().toString() + " " 
+		String response1 = sendToServer("addNewAppointment " + appointment.getDescription() + " " + appointment.getStart().toString() + " " + appointment.getFrom().toString() + " " + appointment.getDate().toString() + " " 
 				+ appointment.getPlace() + " " + appointment.getRoom() + " " + Client.username);
 		
 		// TODO add employees
@@ -123,14 +122,17 @@ public class Client
 		
 	}
 	
+	public static String addUser(String username, String firstName, String lastName,String password) throws IOException {
+		
+		String response = sendToServer("ADDNEWUSER " + username + " " + firstName + " " + lastName + " " + password);
+		return response;
+	}
+
 	public static boolean checkAppointmentOwnership(String ID) throws IOException {
 		
 		String response = sendToServer("checkAppointmentOwnership " + ID + " " + username);
 		return Boolean.valueOf(response);
-		
-		
 	}
-	
 	
 	
    public static void main(String [] args) throws Exception {
