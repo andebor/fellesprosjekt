@@ -212,6 +212,24 @@ public class MainApp extends Application {
             e.printStackTrace();
         }
 	}
+	
+	public void showUserManagement() {
+		try {
+    		//load main calendar view
+    		FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("/view/GUI_userManagement.fxml"));
+            AnchorPane userManagementView = (AnchorPane) loader.load();
+
+            
+            rootNav.setCenter(userManagementView);
+            // Give the controller access to the main app.
+            UserManagementController controller = loader.getController();
+            controller.setMainApp(this);
+            
+    	} catch (IOException e) {
+            e.printStackTrace();
+        }
+	}
     
     public Stage getPrimaryStage() {
     	return primaryStage;
