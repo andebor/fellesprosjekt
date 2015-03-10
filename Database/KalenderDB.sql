@@ -1,5 +1,5 @@
 CREATE TABLE ansatt (
-	ansattNR INT NOT NULL,
+	ansattNR INT NOT NULL AUTO_INCREMENT,
 	fornavn VARCHAR(255),
 	etternavn VARCHAR(255),
 	brukernavn VARCHAR(255) NOT NULL,
