@@ -58,6 +58,22 @@ public class ServerProtocol {
 				}
 			}
 				
+			case "CHECKAPPOINTMENTOWNERSHIP":
+				//
+				if(database.getEmpno(input[2])==database.getAppointmentOwner(Integer.parseInt(input[1]))){
+					return "true";
+				}
+				
+				else {
+					return "false";
+				}
+				
+			case "EDITAPPOINTMENT":
+				
+	
+				}
+				
+				
 		}
 		
 		return "OK";
