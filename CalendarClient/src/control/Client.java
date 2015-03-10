@@ -118,7 +118,7 @@ public class Client
 	public static String deleteAppointment(String ID) throws IOException {
 	
 		
-		String response = sendToServer("deleteAppointment " + ID);
+		String response = sendToServer("deleteAppointment " + ID + " " + username);
 		return response;
 		
 	}
