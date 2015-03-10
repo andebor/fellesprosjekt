@@ -47,10 +47,15 @@ public class ServerProtocol {
 				
 			case "DELETEAPPOINTMENT":
 				
-				String response = database.removeAppointment(input[1]);
-				return response;
+				if(database.getEmpno(input[2])==database.getAppointmentOwner(Integer.parseInt(input[1]))){
+					boolean response1 = database.removeAppointment(Integer.parseInt(input[1]));
+					return String.valueOf(response1);
+				}
 				
-			}
+				else {
+					return "user is not appointment owner";
+				}
+				
 		}
 		
 		return "OK";
