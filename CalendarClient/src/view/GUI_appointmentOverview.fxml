@@ -59,7 +59,7 @@
                         <Label fx:id="stedLabel" text="label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <Label fx:id="moteromLabel" text="label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <Label text="Deltagere" GridPane.rowIndex="5" />
-                        <Label fx:id="deltagereLabel" prefHeight="126.0" prefWidth="171.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.rowSpan="2" />
+                        <Label fx:id="deltagereLabel" prefHeight="126.0" prefWidth="171.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.rowSpan="2" GridPane.valignment="TOP" />
                      </children>
                   </GridPane>
                </children></AnchorPane>
