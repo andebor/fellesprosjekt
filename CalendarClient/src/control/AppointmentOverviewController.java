@@ -140,8 +140,8 @@ public class AppointmentOverviewController {
     	appointment.setUsers(list2);
     	appointment.setRoom(z[4]);
     	appointment.setRoomAmount(2);
-    	appointment.setID(z[5]);
-    	
+    	appointment.setID(z[6]);
+    	//
     	appointmentList.add(appointment);
     	
     }
@@ -228,7 +228,9 @@ public class AppointmentOverviewController {
 			if(appointment == null){ // Check if any appointment is selected from list
 				return;
 			}
+			if(Client.checkAppointmentOwnership(appointment.getID())){
 			mainApp.showNewAppointment(appointment);
+			}
 		}
 		catch(Exception e){
 			return;
@@ -243,7 +245,7 @@ public class AppointmentOverviewController {
 		}
 		else {
 			Client.deleteAppointment(appointment.getID());
-			//getAppointmentList().remove(appointment);
+			getAppointmentList().remove(appointment);
 			initAppointmetTable();
 		}
 		

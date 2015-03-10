@@ -64,7 +64,21 @@ public class ServerProtocol {
 				
 				String response2 = database.addUser(userName, firstName, lastName, passWord);
 				return response2;
+
+			case "CHECKAPPOINTMENTOWNERSHIP":
+				//
+				if(database.getEmpno(input[2])==database.getAppointmentOwner(Integer.parseInt(input[1]))){
+					return "true";
+				}
 				
+				else {
+					return "false";
+				}
+				
+			case "EDITAPPOINTMENT":
+				
+	
+				}
 		}
 		
 		return "OK";
