@@ -442,18 +442,21 @@ public class NewAppointmentController implements Initializable {
 			}
 			appointment.setUsers(addedTable.getItems());
 			
+			
 			// Transfer generated appointment object to database
 			if(!editNewAppointment && Client.addAppointment(appointment)){
 				errorLabel.setText("Ny avtale lagt inn!");
 				
 				
 				//AppointmentOverviewController.getAppointmentList().add(appointment);
-				mainApp.showAppointmentOverview();
+				
 			}
 			else {
 				errorLabel.setText("Avtale er endret!");
 				//Notify change to users
 			}
+			
+			mainApp.showAppointmentOverview();
 	
 		}
 		else {

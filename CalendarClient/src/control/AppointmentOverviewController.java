@@ -131,6 +131,8 @@ public class AppointmentOverviewController {
     	String[] endTidList = startTid.split(":");
     	
     	
+    	
+    	
     	appointment.setDate(LocalDate.of(Integer.parseInt(datoList[0]), Integer.parseInt(datoList[1]), Integer.parseInt(datoList[2])));
     	appointment.setStart(LocalTime.of(Integer.parseInt(startTidList[0]), Integer.parseInt(startTidList[1])));
     	appointment.setFrom(LocalTime.of(11,30));
@@ -138,6 +140,7 @@ public class AppointmentOverviewController {
     	appointment.setUsers(list2);
     	appointment.setRoom(z[4]);
     	appointment.setRoomAmount(2);
+    	appointment.setID(z[5]);
     	
     	appointmentList.add(appointment);
     	
@@ -233,13 +236,15 @@ public class AppointmentOverviewController {
 	}
 	
 	@FXML
-	private void handleDelete() {
+	private void handleDelete() throws IOException {
 		Appointment appointment = appointmentTable.getSelectionModel().getSelectedItem();
 		if(appointment == null){ // Check if any appointment is selected from list
 			return;
 		}
 		else {
-			getAppointmentList().remove(appointment);
+			Client.deleteAppointment(appointment.getID());
+			//getAppointmentList().remove(appointment);
+			initAppointmetTable();
 		}
 		
 	}

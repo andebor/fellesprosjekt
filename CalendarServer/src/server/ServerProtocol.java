@@ -32,7 +32,16 @@ public class ServerProtocol {
 				
 				String response = database.getAppointments(input[1]);
 				return response;
+			
+			case "ADDNEWAPOINTMENT":
+				//stuff here
+				return "";
 				
+			case "DELETEAPPOINTMENT":
+				
+				String response = database.removeAppointment(input[1]);
+				return response;
+				return "";
 				
 			}
 		}

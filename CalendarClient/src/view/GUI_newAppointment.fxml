@@ -170,21 +170,10 @@
                         </VBox>
                      </children>
                   </AnchorPane>
-                  <HBox layoutX="682.0" layoutY="343.0" prefHeight="26.0" prefWidth="300.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0">
-                     <children>
-                        <Button fx:id="acceptButton" layoutX="644.0" layoutY="548.0" mnemonicParsing="false" onAction="#acceptAppointment" prefHeight="25.0" prefWidth="147.5" text="Fullfør">
-                           <HBox.margin>
-                              <Insets right="2.5" />
-                           </HBox.margin>
-                        </Button>
-                        <Button fx:id="declineButton" layoutX="802.0" layoutY="548.0" mnemonicParsing="false" onAction="#cleanAppointment" prefHeight="25.0" prefWidth="147.5" text="Avbryt">
-                           <HBox.margin>
-                              <Insets left="2.5" />
-                           </HBox.margin>
-                        </Button>
-                     </children>
-                  </HBox>
+                  <HBox layoutX="682.0" layoutY="343.0" prefHeight="26.0" prefWidth="300.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" />
                   <Label fx:id="errorLabel" layoutX="811.0" layoutY="33.0" prefHeight="25.0" prefWidth="165.0" />
+                  <Button fx:id="acceptButton" layoutX="626.0" layoutY="671.0" mnemonicParsing="false" onAction="#acceptAppointment" prefHeight="25.0" prefWidth="147.5" text="Fullfør" />
+                  <Button fx:id="declineButton" layoutX="779.0" layoutY="671.0" mnemonicParsing="false" onAction="#cleanAppointment" prefHeight="25.0" prefWidth="147.5" text="Avbryt" />
                </children>
             </AnchorPane>
         </items>

@@ -115,6 +115,14 @@ public class Client
 		
 	}
 	
+	public static String deleteAppointment(String ID) throws IOException {
+	
+		
+		String response = sendToServer("deleteAppointment " + ID);
+		return response;
+		
+	}
+	
 	
 	
    public static void main(String [] args) throws Exception {
