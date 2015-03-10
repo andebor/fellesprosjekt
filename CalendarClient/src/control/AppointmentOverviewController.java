@@ -228,7 +228,9 @@ public class AppointmentOverviewController {
 			if(appointment == null){ // Check if any appointment is selected from list
 				return;
 			}
+			if(Client.checkAppointmentOwnership(appointment.getID())){
 			mainApp.showNewAppointment(appointment);
+			}
 		}
 		catch(Exception e){
 			return;

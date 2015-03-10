@@ -123,6 +123,14 @@ public class Client
 		
 	}
 	
+	public static boolean checkAppointmentOwnership(String ID) throws IOException {
+		
+		String response = sendToServer("checkAppointmentOwnership " + ID + " " + username);
+		return Boolean.valueOf(response);
+		
+		
+	}
+	
 	
 	
    public static void main(String [] args) throws Exception {
