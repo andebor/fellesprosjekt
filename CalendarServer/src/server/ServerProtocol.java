@@ -12,7 +12,7 @@ public class ServerProtocol {
 		
 		if(rawInput != null){
 			System.out.println(rawInput);
-			String[] input = rawInput.split(" ");
+			String[] input = rawInput.split("#%");
 			
 			switch(input[0].toUpperCase()){
 			case "LOGIN":
@@ -34,13 +34,12 @@ public class ServerProtocol {
 				return response;
 			
 			case "ADDNEWAPPOINTMENT":
-				
 				String description = input[1];
 				String startTime = input[4] + " " + input[2] + ":00";
 				String endTime = input[4] + " " + input[3] + ":00";
 				String location = input[5];
 				String meetingRoom = input[6];
-				String owner = input[7];
+				String owner = String.valueOf(database.getEmpno(input[7]));
 				
 				System.out.println("description: " + description);
 				System.out.println("startTime: " + startTime);
@@ -49,7 +48,7 @@ public class ServerProtocol {
 				System.out.println("meetingRoom: " + meetingRoom);
 				System.out.println("owner: " + owner);
 				
-				System.out.println("database.addNewAppointment(" + description + ", " + startTime + ", " + endTime + ", " + location + ", " + "null" + ", " + owner + ")");
+				System.out.println("database.addNewAppointment(" + description + ", " + startTime + ", " + endTime + ", " + location + ", " + meetingRoom + ", " + owner + ")");
 				Boolean response2 = database.addNewAppointment(description, startTime, endTime, location, null, owner);
 
 				return String.valueOf(response2);
