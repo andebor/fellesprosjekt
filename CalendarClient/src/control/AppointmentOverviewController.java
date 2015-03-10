@@ -109,9 +109,6 @@ public class AppointmentOverviewController {
     	
     	//System.out.println("LENGDE: " + z.length);
     	
-    	
-
-    	System.out.println("WWWWWW: " + z[0]);
     	appointment.setDescription(z[0]);
     	
     	String[] startDate = z[1].split(" ");
@@ -128,13 +125,22 @@ public class AppointmentOverviewController {
     	String[] endTidList = startTid.split(":");
     	
     	
+    	String[] deltagere = z[7].split("@/@");
+    	
+    	ObservableList<String> usersList = FXCollections.observableArrayList();
+    	
+    	for(int i = 0; i < deltagere.length; i++) {
+    		usersList.add(deltagere[i]);
+    	}
+    	
+    	
+    	
     	
     	
     	appointment.setDate(LocalDate.of(Integer.parseInt(datoList[0]), Integer.parseInt(datoList[1]), Integer.parseInt(datoList[2])));
     	appointment.setStart(LocalTime.of(Integer.parseInt(startTidList[0]), Integer.parseInt(startTidList[1])));
     	appointment.setFrom(LocalTime.of(11,30));
-    	ObservableList<String> list2 = FXCollections.observableArrayList("Ole", "Ansatt 1");
-    	appointment.setUsers(list2);
+    	appointment.setUsers(usersList);
     	appointment.setRoom(z[4]);
     	appointment.setRoomAmount(2);
     	appointment.setID(z[6]);
