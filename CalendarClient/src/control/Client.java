@@ -76,7 +76,7 @@ public class Client
 		
 		
 
-		String response = sendToServer("login " + username + " " + password);
+		String response = sendToServer("login" + "#%" + username + "#%" + password);
 		
 		if (response.trim().equals("OK")) {
 			System.out.println("ja");
@@ -92,7 +92,7 @@ public class Client
 	public static String getAppointmentList() throws IOException {
 	
 		
-		String response = sendToServer("getAppointmentList " + Client.username);
+		String response = sendToServer("getAppointmentList" + "#%" + Client.username);
 		return response;
 		
 	}
@@ -100,9 +100,9 @@ public class Client
 	public static boolean addAppointment(Appointment appointment) throws IOException {
 		
 		
-		String response1 = sendToServer("addNewAppointment " + appointment.getDescription() + " " + appointment.getStart().toString() + " " + appointment.getFrom().toString() + " " + appointment.getDate().toString() + " " 
-				+ appointment.getPlace() + " " + appointment.getRoom() + " " + Client.username);
-		
+		String response1 = sendToServer("addNewAppointment" + "#%" + appointment.getDescription() + "#%" + appointment.getStart().toString() + "#%" + appointment.getFrom().toString() + "#%" + appointment.getDate().toString() + "#%" 
+				+ appointment.getPlace() + "#%" + appointment.getRoom() + "#%" + Client.username);
+		System.out.println("ASKLDLJASDLJKSALKJ: " + Client.username);
 		// TODO add employees
 		/**
 		for (String employee : appointment.getUsers()){
@@ -117,20 +117,20 @@ public class Client
 	public static String deleteAppointment(String ID) throws IOException {
 	
 		
-		String response = sendToServer("deleteAppointment " + ID + " " + username);
+		String response = sendToServer("deleteAppointment" + "#%" + ID + "#%" + username);
 		return response;
 		
 	}
 	
 	public static String addUser(String username, String firstName, String lastName,String password) throws IOException {
 		
-		String response = sendToServer("ADDNEWUSER " + username + " " + firstName + " " + lastName + " " + password);
+		String response = sendToServer("ADDNEWUSER" + "#%" + username + "#%" + firstName + "#%" + lastName + "#%" + password);
 		return response;
 	}
 
 	public static boolean checkAppointmentOwnership(String ID) throws IOException {
 		
-		String response = sendToServer("checkAppointmentOwnership " + ID + " " + username);
+		String response = sendToServer("checkAppointmentOwnership " + ID + "#%" + username);
 		return Boolean.valueOf(response);
 	}
 	
