@@ -100,8 +100,7 @@ public class Client
 	public static boolean addAppointment(Appointment appointment) throws IOException {
 		
 		
-		
-		String response1 = sendToServer("addNewAppointment " + appointment.getDescription() + " " + appointment.getStart().toString() + " " + appointment.getFrom().toString() + " " 
+		String response1 = sendToServer("addNewAppointment " + appointment.getDescription() + " " + appointment.getStart().toString() + " " + appointment.getFrom().toString() + " " + appointment.getDate().toString() + " " 
 				+ appointment.getPlace() + " " + appointment.getRoom() + " " + Client.username);
 		
 		// TODO add employees

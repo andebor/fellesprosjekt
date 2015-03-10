@@ -33,18 +33,26 @@ public class ServerProtocol {
 				String response = database.getAppointments(input[1]);
 				return response;
 			
-			case "ADDNEWAPOINTMENT":
+			case "ADDNEWAPPOINTMENT":
 				
 				String description = input[1];
-				String startTime = input[2];
-				String endTime = input[3];
-				String location = input[4];
-				String meetingRoom = input[5];
-				String owner = input[6];
+				String startTime = input[4] + " " + input[2] + ":00";
+				String endTime = input[4] + " " + input[3] + ":00";
+				String location = input[5];
+				String meetingRoom = input[6];
+				String owner = input[7];
 				
-				//String response = database.addNewAppointment(description, startTime, endTime, location, meetingRoom, owner);
-				//return response;
-				return "";
+				System.out.println("description: " + description);
+				System.out.println("startTime: " + startTime);
+				System.out.println("endTime: " + endTime);
+				System.out.println("location: " + location);
+				System.out.println("meetingRoom: " + meetingRoom);
+				System.out.println("owner: " + owner);
+				
+				System.out.println("database.addNewAppointment(" + description + ", " + startTime + ", " + endTime + ", " + location + ", " + "null" + ", " + owner + ")");
+				Boolean response2 = database.addNewAppointment(description, startTime, endTime, location, null, owner);
+
+				return String.valueOf(response2);
 				
 			case "DELETEAPPOINTMENT":
 				
@@ -56,7 +64,7 @@ public class ServerProtocol {
 				else {
 					return "user is not appointment owner";
 				}
-			}
+			
 				
 			case "CHECKAPPOINTMENTOWNERSHIP":
 				//
