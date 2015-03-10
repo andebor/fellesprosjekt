@@ -122,14 +122,17 @@ public class Client
 		
 	}
 	
+	public static String addUser(String username, String firstName, String lastName,String password) throws IOException {
+		
+		String response = sendToServer("ADDNEWUSER " + username + " " + firstName + " " + lastName + " " + password);
+		return response;
+	}
+
 	public static boolean checkAppointmentOwnership(String ID) throws IOException {
 		
 		String response = sendToServer("checkAppointmentOwnership " + ID + " " + username);
 		return Boolean.valueOf(response);
-		
-		
 	}
-	
 	
 	
    public static void main(String [] args) throws Exception {

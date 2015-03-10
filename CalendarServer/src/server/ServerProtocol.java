@@ -64,8 +64,16 @@ public class ServerProtocol {
 				else {
 					return "user is not appointment owner";
 				}
-			
 				
+			case "ADDNEWUSER":
+				String userName = input[1];
+				String firstName = input[2];
+				String lastName = input[3];
+				String passWord = input[4];
+				
+				String response3 = database.addUser(userName, firstName, lastName, passWord);
+				return response3;
+
 			case "CHECKAPPOINTMENTOWNERSHIP":
 				//
 				if(database.getEmpno(input[2])==database.getAppointmentOwner(Integer.parseInt(input[1]))){
@@ -80,8 +88,6 @@ public class ServerProtocol {
 				
 	
 				}
-				
-				
 		}
 		
 		return "OK";
