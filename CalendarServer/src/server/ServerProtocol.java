@@ -42,8 +42,9 @@ public class ServerProtocol {
 				String meetingRoom = input[5];
 				String owner = input[6];
 				
-				String respone = database.addNewAppointment(description, startTime, endTime, location, meetingRoom, owner);
-				return response;
+				//String response = database.addNewAppointment(description, startTime, endTime, location, meetingRoom, owner);
+				//return response;
+				return "";
 				
 			case "DELETEAPPOINTMENT":
 				
@@ -55,6 +56,7 @@ public class ServerProtocol {
 				else {
 					return "user is not appointment owner";
 				}
+			}
 				
 		}
 		
