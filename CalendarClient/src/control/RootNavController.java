@@ -38,6 +38,12 @@ public class RootNavController {
 		mainApp.showNotifications();
 	}
 	
+	@FXML
+	private void gotoUserManagement() {
+		System.out.println("Opening UserManagementView..");
+		mainApp.showUserManagement();
+	}
+	
 	// NOTIFICATIONS
 		
 	@FXML private Button btn_notifications;
