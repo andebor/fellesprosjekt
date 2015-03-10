@@ -82,19 +82,17 @@ public class AppointmentOverviewController {
     	
     	
     	String[] appStrings = str.split(Pattern.quote("$%"));
+    	
     	/*
     	for(int i = 0; i < appStrings.length; i++) {
     		System.out.println(appStrings[i] + "\n");
     	}
     	*/
     	
-    	/*
+    	
     	for(int i = 0; i < appStrings.length; i++) {
     		addAppointment(appStrings[i]);
     	}
-    	*/
-    	
-    	addAppointment(appStrings[0]);
     	
     	
     	
@@ -106,15 +104,14 @@ public class AppointmentOverviewController {
     public void addAppointment(String str) {
     	Appointment appointment = new Appointment();
     	
+    	System.out.println("BANANFLUE: " + str);
     	String[] z = str.split(Pattern.quote("%$"));
     	
     	//System.out.println("LENGDE: " + z.length);
     	
-    	for(int i = 0; i < z.length; i++) {
-    		System.out.println(z[i] + "\n");
-    	}
     	
-    	
+
+    	System.out.println("WWWWWW: " + z[0]);
     	appointment.setDescription(z[0]);
     	
     	String[] startDate = z[1].split(" ");
@@ -141,7 +138,7 @@ public class AppointmentOverviewController {
     	appointment.setRoom(z[4]);
     	appointment.setRoomAmount(2);
     	appointment.setID(z[6]);
-    	//
+    	
     	appointmentList.add(appointment);
     	
     }

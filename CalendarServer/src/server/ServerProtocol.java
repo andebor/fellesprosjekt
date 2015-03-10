@@ -31,6 +31,7 @@ public class ServerProtocol {
 			case "GETAPPOINTMENTLIST":
 				
 				String response = database.getAppointments(input[1]);
+				System.out.println("HEEER: " + response);
 				return response;
 			
 			case "ADDNEWAPPOINTMENT":
