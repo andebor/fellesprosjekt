@@ -453,7 +453,6 @@ public class NewAppointmentController implements Initializable {
 			if(!editNewAppointment && Client.addAppointment(appointment)){
 				errorLabel.setText("Ny avtale lagt inn!");
 				
-				
 				//AppointmentOverviewController.getAppointmentList().add(appointment);
 				
 			}
@@ -461,8 +460,14 @@ public class NewAppointmentController implements Initializable {
 				errorLabel.setText("Avtale er endret!");
 				//Notify change to users
 			}
-			
+			// max random bug fix.. kjøre mainApp.showAppointmentOverview() vil kaste en exception av eller annen random grunn, men vil ikke kaste exception 
+			// hvis vi kjører mainApp.showAppointmentOverview() to ganger.
+			try {
 			mainApp.showAppointmentOverview();
+			} 
+			catch(Exception e){
+				mainApp.showAppointmentOverview();
+			}
 	
 		}
 		else {

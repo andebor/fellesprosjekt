@@ -51,8 +51,8 @@ public class ServerProtocol {
 				
 				System.out.println("database.addNewAppointment(" + description + ", " + startTime + ", " + endTime + ", " + location + ", " + meetingRoom + ", " + owner + ")");
 				Boolean response2 = database.addNewAppointment(description, startTime, endTime, location, null, owner);
-
-				return String.valueOf(response2);
+				int response3 = database.getLatestAddition("avtale", "avtaleID");
+				return String.valueOf(response3);
 				
 			case "DELETEAPPOINTMENT":
 				
@@ -71,8 +71,8 @@ public class ServerProtocol {
 				String lastName = input[3];
 				String passWord = input[4];
 				
-				String response3 = database.addUser(userName, firstName, lastName, passWord);
-				return response3;
+				String response4 = database.addUser(userName, firstName, lastName, passWord);
+				return response4;
 
 			case "CHECKAPPOINTMENTOWNERSHIP":
 				//
@@ -91,6 +91,12 @@ public class ServerProtocol {
 				
 				return database.getEmployees();
 	
+			case "ADDEMPLOYEETOAPPOINTMENT":
+				
+				String empNo = input[1];
+				String appID = input[2];
+				Boolean response5 = database.addEmployeeToAppointment(Integer.parseInt(appID), Integer.parseInt(empNo));
+				return response5.toString();
 				}
 		}
 		
