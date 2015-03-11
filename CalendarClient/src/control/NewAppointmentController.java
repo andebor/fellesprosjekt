@@ -2,6 +2,7 @@ package control;
 
 
 import java.util.List;
+import java.io.IOException;
 import java.net.URL;	
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -81,7 +82,12 @@ public class NewAppointmentController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// initialize tableviews 
-		generateEmployersList();
+		try {
+			generateEmployersList();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		generateGroupsList();
 		generateRoomList();
 		dateCalenderfix();
@@ -216,23 +222,30 @@ public class NewAppointmentController implements Initializable {
         
 	}
 	
-	public void generateEmployersList() {
+	public void generateEmployersList() throws IOException {
 		
 		//Get list from database
 		//String need to be changes to users
 		// Using a example list to test functionality
-		ObservableList<String> list = FXCollections.observableArrayList(
-				"Ansatt 1",
-				"Ansatt 2",
-				"Ansatt 3",
-				"Ansatt 4",
-				"Ansatt 5",
-				"Ansatt 6",
-				"Ansatt 7");
+		ObservableList<String> list = FXCollections.observableArrayList();
+		
+		String[] employeesList = Client.getEmployees().split("@/@");
+		
+		for(String employer : employeesList){
+			
+			String[] emp1 = employer.split("&/&");
+			System.out.println(emp1);
+			String emp2 = "";
+			for(int i = 1; i<emp1.length; i++){
+				emp2+= emp1[i] + " ";
+			}
+			emp2+= emp1[0];
+			list.add(emp2);
+		}
 		employersList = list;
 		employersTable.setItems(list);									
 	}
-	
+
 	public void generateGroupsList() {
 		
 		//Get list from database

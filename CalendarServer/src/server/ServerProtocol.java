@@ -86,6 +86,10 @@ public class ServerProtocol {
 				
 			case "EDITAPPOINTMENT":
 				
+				
+			case "GETEMPLOYEES":
+				
+				return database.getEmployees();
 	
 				}
 		}

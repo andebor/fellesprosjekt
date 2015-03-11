@@ -134,6 +134,11 @@ public class Client
 		return Boolean.valueOf(response);
 	}
 	
+	public static String getEmployees() throws IOException{
+		
+		return sendToServer("GETEMPLOYEES");
+		
+	}
 	
    public static void main(String [] args) throws Exception {
 	   
