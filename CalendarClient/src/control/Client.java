@@ -128,10 +128,10 @@ public class Client
 		return response;
 	}
 
-	public static boolean checkAppointmentOwnership(String ID) throws IOException {
+	public static String checkAppointmentOwnership(String ID) throws IOException {
 		
-		String response = sendToServer("checkAppointmentOwnership " + ID + "#%" + username);
-		return Boolean.valueOf(response);
+		String response = sendToServer("checkAppointmentOwnership" + "#%" + ID + "#%" + username);
+		return response.substring(0, 4);
 	}
 	
 	public static String getEmployees() throws IOException{

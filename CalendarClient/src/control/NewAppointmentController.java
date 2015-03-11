@@ -251,11 +251,7 @@ public class NewAppointmentController implements Initializable {
 		//Get list from database
 		//String need to be changes to users
 		// Using a example list to test functionality
-		ObservableList<String> list = FXCollections.observableArrayList(
-				"Group 1",
-				"Group 2",
-				"Group 3");
-		groupList = list;
+		ObservableList<String> list = FXCollections.observableArrayList();
 		groupsTable.setItems(groupList);	
 		
 	}
@@ -266,10 +262,7 @@ public class NewAppointmentController implements Initializable {
 		//String need to be changes to users
 		// Using a example list to test functionality
 
-		ObservableList<String> list = FXCollections.observableArrayList(
-				"Grouproom 1",
-				"Grouproom 2",
-				"Grouproom 3");
+		ObservableList<String> list = FXCollections.observableArrayList();
 		roomTable.setItems(list);	
 		
 	}
