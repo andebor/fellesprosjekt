@@ -117,6 +117,29 @@ public class ServerProtocol {
 				
 				return database.getMeetingRooms("#/#", "/@/");
 				
+			case "UPDATEAPPOINTMENT":
+				
+				String ID = input[1];
+				String descriptionn = input[2];
+				String start = input[3];
+				String end = input[4];
+				String date = input[5];
+				String place = input[6];
+				String room = input[7];
+				database.updateAppointmentString(Integer.parseInt(ID), "formål", descriptionn);
+				database.updateAppointmentString(Integer.parseInt(ID), "starttid", date + " " + start + ":00.0");
+				database.updateAppointmentString(Integer.parseInt(ID), "sluttid", date + " " + end + ":00.0");
+				database.updateAppointmentString(Integer.parseInt(ID), "sted", place);
+
+				
+				if(room == null || !place.equals("null")){
+					
+					database.updateAppointmentInteger(Integer.parseInt(ID), "møteromNR", null);
+					}
+				else {
+					database.updateAppointmentInteger(Integer.parseInt(ID), "møteromNR", Integer.parseInt(room));
+				}
+				
 			case "ADDEMPLOYEETOAPPOINTMENT":
 				
 				String empNo = input[1];
@@ -135,12 +158,29 @@ public class ServerProtocol {
 				
 				String changeResponse = database.setNewPass(UserName, encodedNewPwd, newSalt);
 				return changeResponse;
+				
+			case "HASNOTIFICATIONS":
+				int empNo2 = database.getEmpno(input[1]);
+				
+				Boolean response6 = database.hasNewNotifications(empNo2);
+				
+				return response6.toString();
+				
+			case "FLAGALLNOTIFICATIONSASSEEN":
+				int empNo3 = database.getEmpno(input[1]);
+				
+				Boolean response7 = database.flagAllNotificationsAsSeen(empNo3);
+				
+				return response7.toString();
+				
+				
+			}
 			
-			} //Closing bracket for switch statement
+		} //Closing bracket for switch statement
 
-		}
-		
+		database.close();
 		return "OK";
 		
 	}
+	
 }

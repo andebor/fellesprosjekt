@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.security.NoSuchAlgorithmException;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -36,6 +37,11 @@ public class LoginController {
 		
 		if(correctLogin) {
 			mainApp.loginSuccess();
+			
+			
+			NotificationListener notificationListener = new NotificationListener();
+			notificationListener.start();
+			
 			Client.getAppointmentList();
 		}
 		else {

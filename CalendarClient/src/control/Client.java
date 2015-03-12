@@ -31,7 +31,7 @@ public class Client
 	public void init() throws UnknownHostException, IOException {
 		
 		String host = "localhost";
-		int port = 6066;
+		int port = 6067;
 		
 		try {
 			s = new Socket(host, port);
@@ -69,7 +69,7 @@ public class Client
 			output += modifiedSentence = tempString + "\r\n";
 			tempString = inFromServer.readLine();
 		}
-		return output;
+		return output.trim();
 	}
 	
 
@@ -89,7 +89,6 @@ public class Client
 	
 	public static String getAppointmentList() throws IOException {
 	
-		
 		return sendToServer("GETAPPOINTMENTLIST" + "#%" + Client.username);
 
 		
@@ -98,8 +97,17 @@ public class Client
 	public static boolean addAppointment(Appointment appointment) throws IOException {
 		
 		
+		String room = "";
+		if(appointment.getRoom() != null){
+			room = appointment.getRoom().split(" ")[0];
+		}
+		else {
+			room = null;
+		}
+		
+		
 		String response1 = sendToServer("addNewAppointment" + "#%" + appointment.getDescription() + "#%" + appointment.getStart().toString() + "#%" + appointment.getFrom().toString() + "#%" + appointment.getDate().toString() + "#%" 
-				+ appointment.getPlace() + "#%" + appointment.getRoom().split(" ")[0] + "#%" + Client.username);
+				+ appointment.getPlace() + "#%" + room + "#%" + Client.username);
 		System.out.println("ASKLDLJASDLJKSALKJ: " + Client.username);
 		System.out.println("addNewAppointment" + "#%" + appointment.getDescription() + "#%" + appointment.getStart().toString() + "#%" + appointment.getFrom().toString() + "#%" + appointment.getDate().toString() + "#%" 
 				+ appointment.getPlace() + "#%" + appointment.getRoom().split(" ")[0] + "#%" + Client.username);
@@ -141,10 +149,44 @@ public class Client
 		
 	}
 	
+	public static String hasNotifications() throws IOException {
+	
+		return sendToServer("hasNotifications" + "#%" + Client.username);
+	}
+	
+	public static String flagAllNotificationsAsSeen() throws IOException {
+		
+		return sendToServer("flagAllNotificationsAsSeen" + "#%" + Client.username);
+	}
+	
+
 	public static String getRooms() throws IOException{
 		
 		String response = sendToServer("GETROOMS");
 		return response;
+
+	}
+	
+	public static boolean editAppointment(Appointment appointment) throws IOException{
+		String room = "";
+		if(appointment.getRoom() != null){
+			room = appointment.getRoom().split(" ")[0];
+		}
+		else {
+			room = null;
+		}
+		String response1 = sendToServer("UPDATEAPPOINTMENT" + "#%" + appointment.getID() + "#%" + appointment.getDescription() + "#%" + appointment.getStart().toString() + "#%" + appointment.getFrom().toString() + "#%" + appointment.getDate().toString() + "#%" 
+				+ appointment.getPlace() + "#%" + room);
+
+		for (String employee : appointment.getUsers()){
+			
+			String[] emp = employee.split(" ");
+			String response2 = sendToServer("ADDEMPLOYEETOAPPOINTMENT" + "#%" + emp[emp.length-1] + "#%" + appointment.getID());
+		}
+		
+		
+		return true; //response1 returns appointmentID now
+		
 		
 	}
 	
