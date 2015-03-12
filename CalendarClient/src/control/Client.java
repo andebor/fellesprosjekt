@@ -159,6 +159,16 @@ public class Client
 		return sendToServer("flagAllNotificationsAsSeen" + "#%" + Client.username);
 	}
 	
+	public static String getNewNotifications() throws IOException {
+		
+		return sendToServer("getNewNotifications" + "#%" + Client.username);
+	}
+	
+	public static String addNotification(String msg) throws IOException {
+		
+		return sendToServer("addNotification" + "#%" + Client.username + "#%" + msg);
+	}
+	
 
 	public static String getRooms(String start, String end, String cap, String date) throws IOException{
 		

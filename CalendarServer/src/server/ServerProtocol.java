@@ -173,6 +173,21 @@ public class ServerProtocol {
 				
 				return response7.toString();
 				
+			case "GETNEWNOTIFICATIONS":
+				int empNo4 = database.getEmpno(input[1]);
+				
+				String response8 = database.getNewNotifications(empNo4);
+				
+				return response8;
+				
+			case "ADDNOTIFICATION":
+				int empNo5 = database.getEmpno(input[1]);
+				String msg = input[2];
+				
+				Boolean response9 = database.addNotification(empNo5, msg);
+				
+				return response9.toString();
+				
 				
 			}
 			
