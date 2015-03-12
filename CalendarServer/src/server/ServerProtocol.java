@@ -57,6 +57,7 @@ public class ServerProtocol {
 			case "DELETEAPPOINTMENT":
 				
 				if(database.getEmpno(input[2])==database.getAppointmentOwner(Integer.parseInt(input[1]))){
+					System.out.println("appointment ID: " + input[1]);
 					boolean response1 = database.removeAppointment(Integer.parseInt(input[1]));
 					return String.valueOf(response1);
 				}
