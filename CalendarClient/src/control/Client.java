@@ -153,6 +153,12 @@ public class Client
 	
 		return sendToServer("hasNotifications" + "#%" + Client.username);
 	}
+	
+	public static String flagAllNotificationsAsSeen() throws IOException {
+		
+		return sendToServer("flagAllNotificationsAsSeen" + "#%" + Client.username);
+	}
+	
 
 	public static String getRooms() throws IOException{
 		

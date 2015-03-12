@@ -149,15 +149,27 @@ public class ServerProtocol {
 				
 				
 			case "HASNOTIFICATIONS":
+				int empNo2 = database.getEmpno(input[1]);
 				
-				return "lol";
+				Boolean response6 = database.hasNewNotifications(empNo2);
+				
+				return response6.toString();
+				
+			case "FLAGALLNOTIFICATIONSASSEEN":
+				int empNo3 = database.getEmpno(input[1]);
+				
+				Boolean response7 = database.flagAllNotificationsAsSeen(empNo3);
+				
+				return response7.toString();
+				
 				
 			}
 			
 		} //Closing bracket for switch statement
 
-		
+		database.close();
 		return "OK";
 		
 	}
+	
 }

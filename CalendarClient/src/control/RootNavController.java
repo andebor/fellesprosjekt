@@ -1,5 +1,7 @@
 package control;
 
+import java.io.IOException;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
@@ -33,7 +35,8 @@ public class RootNavController {
 	}
 	
 	@FXML
-	private void gotoNotifications() {
+	private void gotoNotifications() throws IOException {
+		Client.flagAllNotificationsAsSeen();
 		System.out.println("Opening NotificationsView..");
 		mainApp.showNotifications();
 	}
