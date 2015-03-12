@@ -1,5 +1,6 @@
 package control;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -32,7 +33,7 @@ public class editAppointmentController extends NewAppointmentController implemen
 		
 	}
 	
-	public void loadAppointment(){
+	public void loadAppointment() throws IOException{
 		
 		super.descriptionField.setText(appointmentToEdit.getDescription());
 	    super.startHourField.setValue(Integer.toString(appointmentToEdit.getStart().getHour()));
