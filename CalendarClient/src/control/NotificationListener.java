@@ -16,12 +16,14 @@ public class NotificationListener extends Thread {
 		while(true) {
 			try {
 				String str = Client.hasNotifications().trim();
-				if(str.equals("lol")) {
+				if(str.equals("true")) {
 					System.out.println("Nye varlser!");	
-					MainApp.rootController.setNotificationBold();
+					//MainApp.rootController.setNotificationBold();
+					Platform.runLater(() -> MainApp.rootController.setNotificationBold());
 				}
 				else {
-					MainApp.rootController.removeNotificationBold();
+					//MainApp.rootController.removeNotificationBold();
+					Platform.runLater(() -> MainApp.rootController.removeNotificationBold());
 				}
 			} 
 			catch (IOException e) {

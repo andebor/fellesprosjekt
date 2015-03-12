@@ -23,7 +23,7 @@ public class MainApp extends Application {
 	private Stage primaryStage;
 	private BorderPane loginView;
 	private BorderPane rootNav;
-	public static RootNavController rootController;
+	public static RootNavCadontroller rootController;
 	
     private ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
     
@@ -39,6 +39,15 @@ public class MainApp extends Application {
 	}
 	
     public void initRootNav() {
+    	
+	    Platform.runLater(new Runnable() {
+	        @Override
+	        public void run() {
+	        	MainApp.rootController.setNotificationBold();
+	        	MainApp.rootController.removeNotificationBold();
+	        }
+	    });
+    	
         try {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
@@ -59,13 +68,7 @@ public class MainApp extends Application {
             rootController = loader.getController();
             rootController.setMainApp(this);
             
-    	    Platform.runLater(new Runnable() {
-    	        @Override
-    	        public void run() {
-    	        	MainApp.rootController.setNotificationBold();
-    	        	MainApp.rootController.removeNotificationBold();
-    	        }
-    	    });
+
             
         } catch (IOException e) {
             e.printStackTrace();
