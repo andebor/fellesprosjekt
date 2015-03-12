@@ -93,8 +93,8 @@ public class ServerProtocol {
 				byte[] hashedPwd = Security.hashPassword(pwd, newsalt);
 				String encodedPwd = Security.bytetoString(hashedPwd);
 				
-				String response3 = database.addUser(userName, firstName, lastName, encodedPwd, newsalt);
-				return response3;
+				String addResponse = database.addUser(userName, firstName, lastName, encodedPwd, newsalt);
+				return addResponse;
 
 			case "CHECKAPPOINTMENTOWNERSHIP":
 				//
