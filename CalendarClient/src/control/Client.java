@@ -92,8 +92,8 @@ public class Client
 	public static String getAppointmentList() throws IOException {
 	
 		
-		String response = sendToServer("getAppointmentList" + "#%" + Client.username);
-		return response;
+		return sendToServer("GETAPPOINTMENTLIST" + "#%" + Client.username);
+
 		
 	}
 	
@@ -104,13 +104,15 @@ public class Client
 				+ appointment.getPlace() + "#%" + appointment.getRoom() + "#%" + Client.username);
 		System.out.println("ASKLDLJASDLJKSALKJ: " + Client.username);
 		// TODO add employees
-		/**
-		for (String employee : appointment.getUsers()){
-			String response2 = sendToServer("addEmployeeToAppointment " +  )
-		}
-		*/
 		
-		return Boolean.valueOf(response1);
+		for (String employee : appointment.getUsers()){
+			
+			String[] emp = employee.split(" ");
+			String response2 = sendToServer("ADDEMPLOYEETOAPPOINTMENT" + "#%" + emp[emp.length-1] + "#%" + response1);
+		}
+		
+		
+		return true; //response1 returns appointmentID now
 		
 	}
 	
@@ -128,12 +130,17 @@ public class Client
 		return response;
 	}
 
-	public static boolean checkAppointmentOwnership(String ID) throws IOException {
+	public static String checkAppointmentOwnership(String ID) throws IOException {
 		
-		String response = sendToServer("checkAppointmentOwnership " + ID + "#%" + username);
-		return Boolean.valueOf(response);
+		String response = sendToServer("checkAppointmentOwnership" + "#%" + ID + "#%" + username);
+		return response.substring(0, 4);
 	}
 	
+	public static String getEmployees() throws IOException{
+		
+		return sendToServer("GETEMPLOYEES");
+		
+	}
 	
    public static void main(String [] args) throws Exception {
 	   

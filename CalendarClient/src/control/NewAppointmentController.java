@@ -2,6 +2,7 @@ package control;
 
 
 import java.util.List;
+import java.io.IOException;
 import java.net.URL;	
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -81,7 +82,12 @@ public class NewAppointmentController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// initialize tableviews 
-		generateEmployersList();
+		try {
+			generateEmployersList();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		generateGroupsList();
 		generateRoomList();
 		dateCalenderfix();
@@ -216,33 +222,36 @@ public class NewAppointmentController implements Initializable {
         
 	}
 	
-	public void generateEmployersList() {
+	public void generateEmployersList() throws IOException {
 		
 		//Get list from database
 		//String need to be changes to users
 		// Using a example list to test functionality
-		ObservableList<String> list = FXCollections.observableArrayList(
-				"Ansatt 1",
-				"Ansatt 2",
-				"Ansatt 3",
-				"Ansatt 4",
-				"Ansatt 5",
-				"Ansatt 6",
-				"Ansatt 7");
+		ObservableList<String> list = FXCollections.observableArrayList();
+		
+		String[] employeesList = Client.getEmployees().split("@/@");
+		
+		for(String employer : employeesList){
+			
+			String[] emp1 = employer.split("&/&");
+			System.out.println(emp1);
+			String emp2 = "";
+			for(int i = 1; i<emp1.length; i++){
+				emp2+= emp1[i] + " ";
+			}
+			emp2+= emp1[0];
+			list.add(emp2);
+		}
 		employersList = list;
 		employersTable.setItems(list);									
 	}
-	
+
 	public void generateGroupsList() {
 		
 		//Get list from database
 		//String need to be changes to users
 		// Using a example list to test functionality
-		ObservableList<String> list = FXCollections.observableArrayList(
-				"Group 1",
-				"Group 2",
-				"Group 3");
-		groupList = list;
+		ObservableList<String> list = FXCollections.observableArrayList();
 		groupsTable.setItems(groupList);	
 		
 	}
@@ -253,10 +262,7 @@ public class NewAppointmentController implements Initializable {
 		//String need to be changes to users
 		// Using a example list to test functionality
 
-		ObservableList<String> list = FXCollections.observableArrayList(
-				"Grouproom 1",
-				"Grouproom 2",
-				"Grouproom 3");
+		ObservableList<String> list = FXCollections.observableArrayList();
 		roomTable.setItems(list);	
 		
 	}
@@ -447,7 +453,6 @@ public class NewAppointmentController implements Initializable {
 			if(!editNewAppointment && Client.addAppointment(appointment)){
 				errorLabel.setText("Ny avtale lagt inn!");
 				
-				
 				//AppointmentOverviewController.getAppointmentList().add(appointment);
 				
 			}
@@ -455,8 +460,14 @@ public class NewAppointmentController implements Initializable {
 				errorLabel.setText("Avtale er endret!");
 				//Notify change to users
 			}
-			
+			// max random bug fix.. kjøre mainApp.showAppointmentOverview() vil kaste en exception av eller annen random grunn, men vil ikke kaste exception 
+			// hvis vi kjører mainApp.showAppointmentOverview() to ganger.
+			try {
 			mainApp.showAppointmentOverview();
+			} 
+			catch(Exception e){
+				mainApp.showAppointmentOverview();
+			}
 	
 		}
 		else {
