@@ -78,6 +78,7 @@ public class AppointmentOverviewController {
     	
     	String str = Client.getAppointmentList();
     	
+    	System.out.println("hentet avtaler");
     	System.out.println(str);
     	
     	
@@ -104,7 +105,7 @@ public class AppointmentOverviewController {
     public void addAppointment(String str) {
     	Appointment appointment = new Appointment();
     	
-    	System.out.println("BANANFLUE: " + str);
+
     	String[] z = str.split(Pattern.quote("%$"));
     	
     	//System.out.println("LENGDE: " + z.length);

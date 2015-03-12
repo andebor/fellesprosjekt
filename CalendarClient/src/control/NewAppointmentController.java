@@ -186,35 +186,16 @@ public class NewAppointmentController implements Initializable {
 	}
 	
 	
-	public boolean startTimeValidation(String starts){
-		// Validate "Fra-tid"
-		/*
-		  try { 
-				LocalTime startTime = LocalTime.of(Integer.parseInt(starts.substring(0,2)), Integer.parseInt(starts.substring(2,4)));
-		    } catch(Exception e) { 
-		    	startField.setText("");
-		    	startField.setPromptText("Ugyldig input");
-		    	return false;
-		    }
-		    */
-		  return true;
-				
-	}
+
 	
-	public boolean endTimeValidation(String ends){
-		// validate "til-tid"
-		  try { 
-				LocalTime endTime = LocalTime.of(Integer.parseInt(ends.substring(0,2)), Integer.parseInt(ends.substring(2,4)));
-		    } catch(Exception e) { 
-		    	endHourField.setPromptText("Ugyldig input");
-		    	return false;
-		    }
+	public boolean endTimeValidation(){
+
 
 		  // Check if start time is before end time
 		LocalTime startTime = LocalTime.of(Integer.parseInt(startHourField.getValue().toString()), Integer.parseInt(startMinuteField.getValue().toString()));
 		LocalTime endTime = LocalTime.of(Integer.parseInt(endHourField.getValue().toString()), Integer.parseInt(endMinuteField.getValue().toString()));
 				
-        
+
 		if(endTime.isBefore(startTime)){
 			return false;
 		}
@@ -376,11 +357,8 @@ public class NewAppointmentController implements Initializable {
 			validationCheck++;
 		}
 		
-		if(startTimeValidation(startHourField.getValue().toString())){
-			validationCheck++;
-		}
 
-		if(endTimeValidation(endHourField.getValue().toString())){
+		if(endTimeValidation()){
 			validationCheck++;
 		}
 		
@@ -416,7 +394,7 @@ public class NewAppointmentController implements Initializable {
 		}
 				
 		
-		if(validationCheck > 1)	{ 
+		if(validationCheck >= 5)	{ 
 			
 			// Validation passed. Creating new appointment
 			
@@ -461,7 +439,7 @@ public class NewAppointmentController implements Initializable {
 				//Notify change to users
 			}
 			// max random bug fix.. kjøre mainApp.showAppointmentOverview() vil kaste en exception av eller annen random grunn, men vil ikke kaste exception 
-			// hvis vi kjører mainApp.showAppointmentOverview() to ganger.
+			// hvis vi kjører mainApp.showAppointmentOverview() to ganger..
 			try {
 			mainApp.showAppointmentOverview();
 			} 
@@ -471,7 +449,7 @@ public class NewAppointmentController implements Initializable {
 	
 		}
 		else {
-		errorLabel.setText(" "+validationCheck+ " of  6 checks");
+		errorLabel.setText(" "+validationCheck+ " of  5 checks");
 		}
 
 	}
