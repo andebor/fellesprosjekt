@@ -54,7 +54,7 @@ public class editAppointmentController extends NewAppointmentController implemen
 				super.addEmployers(emp[1] + " " + emp[2] + " " + emp[0]);
 				}
 				catch(Exception e){
-				//LOL random bug fix
+				//LOL random bug fix //
 				}
 			} //
 		}

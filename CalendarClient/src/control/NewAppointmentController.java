@@ -439,7 +439,7 @@ public class NewAppointmentController implements Initializable {
 				//Notify change to users
 			}
 			// max random bug fix.. kjøre mainApp.showAppointmentOverview() vil kaste en exception av eller annen random grunn, men vil ikke kaste exception 
-			// hvis vi kjører mainApp.showAppointmentOverview() to ganger.
+			// hvis vi kjører mainApp.showAppointmentOverview() to ganger..
 			try {
 			mainApp.showAppointmentOverview();
 			} 
