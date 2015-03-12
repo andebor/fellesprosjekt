@@ -189,10 +189,10 @@ public class AppointmentOverviewController {
     		datoLabel.setText(appointment.getDate().toString());
     		tidspunktLabel.setText(appointment.getStart().toString() + " til "  + appointment.getFrom().toString());
     		if(appointment.getPlace()!=null){
-    		stedLabel.setText(appointment.getPlace());
+    			stedLabel.setText(appointment.getPlace());
     		}
     		if(appointment.getRoom()!=null){
-    		moteromLabel.setText(appointment.getRoom());
+    			moteromLabel.setText(appointment.getRoom());
     		}
     		List<String> users = appointment.getUsers();
     		
@@ -201,6 +201,14 @@ public class AppointmentOverviewController {
     		for (String s : users)
     		{
     		    listString += s + "\n";
+    		}
+    		
+    		if(stedLabel.getText().equals("null")){
+    			stedLabel.setText("");
+    		}
+    		
+    		if(moteromLabel.getText().equals("null")){
+    			moteromLabel.setText("");
     		}
     		
     		deltagereLabel.setText(listString);

@@ -28,12 +28,22 @@ public class UserManagementController {
 //		addUser("vigleikl", "Vigleik", "Lund", "vigleikl");
 //		addUser("mariusmb", "Marius", "Bang", "mariusmb");
 //		addUser("alfredb", "Alfred", "Birketvedt", "alfredb");
-		addUser("lars", "Lars", "Larsen", "lars");
+//		addUser("lars", "Lars", "Larsen", "lars");
+//    	changeUserPass("admin", "admin");
+//    	changeUserPass("vigleikl", "vigleikl");
+//    	changeUserPass("mariusmb", "mariusmb");
+//    	changeUserPass("alfredb", "alfredb");
+//    	changeUserPass("andebor", "andebor");
     }
     
     private void addUser(String username, String firstName, String lastName,String password) throws IOException {
     	String response = Client.addUser(username, firstName, lastName, password);
     	System.out.println(response);
     }  
+    
+    private void changeUserPass(String username, String password) throws IOException {
+    	String response = Client.changeUserPass(username, password);
+    	System.out.println(response);
+    }
 
 }

@@ -170,9 +170,9 @@ public class Client
 	}
 	
 
-	public static String getRooms() throws IOException{
+	public static String getRooms(String start, String end, String cap, String date) throws IOException{
 		
-		String response = sendToServer("GETROOMS");
+		String response = sendToServer("GETROOMS" + "#%" + start + "#%" + end + "#%" + cap + "#%" + date);
 		return response;
 
 	}
@@ -198,6 +198,11 @@ public class Client
 		return true; //response1 returns appointmentID now
 		
 		
+	}
+	
+	public static String changeUserPass(String username, String password) throws IOException {
+		String response = sendToServer("SETNEWPASSWORD" + "#%" + username + "#%" + password);
+		return response;
 	}
 	
    public static void main(String [] args) throws Exception {
