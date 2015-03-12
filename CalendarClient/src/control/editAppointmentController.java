@@ -52,7 +52,7 @@ public class editAppointmentController extends NewAppointmentController implemen
 			if(!employer1.equals("Venter")){
 			String[] emp = employer1.split(" ");
 			super.addEmployers(emp[1] + " " + emp[2] + " " + emp[0]);
-			}
+			} //
 		}
 		if(appointmentToEdit.getRoom()!=null){
 			super.placeField.setPromptText(appointmentToEdit.getRoom());
