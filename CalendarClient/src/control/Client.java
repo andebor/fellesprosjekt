@@ -10,6 +10,8 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.security.GeneralSecurityException;
+import java.security.NoSuchAlgorithmException;
 
 import model.Appointment;
 
@@ -72,19 +74,24 @@ public class Client
 		return output;
 	}
 	
-	public static boolean login(String username, String password) throws IOException{	
-		
-		
-
+	public static boolean login(String username, String password) throws IOException, GeneralSecurityException{
+//		String saltfromserver = sendToServer("GETSALT " + username);
+//		byte[] decodedSalt = UserManagementController.stringtoByte(saltfromserver);
+//		byte[] typedpwd = UserManagementController.hashPassword(password.toCharArray(), decodedSalt);
+//		
+//		String encodedTypedPwd = UserManagementController.bytetoString(typedpwd);
+//		System.out.println("EncodedTypedPwd: " + encodedTypedPwd);
+//
+//		String response = sendToServer("login " + username + " " + encodedTypedPwd);
 		String response = sendToServer("login " + username + " " + password);
 		
 		if (response.trim().equals("OK")) {
-			System.out.println("ja");
+			System.out.println("Class:Client - Successfull login!");
 			Client.username = username;
 			return true;
 		}
 		else {
-			System.out.println("nei");
+			System.out.println("Class:Client - Wrong login");
 			return false;
 		}
 	}
@@ -123,7 +130,6 @@ public class Client
 	}
 	
 	public static String addUser(String username, String firstName, String lastName,String password) throws IOException {
-		
 		String response = sendToServer("ADDNEWUSER " + username + " " + firstName + " " + lastName + " " + password);
 		return response;
 	}
