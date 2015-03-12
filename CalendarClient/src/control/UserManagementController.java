@@ -1,9 +1,16 @@
 package control;
 
 import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.Base64;
+import java.util.Base64.Decoder;
+import java.util.Base64.Encoder;
+
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
 
 import javafx.fxml.FXML;
 
@@ -16,54 +23,17 @@ public class UserManagementController {
     }
     
     @FXML
-    private void testAddUser() throws IOException {
-    	try {
-			addUser("andebor", "Anders", "Borud", "andebor");
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    private void testAddUser() throws IOException, GeneralSecurityException {
+//		addUser("andebor", "Anders", "Borud", "andebor");
+//		addUser("vigleikl", "Vigleik", "Lund", "vigleikl");
+//		addUser("mariusmb", "Marius", "Bang", "mariusmb");
+//		addUser("alfredb", "Alfred", "Birketvedt", "alfredb");
+		addUser("lars", "Lars", "Larsen", "lars");
     }
     
-    private void addUser(String username, String firstName, String lastName,String password) throws NoSuchAlgorithmException, IOException {
-    	String securePassword = getSecurePassword(password, getSalt());
-    	    	
-    	String response = Client.addUser(username, firstName, lastName, securePassword);
-    	System.out.println("Secure password: " + securePassword);
+    private void addUser(String username, String firstName, String lastName,String password) throws IOException {
+    	String response = Client.addUser(username, firstName, lastName, password);
     	System.out.println(response);
-    }
-    
-    private static String getSalt() throws NoSuchAlgorithmException
-    {
-        //Always use a SecureRandom generator
-        SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
-        //Create array for salt
-        byte[] salt = new byte[16];
-        //Get a random salt
-        sr.nextBytes(salt);
-        //return salt
-        return salt.toString();
-    }
-    
-    private static String getSecurePassword(String passwordToHash, String salt)
-    {
-        String generatedPassword = null;
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-1");
-            md.update(salt.getBytes());
-            byte[] bytes = md.digest(passwordToHash.getBytes());
-            StringBuilder sb = new StringBuilder();
-            for(int i=0; i< bytes.length ;i++)
-            {
-                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-            }
-            generatedPassword = sb.toString();
-        }
-        catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        return generatedPassword;
-    }
-    
+    }  
 
 }

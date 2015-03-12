@@ -1,5 +1,6 @@
 package server;
 
+
 import db.DBConnect;
 
 //
@@ -16,17 +17,32 @@ public class ServerProtocol {
 			
 			switch(input[0].toUpperCase()){
 			case "LOGIN":
-				
+				System.out.println("CLASS:ServerProtocol - Trying login..");
 				String username = input[1];
-				String password = database.getPassword(username);
+				byte[] salt = database.getSalt(username);
+				char[] typedPwd = input[2].toCharArray();
 				
-				if(password.equals(input[2])) {
-					return "OK";
-				}
-				else {
+				if (salt != null) {
+					byte[] hashedPwd = Security.hashPassword(typedPwd, salt);
+					byte[] dbPwd = Security.stringtoByte(database.getPassword(username));
+					
+					if (Security.matches(hashedPwd, dbPwd)) {
+						return "OK";
+					}
+				} else {
 					return "NOK";
 				}
-			//
+						
+				
+//				String password = database.getPassword(username);
+//				
+//				if(password.equals(input[2])) {
+//					return "OK";
+//				}
+//				else {
+//					return "NOK";
+//				}
+			
 				
 			case "GETAPPOINTMENTLIST":
 				
@@ -72,8 +88,13 @@ public class ServerProtocol {
 				String lastName = input[3];
 				String passWord = input[4];
 				
-				String response4 = database.addUser(userName, firstName, lastName, passWord);
-				return response4;
+				byte[] newsalt = Security.generateSalt();
+				char[] pwd = passWord.toCharArray();
+				byte[] hashedPwd = Security.hashPassword(pwd, newsalt);
+				String encodedPwd = Security.bytetoString(hashedPwd);
+				
+				String addResponse = database.addUser(userName, firstName, lastName, encodedPwd, newsalt);
+				return addResponse;
 
 			case "CHECKAPPOINTMENTOWNERSHIP":
 				//
@@ -125,11 +146,12 @@ public class ServerProtocol {
 				String appID = input[2];
 				Boolean response5 = database.addEmployeeToAppointment(Integer.parseInt(appID), Integer.parseInt(empNo));
 				return response5.toString();
-				}
+			
+			} //Closing bracket for switch statement
+
 		}
 		
 		return "OK";
 		
 	}
-	
 }

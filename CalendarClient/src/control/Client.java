@@ -72,19 +72,17 @@ public class Client
 		return output;
 	}
 	
-	public static boolean login(String username, String password) throws IOException{	
-		
-		
 
+	public static boolean login(String username, String password) throws IOException{	
 		String response = sendToServer("login" + "#%" + username + "#%" + password);
-		
+
 		if (response.trim().equals("OK")) {
-			System.out.println("ja");
+			System.out.println("Class:Client - Successfull login!");
 			Client.username = username;
 			return true;
 		}
 		else {
-			System.out.println("nei");
+			System.out.println("Class:Client - Wrong login");
 			return false;
 		}
 	}
@@ -136,7 +134,6 @@ public class Client
 	}
 	
 	public static String addUser(String username, String firstName, String lastName,String password) throws IOException {
-		
 		String response = sendToServer("ADDNEWUSER" + "#%" + username + "#%" + firstName + "#%" + lastName + "#%" + password);
 		return response;
 	}
