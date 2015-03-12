@@ -115,7 +115,7 @@ public class ServerProtocol {
 				
 			case "GETROOMS":
 				
-				return database.getMeetingRooms("#/#", "/@/");
+				return database.getAvailableRooms(input[4] + " " + input[1]+":00.0", input[4] + " " + input[2]+"00.0", Integer.parseInt(input[3]));
 				
 			case "UPDATEAPPOINTMENT":
 				
@@ -147,17 +147,40 @@ public class ServerProtocol {
 				Boolean response5 = database.addEmployeeToAppointment(Integer.parseInt(appID), Integer.parseInt(empNo));
 				return response5.toString();
 				
+			case "SETNEWPASSWORD":
+				String UserName = input[1];
+				String newpassword = input[2];
+				
+				byte[] newSalt = Security.generateSalt();
+				char[] newpwd = newpassword.toCharArray();
+				byte[] hashedNewPwd = Security.hashPassword(newpwd, newSalt);
+				String encodedNewPwd = Security.bytetoString(hashedNewPwd);
+				
+				String changeResponse = database.setNewPass(UserName, encodedNewPwd, newSalt);
+				return changeResponse;
 				
 			case "HASNOTIFICATIONS":
+				int empNo2 = database.getEmpno(input[1]);
 				
-				return "lol";
+				Boolean response6 = database.hasNewNotifications(empNo2);
+				
+				return response6.toString();
+				
+			case "FLAGALLNOTIFICATIONSASSEEN":
+				int empNo3 = database.getEmpno(input[1]);
+				
+				Boolean response7 = database.flagAllNotificationsAsSeen(empNo3);
+				
+				return response7.toString();
+				
 				
 			}
 			
 		} //Closing bracket for switch statement
 
-		
+		database.close();
 		return "OK";
 		
 	}
+	
 }

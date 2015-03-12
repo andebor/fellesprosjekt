@@ -70,7 +70,7 @@
                         </HBox>
                         <HBox layoutX="6.0" layoutY="36.0" styleClass="hbox" AnchorPane.rightAnchor="5.0" />
                         <Label layoutX="25.0" layoutY="158.0" text="Antall personer" />
-                        <TextField fx:id="roomAmountField" layoutX="157.0" layoutY="158.0" />
+                        <TextField fx:id="roomAmountField" layoutX="157.0" layoutY="158.0" prefHeight="25.0" prefWidth="218.0" />
                         <HBox layoutX="17.0" layoutY="74.0" styleClass="hbox" AnchorPane.rightAnchor="310.0">
                            <children>
                               <Label layoutX="63.0" layoutY="265.0" text="Slutt-tidspunkt" />
@@ -249,6 +249,7 @@
                   <Label fx:id="errorLabel" layoutX="811.0" layoutY="33.0" prefHeight="25.0" prefWidth="165.0" />
                   <Label fx:id="cancelAppointmentLabel" layoutX="863.0" layoutY="681.0" text="Label" />
                   <Button layoutX="749.0" layoutY="681.0" mnemonicParsing="false" onAction="#cancelApp" text="Avlys møte" />
+                  <Button fx:id="generateRoomListButton" layoutX="644.0" layoutY="320.0" mnemonicParsing="false" onAction="#generateRoomList" prefHeight="25.0" prefWidth="237.0" text="Hent ledige møterom" />
                </children>
             </AnchorPane>
         </items>

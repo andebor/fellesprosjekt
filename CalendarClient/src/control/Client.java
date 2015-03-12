@@ -153,10 +153,16 @@ public class Client
 	
 		return sendToServer("hasNotifications" + "#%" + Client.username);
 	}
-
-	public static String getRooms() throws IOException{
+	
+	public static String flagAllNotificationsAsSeen() throws IOException {
 		
-		String response = sendToServer("GETROOMS");
+		return sendToServer("flagAllNotificationsAsSeen" + "#%" + Client.username);
+	}
+	
+
+	public static String getRooms(String start, String end, String cap, String date) throws IOException{
+		
+		String response = sendToServer("GETROOMS" + "#%" + start + "#%" + end + "#%" + cap + "#%" + date);
 		return response;
 
 	}
@@ -182,6 +188,11 @@ public class Client
 		return true; //response1 returns appointmentID now
 		
 		
+	}
+	
+	public static String changeUserPass(String username, String password) throws IOException {
+		String response = sendToServer("SETNEWPASSWORD" + "#%" + username + "#%" + password);
+		return response;
 	}
 	
    public static void main(String [] args) throws Exception {

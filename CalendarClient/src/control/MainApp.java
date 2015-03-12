@@ -63,6 +63,7 @@ public class MainApp extends Application {
     	        @Override
     	        public void run() {
     	        	MainApp.rootController.setNotificationBold();
+    	        	MainApp.rootController.removeNotificationBold();
     	        }
     	    });
             
