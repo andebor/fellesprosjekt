@@ -72,19 +72,17 @@ public class Client
 		return output;
 	}
 	
-	public static boolean login(String username, String password) throws IOException{	
-		
-		
 
+	public static boolean login(String username, String password) throws IOException{	
 		String response = sendToServer("login" + "#%" + username + "#%" + password);
-		
+
 		if (response.trim().equals("OK")) {
-			System.out.println("ja");
+			System.out.println("Class:Client - Successfull login!");
 			Client.username = username;
 			return true;
 		}
 		else {
-			System.out.println("nei");
+			System.out.println("Class:Client - Wrong login");
 			return false;
 		}
 	}
@@ -100,8 +98,10 @@ public class Client
 		
 		
 		String response1 = sendToServer("addNewAppointment" + "#%" + appointment.getDescription() + "#%" + appointment.getStart().toString() + "#%" + appointment.getFrom().toString() + "#%" + appointment.getDate().toString() + "#%" 
-				+ appointment.getPlace() + "#%" + appointment.getRoom() + "#%" + Client.username);
+				+ appointment.getPlace() + "#%" + appointment.getRoom().split(" ")[0] + "#%" + Client.username);
 		System.out.println("ASKLDLJASDLJKSALKJ: " + Client.username);
+		System.out.println("addNewAppointment" + "#%" + appointment.getDescription() + "#%" + appointment.getStart().toString() + "#%" + appointment.getFrom().toString() + "#%" + appointment.getDate().toString() + "#%" 
+				+ appointment.getPlace() + "#%" + appointment.getRoom().split(" ")[0] + "#%" + Client.username);
 		// TODO add employees
 		
 		for (String employee : appointment.getUsers()){
@@ -124,7 +124,6 @@ public class Client
 	}
 	
 	public static String addUser(String username, String firstName, String lastName,String password) throws IOException {
-		
 		String response = sendToServer("ADDNEWUSER" + "#%" + username + "#%" + firstName + "#%" + lastName + "#%" + password);
 		return response;
 	}
@@ -144,8 +143,13 @@ public class Client
 	public static String hasNotifications() throws IOException {
 	
 		return sendToServer("hasNotifications" + "#%" + Client.username);
+	}
 
+	public static String getRooms() throws IOException{
 		
+		String response = sendToServer("GETROOMS");
+		return response;
+
 	}
 	
    public static void main(String [] args) throws Exception {

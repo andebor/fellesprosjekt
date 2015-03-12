@@ -89,7 +89,12 @@ public class NewAppointmentController implements Initializable {
 			e.printStackTrace();
 		}
 		generateGroupsList();
-		generateRoomList();
+		try {
+			generateRoomList();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		dateCalenderfix();
 		
 		
@@ -186,35 +191,16 @@ public class NewAppointmentController implements Initializable {
 	}
 	
 	
-	public boolean startTimeValidation(String starts){
-		// Validate "Fra-tid"
-		/*
-		  try { 
-				LocalTime startTime = LocalTime.of(Integer.parseInt(starts.substring(0,2)), Integer.parseInt(starts.substring(2,4)));
-		    } catch(Exception e) { 
-		    	startField.setText("");
-		    	startField.setPromptText("Ugyldig input");
-		    	return false;
-		    }
-		    */
-		  return true;
-				
-	}
+
 	
-	public boolean endTimeValidation(String ends){
-		// validate "til-tid"
-		  try { 
-				LocalTime endTime = LocalTime.of(Integer.parseInt(ends.substring(0,2)), Integer.parseInt(ends.substring(2,4)));
-		    } catch(Exception e) { 
-		    	endHourField.setPromptText("Ugyldig input");
-		    	return false;
-		    }
+	public boolean endTimeValidation(){
+
 
 		  // Check if start time is before end time
 		LocalTime startTime = LocalTime.of(Integer.parseInt(startHourField.getValue().toString()), Integer.parseInt(startMinuteField.getValue().toString()));
 		LocalTime endTime = LocalTime.of(Integer.parseInt(endHourField.getValue().toString()), Integer.parseInt(endMinuteField.getValue().toString()));
 				
-        
+
 		if(endTime.isBefore(startTime)){
 			return false;
 		}
@@ -256,14 +242,23 @@ public class NewAppointmentController implements Initializable {
 		
 	}
 	
-	public void generateRoomList() {
+	public void generateRoomList() throws IOException {
 		
-		//Get list from database
-		//String need to be changes to users
-		// Using a example list to test functionality
 
 		ObservableList<String> list = FXCollections.observableArrayList();
-		roomTable.setItems(list);	
+		
+		String[] rooms = Client.getRooms().split("/@/");
+		for(String room : rooms){
+			String[] room1 = room.split("#/#");
+			String room2 = "";
+			for(int i = 0; i<room1.length-1; i++){
+				room2+= room1[i] + " ";
+			}
+			room2+= "Plass: " + room1[room1.length-1];
+			list.add(room2);
+		}
+		roomTable.setItems(list);
+		
 		
 	}
 	
@@ -271,7 +266,7 @@ public class NewAppointmentController implements Initializable {
 	
 	public void addEmployers(String user){
 		// Move employers from "ansatte" table view to "deltaker" table view
-		if(addedList.contains(user) || employersList.isEmpty()){
+		if(addedList.contains(user) || employersList.isEmpty() || user.equals("null")){
 			return;
 		}
 		addedList.add(user);
@@ -376,11 +371,8 @@ public class NewAppointmentController implements Initializable {
 			validationCheck++;
 		}
 		
-		if(startTimeValidation(startHourField.getValue().toString())){
-			validationCheck++;
-		}
 
-		if(endTimeValidation(endHourField.getValue().toString())){
+		if(endTimeValidation()){
 			validationCheck++;
 		}
 		
@@ -416,7 +408,7 @@ public class NewAppointmentController implements Initializable {
 		}
 				
 		
-		if(validationCheck > 1)	{ 
+		if(validationCheck >= 5)	{ 
 			
 			// Validation passed. Creating new appointment
 			
@@ -461,7 +453,7 @@ public class NewAppointmentController implements Initializable {
 				//Notify change to users
 			}
 			// max random bug fix.. kjøre mainApp.showAppointmentOverview() vil kaste en exception av eller annen random grunn, men vil ikke kaste exception 
-			// hvis vi kjører mainApp.showAppointmentOverview() to ganger.
+			// hvis vi kjører mainApp.showAppointmentOverview() to ganger..
 			try {
 			mainApp.showAppointmentOverview();
 			} 
@@ -471,7 +463,7 @@ public class NewAppointmentController implements Initializable {
 	
 		}
 		else {
-		errorLabel.setText(" "+validationCheck+ " of  6 checks");
+		errorLabel.setText(" "+validationCheck+ " of  5 checks");
 		}
 
 	}
@@ -481,7 +473,7 @@ public class NewAppointmentController implements Initializable {
 		try {
 			if(roomAmountField.getText().isEmpty()){
 				roomAmountField.setText("Trenger tall");
-				return true;
+				return false;
 			}
 			if (Integer.parseInt(roomAmountField.getText())<=0){
 				roomAmountField.setText("");
@@ -492,7 +484,7 @@ public class NewAppointmentController implements Initializable {
 		catch(Exception e){
 			roomAmountField.setText("");
 			roomAmountField.setPromptText("Ugyldig tall");
-		return false;
+			return false;
 		}
 		return true;
 	}

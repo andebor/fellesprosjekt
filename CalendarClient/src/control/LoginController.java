@@ -1,6 +1,8 @@
 package control;
 
 import java.io.IOException;
+import java.security.GeneralSecurityException;
+import java.security.NoSuchAlgorithmException;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -27,13 +29,12 @@ public class LoginController {
 		 }
 	
 	@FXML
-	private void handleLogin() throws IOException {
+	private void handleLogin() throws IOException, GeneralSecurityException {
 		
 		Client client = new Client();
 		
 		boolean correctLogin = Client.login(txtUsername.getText(), txtPassword.getText());
 		
-//		mainApp.initRootNav();
 		if(correctLogin) {
 			mainApp.loginSuccess();
 			
@@ -46,7 +47,6 @@ public class LoginController {
 		else {
 			feedbackLabel.setVisible(true);
 		}
-//		mainApp.showAppointmentOverview();
 	}
 
 }
