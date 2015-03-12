@@ -16,12 +16,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.application.Platform;
 
 public class MainApp extends Application {
 	
 	private Stage primaryStage;
 	private BorderPane loginView;
 	private BorderPane rootNav;
+	public static RootNavController rootController;
 	
     private ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
     
@@ -47,15 +49,22 @@ public class MainApp extends Application {
             primaryStage.close();
             //Create new stage for main window
             Scene scene = new Scene(rootNav);
-            primaryStage.setResizable(false);
+            primaryStage.setResizable(true);
             primaryStage.setTitle("Kalender");
             primaryStage.setScene(scene);
             //Show the scene containing the root layout.
             primaryStage.show();
             
             // Give the controller access to the main app.
-            RootNavController controller = loader.getController();
-            controller.setMainApp(this);
+            rootController = loader.getController();
+            rootController.setMainApp(this);
+            
+    	    Platform.runLater(new Runnable() {
+    	        @Override
+    	        public void run() {
+    	        	MainApp.rootController.setNotificationBold();
+    	        }
+    	    });
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -230,6 +239,7 @@ public class MainApp extends Application {
             e.printStackTrace();
         }
 	}
+	
     
     public Stage getPrimaryStage() {
     	return primaryStage;
@@ -238,6 +248,8 @@ public class MainApp extends Application {
     public ObservableList<Appointment> getAppointmentList() {
     	return appointmentList;
     }
+    
+
     
     
     public static void main(String[] args) {

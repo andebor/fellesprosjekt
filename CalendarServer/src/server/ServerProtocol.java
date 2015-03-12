@@ -98,7 +98,13 @@ public class ServerProtocol {
 				String appID = input[2];
 				Boolean response5 = database.addEmployeeToAppointment(Integer.parseInt(appID), Integer.parseInt(empNo));
 				return response5.toString();
-				}
+				
+				
+			case "HASNOTIFICATIONS":
+				
+				return "lol";
+				
+			}
 		}
 		
 		return "OK";

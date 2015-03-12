@@ -31,7 +31,7 @@ public class Client
 	public void init() throws UnknownHostException, IOException {
 		
 		String host = "localhost";
-		int port = 6066;
+		int port = 6067;
 		
 		try {
 			s = new Socket(host, port);
@@ -91,7 +91,6 @@ public class Client
 	
 	public static String getAppointmentList() throws IOException {
 	
-		
 		return sendToServer("GETAPPOINTMENTLIST" + "#%" + Client.username);
 
 		
@@ -139,6 +138,13 @@ public class Client
 	public static String getEmployees() throws IOException{
 		
 		return sendToServer("GETEMPLOYEES");
+		
+	}
+	
+	public static String hasNotifications() throws IOException {
+	
+		return sendToServer("hasNotifications" + "#%" + Client.username);
+
 		
 	}
 	
