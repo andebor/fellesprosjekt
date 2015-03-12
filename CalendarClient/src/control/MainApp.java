@@ -23,7 +23,7 @@ public class MainApp extends Application {
 	private Stage primaryStage;
 	private BorderPane loginView;
 	private BorderPane rootNav;
-	public static RootNavCadontroller rootController;
+	public static RootNavController rootController;
 	
     private ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
     
