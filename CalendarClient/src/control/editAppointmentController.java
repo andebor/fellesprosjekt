@@ -49,7 +49,10 @@ public class editAppointmentController extends NewAppointmentController implemen
 		super.generateGroupsList();
 		super.generateEmployersList();
 		for(String employer1 : list) {
-			super.addEmployers(employer1);
+			if(!employer1.equals("Venter")){
+			String[] emp = employer1.split(" ");
+			super.addEmployers(emp[1] + " " + emp[2] + " " + emp[0]);
+			} //
 		}
 		if(appointmentToEdit.getRoom()!=null){
 			super.placeField.setPromptText(appointmentToEdit.getRoom());
