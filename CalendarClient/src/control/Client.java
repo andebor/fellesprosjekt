@@ -190,6 +190,11 @@ public class Client
 		
 	}
 	
+	public static String changeUserPass(String username, String password) throws IOException {
+		String response = sendToServer("SETNEWPASSWORD" + "#%" + username + "#%" + password);
+		return response;
+	}
+	
    public static void main(String [] args) throws Exception {
 	   
 	   //Client client = new Client();

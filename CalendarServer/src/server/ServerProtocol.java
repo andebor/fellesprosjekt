@@ -147,6 +147,17 @@ public class ServerProtocol {
 				Boolean response5 = database.addEmployeeToAppointment(Integer.parseInt(appID), Integer.parseInt(empNo));
 				return response5.toString();
 				
+			case "SETNEWPASSWORD":
+				String UserName = input[1];
+				String newpassword = input[2];
+				
+				byte[] newSalt = Security.generateSalt();
+				char[] newpwd = newpassword.toCharArray();
+				byte[] hashedNewPwd = Security.hashPassword(newpwd, newSalt);
+				String encodedNewPwd = Security.bytetoString(hashedNewPwd);
+				
+				String changeResponse = database.setNewPass(UserName, encodedNewPwd, newSalt);
+				return changeResponse;
 				
 			case "HASNOTIFICATIONS":
 				int empNo2 = database.getEmpno(input[1]);
