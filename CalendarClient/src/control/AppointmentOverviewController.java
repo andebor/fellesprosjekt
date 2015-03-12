@@ -112,6 +112,8 @@ public class AppointmentOverviewController {
     	
     	appointment.setDescription(z[0]);
     	
+    	
+    	
     	String[] startDate = z[1].split(" ");
     	
     	String dato = startDate[0];
@@ -135,16 +137,21 @@ public class AppointmentOverviewController {
     	}
     	
     	
-    	
-    	
-    	
     	appointment.setDate(LocalDate.of(Integer.parseInt(datoList[0]), Integer.parseInt(datoList[1]), Integer.parseInt(datoList[2])));
     	appointment.setStart(LocalTime.of(Integer.parseInt(startTidList[0]), Integer.parseInt(startTidList[1])));
     	appointment.setFrom(LocalTime.of(11,30));
     	appointment.setUsers(usersList);
-    	appointment.setRoom(z[4]);
     	appointment.setRoomAmount(2);
     	appointment.setID(z[6]);
+    	
+    	if(z[4].equals("null")){
+    		appointment.setPlace(z[3]);
+    		appointment.setRoom("null");
+    	}
+    	else {
+    		appointment.setRoom(z[4]);
+    		appointment.setPlace("null");
+    	}
     	
     	appointmentList.add(appointment);
     	

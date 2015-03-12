@@ -58,7 +58,7 @@ public class editAppointmentController extends NewAppointmentController implemen
 				}
 			} //
 		}
-		if(appointmentToEdit.getRoom()!=null){
+		if(!appointmentToEdit.getRoom().equals("null")){
 			super.placeField.setPromptText(appointmentToEdit.getRoom());
 			super.roomAmountField.setText(Integer.toString(appointmentToEdit.getRoomAmount()));
 			super.reservationButton.setSelected(true);

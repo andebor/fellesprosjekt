@@ -50,7 +50,7 @@ public class ServerProtocol {
 				System.out.println("owner: " + owner);
 				
 				System.out.println("database.addNewAppointment(" + description + ", " + startTime + ", " + endTime + ", " + location + ", " + meetingRoom + ", " + owner + ")");
-				Boolean response2 = database.addNewAppointment(description, startTime, endTime, location, null, owner);
+				Boolean response2 = database.addNewAppointment(description, startTime, endTime, location, meetingRoom, owner);
 				int response3 = database.getLatestAddition("avtale", "avtaleID");
 				return String.valueOf(response3);
 				
@@ -91,7 +91,11 @@ public class ServerProtocol {
 			case "GETEMPLOYEES":
 				
 				return database.getEmployees();
-	
+				
+			case "GETROOMS":
+				
+				return database.getMeetingRooms("#/#", "/@/");
+				
 			case "ADDEMPLOYEETOAPPOINTMENT":
 				
 				String empNo = input[1];
