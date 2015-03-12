@@ -115,7 +115,7 @@ public class ServerProtocol {
 				
 			case "GETROOMS":
 				
-				return database.getMeetingRooms("#/#", "/@/");
+				return database.getAvailableRooms(input[4] + " " + input[1]+":00.0", input[4] + " " + input[2]+"00.0", Integer.parseInt(input[3]));
 				
 			case "UPDATEAPPOINTMENT":
 				

@@ -160,9 +160,9 @@ public class Client
 	}
 	
 
-	public static String getRooms() throws IOException{
+	public static String getRooms(String start, String end, String cap, String date) throws IOException{
 		
-		String response = sendToServer("GETROOMS");
+		String response = sendToServer("GETROOMS" + "#%" + start + "#%" + end + "#%" + cap + "#%" + date);
 		return response;
 
 	}
