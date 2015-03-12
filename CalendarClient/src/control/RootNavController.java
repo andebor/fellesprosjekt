@@ -46,7 +46,8 @@ public class RootNavController {
 	
 	// NOTIFICATIONS
 		
-	@FXML private Button btn_notifications;
+	@FXML 
+	public Button btn_notifications;
 	
 	public void removeNotificationBold() {
 		btn_notifications.setStyle("-fx-font-weight: normal;");

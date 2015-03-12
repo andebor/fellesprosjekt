@@ -1,7 +1,10 @@
 package control;
 
 import java.io.IOException;
+import java.security.GeneralSecurityException;
+import java.security.NoSuchAlgorithmException;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -26,21 +29,24 @@ public class LoginController {
 		 }
 	
 	@FXML
-	private void handleLogin() throws IOException {
+	private void handleLogin() throws IOException, GeneralSecurityException {
 		
 		Client client = new Client();
 		
 		boolean correctLogin = Client.login(txtUsername.getText(), txtPassword.getText());
 		
-//		mainApp.initRootNav();
 		if(correctLogin) {
 			mainApp.loginSuccess();
+			
+			
+			NotificationListener notificationListener = new NotificationListener();
+			notificationListener.start();
+			
 			Client.getAppointmentList();
 		}
 		else {
 			feedbackLabel.setVisible(true);
 		}
-//		mainApp.showAppointmentOverview();
 	}
 
 }

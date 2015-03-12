@@ -6,7 +6,7 @@ import java.io.*;
  
 public class Server {
     public static void main(String[] args) throws IOException {
-        int port = 6066;
+        int port = 6067;
         
         boolean listening = true;
         

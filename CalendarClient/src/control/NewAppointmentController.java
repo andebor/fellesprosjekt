@@ -415,11 +415,10 @@ public class NewAppointmentController implements Initializable {
 			Appointment appointment = new Appointment();
 			
 			// If edit appointment is selected, the appointment selected to be edited will be updated instead of creating a new one. 
-			if(editNewAppointment){
+
+			if(editNewAppointment) {
 				appointment = appointmentToEdit;
 			}
-
-
 			
 			appointment.setDescription(descriptionField.getText());
 			appointment.setDate(datePicker.getValue());
@@ -432,16 +431,24 @@ public class NewAppointmentController implements Initializable {
 				appointment.setPlace(null);
 			}
 			if(!reservationButton.isSelected()){
-			appointment.setPlace(placeField.getText());
-			appointment.setRoom(null);
+				appointment.setPlace(placeField.getText());
+				appointment.setRoom(null);
 			}
 			if(alarmButton.isSelected()){
 			appointment.setAlarm(Integer.parseInt(alarmField.getText()));
 			}
 			appointment.setUsers(addedTable.getItems());
 			
+
+			if(editNewAppointment && Client.editAppointment(appointment)) {
+				
+				errorLabel.setText("Avtale endret!");
+				
+			}
+			
 			
 			// Transfer generated appointment object to database
+
 			if(!editNewAppointment && Client.addAppointment(appointment)){
 				errorLabel.setText("Ny avtale lagt inn!");
 				
