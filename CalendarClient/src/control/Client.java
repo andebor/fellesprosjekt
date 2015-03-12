@@ -101,8 +101,10 @@ public class Client
 		
 		
 		String response1 = sendToServer("addNewAppointment" + "#%" + appointment.getDescription() + "#%" + appointment.getStart().toString() + "#%" + appointment.getFrom().toString() + "#%" + appointment.getDate().toString() + "#%" 
-				+ appointment.getPlace() + "#%" + appointment.getRoom() + "#%" + Client.username);
+				+ appointment.getPlace() + "#%" + appointment.getRoom().split(" ")[0] + "#%" + Client.username);
 		System.out.println("ASKLDLJASDLJKSALKJ: " + Client.username);
+		System.out.println("addNewAppointment" + "#%" + appointment.getDescription() + "#%" + appointment.getStart().toString() + "#%" + appointment.getFrom().toString() + "#%" + appointment.getDate().toString() + "#%" 
+				+ appointment.getPlace() + "#%" + appointment.getRoom().split(" ")[0] + "#%" + Client.username);
 		// TODO add employees
 		
 		for (String employee : appointment.getUsers()){
@@ -139,6 +141,13 @@ public class Client
 	public static String getEmployees() throws IOException{
 		
 		return sendToServer("GETEMPLOYEES");
+		
+	}
+	
+	public static String getRooms() throws IOException{
+		
+		String response = sendToServer("GETROOMS");
+		return response;
 		
 	}
 	
