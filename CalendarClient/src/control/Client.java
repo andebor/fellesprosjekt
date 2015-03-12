@@ -97,8 +97,17 @@ public class Client
 	public static boolean addAppointment(Appointment appointment) throws IOException {
 		
 		
+		String room = "";
+		if(appointment.getRoom() != null){
+			room = appointment.getRoom().split(" ")[0];
+		}
+		else {
+			room = null;
+		}
+		
+		
 		String response1 = sendToServer("addNewAppointment" + "#%" + appointment.getDescription() + "#%" + appointment.getStart().toString() + "#%" + appointment.getFrom().toString() + "#%" + appointment.getDate().toString() + "#%" 
-				+ appointment.getPlace() + "#%" + appointment.getRoom().split(" ")[0] + "#%" + Client.username);
+				+ appointment.getPlace() + "#%" + room + "#%" + Client.username);
 		System.out.println("ASKLDLJASDLJKSALKJ: " + Client.username);
 		System.out.println("addNewAppointment" + "#%" + appointment.getDescription() + "#%" + appointment.getStart().toString() + "#%" + appointment.getFrom().toString() + "#%" + appointment.getDate().toString() + "#%" 
 				+ appointment.getPlace() + "#%" + appointment.getRoom().split(" ")[0] + "#%" + Client.username);
@@ -150,6 +159,29 @@ public class Client
 		String response = sendToServer("GETROOMS");
 		return response;
 
+	}
+	
+	public static boolean editAppointment(Appointment appointment) throws IOException{
+		String room = "";
+		if(appointment.getRoom() != null){
+			room = appointment.getRoom().split(" ")[0];
+		}
+		else {
+			room = null;
+		}
+		String response1 = sendToServer("UPDATEAPPOINTMENT" + "#%" + appointment.getID() + "#%" + appointment.getDescription() + "#%" + appointment.getStart().toString() + "#%" + appointment.getFrom().toString() + "#%" + appointment.getDate().toString() + "#%" 
+				+ appointment.getPlace() + "#%" + room);
+
+		for (String employee : appointment.getUsers()){
+			
+			String[] emp = employee.split(" ");
+			String response2 = sendToServer("ADDEMPLOYEETOAPPOINTMENT" + "#%" + emp[emp.length-1] + "#%" + appointment.getID());
+		}
+		
+		
+		return true; //response1 returns appointmentID now
+		
+		
 	}
 	
    public static void main(String [] args) throws Exception {
