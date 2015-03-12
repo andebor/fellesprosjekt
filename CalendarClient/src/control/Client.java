@@ -69,7 +69,7 @@ public class Client
 			output += modifiedSentence = tempString + "\r\n";
 			tempString = inFromServer.readLine();
 		}
-		return output;
+		return output.trim();
 	}
 	
 
