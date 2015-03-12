@@ -10,8 +10,6 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
-import java.security.GeneralSecurityException;
-import java.security.NoSuchAlgorithmException;
 
 import model.Appointment;
 
@@ -74,17 +72,10 @@ public class Client
 		return output;
 	}
 	
-	public static boolean login(String username, String password) throws IOException, GeneralSecurityException{
-//		String saltfromserver = sendToServer("GETSALT " + username);
-//		byte[] decodedSalt = UserManagementController.stringtoByte(saltfromserver);
-//		byte[] typedpwd = UserManagementController.hashPassword(password.toCharArray(), decodedSalt);
-//		
-//		String encodedTypedPwd = UserManagementController.bytetoString(typedpwd);
-//		System.out.println("EncodedTypedPwd: " + encodedTypedPwd);
-//
-//		String response = sendToServer("login " + username + " " + encodedTypedPwd);
-		String response = sendToServer("login " + username + " " + password);
-		
+
+	public static boolean login(String username, String password) throws IOException{	
+		String response = sendToServer("login" + "#%" + username + "#%" + password);
+
 		if (response.trim().equals("OK")) {
 			System.out.println("Class:Client - Successfull login!");
 			Client.username = username;
@@ -99,47 +90,63 @@ public class Client
 	public static String getAppointmentList() throws IOException {
 	
 		
-		String response = sendToServer("getAppointmentList " + Client.username);
-		return response;
+		return sendToServer("GETAPPOINTMENTLIST" + "#%" + Client.username);
+
 		
 	}
 	
 	public static boolean addAppointment(Appointment appointment) throws IOException {
 		
 		
-		String response1 = sendToServer("addNewAppointment " + appointment.getDescription() + " " + appointment.getStart().toString() + " " + appointment.getFrom().toString() + " " + appointment.getDate().toString() + " " 
-				+ appointment.getPlace() + " " + appointment.getRoom() + " " + Client.username);
-		
+		String response1 = sendToServer("addNewAppointment" + "#%" + appointment.getDescription() + "#%" + appointment.getStart().toString() + "#%" + appointment.getFrom().toString() + "#%" + appointment.getDate().toString() + "#%" 
+				+ appointment.getPlace() + "#%" + appointment.getRoom().split(" ")[0] + "#%" + Client.username);
+		System.out.println("ASKLDLJASDLJKSALKJ: " + Client.username);
+		System.out.println("addNewAppointment" + "#%" + appointment.getDescription() + "#%" + appointment.getStart().toString() + "#%" + appointment.getFrom().toString() + "#%" + appointment.getDate().toString() + "#%" 
+				+ appointment.getPlace() + "#%" + appointment.getRoom().split(" ")[0] + "#%" + Client.username);
 		// TODO add employees
-		/**
-		for (String employee : appointment.getUsers()){
-			String response2 = sendToServer("addEmployeeToAppointment " +  )
-		}
-		*/
 		
-		return Boolean.valueOf(response1);
+		for (String employee : appointment.getUsers()){
+			
+			String[] emp = employee.split(" ");
+			String response2 = sendToServer("ADDEMPLOYEETOAPPOINTMENT" + "#%" + emp[emp.length-1] + "#%" + response1);
+		}
+		
+		
+		return true; //response1 returns appointmentID now
 		
 	}
 	
 	public static String deleteAppointment(String ID) throws IOException {
 	
 		
-		String response = sendToServer("deleteAppointment " + ID + " " + username);
+		String response = sendToServer("deleteAppointment" + "#%" + ID + "#%" + username);
 		return response;
 		
 	}
 	
 	public static String addUser(String username, String firstName, String lastName,String password) throws IOException {
-		String response = sendToServer("ADDNEWUSER " + username + " " + firstName + " " + lastName + " " + password);
+		String response = sendToServer("ADDNEWUSER" + "#%" + username + "#%" + firstName + "#%" + lastName + "#%" + password);
 		return response;
 	}
 
-	public static boolean checkAppointmentOwnership(String ID) throws IOException {
+	public static String checkAppointmentOwnership(String ID) throws IOException {
 		
-		String response = sendToServer("checkAppointmentOwnership " + ID + " " + username);
-		return Boolean.valueOf(response);
+		String response = sendToServer("checkAppointmentOwnership" + "#%" + ID + "#%" + username);
+		return response.substring(0, 4);
 	}
 	
+	public static String getEmployees() throws IOException{
+		
+		return sendToServer("GETEMPLOYEES");
+		
+	}
+	
+	public static String getRooms() throws IOException{
+		
+		String response = sendToServer("GETROOMS");
+		return response;
+		
+	}
 	
    public static void main(String [] args) throws Exception {
 	   

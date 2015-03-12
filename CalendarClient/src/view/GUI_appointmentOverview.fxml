@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
@@ -15,15 +16,15 @@
       <Button layoutX="274.0" layoutY="605.0" mnemonicParsing="false" onAction="#handleEditAppointment" prefHeight="25.0" prefWidth="80.0" text="Endre" />
       <Button layoutX="656.0" layoutY="605.0" mnemonicParsing="false" onAction="#handleDelete" prefHeight="25.0" prefWidth="80.0" text="Slett" />
       <Button layoutX="471.0" layoutY="605.0" mnemonicParsing="false" onAction="#handleNewAppointment" prefWidth="80.0" text="Ny avtale" />
-      <SplitPane dividerPositions="0.4192495921696574" layoutX="204.0" layoutY="196.0" prefHeight="376.0" prefWidth="615.0">
+      <SplitPane dividerPositions="0.4192495921696574" layoutX="204.0" layoutY="196.0" prefHeight="376.0" prefWidth="615.0" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="170.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="307.0" prefWidth="229.0">
                <children>
                   <ListView layoutX="-33.0" layoutY="-10.0" prefHeight="320.0" prefWidth="200.0" />
                   <TableView fx:id="appointmentTable" prefHeight="307.0" prefWidth="167.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
-                      <TableColumn fx:id="avtaleColumn" prefWidth="75.0" text="Avtale" />
-                      <TableColumn fx:id="datoColumn" prefWidth="75.0" text="Dato" />
+                      <TableColumn fx:id="avtaleColumn" prefWidth="155.0" text="Avtale" />
+                      <TableColumn fx:id="datoColumn" prefWidth="126.0" text="Dato" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -33,32 +34,43 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <GridPane layoutX="6.0" layoutY="-1.0" prefHeight="265.0" prefWidth="340.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0">
+                  <GridPane layoutX="6.0" layoutY="-1.0" prefHeight="300.0" prefWidth="340.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0">
                     <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="167.0" minWidth="10.0" prefWidth="155.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="198.0" minWidth="10.0" prefWidth="188.0" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
                         <Label text="Beskrivelse" />
-                        <Label text="Dato" GridPane.rowIndex="1" />
-                        <Label text="Tidspunkt" GridPane.rowIndex="2" />
-                        <Label text="Sted" GridPane.rowIndex="3" />
-                        <Label text="Møterom " GridPane.rowIndex="4" />
-                        <Label fx:id="beskrivelseLabel" text="label" GridPane.columnIndex="1" />
-                        <Label fx:id="datoLabel" text="label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label fx:id="tidspunktLabel" text="label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label fx:id="stedLabel" text="label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Label fx:id="moteromLabel" text="label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <Label text="Deltagere" GridPane.rowIndex="5" />
-                        <Label fx:id="deltagereLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <Label text="Dato" GridPane.rowIndex="2" />
+                        <Label text="Tidspunkt" GridPane.rowIndex="3" />
+                        <Label text="Sted" GridPane.rowIndex="4" />
+                        <Label text="Møterom " GridPane.rowIndex="5" />
+                        <Label fx:id="beskrivelseLabel" alignment="TOP_LEFT" prefHeight="55.0" prefWidth="167.0" text="label" wrapText="true" GridPane.columnIndex="1" GridPane.rowSpan="2" GridPane.valignment="TOP">
+                           <GridPane.margin>
+                              <Insets top="7.0" />
+                           </GridPane.margin></Label>
+                        <Label fx:id="datoLabel" text="label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="tidspunktLabel" text="label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label fx:id="stedLabel" text="label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label fx:id="moteromLabel" text="label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <Label text="Deltagere" GridPane.rowIndex="6" />
+                        <Label fx:id="deltagereLabel" alignment="TOP_LEFT" prefHeight="126.0" prefWidth="171.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" GridPane.rowSpan="2" GridPane.valignment="TOP">
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                           <padding>
+                              <Insets top="28.0" />
+                           </padding></Label>
                      </children>
                   </GridPane>
                </children></AnchorPane>

@@ -78,23 +78,22 @@ public class AppointmentOverviewController {
     	
     	String str = Client.getAppointmentList();
     	
+    	System.out.println("hentet avtaler");
     	System.out.println(str);
     	
     	
     	String[] appStrings = str.split(Pattern.quote("$%"));
+    	
     	/*
     	for(int i = 0; i < appStrings.length; i++) {
     		System.out.println(appStrings[i] + "\n");
     	}
     	*/
     	
-    	/*
+    	
     	for(int i = 0; i < appStrings.length; i++) {
     		addAppointment(appStrings[i]);
     	}
-    	*/
-    	
-    	addAppointment(appStrings[0]);
     	
     	
     	
@@ -106,16 +105,14 @@ public class AppointmentOverviewController {
     public void addAppointment(String str) {
     	Appointment appointment = new Appointment();
     	
+
     	String[] z = str.split(Pattern.quote("%$"));
     	
     	//System.out.println("LENGDE: " + z.length);
     	
-    	for(int i = 0; i < z.length; i++) {
-    		System.out.println(z[i] + "\n");
-    	}
-    	
-    	
     	appointment.setDescription(z[0]);
+    	
+    	
     	
     	String[] startDate = z[1].split(" ");
     	
@@ -131,17 +128,31 @@ public class AppointmentOverviewController {
     	String[] endTidList = startTid.split(":");
     	
     	
+    	String[] deltagere = z[7].split("@/@");
+    	
+    	ObservableList<String> usersList = FXCollections.observableArrayList();
+    	
+    	for(int i = 0; i < deltagere.length; i++) {
+    		usersList.add(deltagere[i]);
+    	}
     	
     	
     	appointment.setDate(LocalDate.of(Integer.parseInt(datoList[0]), Integer.parseInt(datoList[1]), Integer.parseInt(datoList[2])));
     	appointment.setStart(LocalTime.of(Integer.parseInt(startTidList[0]), Integer.parseInt(startTidList[1])));
     	appointment.setFrom(LocalTime.of(11,30));
-    	ObservableList<String> list2 = FXCollections.observableArrayList("Ole", "Ansatt 1");
-    	appointment.setUsers(list2);
-    	appointment.setRoom(z[4]);
+    	appointment.setUsers(usersList);
     	appointment.setRoomAmount(2);
     	appointment.setID(z[6]);
-    	//
+    	
+    	if(z[4].equals("null")){
+    		appointment.setPlace(z[3]);
+    		appointment.setRoom("null");
+    	}
+    	else {
+    		appointment.setRoom(z[4]);
+    		appointment.setPlace("null");
+    	}
+    	
     	appointmentList.add(appointment);
     	
     }
@@ -228,8 +239,8 @@ public class AppointmentOverviewController {
 			if(appointment == null){ // Check if any appointment is selected from list
 				return;
 			}
-			if(Client.checkAppointmentOwnership(appointment.getID())){
-			mainApp.showNewAppointment(appointment);
+			if(Client.checkAppointmentOwnership(appointment.getID()).equals("true")){
+				mainApp.showNewAppointment(appointment);
 			}
 		}
 		catch(Exception e){

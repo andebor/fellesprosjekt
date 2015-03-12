@@ -1,5 +1,6 @@
 package control;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -32,7 +33,7 @@ public class editAppointmentController extends NewAppointmentController implemen
 		
 	}
 	
-	public void loadAppointment(){
+	public void loadAppointment() throws IOException{
 		
 		super.descriptionField.setText(appointmentToEdit.getDescription());
 	    super.startHourField.setValue(Integer.toString(appointmentToEdit.getStart().getHour()));
@@ -48,9 +49,16 @@ public class editAppointmentController extends NewAppointmentController implemen
 		super.generateGroupsList();
 		super.generateEmployersList();
 		for(String employer1 : list) {
-			super.addEmployers(employer1);
+			if(!employer1.equals("Venter")){
+				try {String[] emp = employer1.split(" ");
+				super.addEmployers(emp[1] + " " + emp[2] + " " + emp[0]);
+				}
+				catch(Exception e){
+				//LOL random bug fix //
+				}
+			} //
 		}
-		if(appointmentToEdit.getRoom()!=null){
+		if(!appointmentToEdit.getRoom().equals("null")){
 			super.placeField.setPromptText(appointmentToEdit.getRoom());
 			super.roomAmountField.setText(Integer.toString(appointmentToEdit.getRoomAmount()));
 			super.reservationButton.setSelected(true);
