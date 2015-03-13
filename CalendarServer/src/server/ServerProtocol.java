@@ -178,7 +178,12 @@ public class ServerProtocol {
 				
 				String response8 = database.getNewNotifications(empNo4);
 				
-				return response8;
+				if(response8 == null) {
+					return "";
+				}
+				else {
+					return response8;					
+				}
 				
 			case "ADDNOTIFICATION":
 				int empNo5 = database.getEmpno(input[1]);

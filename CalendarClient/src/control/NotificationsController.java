@@ -50,13 +50,14 @@ public class NotificationsController {
     @FXML
     private void initNotificationTable() throws IOException {
 
-    	String str = Client.getNewNotifications();
-    	
+    	String str = Client.getNewNotifications();    	
     	String[] notiStrings = str.split(Pattern.quote("\n\n"));
-    	
-    
+ 	
     	
     	for(int i = 0; i < notiStrings.length; i++) {
+        	if(i == 0 && notiStrings[0].length() < 2) {
+        		continue; //Dirtyfix
+        	}
     		addNotification(notiStrings[i]);
     	}
     	
