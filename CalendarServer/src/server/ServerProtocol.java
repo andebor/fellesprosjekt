@@ -221,6 +221,10 @@ public class ServerProtocol {
 				return deleteResponse;
 			
 			
+			case "GETAPPOINTMENTEXCLUSIVE":
+				
+				return database.getAppointmentsExclusive(input[1]);
+				
 			case "GETGROUPS":
 				
 				return database.getGroups();
