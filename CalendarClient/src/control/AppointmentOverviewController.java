@@ -231,6 +231,7 @@ public class AppointmentOverviewController {
     		stedLabel.setText("");
     		moteromLabel.setText("");
     		deltagereLabel.setText("");
+    		avtaleAdministrator.setText("");
     	}
     }
 	
