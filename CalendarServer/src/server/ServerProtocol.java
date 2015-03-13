@@ -180,6 +180,10 @@ public class ServerProtocol {
 				
 				return response8;
 				
+			case "GETUSER":
+				
+				return database.getEmployeeName(Integer.parseInt(input[1]));
+				
 			case "ADDNOTIFICATION":
 				int empNo5 = database.getEmpno(input[1]);
 				String msg = input[2];
