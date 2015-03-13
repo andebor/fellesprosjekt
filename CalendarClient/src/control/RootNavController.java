@@ -36,7 +36,7 @@ public class RootNavController {
 	
 	@FXML
 	private void gotoAppointments() throws IOException {
-		Client.addNotification("test test test");
+		//Client.addNotification("test test test");
 		System.out.println("Opening appointmentView..");
 		mainApp.showAppointmentOverview();
 	}
@@ -49,7 +49,6 @@ public class RootNavController {
 	
 	@FXML
 	private void gotoNotifications() throws IOException {
-		//Client.flagAllNotificationsAsSeen();
 		System.out.println("Opening NotificationsView..");
 		mainApp.showNotifications();
 	}
