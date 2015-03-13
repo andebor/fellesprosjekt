@@ -1,29 +1,101 @@
 package control;
 
 import java.io.IOException;
-import java.security.GeneralSecurityException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.util.Base64;
-import java.util.Base64.Decoder;
-import java.util.Base64.Encoder;
-
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
-
+import java.util.regex.Pattern;
+import model.Employee;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 
 public class UserManagementController {
 	
 	MainApp mainApp;
 	
-    public void setMainApp(MainApp mainApp) {
+    public void setMainApp(MainApp mainApp) throws IOException {
         this.mainApp = mainApp;
+        
+        initEmpTable();
+    }
+    
+    @FXML 
+    TableView<Employee> empTable;
+    @FXML 
+    TableColumn<Employee, String> empColumn;
+    @FXML 
+    Label firstnameLabel, lastnameLabel, empNoLabel;
+    
+    public static ObservableList<Employee> employeeList = FXCollections.observableArrayList();
+    	
+    public static ObservableList<Employee> getEmployeeList() {
+    	return employeeList;
     }
     
     @FXML
-    private void testAddUser() throws IOException, GeneralSecurityException {
+    private void initialize() {
+    	empColumn.setCellValueFactory(cellData -> cellData.getValue().getUsername());
+    
+    	empTable.getSelectionModel().selectedItemProperty().addListener(
+    			(observable, oldValue, newValue) -> showEmployeeDetails(newValue));
+    	
+    	showEmployeeDetails(null);
+    }
+    
+    private void showEmployeeDetails(Employee employee) {
+    	if (employee != null) {
+    		firstnameLabel.setText(employee.getFirstname().getValue());
+    		lastnameLabel.setText(employee.getLastname().getValue());
+    		empNoLabel.setText(employee.getEmpNo().getValue().toString());
+    	}else {
+    		firstnameLabel.setText("");
+    		lastnameLabel.setText("");
+    		empNoLabel.setText("");
+    	}
+    }
+    
+    private void initEmpTable() throws IOException {
+    	
+    	employeeList.clear();
+    	
+    	//Get employee list from server
+    	String serverResponse = Client.getEmployees();
+    	
+    	String[] employees = serverResponse.split(Pattern.quote("@/@"));
+    	
+    	for (int i = 0; i < employees.length; i++) {
+			addEmployee(employees[i]);
+		}
+    	
+    	empTable.setItems(employeeList);
+    	
+    }
+    
+    private void addEmployee(String emp) {
+    	
+    	Employee employee = new Employee();
+    	
+    	String[] fields = emp.split(Pattern.quote("&/&"));
+    	
+//    	for (int i = 0; i < fields.length; i++) {
+//			System.out.println(fields[i]);
+//		}
+    	
+    	employee.setEmpNo(new SimpleIntegerProperty(Integer.parseInt(fields[0])));
+    	employee.setFirstname(new SimpleStringProperty(fields[1]));
+    	employee.setLastname(new SimpleStringProperty(fields[2]));
+    	employee.setUsername(new SimpleStringProperty(fields[3]));
+    	
+    	employeeList.add(employee);
+    	
+    }
+    
+    
+    @FXML
+    private void testAddUser() throws IOException {
 //		addUser("andebor", "Anders", "Borud", "andebor");
 //		addUser("vigleikl", "Vigleik", "Lund", "vigleikl");
 //		addUser("mariusmb", "Marius", "Bang", "mariusmb");

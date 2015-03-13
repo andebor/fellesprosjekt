@@ -164,9 +164,9 @@ public class Client
 		return sendToServer("getNewNotifications" + "#%" + Client.username);
 	}
 	
-	public static String addNotification(String msg) throws IOException {
+	public static String addNotification(String msg, String username) throws IOException {
 		
-		return sendToServer("addNotification" + "#%" + Client.username + "#%" + msg);
+		return sendToServer("addNotification" + "#%" + username+ "#%" + msg);
 	}
 	
 
@@ -213,5 +213,10 @@ public class Client
 	   
 	   
    }
+
+public static String getUser(String id) throws IOException {
+	String response = sendToServer("GETUSER" + "#%" + id);
+	return response;
+}
 	   
    }

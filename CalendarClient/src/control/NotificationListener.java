@@ -17,7 +17,6 @@ public class NotificationListener extends Thread {
 			try {
 				String str = Client.hasNotifications().trim();
 				if(str.equals("true")) {
-					System.out.println("Nye varlser!");	
 					//MainApp.rootController.setNotificationBold();
 					Platform.runLater(() -> MainApp.rootController.setNotificationBold());
 				}
@@ -31,7 +30,7 @@ public class NotificationListener extends Thread {
 				e.printStackTrace();
 			}
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(5000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -24,9 +24,7 @@ public class MainApp extends Application {
 	private BorderPane loginView;
 	private BorderPane rootNav;
 	public static RootNavController rootController;
-	
-    private ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
-    
+	    
 	public MainApp() {
 	}
 
@@ -161,10 +159,6 @@ public class MainApp extends Application {
             // Give the controller access to the main app.
             AppointmentOverviewController controller = loader.getController();
             controller.setMainApp(this);
-            controller.initAppointmetTable();
-            
-//
-            
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -248,13 +242,6 @@ public class MainApp extends Application {
     public Stage getPrimaryStage() {
     	return primaryStage;
     }
-    
-    public ObservableList<Appointment> getAppointmentList() {
-    	return appointmentList;
-    }
-    
-
-    
     
     public static void main(String[] args) {
         launch(args);
