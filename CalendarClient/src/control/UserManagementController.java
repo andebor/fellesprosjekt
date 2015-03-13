@@ -13,9 +13,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextInputDialog;
+import javafx.util.Pair;
 
 public class UserManagementController {
 	
@@ -136,9 +139,10 @@ public class UserManagementController {
             return;
         }else {
         	System.out.println("Opening confirmation..");
+        	// Dialog box to confirm deletion. (Requires JDK 1.8_u40)
             Alert alert = new Alert(AlertType.CONFIRMATION);
             alert.setTitle("Er du sikker?");
-            alert.setHeaderText("Er du sikker på at du vil slette?");
+            alert.setHeaderText("Er du sikker på at du vil slette " + employee.getUsername().getValue() + "?");
             
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {
@@ -150,6 +154,32 @@ public class UserManagementController {
                 return;
             }
         }
+    }
+    
+    @FXML
+    private void handleChangeUserPass() throws IOException {
+    	Employee employee = empTable.getSelectionModel().getSelectedItem();
+    	if (employee == null) {
+        	System.out.println("No employee selected.");
+            return;
+        }else{
+        	TextInputDialog dialog = new TextInputDialog();
+        	dialog.setTitle("Sett nytt passord");
+        	dialog.setHeaderText("Nytt passord for " + employee.getUsername().getValue() + ": ");
+        	
+        	Optional<String> result = dialog.showAndWait();
+        	if (result.isPresent()) {
+        		changeUserPass(employee.getUsername().getValue(), result.get());
+        	}else{
+        		return;
+        	}
+        	
+        }
+    }
+    
+    @FXML
+    private void handleAddNewUser() {
+    	Dialog<Pair<String, String>> dialog = new Dialog<>();
     }
 
 }
