@@ -218,7 +218,7 @@ public class NewAppointmentController implements Initializable {
 			String[] emp1 = employer.split("&/&");
 			System.out.println(emp1);
 			String emp2 = "";
-			for(int i = 1; i<emp1.length; i++){
+			for(int i = 1; i<emp1.length-1; i++){
 				emp2+= emp1[i] + " ";
 			} 
 			emp2+= emp1[0];

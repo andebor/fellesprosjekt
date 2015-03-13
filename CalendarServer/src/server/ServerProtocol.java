@@ -232,6 +232,7 @@ public class ServerProtocol {
 				for(Integer emp : employers){
 					responseEmp+=database.getEmployeeName(emp) + " " + String.valueOf(emp) + "%&%";
 				}
+				responseEmp = responseEmp.substring(0, responseEmp.length()-3);
 				return responseEmp;
 	
 			
