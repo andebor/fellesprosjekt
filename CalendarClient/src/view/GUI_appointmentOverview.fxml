@@ -71,6 +71,8 @@
                            <padding>
                               <Insets top="28.0" />
                            </padding></Label>
+                        <Label text="Opprettet av" GridPane.rowIndex="1" />
+                        <Label fx:id="avtaleAdministrator" prefHeight="15.0" prefWidth="181.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
                </children></AnchorPane>

@@ -213,5 +213,10 @@ public class Client
 	   
 	   
    }
+
+public static String getUser(String id) throws IOException {
+	String response = sendToServer("GETUSER" + "#%" + id);
+	return response;
+}
 	   
    }
