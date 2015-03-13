@@ -164,6 +164,10 @@ public class ServerProtocol {
 				
 				Boolean response6 = database.hasNewNotifications(empNo2);
 				
+				if(response6 == false) {
+					return "ingenVarlser";
+				}
+				
 				return response6.toString();
 				
 			case "FLAGALLNOTIFICATIONSASSEEN":
@@ -188,6 +192,16 @@ public class ServerProtocol {
 			case "GETUSER":
 				
 				return database.getEmployeeName(Integer.parseInt(input[1]));
+				
+			case "ISINVITEDEMPLOYEE":
+				int empNom = database.getEmpno(input[2]);
+				return String.valueOf(database.isInvitedEmployee(Integer.parseInt(input[1]), empNom));
+				
+			case "CHANGESTATUS":
+				int appointmentID = Integer.parseInt(input[1]);
+				int empNom1 = database.getEmpno(input[2]);
+				int selection = Integer.parseInt(input[3]);
+				return String.valueOf(database.changeStatus(appointmentID, empNom1, selection));
 				
 			case "ADDNOTIFICATION":
 				int empNo5 = database.getEmpno(input[1]);

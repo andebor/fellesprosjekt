@@ -7,6 +7,8 @@ public class Notification {
 
 	private StringProperty beskrivelse;
 	private StringProperty formalProperty = new SimpleStringProperty();
+	private StringProperty typeProperty = new SimpleStringProperty();
+	private StringProperty dateProperty = new SimpleStringProperty();
 	
 	public Notification() {
 		
@@ -34,6 +36,30 @@ public class Notification {
 	
 	public void setDescription(String formal) {
 		formalProperty.setValue(formal);
+	}
+	
+	public StringProperty typeProperty() {
+		return typeProperty;
+	}
+	
+	public String getType() {
+		return typeProperty.getValue();
+	}
+	
+	public void setType(String type) {
+		typeProperty.setValue(type);
+	}
+	
+	public StringProperty dateProperty() {
+		return typeProperty;
+	}
+	
+	public String getDate() {
+		return typeProperty.getValue();
+	}
+	
+	public void setDate(String date) {
+		dateProperty.setValue(date);
 	}
 	
 }

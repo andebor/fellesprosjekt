@@ -154,6 +154,10 @@ public class Client
 		return sendToServer("hasNotifications" + "#%" + Client.username);
 	}
 	
+	public static String changeStatus(String appointmentID, String status) throws IOException {
+		return sendToServer("CHANGESTATUS" + "#%" + appointmentID + "#%" + Client.username + "#%" + status);
+	}
+	
 	public static String flagAllNotificationsAsSeen() throws IOException {
 		
 		return sendToServer("flagAllNotificationsAsSeen" + "#%" + Client.username);
@@ -175,6 +179,13 @@ public class Client
 		String response = sendToServer("GETROOMS" + "#%" + start + "#%" + end + "#%" + cap + "#%" + date);
 		return response;
 
+	}
+	
+	public static String isInvitedEmployee(String appointmentID) throws IOException{
+		
+
+		return sendToServer("ISINVITEDEMPLOYEE" + "#%" + appointmentID + "#%" + Client.username);
+		
 	}
 	
 	public static boolean editAppointment(Appointment appointment) throws IOException{

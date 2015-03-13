@@ -11,7 +11,7 @@ public class RootNavController {
 	
 	// SET MAINAPP
 	MainApp mainApp;
-	
+	/*
 	public RootNavController() {
 	    Platform.runLater(new Runnable() {
 	        @Override
@@ -21,6 +21,7 @@ public class RootNavController {
 	        }
 	    });
 	}
+	*/
 	
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
