@@ -94,7 +94,9 @@ public class AppointmentOverviewController {
     	
     	
     	for(int i = 0; i < appStrings.length; i++) {
-    		addAppointment(appStrings[i]);
+    		if(appStrings[i].length() > 3) { //dirtyfix
+    			addAppointment(appStrings[i]);    			
+    		}
     	}
     	
     	

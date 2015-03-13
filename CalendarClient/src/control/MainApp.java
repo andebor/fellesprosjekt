@@ -39,7 +39,7 @@ public class MainApp extends Application {
 	}
 	
     public void initRootNav() {
-    	
+    	/*
 	    Platform.runLater(new Runnable() {
 	        @Override
 	        public void run() {
@@ -47,6 +47,7 @@ public class MainApp extends Application {
 	        	MainApp.rootController.removeNotificationBold();
 	        }
 	    });
+	    */
     	
         try {
             // Load root layout from fxml file.
