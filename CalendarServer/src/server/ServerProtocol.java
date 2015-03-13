@@ -164,6 +164,10 @@ public class ServerProtocol {
 				
 				Boolean response6 = database.hasNewNotifications(empNo2);
 				
+				if(response6 == false) {
+					return "ingenVarlser";
+				}
+				
 				return response6.toString();
 				
 			case "FLAGALLNOTIFICATIONSASSEEN":
