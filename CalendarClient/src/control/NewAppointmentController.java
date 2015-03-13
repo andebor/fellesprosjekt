@@ -255,7 +255,9 @@ public class NewAppointmentController implements Initializable {
 				room2+= room1[i] + " ";
 			}
 			room2+= "Plass: " + room1[room1.length-1];
+			if(room2.split(" ").length!=2){
 			list.add(room2);
+			}
 		}
 		roomTable.setItems(list);
 		}
