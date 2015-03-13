@@ -23,6 +23,13 @@ public class NotificationsController {
     @FXML
     TableColumn<Notification, String> descriptionColumn;
 	
+    @FXML
+    TableColumn<Notification, String> typeColumn;
+    
+    @FXML
+    TableColumn<Notification, String> timeColumn;
+    
+    
     public void setMainApp(MainApp mainApp) throws IOException {
         this.mainApp = mainApp;
         initNotificationTable();
@@ -38,6 +45,13 @@ public class NotificationsController {
     	
         descriptionColumn.setCellValueFactory(
         		cellData -> cellData.getValue().descriptionProperty());
+        
+        typeColumn.setCellValueFactory(
+        		cellData -> cellData.getValue().typeProperty());
+        
+        timeColumn.setCellValueFactory(
+        		cellData -> cellData.getValue().dateProperty());
+
 
         
         
@@ -50,13 +64,14 @@ public class NotificationsController {
     @FXML
     private void initNotificationTable() throws IOException {
 
-    	String str = Client.getNewNotifications();
-    	
+    	String str = Client.getNewNotifications();    	
     	String[] notiStrings = str.split(Pattern.quote("\n\n"));
-    	
-    
+ 	
     	
     	for(int i = 0; i < notiStrings.length; i++) {
+        	if(i == 0 && notiStrings[0].length() < 2) {
+        		continue; //Dirtyfix
+        	}
     		addNotification(notiStrings[i]);
     	}
     	
@@ -80,6 +95,8 @@ public class NotificationsController {
     	
     	
     	notification.setDescription(desc);
+    	notification.setType("Test");
+    	notification.setDate("01.01.2000");
     	
     	
     	

@@ -81,7 +81,7 @@ public class AppointmentOverviewController {
     	String str = Client.getAppointmentList();
     	
     	System.out.println("hentet avtaler");
-    	System.out.println(str);
+    	System.out.println(str); //THIS GENERATES A LOT OF SPAM IN CONSOLE
     	
     	
     	String[] appStrings = str.split(Pattern.quote("$%"));
@@ -94,7 +94,9 @@ public class AppointmentOverviewController {
     	
     	
     	for(int i = 0; i < appStrings.length; i++) {
-    		addAppointment(appStrings[i]);
+    		if(appStrings[i].length() > 3) { //dirtyfix
+    			addAppointment(appStrings[i]);    			
+    		}
     	}
     	
     	
