@@ -74,8 +74,12 @@ public class NotificationsController {
 
     	String[] z = str.split(Pattern.quote("\n"));
     	
+    	String desc = z[1].substring(8);
     	
-    	notification.setDescription(z[1]);
+    	
+    	
+    	
+    	notification.setDescription(desc);
     	
     	
     	
