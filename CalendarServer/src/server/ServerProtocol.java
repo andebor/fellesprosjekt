@@ -115,7 +115,7 @@ public class ServerProtocol {
 				
 			case "GETROOMS":
 				
-				return database.getMeetingRooms("#/#", "/@/");
+				return database.getAvailableRooms(input[4] + " " + input[1]+":00.0", input[4] + " " + input[2]+"00.0", Integer.parseInt(input[3]));
 				
 			case "UPDATEAPPOINTMENT":
 				
@@ -172,6 +172,30 @@ public class ServerProtocol {
 				Boolean response7 = database.flagAllNotificationsAsSeen(empNo3);
 				
 				return response7.toString();
+				
+			case "GETNEWNOTIFICATIONS":
+				int empNo4 = database.getEmpno(input[1]);
+				
+				String response8 = database.getNewNotifications(empNo4);
+				
+				if(response8 == null) {
+					return "";
+				}
+				else {
+					return response8;					
+				}
+				
+			case "GETUSER":
+				
+				return database.getEmployeeName(Integer.parseInt(input[1]));
+				
+			case "ADDNOTIFICATION":
+				int empNo5 = database.getEmpno(input[1]);
+				String msg = input[2];
+				
+				Boolean response9 = database.addNotification(empNo5, msg);
+				
+				return response9.toString();
 				
 				
 			}

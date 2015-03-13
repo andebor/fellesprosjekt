@@ -42,6 +42,8 @@ public class AppointmentOverviewController {
 	Label moteromLabel;
 	@FXML
 	Label deltagereLabel;
+	@FXML 
+	Label avtaleAdministrator;
 	
 	MainApp mainApp;
 	
@@ -143,6 +145,7 @@ public class AppointmentOverviewController {
     	appointment.setUsers(usersList);
     	appointment.setRoomAmount(2);
     	appointment.setID(z[6]);
+    	appointment.setOwner(z[5]);
     	
     	if(z[4].equals("null")){
     		appointment.setPlace(z[3]);
@@ -189,11 +192,17 @@ public class AppointmentOverviewController {
     		datoLabel.setText(appointment.getDate().toString());
     		tidspunktLabel.setText(appointment.getStart().toString() + " til "  + appointment.getFrom().toString());
     		if(appointment.getPlace()!=null){
-    		stedLabel.setText(appointment.getPlace());
+    			stedLabel.setText(appointment.getPlace());
     		}
     		if(appointment.getRoom()!=null){
-    		moteromLabel.setText(appointment.getRoom());
+    			moteromLabel.setText(appointment.getRoom());
     		}
+    		try {
+				avtaleAdministrator.setText(Client.getUser(appointment.getOwner()));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
     		List<String> users = appointment.getUsers();
     		
     		String listString = "";
@@ -201,6 +210,14 @@ public class AppointmentOverviewController {
     		for (String s : users)
     		{
     		    listString += s + "\n";
+    		}
+    		
+    		if(stedLabel.getText().equals("null")){
+    			stedLabel.setText("");
+    		}
+    		
+    		if(moteromLabel.getText().equals("null")){
+    			moteromLabel.setText("");
     		}
     		
     		deltagereLabel.setText(listString);

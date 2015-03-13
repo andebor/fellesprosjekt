@@ -49,7 +49,7 @@ public class NewAppointmentController implements Initializable {
 	Label errorLabel;
 	
 	@FXML
-	Button acceptButton, declineButton, addEmployersButton, addGroupsButton, removeEmployers;
+	Button acceptButton, declineButton, addEmployersButton, addGroupsButton, removeEmployers, generateRoomListButton;
 	
 	@FXML
 	ToggleButton alarmButton, reservationButton;
@@ -89,12 +89,7 @@ public class NewAppointmentController implements Initializable {
 			e.printStackTrace();
 		}
 		generateGroupsList();
-		try {
-			generateRoomList();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
 		dateCalenderfix();
 		
 		
@@ -242,12 +237,17 @@ public class NewAppointmentController implements Initializable {
 		
 	}
 	
-	public void generateRoomList() throws IOException {
+	public void generateRoomList(ActionEvent event) throws IOException {
 		
 
 		ObservableList<String> list = FXCollections.observableArrayList();
 		
-		String[] rooms = Client.getRooms().split("/@/");
+		if(roomAmountValidation()){
+			
+		LocalTime startTime = LocalTime.of(Integer.parseInt(startHourField.getValue().toString()), Integer.parseInt(startMinuteField.getValue().toString()));
+		LocalTime endTime = LocalTime.of(Integer.parseInt(endHourField.getValue().toString()), Integer.parseInt(endMinuteField.getValue().toString()));
+			
+		String[] rooms = Client.getRooms(startTime.toString(), endTime.toString(), roomAmountField.getText(), datePicker.getValue().toString()).split("/@/");
 		for(String room : rooms){
 			String[] room1 = room.split("#/#");
 			String room2 = "";
@@ -255,10 +255,12 @@ public class NewAppointmentController implements Initializable {
 				room2+= room1[i] + " ";
 			}
 			room2+= "Plass: " + room1[room1.length-1];
+			if(room2.split(" ").length!=2){
 			list.add(room2);
+			}
 		}
 		roomTable.setItems(list);
-		
+		}
 		
 	}
 	
@@ -438,6 +440,10 @@ public class NewAppointmentController implements Initializable {
 			appointment.setAlarm(Integer.parseInt(alarmField.getText()));
 			}
 			appointment.setUsers(addedTable.getItems());
+			
+			for(int i = 0; i < appointment.getUsers().size(); i++) {
+				Client.addNotification("Ny avtale er laget", appointment.getUsers().get(i));
+			}
 			
 
 			if(editNewAppointment && Client.editAppointment(appointment)) {

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+
 // asd
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectPropertyBase;
@@ -27,7 +28,7 @@ public class Appointment {
 	private String identificationKey;
 	private StringProperty formalProperty = new SimpleStringProperty();
 	private StringProperty romProperty = new SimpleStringProperty();
-	
+	private String owner;
 	public Appointment() {
 		
 	}
@@ -237,6 +238,15 @@ public class Appointment {
 
 	public void setCancel(boolean cancel) {
 		this.cancel = cancel;
+	}
+
+	public void setOwner(String owner) {
+		this.owner = owner;
+		
+	}
+	
+	public String getOwner(){
+		return this.owner;
 	}
 	
 

@@ -45,7 +45,6 @@ public class editAppointmentController extends NewAppointmentController implemen
 		super.alarmButton.setSelected(true);
 		super.alarmField.setText(Integer.toString(appointmentToEdit.getAlarm()));
 		}
-		super.generateRoomList();
 		super.generateGroupsList();
 		super.generateEmployersList();
 		for(String employer1 : list) {

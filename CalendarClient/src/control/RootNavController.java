@@ -2,13 +2,25 @@ package control;
 
 import java.io.IOException;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+//
 
 public class RootNavController {
 	
 	// SET MAINAPP
 	MainApp mainApp;
+	
+	public RootNavController() {
+	    Platform.runLater(new Runnable() {
+	        @Override
+	        public void run() {
+	        	MainApp.rootController.setNotificationBold();
+	        	MainApp.rootController.removeNotificationBold();
+	        }
+	    });
+	}
 	
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
@@ -23,7 +35,8 @@ public class RootNavController {
 	}
 	
 	@FXML
-	private void gotoAppointments() {
+	private void gotoAppointments() throws IOException {
+		//Client.addNotification("test test test");
 		System.out.println("Opening appointmentView..");
 		mainApp.showAppointmentOverview();
 	}
@@ -36,7 +49,6 @@ public class RootNavController {
 	
 	@FXML
 	private void gotoNotifications() throws IOException {
-		Client.flagAllNotificationsAsSeen();
 		System.out.println("Opening NotificationsView..");
 		mainApp.showNotifications();
 	}
