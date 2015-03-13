@@ -1,13 +1,18 @@
 package control;
 
 import java.io.IOException;
+import java.util.Optional;
 import java.util.regex.Pattern;
+
 import model.Employee;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -116,6 +121,35 @@ public class UserManagementController {
     private void changeUserPass(String username, String password) throws IOException {
     	String response = Client.changeUserPass(username, password);
     	System.out.println(response);
+    }
+    
+    private void deleteUser(String username) throws IOException {
+          String response = Client.deleteUser(username);
+          System.out.println(response);
+    }
+    
+    @FXML
+    private void handleDeleteUser() throws IOException {
+        Employee employee = empTable.getSelectionModel().getSelectedItem();
+        if (employee == null) {
+        	System.out.println("No employee selected.");
+            return;
+        }else {
+        	System.out.println("Opening confirmation..");
+            Alert alert = new Alert(AlertType.CONFIRMATION);
+            alert.setTitle("Er du sikker?");
+            alert.setHeaderText("Er du sikker på at du vil slette?");
+            
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                System.out.println("Bruker vil slette!");
+                deleteUser(employee.getUsername().getValue());
+                getEmployeeList().remove(employee);
+                initEmpTable();
+            }else {
+                return;
+            }
+        }
     }
 
 }

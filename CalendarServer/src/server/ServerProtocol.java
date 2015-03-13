@@ -197,6 +197,12 @@ public class ServerProtocol {
 				
 				return response9.toString();
 				
+			case "DELETEUSER":
+				String userToDelete = input[1];
+				
+				String deleteResponse = database.deleteUser(userToDelete);
+				
+				return deleteResponse;
 				
 			}
 			
