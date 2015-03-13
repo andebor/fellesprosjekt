@@ -1,6 +1,8 @@
 package server;
 
 
+import java.util.Stack;
+
 import db.DBConnect;
 
 //
@@ -217,8 +219,26 @@ public class ServerProtocol {
 				String deleteResponse = database.deleteUser(userToDelete);
 				
 				return deleteResponse;
+			
+			
+			case "GETGROUPS":
 				
+				return database.getGroups();
+				
+			case "GETGROUP":
+				
+				Stack<Integer> employers = database.getGroup(Integer.parseInt(input[1]));
+				String responseEmp = "";
+				for(Integer emp : employers){
+					responseEmp+=database.getEmployeeName(emp) + " " + String.valueOf(emp) + "%&%";
+				}
+				return responseEmp;
+	
+			
+			
 			}
+			
+			
 			
 		} //Closing bracket for switch statement
 

@@ -149,6 +149,19 @@ public class Client
 		
 	}
 	
+	public static String getGroups() throws IOException{
+		
+		return sendToServer("GETGROUPS");
+		
+	}
+	
+	public static String getGroup(String groupID) throws IOException{
+		
+		String response = sendToServer("GETGROUP" + "#%" + groupID);
+		return response;
+		
+	}
+	
 	public static String hasNotifications() throws IOException {
 	
 		return sendToServer("hasNotifications" + "#%" + Client.username);
