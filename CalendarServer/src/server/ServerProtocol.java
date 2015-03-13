@@ -193,6 +193,16 @@ public class ServerProtocol {
 				
 				return database.getEmployeeName(Integer.parseInt(input[1]));
 				
+			case "ISINVITEDEMPLOYEE":
+				int empNom = database.getEmpno(input[2]);
+				return String.valueOf(database.isInvitedEmployee(Integer.parseInt(input[1]), empNom));
+				
+			case "CHANGESTATUS":
+				int appointmentID = Integer.parseInt(input[1]);
+				int empNom1 = database.getEmpno(input[2]);
+				int selection = Integer.parseInt(input[3]);
+				return String.valueOf(database.changeStatus(appointmentID, empNom1, selection));
+				
 			case "ADDNOTIFICATION":
 				int empNo5 = database.getEmpno(input[1]);
 				String msg = input[2];
