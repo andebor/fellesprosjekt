@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.control.*?>
@@ -83,5 +84,10 @@
             </GridPane>
          </children>
       </AnchorPane>
+      <ImageView fx:id="btnRefresh" fitHeight="51.0" fitWidth="56.0" layoutX="943.0" layoutY="14.0" onMouseClicked="#handleRefresh" onMouseEntered="#handleRefreshOver" onMouseExited="#handleRefreshExit" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../resources/images/playback_reload.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
