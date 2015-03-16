@@ -8,11 +8,16 @@ import db.DBConnect;
 //
 
 public class ServerProtocol {
+	
+	public DBConnect database;
+	
+	public ServerProtocol() {
+		database = new DBConnect();
+	}
 
 	public String processInput(String rawInput) throws Exception{
 		
-		DBConnect database = new DBConnect();
-		
+	
 		if(rawInput != null){
 			System.out.println(rawInput);
 			String[] input = rawInput.split("#%");
@@ -256,7 +261,7 @@ public class ServerProtocol {
 			
 		} //Closing bracket for switch statement
 
-		database.close();
+		//database.close();
 		return "OK";
 		
 	}
