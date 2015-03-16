@@ -225,6 +225,8 @@ public class Client
 			String response2 = sendToServer("ADDEMPLOYEETOAPPOINTMENT" + "#%" + emp[emp.length-1] + "#%" + appointment.getID());
 		}
 		
+		sendToServer("FIRENOTIFICATION");
+		
 		
 		return true; //response1 returns appointmentID now
 		

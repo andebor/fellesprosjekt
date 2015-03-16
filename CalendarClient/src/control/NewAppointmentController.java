@@ -460,7 +460,7 @@ public class NewAppointmentController implements Initializable {
 			appointment.setUsers(addedTable.getItems());
 			
 			for(int i = 0; i < appointment.getUsers().size(); i++) {
-				Client.addNotification("Ny avtale er laget", appointment.getUsers().get(i));
+				// Client.addNotification("Ny avtale er laget", appointment.getUsers().get(i));
 			}
 			
 
