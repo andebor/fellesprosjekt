@@ -135,6 +135,7 @@ public class AppointmentOverviewController {
     	
     	String[] deltagere = z[7].split("@/@");
     	
+    	
     	ObservableList<String> usersList = FXCollections.observableArrayList();
     	
     	for(int i = 0; i < deltagere.length; i++) {

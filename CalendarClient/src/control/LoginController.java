@@ -8,6 +8,8 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 
 
@@ -47,6 +49,13 @@ public class LoginController {
 		else {
 			feedbackLabel.setVisible(true);
 		}
+	}
+	
+	@FXML
+	public void handleEnterPressed(KeyEvent event) throws IOException, GeneralSecurityException {
+	    if (event.getCode() == KeyCode.ENTER) {
+	        handleLogin(); 
+	    }
 	}
 
 }
