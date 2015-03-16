@@ -94,6 +94,17 @@ public class RootNavController {
     		removeNotificationBold();
     	}
     }
+    
+    @FXML
+    Button btn_admin;
+    
+    // Check if usermanagement should be shown
+    @FXML
+    private void initialize() {
+        if (Client.username.equals("admin")) {
+            btn_admin.setVisible(true);  
+        }
+    }
  
     
     
