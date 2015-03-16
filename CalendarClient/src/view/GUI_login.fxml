@@ -15,7 +15,7 @@
             <PasswordField fx:id="txtPassword" layoutX="498.0" layoutY="221.0" onKeyPressed="#handleEnterPressed" promptText="Passord" />
             <Label layoutX="432.0" layoutY="226.0" text="Passord:" />
             <Label fx:id="feedbackLabel" layoutX="409.0" layoutY="319.0" text="Ugyldig brukernavn og/eller passord!" textFill="#ee0606" visible="false" />
-            <Button fx:id="btnLogin" layoutX="473.0" layoutY="274.0" mnemonicParsing="false" onAction="#handleLogin" text="Logg inn!" />
+            <Button fx:id="btnLogin" layoutX="473.0" layoutY="274.0" mnemonicParsing="false" onAction="#handleLogin" onKeyPressed="#handleEnterPressed" text="Logg inn!" />
          </children>
       </Pane>
    </center>
