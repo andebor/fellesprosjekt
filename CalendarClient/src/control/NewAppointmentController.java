@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 
 import model.Appointment;
 import javafx.collections.FXCollections;
@@ -217,9 +218,9 @@ public class NewAppointmentController implements Initializable {
 			String[] emp1 = employer.split("&/&");
 			System.out.println(emp1);
 			String emp2 = "";
-			for(int i = 1; i<emp1.length; i++){
+			for(int i = 1; i<emp1.length-1; i++){
 				emp2+= emp1[i] + " ";
-			}
+			} 
 			emp2+= emp1[0];
 			list.add(emp2);
 		}
@@ -228,13 +229,23 @@ public class NewAppointmentController implements Initializable {
 	}
 
 	public void generateGroupsList() {
-		
-		//Get list from database
-		//String need to be changes to users
-		// Using a example list to test functionality
 		ObservableList<String> list = FXCollections.observableArrayList();
+		//Get list from database
+		try {
+			System.out.println(Client.getGroups());
+			String[] groups = Client.getGroups().split(Pattern.quote("\n"));
+			String str = "";
+			for (String group : groups){
+				String[] grp = group.split("%&%");
+				str = grp[1].substring(5) + " " + grp[0].substring(3);
+				list.add(str);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		groupList = list;
 		groupsTable.setItems(groupList);	
-		
 	}
 	
 	public void generateRoomList(ActionEvent event) throws IOException {
@@ -281,13 +292,20 @@ public class NewAppointmentController implements Initializable {
 	
 	public void addGroup(String group){
 		// Move group(employers) from "group" table view to "deltaker" table view
-		if(addedList.contains(group)){
-			return;
+
+		try {
+			String[] employers = Client.getGroup(group.substring(group.length()-1)).split("%&%");
+			System.out.println(Client.getGroup(group.substring(group.length()-1)));
+			for(String emp : employers){
+				if(employersList.contains(emp) && !addedList.contains(emp) ){
+					addEmployers(emp);
+				}
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		addedList.add(group);
-//		groupList.remove(group);
-//		groups.setItems(groupList);
-		addedTable.setItems(addedList);
+
 		
 	}
 	

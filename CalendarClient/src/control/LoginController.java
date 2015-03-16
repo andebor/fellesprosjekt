@@ -39,8 +39,8 @@ public class LoginController {
 			mainApp.loginSuccess();
 			
 			
-			NotificationListener notificationListener = new NotificationListener();
-			notificationListener.start();
+			//NotificationListener notificationListener = new NotificationListener();
+			//notificationListener.start();
 			
 			Client.getAppointmentList();
 		}

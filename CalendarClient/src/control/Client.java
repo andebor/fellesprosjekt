@@ -69,6 +69,11 @@ public class Client
 			output += modifiedSentence = tempString + "\r\n";
 			tempString = inFromServer.readLine();
 		}
+		try {
+		    Thread.sleep(1000);                 //1000 milliseconds is one second.
+		} catch(InterruptedException ex) {
+		    Thread.currentThread().interrupt();
+		}
 		return output.trim();
 	}
 	
@@ -149,6 +154,19 @@ public class Client
 		
 	}
 	
+	public static String getGroups() throws IOException{
+		
+		return sendToServer("GETGROUPS");
+		
+	}
+	
+	public static String getGroup(String groupID) throws IOException{
+		
+		String response = sendToServer("GETGROUP" + "#%" + groupID);
+		return response;
+		
+	}
+	
 	public static String hasNotifications() throws IOException {
 	
 		return sendToServer("hasNotifications" + "#%" + Client.username);
@@ -209,6 +227,11 @@ public class Client
 		return true; //response1 returns appointmentID now
 		
 		
+	}
+	
+	public static String getAppointmentExclusive() throws IOException{
+		String response = sendToServer("GETAPPOINTMENTEXCLUSIVE" + "#%" + Client.username);
+		return response;
 	}
 	
 	public static String changeUserPass(String username, String password) throws IOException {

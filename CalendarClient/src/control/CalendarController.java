@@ -19,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
 
@@ -33,6 +34,9 @@ public class CalendarController {
     
     @FXML
     Label weekLabel;
+    
+    @FXML
+    ImageView btnRefresh;
     
 
 	MainApp mainApp;
@@ -236,6 +240,34 @@ public class CalendarController {
    
 
     	
+    }
+    
+    public void handleRefresh() {
+    	System.out.println("refresh");
+    	rotateRefresh();
+    }
+    
+    public void handleRefreshOver() {
+    	btnRefresh.setScaleX(2);
+    	btnRefresh.setScaleY(2);
+    }
+    
+    public void handleRefreshExit() {
+    	btnRefresh.setScaleX(1);
+    	btnRefresh.setScaleY(1);
+    }
+    
+    public void rotateRefresh() {
+    	double angle = 0;
+    	while(angle < 360) {
+    		angle++;
+    		btnRefresh.setRotate(angle);
+    		try {
+    		    Thread.sleep(10);
+    		} catch(InterruptedException ex) {
+    		    Thread.currentThread().interrupt();
+    		};
+    	}
     }
     
     public void addAppointment(String str) {
