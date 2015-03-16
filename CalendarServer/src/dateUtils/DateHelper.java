@@ -1,9 +1,18 @@
 package dateUtils;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
+
 public class DateHelper {
 	
 	public static String getMySQLDateTime() {
-		return "00-00-00 00:00:00";
+		SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		timeFormat.setTimeZone(TimeZone.getTimeZone("GMT+1"));
+		String time = timeFormat.format(new Date());
+		return time;
 	}
 	
 	public static String getDayInNorwegian(int dayNo) {
@@ -61,7 +70,8 @@ public class DateHelper {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		DateHelper dh = new DateHelper();
+		System.out.println(dh.getMySQLDateTime());
 	}
 
 }
