@@ -81,7 +81,6 @@ public class MainApp extends Application {
     	showCalendar();
     }
 
-    
     public void showLogin() {
         try {
             // Load person overview.

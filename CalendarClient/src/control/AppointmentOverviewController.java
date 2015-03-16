@@ -63,6 +63,7 @@ public class AppointmentOverviewController {
         
         // Clear person details.
         showAppointmentDetails(null);
+        
 
         // Listen for selection changes and show the person details when changed.
 		appointmentTable.getSelectionModel().selectedItemProperty().addListener(
@@ -133,6 +134,7 @@ public class AppointmentOverviewController {
     	
     	
     	String[] deltagere = z[7].split("@/@");
+    	
     	
     	ObservableList<String> usersList = FXCollections.observableArrayList();
     	
