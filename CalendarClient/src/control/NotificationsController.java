@@ -83,15 +83,16 @@ public class NotificationsController {
 
     	String[] z = str.split(Pattern.quote("\n"));
     	
-    	System.out.println("HVAFAEN: " + z.toString());
     	
-    	String desc = z[1].substring(8);
-    	
-    	
+    	String date = z[1].substring(8);
+    	String desc = z[2].substring(8);
     	
     	
+    	
+    	
+    	notification.setDate(date);
     	notification.setDescription(desc);
-    	notification.setDate("01.01.2000");
+
     	
     	
     	
