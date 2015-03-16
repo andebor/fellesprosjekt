@@ -84,23 +84,28 @@ public class RootNavController {
 		btn_notifications.setText("Nye varsler!");
 	}
 	
-    public void handleRefresh() {
-    	double angle = 0;
-    	while(angle < 360) {
-    		rotateRefresh(angle);
-    		angle++;
-    	}
+    public void handleRefresh() throws IOException {
+    	String str = Client.hasNotifications().trim();
     	
+    	if(str.equals("true")) {
+    		setNotificationBold();
+    	}
+    	else {
+    		removeNotificationBold();
+    	}
+    }
+    
+    @FXML
+    Button btn_admin;
+    
+    // Check if usermanagement should be shown
+    @FXML
+    private void initialize() {
+        if (Client.username.equals("admin")) {
+            btn_admin.setVisible(true);  
+        }
     }
  
     
-    public void rotateRefresh(double angle) {
-    	btnRefresh.setRotate(angle);
-		try {
-		    Thread.sleep(10);
-		} catch(InterruptedException ex) {
-		    Thread.currentThread().interrupt();
-		}	
-    }
     
 }
