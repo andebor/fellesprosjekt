@@ -16,69 +16,47 @@ import javafx.fxml.Initializable;
 public class InvitationsController extends AppointmentOverviewController {
 
 
-	@Override
-    public void addAppointment(String str) {
-    	Appointment appointment = new Appointment();
-    	
 
-    	String[] z = str.split(Pattern.quote("%$"));
+    
+	
+	@Override
+    public void initAppointmetTable() throws IOException{
     	
-    	//System.out.println("LENGDE: " + z.length);
+    	// Using generateExampleAppointment for testing. Need a new method for retrieving appointment-list from database
+    	//appointmentList = generateExampleAppointment();
     	
-    	appointment.setDescription(z[0]);
-    	
-    	
-    	
-    	String[] startDate = z[1].split(" ");
-    	
-    	String dato = startDate[0];
-    	String[] datoList = dato.split("-");
-    	
-    	String[] endDate = z[2].split(" ");
-    	
-    	String startTid = startDate[1];
-    	String[] startTidList = startTid.split(":");
-    	
-    	String endTid = endDate[1];
-    	String[] endTidList = startTid.split(":");
+    	appointmentList.clear();
     	
     	
-    	String[] deltagere = z[7].split("@/@");
     	
-    	ObservableList<String> usersList = FXCollections.observableArrayList();
+    	String str = Client.getAppointmentExclusive();
     	
-    	for(int i = 0; i < deltagere.length; i++) {
-    		usersList.add(deltagere[i]);
+    	System.out.println("hentet avtaler");
+    	System.out.println(str); //THIS GENERATES A LOT OF SPAM IN CONSOLE
+    	
+    	
+    	String[] appStrings = str.split(Pattern.quote("$%"));
+    	
+    	/*
+    	for(int i = 0; i < appStrings.length; i++) {
+    		System.out.println(appStrings[i] + "\n");
+    	}
+    	*/
+    	
+    	
+    	for(int i = 0; i < appStrings.length; i++) {
+    		if(appStrings[i].length() > 3) { //dirtyfix
+    			addAppointment(appStrings[i]);    			
+    		}
     	}
     	
     	
-    	appointment.setDate(LocalDate.of(Integer.parseInt(datoList[0]), Integer.parseInt(datoList[1]), Integer.parseInt(datoList[2])));
-    	appointment.setStart(LocalTime.of(Integer.parseInt(startTidList[0]), Integer.parseInt(startTidList[1])));
-    	appointment.setFrom(LocalTime.of(11,30));
-    	appointment.setUsers(usersList);
-    	appointment.setRoomAmount(2);
-    	appointment.setID(z[6]);
-    	appointment.setOwner(z[5]);
     	
-    	if(z[4].equals("null")){
-    		appointment.setPlace(z[3]);
-    		appointment.setRoom("null");
-    	}
-    	else {
-    		appointment.setRoom(z[4]);
-    		appointment.setPlace("null");
-    	}
-    	try {
-			if(Client.isInvitedEmployee(appointment.getID()).equals("true") && 
-					!Client.checkAppointmentOwnership(appointment.getID()).equals("true")){				
-			appointmentList.add(appointment);
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    	
+    	appointmentTable.setItems(appointmentList);
     	
     }
+
 	/**
 	 * Updates an employee's attendance status.
 	 * @param appointmentID "avtaleID" in the DB.

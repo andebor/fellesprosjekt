@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.AddUserController">
+   <children>
+      <GridPane layoutX="62.0" layoutY="63.0" prefHeight="274.0" prefWidth="277.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="175.0" minWidth="10.0" prefWidth="125.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="284.0" minWidth="10.0" prefWidth="226.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" text="Brukernavn" GridPane.halignment="RIGHT">
+               <GridPane.margin>
+                  <Insets right="5.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Fornavn" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets right="5.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Etternavn" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets right="5.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Passord" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets right="5.0" />
+               </GridPane.margin>
+            </Label>
+            <TextField fx:id="username_field" promptText="Brukernavn" GridPane.columnIndex="1" />
+            <TextField fx:id="firstname_field" promptText="Fornavn" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="lastname_field" promptText="Etternavn" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <PasswordField fx:id="pwd_field" promptText="Passord" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+         </children>
+      </GridPane>
+      <Button layoutX="269.0" layoutY="348.0" mnemonicParsing="false" onAction="#handleCancelAdd" prefWidth="70.0" text="Avbryt" />
+      <Button layoutX="184.0" layoutY="348.0" mnemonicParsing="false" onAction="#handleConfirmAdd" prefWidth="70.0" text="Legg til" />
+      <Label layoutX="116.0" layoutY="34.0" text="Info om ny bruker">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="missingfields_label" layoutX="124.0" layoutY="329.0" text="Alle feltene må fylles ut!" textFill="RED" visible="false" />
+   </children>
+</AnchorPane>

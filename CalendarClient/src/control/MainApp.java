@@ -244,6 +244,36 @@ public class MainApp extends Application {
     	return primaryStage;
     }
     
+    public void showAddNewUser() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("/view/GUI_newUser.fxml"));
+			AnchorPane newUserView;
+			newUserView = (AnchorPane) loader.load();
+			
+			// Create dialog stage
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Legg til ny bruker");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(getPrimaryStage());
+//    	dialogStage.initOwner(userManagementControllerApp.getPrimaryStage());
+			
+			// Create dialog scene
+			Scene scene = new Scene(newUserView);
+			dialogStage.setScene(scene);
+			
+			AddUserController controller = loader.getController();
+			controller.setMainApp(this);
+			controller.setDialogStage(dialogStage);
+			
+			dialogStage.showAndWait();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    	
+    }
+    
     public static void main(String[] args) {
         launch(args);
     }

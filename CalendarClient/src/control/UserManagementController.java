@@ -10,6 +10,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
@@ -17,25 +19,36 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Pair;
 
 public class UserManagementController {
 	
 	MainApp mainApp;
+	private Stage dialogStage;
 	
     public void setMainApp(MainApp mainApp) throws IOException {
         this.mainApp = mainApp;
         
         initEmpTable();
     }
-    
+        
     @FXML 
     TableView<Employee> empTable;
     @FXML 
     TableColumn<Employee, String> empColumn;
     @FXML 
     Label firstnameLabel, lastnameLabel, empNoLabel;
+    
+    @FXML
+    Label missingfields_label;
+    
+    @FXML
+    TextField username_field, firstname_field, lastname_field, pwd_field;
     
     public static ObservableList<Employee> employeeList = FXCollections.observableArrayList();
     	
@@ -65,7 +78,7 @@ public class UserManagementController {
     	}
     }
     
-    private void initEmpTable() throws IOException {
+    public void initEmpTable() throws IOException {
     	
     	employeeList.clear();
     	
@@ -116,7 +129,7 @@ public class UserManagementController {
 //    	changeUserPass("andebor", "andebor");
     }
     
-    private void addUser(String username, String firstName, String lastName,String password) throws IOException {
+    public static void addUser(String username, String firstName, String lastName,String password) throws IOException {
     	String response = Client.addUser(username, firstName, lastName, password);
     	System.out.println(response);
     }  
@@ -179,7 +192,6 @@ public class UserManagementController {
     
     @FXML
     private void handleAddNewUser() {
-    	Dialog<Pair<String, String>> dialog = new Dialog<>();
+    	mainApp.showAddNewUser();
     }
-
 }
