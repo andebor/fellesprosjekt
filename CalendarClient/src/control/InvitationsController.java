@@ -70,7 +70,7 @@ public class InvitationsController extends AppointmentOverviewController {
 		
 		Appointment appointment = appointmentTable.getSelectionModel().getSelectedItem();
 		if(Client.changeStatus(appointment.getID(), "2").equals("true")){
-			super.initAppointmetTable();
+			initAppointmetTable();
 		};
 		
 	}
@@ -79,7 +79,7 @@ public class InvitationsController extends AppointmentOverviewController {
 		
 		Appointment appointment = appointmentTable.getSelectionModel().getSelectedItem();
 		if(Client.changeStatus(appointment.getID(), "3").equals("true")){
-			super.initAppointmetTable();
+			initAppointmetTable();
 		};
 		
 	}
@@ -88,7 +88,16 @@ public class InvitationsController extends AppointmentOverviewController {
 		
 		Appointment appointment = appointmentTable.getSelectionModel().getSelectedItem();
 		if(Client.changeStatus(appointment.getID(), "4").equals("true")){
-			super.initAppointmetTable();
+			initAppointmetTable();
+		};
+	}
+	
+	public void hideAppointment(ActionEvent event) throws IOException{
+		
+		Appointment appointment = appointmentTable.getSelectionModel().getSelectedItem();
+		Client.hideAppointment(appointment);
+		if(Client.hideAppointment(appointment).equals("true")){
+			initAppointmetTable();
 		};
 	}
 	

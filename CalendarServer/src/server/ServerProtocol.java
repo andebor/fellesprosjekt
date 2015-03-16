@@ -110,6 +110,11 @@ public class ServerProtocol {
 				
 			case "EDITAPPOINTMENT":
 				
+			case "HIDEAPPOINTMENT":
+				
+				int empNom2 = database.getEmpno(input[2]);
+				return String.valueOf(database.hideAppointment(Integer.parseInt(input[1]), empNom2));
+				
 				
 			case "GETEMPLOYEES":
 				
@@ -224,6 +229,10 @@ public class ServerProtocol {
 			case "GETAPPOINTMENTEXCLUSIVE":
 				
 				return database.getAppointmentsExclusive(input[1]);
+				
+			case "GETUSERID":
+				
+				return String.valueOf(database.getEmpno(input[1]));
 				
 			case "GETGROUPS":
 				

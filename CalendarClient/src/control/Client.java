@@ -11,6 +11,8 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import model.Appointment;
 
 //
@@ -226,6 +228,25 @@ public class Client
 		
 		return true; //response1 returns appointmentID now
 		
+		
+	}
+	
+	public static String hideAppointment(Appointment appointment) throws IOException {
+		
+		//Check user status
+		String clientID = sendToServer("GETUSERID" + "#%" + Client.username);
+		ObservableList<String> usersList = (ObservableList<String>) appointment.getUsers();
+		for(String users : usersList){
+			
+			String[] user = users.split(" ");
+			if(user[0].equals(clientID) && !((user[user.length-1].equals("Venter")) || (user[user.length-1].equals("Deltar")))){				
+				String response = sendToServer("HIDEAPPOINTMENT" + "#%" + appointment.getID() + "#%" + Client.username);
+				return response;
+			}
+			
+		}
+		System.out.println("HIDEAPPOINTMENT FALSE");
+		return "false";
 		
 	}
 	
