@@ -22,9 +22,6 @@ public class NotificationsController {
     
     @FXML
     TableColumn<Notification, String> descriptionColumn;
-	
-    @FXML
-    TableColumn<Notification, String> typeColumn;
     
     @FXML
     TableColumn<Notification, String> timeColumn;
@@ -45,9 +42,6 @@ public class NotificationsController {
     	
         descriptionColumn.setCellValueFactory(
         		cellData -> cellData.getValue().descriptionProperty());
-        
-        typeColumn.setCellValueFactory(
-        		cellData -> cellData.getValue().typeProperty());
         
         timeColumn.setCellValueFactory(
         		cellData -> cellData.getValue().dateProperty());
@@ -89,13 +83,14 @@ public class NotificationsController {
 
     	String[] z = str.split(Pattern.quote("\n"));
     	
+    	System.out.println("HVAFAEN: " + z.toString());
+    	
     	String desc = z[1].substring(8);
     	
     	
     	
     	
     	notification.setDescription(desc);
-    	notification.setType("Test");
     	notification.setDate("01.01.2000");
     	
     	
