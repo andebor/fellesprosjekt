@@ -28,11 +28,11 @@ public class AddUserController {
         
     @FXML
     private void handleConfirmAdd() throws IOException {
-    	if (valiidUserInput()) {
+    	if (validUserInput()) {
     		UserManagementController.addUser(username_field.getText(), firstname_field.getText(), lastname_field.getText(), pwd_field.getText());
     		dialogStage.close();
     	}else{
-    		pwd_field.setVisible(true);
+    		missingfields_label.setVisible(true);
     		System.out.println("Not valid input.");
     	}
     }
@@ -43,7 +43,7 @@ public class AddUserController {
     	dialogStage.close();			
     }
     
-    private boolean valiidUserInput() {
+    private boolean validUserInput() {
     	if (username_field.getText() == null || username_field.getText().length() == 0) {
     		return false;
     	}
