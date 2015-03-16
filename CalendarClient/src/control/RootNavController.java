@@ -1,13 +1,16 @@
 package control;
 
+import java.awt.MouseInfo;
 import java.io.IOException;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 //
+import javafx.scene.shape.SVGPath;
 
 public class RootNavController {
+	
 	
 	// SET MAINAPP
 	MainApp mainApp;
@@ -65,6 +68,12 @@ public class RootNavController {
 	@FXML 
 	public Button btn_notifications;
 	
+	@FXML
+	public SVGPath btnRefresh;
+	
+	@FXML
+	public Button btnRefreshHitbox;
+	
 	public void removeNotificationBold() {
 		btn_notifications.setStyle("-fx-font-weight: normal;");
 		btn_notifications.setText("Varsler");
@@ -74,4 +83,24 @@ public class RootNavController {
 		btn_notifications.setStyle("-fx-font-weight: bold;");
 		btn_notifications.setText("Nye varsler!");
 	}
+	
+    public void handleRefresh() {
+    	double angle = 0;
+    	while(angle < 360) {
+    		rotateRefresh(angle);
+    		angle++;
+    	}
+    	
+    }
+ 
+    
+    public void rotateRefresh(double angle) {
+    	btnRefresh.setRotate(angle);
+		try {
+		    Thread.sleep(10);
+		} catch(InterruptedException ex) {
+		    Thread.currentThread().interrupt();
+		}	
+    }
+    
 }
