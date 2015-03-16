@@ -55,7 +55,7 @@ public class Notification {
 	}
 	
 	public String getDate() {
-		return typeProperty.getValue();
+		return dateProperty.getValue();
 	}
 	
 	public void setDate(String date) {

@@ -8,10 +8,12 @@ import java.io.*;
 
 public class ServerThread extends Thread {
     private Socket socket = null;
+    public ServerProtocol protocol;
  
     public ServerThread(Socket socket) {
         super("ServerThread");
         this.socket = socket;
+        protocol = new ServerProtocol();
     }
      
     public void run() {
@@ -24,7 +26,7 @@ public class ServerThread extends Thread {
         ) {
         	String inputLine, outputLine;
             
-            ServerProtocol protocol = new ServerProtocol();
+            
             
             while ((inputLine = in.readLine()) != null) {
             	try {
