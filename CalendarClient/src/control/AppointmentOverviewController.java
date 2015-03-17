@@ -107,7 +107,7 @@ public class AppointmentOverviewController {
     	
     }
     
-    public void addAppointment(String str) {
+    public void addAppointment(String str) throws IOException {
     	Appointment appointment = new Appointment();
     	
 
@@ -149,7 +149,7 @@ public class AppointmentOverviewController {
     	appointment.setUsers(usersList);
     	appointment.setRoomAmount(2);
     	appointment.setID(z[6]);
-    	appointment.setOwner(z[5]);
+    	appointment.setOwner(Client.getUser(z[5]));
     	
     	if(z[4].equals("null")){
     		appointment.setPlace(z[3]);
@@ -201,12 +201,7 @@ public class AppointmentOverviewController {
     		if(appointment.getRoom()!=null){
     			moteromLabel.setText(appointment.getRoom());
     		}
-    		try {
-				avtaleAdministrator.setText(Client.getUser(appointment.getOwner()));
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+    		avtaleAdministrator.setText(appointment.getOwner());
     		List<String> users = appointment.getUsers();
     		
     		String listString = "";

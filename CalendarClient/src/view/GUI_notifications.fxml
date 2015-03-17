@@ -14,9 +14,8 @@
       </Text>
       <TableView fx:id="notificationTable" layoutX="199.0" layoutY="175.0" prefHeight="365.0" prefWidth="636.0" AnchorPane.bottomAnchor="228.0" AnchorPane.leftAnchor="199.0" AnchorPane.rightAnchor="189.0" AnchorPane.topAnchor="175.0">
         <columns>
-          <TableColumn fx:id="typeColumn" prefWidth="111.7347412109375" text="Type" />
           <TableColumn fx:id="timeColumn" prefWidth="118.2652587890625" text="Tidspunkt" />
-            <TableColumn fx:id="descriptionColumn" prefWidth="338.5799865722656" text="Beskrivelse" />
+            <TableColumn fx:id="descriptionColumn" prefWidth="516.0" text="Beskrivelse" />
         </columns>
       </TableView>
    </children>
