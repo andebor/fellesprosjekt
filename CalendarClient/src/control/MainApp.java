@@ -274,6 +274,11 @@ public class MainApp extends Application {
     	
     }
     
+    public void logOut() {
+    	primaryStage.close();
+    	showLogin();
+    }
+    
     public static void main(String[] args) {
         launch(args);
     }
