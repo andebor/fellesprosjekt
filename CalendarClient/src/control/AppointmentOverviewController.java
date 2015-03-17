@@ -9,8 +9,11 @@ import java.util.List;
 
 import java.util.regex.Pattern;
 
+
+
 //asd
 import model.Appointment;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -46,6 +49,7 @@ public class AppointmentOverviewController {
 	Label avtaleAdministrator;
 	
 	MainApp mainApp;
+	int index;
 	
 	public static ObservableList<Appointment> appointmentList = FXCollections.observableArrayList(); // Currently list over appointments in appointmentTable
 
@@ -105,6 +109,35 @@ public class AppointmentOverviewController {
     	
     	appointmentTable.setItems(appointmentList);
     	
+    	if(mainApp.appointmentToSelect != null) {
+    		selectAppointment(mainApp.appointmentToSelect);    		
+    	}
+    	
+    }
+    
+    public void selectAppointment(Appointment appointment) {
+    	
+    	
+    	for(int i = 0; i < appointmentList.size(); i++) {
+    		if(appointment.getID().equals(appointmentList.get(i).getID())) {
+    			index = i;
+    			break;
+    		}
+    	}
+    	
+    	Platform.runLater(new Runnable()
+    	{
+    	    @Override
+    	    public void run()
+    	    {
+    	        appointmentTable.requestFocus();
+    	        
+    	        appointmentTable.getSelectionModel().select(index);
+    	        appointmentTable.getFocusModel().focus(index);
+    	    }
+    	});
+    	
+    	mainApp.appointmentToSelect = null;
     }
     
     public void addAppointment(String str) throws IOException {
