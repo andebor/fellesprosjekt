@@ -101,7 +101,6 @@ public class GroupManagementController {
 				list.add(str);
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		groupsList = list;
@@ -113,20 +112,6 @@ public class GroupManagementController {
 		//Get list from database
 		ObservableList<String> list = FXCollections.observableArrayList();
 		
-//		String[] memberList = Client.getEmployees().split("@/@");
-//		
-//		for(String employer : employeesList){
-//			
-//			String[] emp1 = employer.split("&/&");
-//			System.out.println(emp1);
-//			String emp2 = "";
-//			for(int i = 1; i<emp1.length-1; i++){
-//				emp2+= emp1[i] + " ";
-//			} 
-//			emp2+= emp1[0];
-//			list.add(emp2);
-//		}
-		
 		try {
 			String[] members = Client.getGroup(group.substring(group.length()-1)).split("%&%");
 			System.out.println(Client.getGroup(group.substring(group.length()-1)));
@@ -134,11 +119,9 @@ public class GroupManagementController {
 				list.add(member);
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		memberList = list;
 		membersTable.setItems(list);	
 	}
-
 }
