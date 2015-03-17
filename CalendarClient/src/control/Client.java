@@ -202,6 +202,7 @@ public class Client
 				isSynced = false;
 			}
 		}
+		System.out.println("TEST2 " + response);
 		return response;
 
 	}
