@@ -42,16 +42,9 @@ public class Notification {
 		return typeProperty;
 	}
 	
-	public String getType() {
-		return typeProperty.getValue();
-	}
-	
-	public void setType(String type) {
-		typeProperty.setValue(type);
-	}
 	
 	public StringProperty dateProperty() {
-		return typeProperty;
+		return dateProperty;
 	}
 	
 	public String getDate() {
