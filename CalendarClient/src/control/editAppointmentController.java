@@ -35,6 +35,7 @@ public class editAppointmentController extends NewAppointmentController implemen
 	
 	public void loadAppointment() throws IOException{
 		
+		super.removeEmployees = appointmentToEdit.getUsers();
 		super.descriptionField.setText(appointmentToEdit.getDescription());
 	    super.startHourField.setValue(Integer.toString(appointmentToEdit.getStart().getHour()));
 	    super.startMinuteField.setValue(Integer.toString(appointmentToEdit.getStart().getMinute()));

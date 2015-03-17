@@ -130,6 +130,13 @@ public class ServerProtocol {
 				
 				return database.getEmployees();
 				
+			case "REMOVEEMPLOYEE":
+				
+				String empNo1 = input[1];
+				String appID1 = input[2];
+				Boolean response8 = database.removeEmployeeFromAppointment(Integer.parseInt(appID1), Integer.parseInt(empNo1));
+				return response8.toString();
+				
 			case "GETROOMS":
 				
 				return database.getAvailableRooms(input[4] + " " + input[1]+":00.0", input[4] + " " + input[2]+"00.0", Integer.parseInt(input[3]));
