@@ -22,7 +22,7 @@
                         <Insets bottom="5.0" />
                      </VBox.margin>
                   </Label>
-                  <ListView fx:id="groupList" prefHeight="311.0" prefWidth="248.0" />
+                  <ListView fx:id="groupsTable" prefHeight="311.0" prefWidth="248.0" />
                </children>
                <HBox.margin>
                   <Insets right="20.0" />
@@ -35,7 +35,7 @@
                         <Insets bottom="5.0" />
                      </VBox.margin>
                   </Label>
-                  <ListView fx:id="userList" prefHeight="311.0" prefWidth="248.0" />
+                  <ListView fx:id="membersTable" prefHeight="311.0" prefWidth="248.0" />
                </children>
                <HBox.margin>
                   <Insets right="20.0" />
@@ -48,7 +48,15 @@
                         <Insets bottom="30.0" top="120.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="btn_removeUser" mnemonicParsing="false" onAction="#handleRemoveUser" prefWidth="168.0" text="Fjern bruker fra gruppe" />
+                  <Button fx:id="btn_removeUser" mnemonicParsing="false" onAction="#handleRemoveUser" prefWidth="168.0" text="Fjern bruker fra gruppe">
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin></Button>
+                  <Label fx:id="label_missingUser" text="Du må velge en bruker!" textFill="RED" visible="false">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
                </children>
             </VBox>
          </children>
