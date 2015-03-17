@@ -10,6 +10,7 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -227,7 +228,7 @@ public class Client
 		
 	}
 	
-	public static boolean editAppointment(Appointment appointment) throws IOException{
+	public static boolean editAppointment(Appointment appointment, List<String> removedEmployees) throws IOException{
 		String room = "";
 		if(appointment.getRoom() != null){
 			room = appointment.getRoom().split(" ")[0];
@@ -238,10 +239,27 @@ public class Client
 		String response1 = sendToServer("UPDATEAPPOINTMENT" + "#%" + appointment.getID() + "#%" + appointment.getDescription() + "#%" + appointment.getStart().toString() + "#%" + appointment.getFrom().toString() + "#%" + appointment.getDate().toString() + "#%" 
 				+ appointment.getPlace() + "#%" + room);
 
+		List<String> removeEmpComparingList = FXCollections.observableArrayList();
+		
 		for (String employee : appointment.getUsers()){
 			
 			String[] emp = employee.split(" ");
 			String response2 = sendToServer("ADDEMPLOYEETOAPPOINTMENT" + "#%" + emp[emp.length-1] + "#%" + appointment.getID());
+			removeEmpComparingList.add(emp[emp.length-1]);
+		}
+		//Remove employee
+		for (String removeEmp : removedEmployees) {
+			String[] emp = removeEmp.split(" ");
+			int i = 0;
+			for(String compareEmp : removeEmpComparingList) {
+				if(compareEmp.equals(emp[0])){
+					i++;
+				}
+			}
+			if(i == 0){
+				sendToServer("REMOVEEMPLOYEE" + "#%" + emp[0] + "#%" + appointment.getID());
+			}
+			
 		}
 		
 		sendToServer("FIRENOTIFICATION");

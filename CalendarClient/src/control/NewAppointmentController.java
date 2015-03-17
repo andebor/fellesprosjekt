@@ -77,6 +77,7 @@ public class NewAppointmentController implements Initializable {
 	protected Appointment appointmentToEdit; // appointment to be edited
 	protected boolean editNewAppointment = false; // true if appointment is to be edited
 	protected boolean cancelAppointment = false; // set true to cancel appointment (on edit appointment)
+	protected List<String> removeEmployees;
 	
 	
 		
@@ -466,8 +467,8 @@ public class NewAppointmentController implements Initializable {
 			}
 			
 
-			if(editNewAppointment && Client.editAppointment(appointment)) {
-				
+			if(editNewAppointment) {
+				Client.editAppointment(appointment, removeEmployees);
 				errorLabel.setText("Avtale endret!");
 				
 			}
