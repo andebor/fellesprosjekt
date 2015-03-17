@@ -239,6 +239,10 @@ public class ServerProtocol {
 				
 				return String.valueOf(database.getEmpno(input[1]));
 				
+			case "FIRENOTIFICATION":
+				
+				return String.valueOf(database.fireNotification());
+				
 			case "GETGROUPS":
 				
 				return database.getGroups();

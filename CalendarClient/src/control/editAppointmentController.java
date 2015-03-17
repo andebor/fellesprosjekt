@@ -61,6 +61,9 @@ public class editAppointmentController extends NewAppointmentController implemen
 			super.placeField.setPromptText(appointmentToEdit.getRoom());
 			super.roomAmountField.setText(Integer.toString(appointmentToEdit.getRoomAmount()));
 			super.reservationButton.setSelected(true);
+			ObservableList<String> listRoom = FXCollections.observableArrayList();
+			listRoom.add(appointmentToEdit.getRoom());
+			super.roomTable.setItems(listRoom);
 			super.roomTable.getSelectionModel().select(appointmentToEdit.getRoom());
 			
 		}
