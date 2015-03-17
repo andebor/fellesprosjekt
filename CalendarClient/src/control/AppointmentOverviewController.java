@@ -159,7 +159,7 @@ public class AppointmentOverviewController {
     	String[] startTidList = startTid.split(":");
     	
     	String endTid = endDate[1];
-    	String[] endTidList = startTid.split(":");
+    	String[] endTidList = endTid.split(":");
     	
     	
     	String[] deltagere = z[8].split("@/@");
@@ -174,9 +174,9 @@ public class AppointmentOverviewController {
     	
     	appointment.setDate(LocalDate.of(Integer.parseInt(datoList[0]), Integer.parseInt(datoList[1]), Integer.parseInt(datoList[2])));
     	appointment.setStart(LocalTime.of(Integer.parseInt(startTidList[0]), Integer.parseInt(startTidList[1])));
-    	appointment.setFrom(LocalTime.of(11,30));
+    	appointment.setFrom((LocalTime.of(Integer.parseInt(endTidList[0]), Integer.parseInt(endTidList[1]))));
     	appointment.setUsers(usersList);
-    	appointment.setRoomAmount(2);
+    	appointment.setRoomAmount(usersList.size());
     	appointment.setID(z[7]);
     	appointment.setOwner(z[5] + " " + z[6]);
     	

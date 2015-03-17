@@ -89,12 +89,13 @@ public class NotificationsController {
     public void addNotification(String str) {
     	Notification notification = new Notification();
     	
-
+    	System.out.println("NOTIFICATION " + str);
+    	
     	String[] z = str.split(Pattern.quote("\n"));
     	
     	
     	String date = z[1].substring(8);
-    	String desc = z[2].substring(8);
+    	String desc = z[2].substring(8) + "\n" + z[3];
     	
     	
     	
