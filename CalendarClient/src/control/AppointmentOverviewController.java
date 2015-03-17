@@ -109,7 +109,9 @@ public class AppointmentOverviewController {
     	
     	appointmentTable.setItems(appointmentList);
     	
-    	selectAppointment(mainApp.appointmentToSelect);
+    	if(mainApp.appointmentToSelect != null) {
+    		selectAppointment(mainApp.appointmentToSelect);    		
+    	}
     	
     }
     
@@ -134,6 +136,8 @@ public class AppointmentOverviewController {
     	        appointmentTable.getFocusModel().focus(index);
     	    }
     	});
+    	
+    	mainApp.appointmentToSelect = null;
     }
     
     public void addAppointment(String str) throws IOException {
