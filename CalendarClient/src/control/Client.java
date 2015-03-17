@@ -71,11 +71,6 @@ public class Client
 			output += modifiedSentence = tempString + "\r\n";
 			tempString = inFromServer.readLine();
 		}
-		try {
-		    Thread.sleep(1000);                 //1000 milliseconds is one second.
-		} catch(InterruptedException ex) {
-		    Thread.currentThread().interrupt();
-		}
 		return output.trim();
 	}
 	
@@ -95,8 +90,18 @@ public class Client
 	}
 	
 	public static String getAppointmentList() throws IOException {
-	
-		return sendToServer("GETAPPOINTMENTLIST" + "#%" + Client.username);
+		SyncTest();
+		Boolean isSynced = true;
+		String response = sendToServer("GETAPPOINTMENTLIST" + "#%" + Client.username);
+		while(isSynced){
+			if(response.equals("CHECK")){
+				response = sendToServer("GETAPPOINTMENTLIST" + "#%" + Client.username);
+			}
+			else {
+				isSynced = false;
+			}
+		}
+		return response;
 
 		
 	}
@@ -172,6 +177,8 @@ public class Client
 	public static String hasNotifications() throws IOException {
 	
 		return sendToServer("hasNotifications" + "#%" + Client.username);
+
+
 	}
 	
 	public static String changeStatus(String appointmentID, String status) throws IOException {
@@ -179,13 +186,25 @@ public class Client
 	}
 	
 	public static String flagAllNotificationsAsSeen() throws IOException {
-		
-		return sendToServer("flagAllNotificationsAsSeen" + "#%" + Client.username);
+		String response = sendToServer("flagAllNotificationsAsSeen" + "#%" + Client.username);
+		return response;
+
 	}
 	
 	public static String getNewNotifications() throws IOException {
-		
-		return sendToServer("getNewNotifications" + "#%" + Client.username);
+		SyncTest();
+		Boolean isSynced = true;
+		String response = sendToServer("getNewNotifications" + "#%" + Client.username);
+		while(isSynced){
+			if(response.equals("CHECK")){
+				response = sendToServer("getNewNotifications" + "#%" + Client.username);
+			}
+			else {
+				isSynced = false;
+			}
+		}
+		return response;
+
 	}
 	
 	public static String addNotification(String msg, String username) throws IOException {
@@ -233,6 +252,19 @@ public class Client
 		
 	}
 	
+	public static boolean SyncTest() throws IOException {
+		
+		while(!sendToServer("SYNCCHECK").equals("CHECK")){
+			try {
+			    Thread.sleep(200);                 //1000 milliseconds is one second.
+			} catch(InterruptedException ex) {
+			    Thread.currentThread().interrupt();
+			}
+		}
+		return true;
+		
+	}
+	
 	public static String hideAppointment(Appointment appointment) throws IOException {
 		
 		//Check user status
@@ -253,8 +285,19 @@ public class Client
 	}
 	
 	public static String getAppointmentExclusive() throws IOException{
+		SyncTest();
+		Boolean isSynced = true;
 		String response = sendToServer("GETAPPOINTMENTEXCLUSIVE" + "#%" + Client.username);
+		while(isSynced){
+			if(response.equals("CHECK")){
+				response = sendToServer("GETAPPOINTMENTEXCLUSIVE" + "#%" + Client.username);
+			}
+			else {
+				isSynced = false;
+			}
+		}
 		return response;
+
 	}
 	
 	public static String changeUserPass(String username, String password) throws IOException {
