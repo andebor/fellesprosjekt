@@ -6,7 +6,11 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.temporal.TemporalField;
 import java.time.temporal.WeekFields;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
@@ -21,6 +25,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.util.Pair;
 
 
 public class CalendarController {
@@ -44,16 +51,29 @@ public class CalendarController {
 	}
 	
 	private int weekNumber;
+	Map<String, Integer> totalMap = new HashMap<String, Integer>();
+	Map<String, Integer> currentMap = new HashMap<String, Integer>();
+	List<Color> colors = new ArrayList<Color>();
+
+	
 
     @FXML
     private void initialize() throws IOException {
+    	
+    	colors.add(Color.BLUE);
+    	colors.add(Color.RED);
+    	colors.add(Color.YELLOW);
+    	colors.add(Color.GREEN);
+    	colors.add(Color.ORANGE);
+    	colors.add(Color.PINK);
+    	colors.add(Color.PURPLE);
     	
     	//Set correct week:
     	LocalDate date = LocalDate.now();
     	TemporalField woy = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear(); 
     	this.weekNumber = date.get(woy);
     	weekLabel.setText(Integer.toString(weekNumber));
-    	generateExampleAppointment();
+    	//generateExampleAppointment();
     	
     	String str = Client.getAppointmentList();
     	
@@ -61,19 +81,19 @@ public class CalendarController {
     	
     	
     	String[] appStrings = str.split(Pattern.quote("$%"));
+    	
     	/*
     	for(int i = 0; i < appStrings.length; i++) {
     		System.out.println(appStrings[i] + "\n");
     	}
     	*/
     	
-    	/*
-    	for(int i = 0; i < appStrings.length; i++) {
-    		addAppointment(appStrings[i]);
-    	}
-    	*/
     	
-    	addAppointment(appStrings[0]);
+    	for(int i = 0; i < appStrings.length; i++) {
+    		if(appStrings[i].length() > 3) { //dirtyfix
+    			addAppointment(appStrings[i]);    			
+    		}
+    	}
     	
     	
 		generateCalendar();
@@ -185,6 +205,19 @@ public class CalendarController {
 		// Generate GUI
 		generateGUICalendar();
 		
+		for(int row = 0; row<30; row++){
+			for(int column = 0; column < 30; column++) {
+				totalMap.put("" + row + column, 0);				
+			}
+		}
+		
+		for(int row = 0; row<30; row++){
+			for(int column = 0; column < 30; column++) {
+				currentMap.put("" + row + column, 0);				
+			}
+		}
+
+		
 		
 		for(Appointment appointment : PersonalAppointmentList){
 		
@@ -192,36 +225,91 @@ public class CalendarController {
 			LocalDate appointmentDate = appointment.getDate();
 			TemporalField woy = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear(); 
 			int appointmentWeek = appointmentDate.get(woy);
+			int start = 0;
+			int end = 0;
+			int column = 0;
 		
 			if(appointmentWeek==Integer.parseInt(weekLabel.getText())){
 				//Find column
-				int column = appointment.getDate().getDayOfWeek().getValue();
+				column = appointment.getDate().getDayOfWeek().getValue();
 			
 				//Find rows
-				int start = appointment.getStart().getHour();
+				start = appointment.getStart().getHour();
 				if(start<8){
 					start = 0;
 				}
 				else{
 					start = start - 6;
 				}
-				int end = appointment.getFrom().getHour();
+				end = appointment.getFrom().getHour();
 				if(end<8){
 					end = 0;
 				}
 				else{
 					end = end - 6;
 				}
+			}
+				
+	
+			
+			for(int row = start; row<=end; row++){
+				totalMap.put("" + row + column, totalMap.get("" + row + column) + 1);
+				
+			}	
+		}
+			
+
+		
+		for(Appointment appointment2 : PersonalAppointmentList){
+		
+			//Check week
+			LocalDate appointmentDate2 = appointment2.getDate();
+			TemporalField woy2 = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear(); 
+			int appointmentWeek2 = appointmentDate2.get(woy2);
+			int start2 = 0;
+			int end2 = 0;
+			int column2 = 0;
+		
+			if(appointmentWeek2==Integer.parseInt(weekLabel.getText())){
+				//Find column
+				column2 = appointment2.getDate().getDayOfWeek().getValue();
+			
+				//Find rows
+				start2 = appointment2.getStart().getHour();
+				if(start2<8){
+					start2 = 0;
+				}
+				else{
+					start2 = start2 - 6;
+				}
+				end2 = appointment2.getFrom().getHour();
+				if(end2<8){
+					end2 = 0;
+				}
+				else{
+					end2 = end2 - 6;
+				}
+			}			
 		
 			// Generate appointment in calendar
-			for(int row = start; row<=end; row++){
-				Label appointmentLabel = new Label(appointment.getDescription());
-				appointmentLabel.setTranslateX(30);
-				calendarGridPane.add(appointmentLabel, column, row);
-			}	
+			if(column2 != 0) { //dirtyfix
+				for(int row2 = start2; row2<=end2; row2++){
+					//Label appointmentLabel = new Label(appointment2.getDescription());
+					//appointmentLabel.setTranslateX(30);
+					int width = 98 / totalMap.get("" + row2 + column2);
+					int current = currentMap.get("" + row2 + column2);
+					Rectangle rect = new Rectangle(0,0,width,30);
+					rect.setTranslateX(current * width);
+					rect.setFill(colors.get(current));
+					calendarGridPane.add(rect, column2, row2);
+					currentMap.put("" + row2 + column2, currentMap.get("" + row2 + column2) + 1);
+				}
 			}
+
 		}
 	}
+	
+	
 	
     public void generateExampleAppointment() {
     	// Just for testing functionality 
@@ -240,22 +328,18 @@ public class CalendarController {
     	
     }
     
-    
-    public void addAppointment(String str) {
-    		
-    	
+
+    public void addAppointment(String str) throws IOException {
     	Appointment appointment = new Appointment();
     	
+
     	String[] z = str.split(Pattern.quote("%$"));
     	
     	//System.out.println("LENGDE: " + z.length);
     	
-    	for(int i = 0; i < z.length; i++) {
-    		System.out.println(z[i] + "\n");
-    	}
-    	
-    	
     	appointment.setDescription(z[0]);
+    	
+    	
     	
     	String[] startDate = z[1].split(" ");
     	
@@ -271,13 +355,32 @@ public class CalendarController {
     	String[] endTidList = startTid.split(":");
     	
     	
+    	String[] deltagere = z[7].split("@/@");
+    	
+    	
+    	ObservableList<String> usersList = FXCollections.observableArrayList();
+    	
+    	for(int i = 0; i < deltagere.length; i++) {
+    		usersList.add(deltagere[i]);
+    	}
+    	
+    	
     	appointment.setDate(LocalDate.of(Integer.parseInt(datoList[0]), Integer.parseInt(datoList[1]), Integer.parseInt(datoList[2])));
     	appointment.setStart(LocalTime.of(Integer.parseInt(startTidList[0]), Integer.parseInt(startTidList[1])));
     	appointment.setFrom(LocalTime.of(11,30));
-    	ObservableList<String> list2 = FXCollections.observableArrayList("Ole", "Ansatt 1");
-    	appointment.setUsers(list2);
-    	appointment.setRoom(z[4]);
+    	appointment.setUsers(usersList);
     	appointment.setRoomAmount(2);
+    	appointment.setID(z[6]);
+    	appointment.setOwner(Client.getUser(z[5]));
+    	
+    	if(z[4].equals("null")){
+    		appointment.setPlace(z[3]);
+    		appointment.setRoom("null");
+    	}
+    	else {
+    		appointment.setRoom(z[4]);
+    		appointment.setPlace("null");
+    	}
     	
     	PersonalAppointmentList.add(appointment);
     	
