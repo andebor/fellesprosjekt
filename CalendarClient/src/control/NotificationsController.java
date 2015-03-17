@@ -76,6 +76,10 @@ public class NotificationsController {
     	
     	notificationTable.setItems(notificationList);
     	
+    	for(int i = 0; i < notificationList.size(); i++) {
+    		System.out.println("zzz: " + notificationList.get(i));
+    	}
+    	
     	Client.flagAllNotificationsAsSeen();
   
     }
