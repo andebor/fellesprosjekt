@@ -437,23 +437,20 @@ public class NewAppointmentController implements Initializable {
 			
 			// If edit appointment is selected, the appointment selected to be edited will be updated instead of creating a new one. 
 
-			if(editNewAppointment) {
-				appointment = appointmentToEdit;
-			}
-			
+
+			appointment.setID(appointmentToEdit.getID());
 			appointment.setDescription(descriptionField.getText());
-			appointment.setDate(datePicker.getValue());
 			appointment.setDate(datePicker.getValue());
 			appointment.setStart(LocalTime.of(Integer.parseInt(startHourField.getValue().toString()), Integer.parseInt(startMinuteField.getValue().toString())));
 			appointment.setFrom(LocalTime.of(Integer.parseInt(endHourField.getValue().toString()), Integer.parseInt(endMinuteField.getValue().toString())));
 			if(reservationButton.isSelected()){
 				appointment.setRoomAmount(Integer.parseInt(roomAmountField.getText()));		
 				appointment.setRoom(roomTable.getSelectionModel().getSelectedItem());
-				appointment.setPlace(null);
+				appointment.setPlace("null");
 			}
 			if(!reservationButton.isSelected()){
 				appointment.setPlace(placeField.getText());
-				appointment.setRoom(null);
+				appointment.setRoom("null");
 			}
 			if(alarmButton.isSelected()){
 			appointment.setAlarm(Integer.parseInt(alarmField.getText()));
@@ -468,7 +465,7 @@ public class NewAppointmentController implements Initializable {
 			
 
 			if(editNewAppointment) {
-				Client.editAppointment(appointment, removeEmployees);
+				Client.editAppointment(appointment, appointmentToEdit, removeEmployees);
 				errorLabel.setText("Avtale endret!");
 				
 			}
