@@ -279,6 +279,24 @@ public class MainApp extends Application {
     	showLogin();
     }
     
+    public void showGroupOverview() {
+    	try {
+    		//load main calendar view
+    		FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("/view/GUI_groupOverview.fxml"));
+            AnchorPane groupManagementView = (AnchorPane) loader.load();
+
+            
+            rootNav.setCenter(groupManagementView);
+            // Give the controller access to the main app.
+            GroupManagementController controller = loader.getController();
+            controller.setMainApp(this);
+            
+    	} catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
     public static void main(String[] args) {
         launch(args);
     }

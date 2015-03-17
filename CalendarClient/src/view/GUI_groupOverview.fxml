@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #F4F4F4;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.UserManagementController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #F4F4F4;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.GroupManagementController">
    <children>
       <Text layoutX="379.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Grupper" textAlignment="CENTER" wrappingWidth="265.0">
          <font>
@@ -43,12 +43,12 @@
             </VBox>
             <VBox prefHeight="457.0" prefWidth="175.0">
                <children>
-                  <Button fx:id="btn_addUser" mnemonicParsing="false" text="Legg til bruker i gruppe">
+                  <Button fx:id="btn_addUser" mnemonicParsing="false" onAction="#handleAddUser" text="Legg til bruker i gruppe">
                      <VBox.margin>
                         <Insets bottom="30.0" top="120.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="btn_removeUser" mnemonicParsing="false" prefWidth="168.0" text="Fjern bruker fra gruppe" />
+                  <Button fx:id="btn_removeUser" mnemonicParsing="false" onAction="#handleRemoveUser" prefWidth="168.0" text="Fjern bruker fra gruppe" />
                </children>
             </VBox>
          </children>
