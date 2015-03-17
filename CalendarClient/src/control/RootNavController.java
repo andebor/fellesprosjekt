@@ -63,6 +63,17 @@ public class RootNavController {
 		mainApp.showUserManagement();
 	}
 	
+	@FXML
+	private void handleLogOut() {
+		System.out.println("Logging out..");
+		mainApp.logOut();
+	}
+	
+	@FXML
+	private void gotoGroupManagement() {
+		System.out.println("Opening GroupOverview..");
+	}
+	
 	// NOTIFICATIONS
 		
 	@FXML 
