@@ -59,6 +59,11 @@ public class NotificationsController {
     private void initNotificationTable() throws IOException {
 
     	String str = Client.getNewNotifications();    	
+    	
+    	if(str.equals("null")){
+    		str = "";
+    	}
+    	
     	String[] notiStrings = str.split(Pattern.quote("\n\n"));
  	
     	

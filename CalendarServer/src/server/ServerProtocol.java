@@ -23,6 +23,11 @@ public class ServerProtocol {
 			String[] input = rawInput.split("#%");
 			
 			switch(input[0].toUpperCase()){
+			
+			case "SYNCCHECK":
+				
+				return "CHECK";
+			
 			case "LOGIN":
 				System.out.println("CLASS:ServerProtocol - Trying login..");
 				String username = input[1];
@@ -192,15 +197,9 @@ public class ServerProtocol {
 			case "GETNEWNOTIFICATIONS":
 				int empNo4 = database.getEmpno(input[1]);
 				
-				String response8 = database.getNewNotifications(empNo4);
+				return database.getNewNotifications(empNo4);
 				
-				if(response8 == null) {
-					return "";
-				}
-				else {
-					return response8;					
-				}
-				
+	
 			case "GETUSER":
 				
 				return database.getEmployeeName(Integer.parseInt(input[1]));
