@@ -18,12 +18,16 @@ import model.Appointment;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.effect.Bloom;
+import javafx.scene.effect.Glow;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -60,13 +64,14 @@ public class CalendarController {
     @FXML
     private void initialize() throws IOException {
     	
-    	colors.add(Color.BLUE);
-    	colors.add(Color.RED);
-    	colors.add(Color.YELLOW);
+    	colors.add(Color.ROYALBLUE);
     	colors.add(Color.GREEN);
+    	colors.add(Color.GRAY);
+    	colors.add(Color.CHOCOLATE);
     	colors.add(Color.ORANGE);
-    	colors.add(Color.PINK);
     	colors.add(Color.PURPLE);
+    	colors.add(Color.PINK);
+
     	
     	//Set correct week:
     	LocalDate date = LocalDate.now();
@@ -291,18 +296,50 @@ public class CalendarController {
 				}
 			}			
 		
-			// Generate appointment in calendar
-			if(column2 != 0) { //dirtyfix
-				for(int row2 = start2; row2<=end2; row2++){
+		// Generate appointment in calendar
+			for(int row2 = start2; row2<=end2; row2++){
+				if(column2 != 0 && row2 != 0) { //dirtyfix
 					//Label appointmentLabel = new Label(appointment2.getDescription());
 					//appointmentLabel.setTranslateX(30);
 					int width = 98 / totalMap.get("" + row2 + column2);
 					int current = currentMap.get("" + row2 + column2);
-					Rectangle rect = new Rectangle(0,0,width,30);
+					int height = 29;
+					if(row2 == end2) {
+						height = 27;
+					}
+					
+					Rectangle rect = new Rectangle(0,0,width,height);
 					rect.setTranslateX(current * width);
 					rect.setFill(colors.get(current));
 					calendarGridPane.add(rect, column2, row2);
 					currentMap.put("" + row2 + column2, currentMap.get("" + row2 + column2) + 1);
+					
+				    rect.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+				        @Override
+				        public void handle(MouseEvent event) {
+				        	mainApp.appointmentToSelect = appointment2;
+				            mainApp.showAppointmentOverview();
+				        }
+				    });
+				    
+				    rect.setOnMouseEntered(new EventHandler<MouseEvent>() {
+
+				        @Override
+				        public void handle(MouseEvent event) {
+				        	Glow glow = new Glow();
+				        	glow.setLevel(1.0);
+				        	rect.setEffect(glow);
+				        }
+				    });
+				    
+				    rect.setOnMouseExited(new EventHandler<MouseEvent>() {
+
+				        @Override
+				        public void handle(MouseEvent event) {
+				        	rect.setEffect(null);
+				        }
+				    });
 				}
 			}
 
@@ -355,7 +392,7 @@ public class CalendarController {
     	String[] endTidList = startTid.split(":");
     	
     	
-    	String[] deltagere = z[7].split("@/@");
+    	String[] deltagere = z[8].split("@/@");
     	
     	
     	ObservableList<String> usersList = FXCollections.observableArrayList();
@@ -370,8 +407,8 @@ public class CalendarController {
     	appointment.setFrom(LocalTime.of(11,30));
     	appointment.setUsers(usersList);
     	appointment.setRoomAmount(2);
-    	appointment.setID(z[6]);
-    	appointment.setOwner(Client.getUser(z[5]));
+    	appointment.setID(z[7]);
+    	appointment.setOwner(z[5] + " " + z[6]);
     	
     	if(z[4].equals("null")){
     		appointment.setPlace(z[3]);

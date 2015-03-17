@@ -9,8 +9,11 @@ import java.util.List;
 
 import java.util.regex.Pattern;
 
+
+
 //asd
 import model.Appointment;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -46,6 +49,7 @@ public class AppointmentOverviewController {
 	Label avtaleAdministrator;
 	
 	MainApp mainApp;
+	int index;
 	
 	public static ObservableList<Appointment> appointmentList = FXCollections.observableArrayList(); // Currently list over appointments in appointmentTable
 
@@ -105,6 +109,31 @@ public class AppointmentOverviewController {
     	
     	appointmentTable.setItems(appointmentList);
     	
+    	selectAppointment(mainApp.appointmentToSelect);
+    	
+    }
+    
+    public void selectAppointment(Appointment appointment) {
+    	
+    	
+    	for(int i = 0; i < appointmentList.size(); i++) {
+    		if(appointment.getID().equals(appointmentList.get(i).getID())) {
+    			index = i;
+    			break;
+    		}
+    	}
+    	
+    	Platform.runLater(new Runnable()
+    	{
+    	    @Override
+    	    public void run()
+    	    {
+    	        appointmentTable.requestFocus();
+    	        
+    	        appointmentTable.getSelectionModel().select(index);
+    	        appointmentTable.getFocusModel().focus(index);
+    	    }
+    	});
     }
     
     public void addAppointment(String str) throws IOException {
@@ -133,7 +162,7 @@ public class AppointmentOverviewController {
     	String[] endTidList = startTid.split(":");
     	
     	
-    	String[] deltagere = z[7].split("@/@");
+    	String[] deltagere = z[8].split("@/@");
     	
     	
     	ObservableList<String> usersList = FXCollections.observableArrayList();
@@ -148,8 +177,8 @@ public class AppointmentOverviewController {
     	appointment.setFrom(LocalTime.of(11,30));
     	appointment.setUsers(usersList);
     	appointment.setRoomAmount(2);
-    	appointment.setID(z[6]);
-    	appointment.setOwner(Client.getUser(z[5]));
+    	appointment.setID(z[7]);
+    	appointment.setOwner(z[5] + " " + z[6]);
     	
     	if(z[4].equals("null")){
     		appointment.setPlace(z[3]);

@@ -24,6 +24,7 @@ public class MainApp extends Application {
 	private BorderPane loginView;
 	private BorderPane rootNav;
 	public static RootNavController rootController;
+	public static Appointment appointmentToSelect;
 	    
 	public MainApp() {
 	}
