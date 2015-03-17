@@ -95,7 +95,10 @@ public class NotificationsController {
     	
     	
     	String date = z[1].substring(8);
-    	String desc = z[2].substring(8) + "\n" + z[3];
+    	String desc = z[2].substring(8) + "\n";
+    	for(int i = 3; i<z.length; i++){
+    		desc+= z[i] + "\n";
+    	}
     	
     	
     	

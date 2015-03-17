@@ -228,16 +228,61 @@ public class Client
 		
 	}
 	
-	public static boolean editAppointment(Appointment appointment, List<String> removedEmployees) throws IOException{
+	public static boolean editAppointment(Appointment appointment, Appointment oldAppointment, List<String> removedEmployees) throws IOException{
 		String room = "";
-		if(appointment.getRoom() != null){
+		String editRoom = "YES";
+		if(!(appointment.getRoom().equals("null"))){
 			room = appointment.getRoom().split(" ")[0];
 		}
 		else {
-			room = null;
+			room = "null";
 		}
-		String response1 = sendToServer("UPDATEAPPOINTMENT" + "#%" + appointment.getID() + "#%" + appointment.getDescription() + "#%" + appointment.getStart().toString() + "#%" + appointment.getFrom().toString() + "#%" + appointment.getDate().toString() + "#%" 
-				+ appointment.getPlace() + "#%" + room);
+		String description = "null";
+		String start = "null";
+		String end = "null";
+		String editDate = "YES";
+		String place = "null";
+		String date;
+		
+		
+		if(!appointment.getDescription().equals(oldAppointment.getDescription())){
+			description = appointment.getDescription();
+		}
+		if(!appointment.getFrom().toString().equals(oldAppointment.getFrom().toString())){
+			end = appointment.getFrom().toString();
+		}
+		if(!appointment.getStart().toString().equals(oldAppointment.getStart().toString())){
+			start = appointment.getStart().toString();
+		}
+		if(!appointment.getDate().toString().equals(oldAppointment.getDate().toString())){
+			date = appointment.getDate().toString();
+		}
+		else{
+			date = oldAppointment.getDate().toString();
+		}
+		try {
+		if(!appointment.getPlace().equals(oldAppointment.getPlace())){
+			place = appointment.getPlace();
+				}
+		}
+		catch(NullPointerException e){
+		if(!(appointment.getPlace() == (oldAppointment.getPlace()))){
+			place = appointment.getPlace();
+			}
+		}
+		try {
+		if(room.equals(oldAppointment.getRoom())){
+			editRoom = "NO";
+			}
+		}
+		catch(NullPointerException e){
+		if(room == oldAppointment.getRoom()){
+			editRoom = "NO";
+		}
+		}
+		
+		String response1 = sendToServer("UPDATEAPPOINTMENT" + "#%" + appointment.getID() + "#%" + description + "#%" + start + "#%" + end + "#%" + date + "#%" 
+				+ place + "#%" + room + "#%" + editRoom);
 
 		List<String> removeEmpComparingList = FXCollections.observableArrayList();
 		
