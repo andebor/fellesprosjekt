@@ -133,7 +133,7 @@ public class AppointmentOverviewController {
     	String[] endTidList = startTid.split(":");
     	
     	
-    	String[] deltagere = z[7].split("@/@");
+    	String[] deltagere = z[8].split("@/@");
     	
     	
     	ObservableList<String> usersList = FXCollections.observableArrayList();
@@ -147,9 +147,9 @@ public class AppointmentOverviewController {
     	appointment.setStart(LocalTime.of(Integer.parseInt(startTidList[0]), Integer.parseInt(startTidList[1])));
     	appointment.setFrom(LocalTime.of(11,30));
     	appointment.setUsers(usersList);
-    	appointment.setRoomAmount(2);
-    	appointment.setID(z[6]);
-    	appointment.setOwner(Client.getUser(z[5]));
+    	appointment.setRoomAmount(usersList.size());
+    	appointment.setID(z[7]);
+    	appointment.setOwner(z[5] + " " + z[6]);
     	
     	if(z[4].equals("null")){
     		appointment.setPlace(z[3]);
