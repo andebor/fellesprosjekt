@@ -48,7 +48,7 @@
                   <Insets bottom="1.0" left="310.0" />
                </StackPane.margin>
             </Button>
-            <Button fx:id="btn_admin" mnemonicParsing="false" onAction="#gotoUserManagement" prefWidth="100.0" text="Brukeradm" StackPane.alignment="CENTER_LEFT">
+            <Button fx:id="btn_admin" mnemonicParsing="false" onAction="#gotoUserManagement" prefWidth="100.0" text="Brukeradm" visible="false" StackPane.alignment="CENTER_LEFT">
                <StackPane.margin>
                   <Insets bottom="1.0" left="516.0" />
                </StackPane.margin>
