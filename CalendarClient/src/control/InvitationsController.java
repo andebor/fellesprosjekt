@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
 import model.Appointment;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -55,7 +56,37 @@ public class InvitationsController extends AppointmentOverviewController {
     	
     	appointmentTable.setItems(appointmentList);
     	
+    	if(mainApp.appointmentToSelect != null) {
+    		selectInvitation(mainApp.appointmentToSelect);    		
+    	}
+    	
     }
+	
+	public void selectInvitation(Appointment appointment) {
+    	
+    	
+    	for(int i = 0; i < appointmentList.size(); i++) {
+    		if(appointment.getID().equals(appointmentList.get(i).getID())) {
+    			index = i;
+    			break;
+    		}
+    	}
+    	
+    	Platform.runLater(new Runnable()
+    	{
+    	    @Override
+    	    public void run()
+    	    {
+    	        appointmentTable.requestFocus();
+    	        
+    	        appointmentTable.getSelectionModel().select(index);
+    	        appointmentTable.getFocusModel().focus(index);
+    	    }
+    	});
+    	
+    	mainApp.appointmentToSelect = null;
+	}
+	
 
 	/**
 	 * Updates an employee's attendance status.

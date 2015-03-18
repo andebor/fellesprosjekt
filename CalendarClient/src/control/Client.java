@@ -384,4 +384,10 @@ public class Client
 		String response = sendToServer("DELETEUSER" + "#%" + username);
 		return response;
 	}
+	
+	public static String getUserID(String username) throws IOException {
+		String response = sendToServer("GETUSERID" + "#%" + username);
+		return response;
+	}
+	
 }
