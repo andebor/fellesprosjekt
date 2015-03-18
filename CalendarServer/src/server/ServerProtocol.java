@@ -276,7 +276,17 @@ public class ServerProtocol {
 				responseEmp = responseEmp.substring(0, responseEmp.length()-3);
 				return responseEmp;
 	
-			
+			case "ADDMEMBER":
+				
+				Boolean addMemberResponse =  database.addMember(Integer.parseInt(input[1]), Integer.parseInt(input[2]));
+				
+				return addMemberResponse.toString();
+				
+			case "REMOVEMEMBER":
+				
+				Boolean removeMemberResponse = database.removeMember(Integer.parseInt(input[1]), Integer.parseInt(input[2]));
+				
+				return removeMemberResponse.toString();
 			
 			}
 			

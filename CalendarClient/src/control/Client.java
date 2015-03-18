@@ -435,6 +435,16 @@ public class Client
 		return response;
 	}
 	
+	public static String addMember(String groupID, String empNo) throws IOException {
+		String response = sendToServer("ADDMEMBER" + "#%" + groupID + "#%" + empNo);
+		return response;
+	}
+	
+	public static String removeMember(String groupID, String empNo) throws IOException {
+		String response = sendToServer("REMOVEMEMBER" + "#%" + groupID + "#%" + empNo);
+		return response;
+	}
+	
 	public static void main(String [] args) throws Exception {
 		
 		//Client client = new Client();
