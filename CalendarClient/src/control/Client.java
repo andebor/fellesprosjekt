@@ -388,13 +388,12 @@ public class Client
 		return response;
 	}
 	
-	public static String getAlarms() {
-		String alarms;
-		//TODO: Hente alarmer fra server
+	public static String getAlarms() throws IOException {
+		String alarms = sendToServer("GETALARMS" + "#%" + username); 
 		return alarms;
 	}
 	
-	public void initAlarms(String seperator) {
+	public void initAlarms(String seperator) throws IOException {
 		this.alarms = new Stack<String>();
 		String alarms = getAlarms();
 		String [] alarmArray = alarms.split(seperator);
