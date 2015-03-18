@@ -89,27 +89,34 @@ public class GroupManagementController {
 		System.out.println("Opening dialog to select user..");
 		
 		// Create list of selectable choices in dialog box
-		List<String> choices = new ArrayList<>();
+		List<Employee> choices = new ArrayList<>();
 		String serverResponse = Client.getEmployees();
     	String[] employees = serverResponse.split(Pattern.quote("@/@"));
     	
     	for (int i = 0; i < employees.length; i++) {
     		String[] fields = employees[i].split(Pattern.quote("&/&"));
-			choices.add(fields[1] + " " + fields[2]);
+//			choices.add(fields[1] + " " + fields[2]);
+    		Employee employee = new Employee();
+    		employee.setFullName(new SimpleStringProperty(fields[1] + " " + fields[2]));
+    		employee.setEmpNo(new SimpleIntegerProperty(Integer.parseInt(fields[0])));
+    		choices.add(employee);
 		}
     	
     	// Create the dialog box
-		ChoiceDialog<String> dialog = new ChoiceDialog<>(null, choices);
+		ChoiceDialog<Employee> dialog = new ChoiceDialog<>(null, choices);
 		dialog.setTitle("Velg bruker");
 		dialog.setHeaderText("Velg bruker du vil legge til i " + groupsTable.getSelectionModel().getSelectedItem().getGroupName().getValue());
 		dialog.setContentText("Bruker:");
 
 		// Traditional way to get the response value.
-		Optional<String> result = dialog.showAndWait();
+		Optional<Employee> result = dialog.showAndWait();
 		if (result.isPresent()){
 			//TODO: DO SOMETHING WITH SELECTED VALUE
 			String group = groupsTable.getSelectionModel().getSelectedItem().getGroupId().getValue().toString();
-		    System.out.println("Your choice: " + result.get());
+			String user = result.get().getEmpNo().getValue().toString();
+		    System.out.println("Your choice: " + result.get().getFullName().getValue());
+		    Client.addMember(group, user);
+		    memberList.add(result.get());
 		}
 	}
 	
