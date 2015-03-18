@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
+import model.Group;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -13,7 +16,9 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.util.Callback;
 
 public class GroupManagementController {
 	
@@ -24,28 +29,42 @@ public class GroupManagementController {
 	}
 	
 	@FXML
-	ListView<String> groupsTable, membersTable;
+	ListView<Group> groupsTable;
+	@FXML
+	ListView<String> membersTable;
 	
 	@FXML
 	Label label_missingUser;
 	
-	protected ObservableList<String> groupsList = FXCollections.observableArrayList();
-	protected ObservableList<String> memberList = FXCollections.observableArrayList();
+	public static ObservableList<Group> groupsList = FXCollections.observableArrayList();
+	public static ObservableList<String> memberList = FXCollections.observableArrayList();
 	
 	@FXML
 	private void initialize() throws IOException {
 		generateGroupsList();
 		
-		groupsTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-		    @Override
-		    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-		    	try {
-					generateMemberList(newValue);
-				} catch (IOException e) {
-					e.printStackTrace();
+		groupsTable.setCellFactory((list) -> {
+			return new ListCell<Group>() {
+				protected void updateItem(Group item, boolean empty) {
+					super.updateItem(item, empty);
+					
+					if (item == null || empty) {
+						setText(null);
+					}else{
+						setText(item.getGroupName().getValue());
+					}
 				}
-		    }
-		});		
+			};
+		});
+		
+		groupsTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+			try {
+				generateMemberList(newValue);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});	
 	}
 	
 	@FXML
@@ -65,7 +84,7 @@ public class GroupManagementController {
     	// Create the dialog box
 		ChoiceDialog<String> dialog = new ChoiceDialog<>(null, choices);
 		dialog.setTitle("Velg bruker");
-		dialog.setHeaderText("Velg bruker du vil legge til i " + groupsTable.getSelectionModel().getSelectedItem());
+		dialog.setHeaderText("Velg bruker du vil legge til i " + groupsTable.getSelectionModel().getSelectedItem().getGroupName().getValue());
 		dialog.setContentText("Bruker:");
 
 		// Traditional way to get the response value.
@@ -90,31 +109,35 @@ public class GroupManagementController {
 	}
 	
 	public void generateGroupsList() {
-		ObservableList<String> list = FXCollections.observableArrayList();
 		//Get list from database
 		try {
 			String[] groups = Client.getGroups().split(Pattern.quote("\n"));
-			String str = "";
 			for (String group : groups){
-				String[] grp = group.split("%&%");
-				str = grp[1].substring(5) + " " + grp[0].substring(3);
-				list.add(str);
+				addGroup(group);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		groupsList = list;
 		groupsTable.setItems(groupsList);	
 	}
 	
-	public void generateMemberList(String group) throws IOException {
+	private void addGroup(String groupResponse) {
+		Group group = new Group();
+		String[] fields = groupResponse.split("%&%");
+		
+		group.setGroupId(new SimpleIntegerProperty(Integer.parseInt(fields[0].substring(3))));
+		group.setGroupName(new SimpleStringProperty(fields[1].substring(5)));
+		group.setGroupLeader(new SimpleIntegerProperty(Integer.parseInt(fields[2].substring(7,12))));
+		
+		groupsList.add(group);
+	}
+	
+	public void generateMemberList(Group group) throws IOException {
 		
 		//Get list from database
 		ObservableList<String> list = FXCollections.observableArrayList();
-		
 		try {
-			String[] members = Client.getGroup(group.substring(group.length()-1)).split("%&%");
-			System.out.println(Client.getGroup(group.substring(group.length()-1)));
+			String[] members = Client.getGroup(group.getGroupId().getValue().toString()).split("%&%");
 			for(String member : members){
 				list.add(member);
 			}
@@ -122,6 +145,7 @@ public class GroupManagementController {
 			e.printStackTrace();
 		}
 		memberList = list;
-		membersTable.setItems(list);	
+		membersTable.setItems(memberList);
+		
 	}
 }
