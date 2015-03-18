@@ -7,7 +7,7 @@ import javafx.beans.property.StringProperty;
 
 public class Employee {
 	
-	private StringProperty username, firstname, lastname;
+	private StringProperty username, firstname, lastname, fullName;
 	private IntegerProperty empNo;
 	
 	public Employee() {
@@ -54,6 +54,14 @@ public class Employee {
 
 	public void setEmpNo(IntegerProperty empNo) {
 		this.empNo = empNo;
+	}
+
+	public StringProperty getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(StringProperty fullName) {
+		this.fullName = fullName;
 	}
 
 
