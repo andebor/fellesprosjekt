@@ -29,6 +29,7 @@ public class Appointment {
 	private StringProperty formalProperty = new SimpleStringProperty();
 	private StringProperty romProperty = new SimpleStringProperty();
 	private String owner;
+	private String status;
 	public Appointment() {
 		
 	}
@@ -247,6 +248,15 @@ public class Appointment {
 	
 	public String getOwner(){
 		return this.owner;
+	}
+	
+	public void setStatus(String status) {
+		this.status = status;
+		
+	}
+	
+	public String getStatus(){
+		return this.status;
 	}
 	
 
