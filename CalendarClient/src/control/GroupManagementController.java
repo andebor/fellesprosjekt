@@ -111,7 +111,6 @@ public class GroupManagementController {
 		// Traditional way to get the response value.
 		Optional<Employee> result = dialog.showAndWait();
 		if (result.isPresent()){
-			//TODO: DO SOMETHING WITH SELECTED VALUE
 			String group = groupsTable.getSelectionModel().getSelectedItem().getGroupId().getValue().toString();
 			String user = result.get().getEmpNo().getValue().toString();
 		    System.out.println("Your choice: " + result.get().getFullName().getValue());
@@ -138,8 +137,9 @@ public class GroupManagementController {
 	
 	public void generateGroupsList() {
 		//Get list from database
+		groupsList.clear();
 		try {
-			String[] groups = Client.getGroups().split(Pattern.quote("\n"));
+			String[] groups = Client.getMyGroups(Client.username).split(Pattern.quote("\n"));
 			for (String group : groups){
 				addGroup(group);
 			}

@@ -445,6 +445,11 @@ public class Client
 		return response;
 	}
 	
+	public static String getMyGroups(String username) throws IOException {
+		String response = sendToServer("GETMYGROUPS" + "#%" + username);
+		return response;
+	}
+	
 	public static void main(String [] args) throws Exception {
 		
 		//Client client = new Client();

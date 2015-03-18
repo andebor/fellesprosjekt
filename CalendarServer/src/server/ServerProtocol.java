@@ -288,6 +288,11 @@ public class ServerProtocol {
 				
 				return removeMemberResponse.toString();
 			
+			case "GETMYGROUPS":
+				
+				String myGroupsResponse = database.getMyGroups(input[1]);
+				
+				return myGroupsResponse;
 			}
 			
 			
