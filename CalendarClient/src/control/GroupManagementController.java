@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
+import model.Employee;
 import model.Group;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -31,13 +32,15 @@ public class GroupManagementController {
 	@FXML
 	ListView<Group> groupsTable;
 	@FXML
-	ListView<String> membersTable;
+	ListView<Employee> membersTable;
 	
 	@FXML
 	Label label_missingUser;
 	
 	public static ObservableList<Group> groupsList = FXCollections.observableArrayList();
-	public static ObservableList<String> memberList = FXCollections.observableArrayList();
+	public static ObservableList<Employee> memberList = FXCollections.observableArrayList();
+    ObservableList<Employee> list = FXCollections.observableArrayList(); //temp
+
 	
 	@FXML
 	private void initialize() throws IOException {
@@ -65,6 +68,20 @@ public class GroupManagementController {
 				e.printStackTrace();
 			}
 		});	
+		
+		membersTable.setCellFactory((list) -> {
+			return new ListCell<Employee>() {
+				protected void updateItem(Employee item, boolean empty) {
+					super.updateItem(item, empty);
+					
+					if (item == null || empty) {
+						setText(null);
+					}else{
+						setText(item.getFullName().getValue());
+					}
+				}
+			};
+		});
 	}
 	
 	@FXML
@@ -91,20 +108,24 @@ public class GroupManagementController {
 		Optional<String> result = dialog.showAndWait();
 		if (result.isPresent()){
 			//TODO: DO SOMETHING WITH SELECTED VALUE
+			String group = groupsTable.getSelectionModel().getSelectedItem().getGroupId().getValue().toString();
 		    System.out.println("Your choice: " + result.get());
 		}
 	}
 	
 	@FXML
-	private void handleRemoveUser() {
+	private void handleRemoveUser() throws IOException {
 		//Get selected user to delete
 		label_missingUser.setVisible(false);
-		String user = membersTable.getSelectionModel().getSelectedItem();
+		String user = membersTable.getSelectionModel().getSelectedItem().getEmpNo().getValue().toString();
+		String group = groupsTable.getSelectionModel().getSelectedItem().getGroupId().getValue().toString();
 		if (user == null) {
 			label_missingUser.setVisible(true);
 		}else {
-			System.out.println("Removing " + user + " from selected group");
-			//TODO: Delete selected user
+			System.out.println("Removing " + membersTable.getSelectionModel().getSelectedItem().getFullName().getValue() + " from selected group");
+			Client.removeMember(group, user);
+			memberList.remove(membersTable.getSelectionModel().getSelectedIndex());
+			
 		}
 	}
 	
@@ -132,20 +153,29 @@ public class GroupManagementController {
 		groupsList.add(group);
 	}
 	
-	public void generateMemberList(Group group) throws IOException {
-		
-		//Get list from database
-		ObservableList<String> list = FXCollections.observableArrayList();
-		try {
-			String[] members = Client.getGroup(group.getGroupId().getValue().toString()).split("%&%");
-			for(String member : members){
-				list.add(member);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		memberList = list;
-		membersTable.setItems(memberList);
-		
-	}
+    public void generateMemberList(Group group) throws IOException {
+    	list.clear();
+        try {
+            String[] members = Client.getGroup(group.getGroupId().getValue().toString()).split("%&%");
+            for(String member : members){
+                addMember(member);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        memberList = list;
+        membersTable.setItems(memberList);
+    }
+    
+    private void addMember(String member) {
+        Employee employee = new Employee();
+        
+        String empId = member.substring(member.length() - 6);
+        String name = member.substring(0,member.length() - 6);
+        
+        employee.setEmpNo(new SimpleIntegerProperty(Integer.parseInt(empId)));
+        employee.setFullName(new SimpleStringProperty(name));
+        
+        list.add(employee);
+    }
 }
