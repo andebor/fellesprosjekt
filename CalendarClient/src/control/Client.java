@@ -91,6 +91,10 @@ public class Client
 	}
 	
 	public static String getAppointmentList() throws IOException {
+		return getAppointmentList(Client.username);
+	}
+	
+	public static String getAppointmentList(String user) throws IOException {
 		SyncTest();
 		Boolean isSynced = true;
 		String response = sendToServer("GETAPPOINTMENTLIST" + "#%" + Client.username);

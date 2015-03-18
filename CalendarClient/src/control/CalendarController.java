@@ -15,13 +15,20 @@ import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
 import model.Appointment;
+import model.Employee;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.effect.Bloom;
@@ -32,6 +39,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.SVGPath;
+import javafx.util.Callback;
 import javafx.util.Pair;
 
 
@@ -47,6 +55,8 @@ public class CalendarController {
     @FXML
     Label weekLabel;
     
+    @FXML
+    ListView calenderList;
    
 
 
@@ -61,13 +71,66 @@ public class CalendarController {
 	Map<String, Integer> currentMap = new HashMap<String, Integer>();
 	List<Color> colors = new ArrayList<Color>();
 	private String youAreOwner;
-
+	ObservableList<Employee> userList = FXCollections.observableArrayList();
+	//List<Employee> userList;
 	
 
     @FXML
     private void initialize() throws IOException {
     	
+    	userList.clear();
+    	
+    	//Get employee list from server
+    	String serverResponse = Client.getEmployees();
+    	
+    	String[] userStrings = serverResponse.split(Pattern.quote("@/@"));
+    	
+    	for (int i = 0; i < userStrings.length; i++) {
+    		addEmployee(userStrings[i]);
+		}
+    	
+    	
+    	calenderList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+    	calenderList.setItems(userList);
+    	
+        calenderList.setCellFactory(new Callback<ListView<Employee>, ListCell<Employee>>(){
+        	 
+            @Override
+            public ListCell<Employee> call(ListView<Employee> p) {
+                 
+                ListCell<Employee> cell = new ListCell<Employee>(){
+ 
+                    @Override
+                    protected void updateItem(Employee t, boolean bln) {
+                        super.updateItem(t, bln);
+                        if (t != null) {
+                            setText(t.getFirstname().getValue() + " " + t.getLastname().getValue());
+                        }
+                    }
+ 
+                };
+                 
+                return cell;
+            }
 
+
+
+
+        });
+    	
+        calenderList.setOnMouseClicked(new EventHandler<Event>() {
+
+            @Override
+            public void handle(Event event) {
+                ObservableList<Employee> selectedItems =  calenderList.getSelectionModel().getSelectedItems();
+
+                for(Employee s : selectedItems){
+                    System.out.println("selected item " + s.getUsername().getValue());
+                }
+
+            }
+
+        });
     	
     	colors.add(Color.ROYALBLUE);
     	colors.add(Color.GREEN);
@@ -110,6 +173,22 @@ public class CalendarController {
 
 
 	}
+    
+    private void addEmployee(String emp) {
+    	
+    	Employee employee = new Employee();
+    	
+    	String[] fields = emp.split(Pattern.quote("&/&"));
+    	
+    	employee.setEmpNo(new SimpleIntegerProperty(Integer.parseInt(fields[0])));
+    	employee.setFirstname(new SimpleStringProperty(fields[1]));
+    	employee.setLastname(new SimpleStringProperty(fields[2]));
+    	employee.setUsername(new SimpleStringProperty(fields[3]));
+    	
+    	userList.add(employee);
+    	
+    }
+
     
     public void nextWeekButton(ActionEvent event){
     	
