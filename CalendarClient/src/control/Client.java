@@ -340,7 +340,7 @@ public class Client
 			
 			String[] user = users.split(" ");
 			if(user[0].equals(clientID) && !((user[user.length-1].equals("Venter")) || (user[user.length-1].equals("Deltar")))){				
-				String response = sendToServer("HIDEAPPOINTMENT" + "#%" + appointment.getID() + "#%" + Client.username);
+				String response = sendToServer("HIDEAPPOINTMENT" + "#%" + appointment.getID() + "#%" + clientID);
 				return response;
 			}
 			
