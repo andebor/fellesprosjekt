@@ -7,6 +7,7 @@ import java.time.LocalTime;
 import java.time.temporal.TemporalField;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -192,9 +193,14 @@ public class CalendarController {
     
     public void nextWeekButton(ActionEvent event){
     	
-    	weekNumber++;
-    	weekLabel.setText(Integer.toString(weekNumber));
-    	generateCalendar();
+        Calendar c = Calendar.getInstance();     
+        c.set(Calendar.getInstance().get(Calendar.YEAR), 0, 1);  
+    	
+    	if(weekNumber<c.getMaximum(Calendar.WEEK_OF_YEAR)){
+    		weekNumber++;
+    		weekLabel.setText(Integer.toString(weekNumber));
+    		generateCalendar();
+    	}
     	
     }
     
