@@ -96,6 +96,10 @@ public class Client
 	}
 	
 	public static String getAppointmentList() throws IOException {
+		return getAppointmentList(Client.username);
+	}
+	
+	public static String getAppointmentList(String user) throws IOException {
 		SyncTest();
 		Boolean isSynced = true;
 		String response = sendToServer("GETAPPOINTMENTLIST" + "#%" + Client.username);
@@ -127,8 +131,6 @@ public class Client
 		String response1 = sendToServer("addNewAppointment" + "#%" + appointment.getDescription() + "#%" + appointment.getStart().toString() + "#%" + appointment.getFrom().toString() + "#%" + appointment.getDate().toString() + "#%" 
 				+ appointment.getPlace() + "#%" + room + "#%" + Client.username);
 		System.out.println("ASKLDLJASDLJKSALKJ: " + Client.username);
-		System.out.println("addNewAppointment" + "#%" + appointment.getDescription() + "#%" + appointment.getStart().toString() + "#%" + appointment.getFrom().toString() + "#%" + appointment.getDate().toString() + "#%" 
-				+ appointment.getPlace() + "#%" + appointment.getRoom().split(" ")[0] + "#%" + Client.username);
 		// TODO add employees
 		
 		for (String employee : appointment.getUsers()){
@@ -209,6 +211,7 @@ public class Client
 				isSynced = false;
 			}
 		}
+		System.out.println("TEST2 " + response);
 		return response;
 
 	}
@@ -233,16 +236,61 @@ public class Client
 		
 	}
 	
-	public static boolean editAppointment(Appointment appointment, List<String> removedEmployees) throws IOException{
+	public static boolean editAppointment(Appointment appointment, Appointment oldAppointment, List<String> removedEmployees) throws IOException{
 		String room = "";
-		if(appointment.getRoom() != null){
+		String editRoom = "YES";
+		if(!(appointment.getRoom().equals("null"))){
 			room = appointment.getRoom().split(" ")[0];
 		}
 		else {
-			room = null;
+			room = "null";
 		}
-		String response1 = sendToServer("UPDATEAPPOINTMENT" + "#%" + appointment.getID() + "#%" + appointment.getDescription() + "#%" + appointment.getStart().toString() + "#%" + appointment.getFrom().toString() + "#%" + appointment.getDate().toString() + "#%" 
-				+ appointment.getPlace() + "#%" + room);
+		String description = "null";
+		String start = "null";
+		String end = "null";
+		String editDate = "YES";
+		String place = "null";
+		String date;
+		
+		
+		if(!appointment.getDescription().equals(oldAppointment.getDescription())){
+			description = appointment.getDescription();
+		}
+		if(!appointment.getFrom().toString().equals(oldAppointment.getFrom().toString())){
+			end = appointment.getFrom().toString();
+		}
+		if(!appointment.getStart().toString().equals(oldAppointment.getStart().toString())){
+			start = appointment.getStart().toString();
+		}
+		if(!appointment.getDate().toString().equals(oldAppointment.getDate().toString())){
+			date = appointment.getDate().toString();
+		}
+		else{
+			date = oldAppointment.getDate().toString();
+		}
+		try {
+		if(!appointment.getPlace().equals(oldAppointment.getPlace())){
+			place = appointment.getPlace();
+				}
+		}
+		catch(NullPointerException e){
+		if(!(appointment.getPlace() == (oldAppointment.getPlace()))){
+			place = appointment.getPlace();
+			}
+		}
+		try {
+		if(room.equals(oldAppointment.getRoom())){
+			editRoom = "NO";
+			}
+		}
+		catch(NullPointerException e){
+		if(room == oldAppointment.getRoom()){
+			editRoom = "NO";
+		}
+		}
+		
+		String response1 = sendToServer("UPDATEAPPOINTMENT" + "#%" + appointment.getID() + "#%" + description + "#%" + start + "#%" + end + "#%" + date + "#%" 
+				+ place + "#%" + room + "#%" + editRoom);
 
 		List<String> removeEmpComparingList = FXCollections.observableArrayList();
 		
@@ -297,7 +345,7 @@ public class Client
 			
 			String[] user = users.split(" ");
 			if(user[0].equals(clientID) && !((user[user.length-1].equals("Venter")) || (user[user.length-1].equals("Deltar")))){				
-				String response = sendToServer("HIDEAPPOINTMENT" + "#%" + appointment.getID() + "#%" + Client.username);
+				String response = sendToServer("HIDEAPPOINTMENT" + "#%" + appointment.getID() + "#%" + clientID);
 				return response;
 			}
 			
@@ -378,6 +426,11 @@ public class Client
 				}
 			}
 		}
+	}
+	
+	public static String getUserID(String username) throws IOException {
+		String response = sendToServer("GETUSERID" + "#%" + username);
+		return response;
 	}
 	
 	public static void main(String [] args) throws Exception {

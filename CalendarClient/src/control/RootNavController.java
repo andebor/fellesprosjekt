@@ -72,6 +72,7 @@ public class RootNavController {
 	@FXML
 	private void gotoGroupManagement() {
 		System.out.println("Opening GroupOverview..");
+		mainApp.showGroupOverview();
 	}
 	
 	// NOTIFICATIONS

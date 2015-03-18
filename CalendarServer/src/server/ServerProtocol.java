@@ -122,8 +122,8 @@ public class ServerProtocol {
 				
 			case "HIDEAPPOINTMENT":
 				
-				int empNom2 = database.getEmpno(input[2]);
-				return String.valueOf(database.hideAppointment(Integer.parseInt(input[1]), empNom2));
+				
+				return String.valueOf(database.hideAppointment(Integer.parseInt(input[1]), Integer.parseInt(input[2])));
 				
 				
 			case "GETEMPLOYEES":
@@ -150,19 +150,27 @@ public class ServerProtocol {
 				String date = input[5];
 				String place = input[6];
 				String room = input[7];
+				String editRoom = input[8];
+				if(!descriptionn.equals("null")){
 				database.updateAppointmentString(Integer.parseInt(ID), "formål", descriptionn);
-				database.updateAppointmentString(Integer.parseInt(ID), "starttid", date + " " + start + ":00.0");
-				database.updateAppointmentString(Integer.parseInt(ID), "sluttid", date + " " + end + ":00.0");
-				database.updateAppointmentString(Integer.parseInt(ID), "sted", place);
-
-				
-				if(room == null || !place.equals("null")){
-					
-					database.updateAppointmentInteger(Integer.parseInt(ID), "møteromNR", null);
-					}
-				else {
-					database.updateAppointmentInteger(Integer.parseInt(ID), "møteromNR", Integer.parseInt(room));
 				}
+				if(!start.equals("null")){
+				database.updateAppointmentString(Integer.parseInt(ID), "starttid", date + " " + start + ":00.0");
+				}
+				if(!end.equals("null")){
+				database.updateAppointmentString(Integer.parseInt(ID), "sluttid", date + " " + end + ":00.0");
+				}
+				if(!place.equals("null")){
+				database.updateAppointmentString(Integer.parseInt(ID), "sted", place);
+				database.updateAppointmentInteger(Integer.parseInt(ID), "møteromNR", null);
+				
+				}
+				if(editRoom.equals("YES")){
+					database.updateAppointmentInteger(Integer.parseInt(ID), "møteromNR", Integer.parseInt(room));
+					database.updateAppointmentString(Integer.parseInt(ID), "sted", null);
+
+				}
+				
 				
 			case "ADDEMPLOYEETOAPPOINTMENT":
 				

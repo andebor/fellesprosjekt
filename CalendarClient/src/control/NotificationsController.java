@@ -32,7 +32,6 @@ public class NotificationsController {
         initNotificationTable();
     }
     
-    public static ObservableList<Notification> notificationList = FXCollections.observableArrayList(); // Currently list over appointments in appointmentTable
 
     @FXML
     private void initialize() {
@@ -59,19 +58,20 @@ public class NotificationsController {
     private void initNotificationTable() throws IOException {
 
     	String str = Client.getNewNotifications();    	
-    	
     	if(str.equals("null")){
     		str = "";
     	}
     	
-    	String[] notiStrings = str.split(Pattern.quote("\n\n"));
+    	ObservableList<Notification> notificationList = FXCollections.observableArrayList(); // Currently list over appointments in appointmentTable
+    	
+    	String[] notiStrings = str.split(Pattern.quote("¤%¤"));
  	
     	
     	for(int i = 0; i < notiStrings.length; i++) {
         	if(i == 0 && notiStrings[0].length() < 2) {
         		continue; //Dirtyfix
         	}
-    		addNotification(notiStrings[i]);
+    		addNotification(notiStrings[i], notificationList);
     	}
     	
     	notificationTable.setItems(notificationList);
@@ -86,7 +86,7 @@ public class NotificationsController {
     
     
 
-    public void addNotification(String str) {
+    public void addNotification(String str, ObservableList<Notification> notificationList) {
     	Notification notification = new Notification();
     	
     	System.out.println("NOTIFICATION " + str);
@@ -95,7 +95,10 @@ public class NotificationsController {
     	
     	
     	String date = z[1].substring(8);
-    	String desc = z[2].substring(8) + "\n" + z[3];
+    	String desc = z[2].substring(8) + "\n";
+    	for(int i = 3; i<z.length; i++){
+    		desc+= z[i] + "\n";
+    	}
     	
     	
     	
