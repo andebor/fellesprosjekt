@@ -406,14 +406,15 @@ public class Client
 		//Stack<String> alarms = getAlarms(mariusmb);
 		LocalDateTime nextAlarm;
 		LocalDateTime now;
-		long interval = 1000;
-		while (!alarms.isEmpty()) {
+		long interval = 60000; //One minute interval between polls
+		while (!this.alarms.isEmpty()) {
 			nextAlarm = DateHelper.getDateTime(alarms.pop());
 			int second = 0;
 			while (true) {
 				now = LocalDateTime.now();
 				if (nextAlarm.isBefore(now)) {
 					System.out.println("HEI OG HOPP, PÅ TIDE Å STÅ OPP!");
+					//TODO: Legge til dialogboks her
 					break;
 				}else {
 					//System.out.println("Ikke ennå ..." + second++);
