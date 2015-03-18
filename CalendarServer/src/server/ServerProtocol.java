@@ -122,8 +122,8 @@ public class ServerProtocol {
 				
 			case "HIDEAPPOINTMENT":
 				
-				int empNom2 = database.getEmpno(input[2]);
-				return String.valueOf(database.hideAppointment(Integer.parseInt(input[1]), empNom2));
+				
+				return String.valueOf(database.hideAppointment(Integer.parseInt(input[1]), Integer.parseInt(input[2])));
 				
 				
 			case "GETEMPLOYEES":
