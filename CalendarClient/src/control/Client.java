@@ -96,16 +96,18 @@ public class Client
 	}
 	
 	public static String getAppointmentList() throws IOException {
+		System.out.println("see or not");
 		return getAppointmentList(Client.username);
 	}
 	
 	public static String getAppointmentList(String user) throws IOException {
+		System.out.println("only this please");
 		SyncTest();
 		Boolean isSynced = true;
-		String response = sendToServer("GETAPPOINTMENTLIST" + "#%" + Client.username);
+		String response = sendToServer("GETAPPOINTMENTLIST" + "#%" + user);
 		while(isSynced){
 			if(response.equals("CHECK")){
-				response = sendToServer("GETAPPOINTMENTLIST" + "#%" + Client.username);
+				response = sendToServer("GETAPPOINTMENTLIST" + "#%" + user);
 			}
 			else {
 				isSynced = false;

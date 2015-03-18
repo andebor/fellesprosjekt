@@ -17,6 +17,7 @@ import java.util.regex.Pattern;
 
 import model.Appointment;
 import model.Employee;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -73,6 +74,7 @@ public class CalendarController {
 	List<Color> colors = new ArrayList<Color>();
 	private String youAreOwner;
 	ObservableList<Employee> userList = FXCollections.observableArrayList();
+	ArrayList<Employee> userListCopy = new ArrayList<Employee>();
 	//List<Employee> userList;
 	
 
@@ -86,10 +88,14 @@ public class CalendarController {
     	
     	String[] userStrings = serverResponse.split(Pattern.quote("@/@"));
     	
-    	for (int i = 0; i < userStrings.length; i++) {
+    	for(int i = 0; i < userStrings.length; i++) {
     		addEmployee(userStrings[i]);
 		}
     	
+    	for(int i = 0; i < userListCopy.size(); i++) {
+    		userList.add(userListCopy.get(i));
+    	}
+
     	
     	calenderList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     	calenderList.setItems(userList);
@@ -113,11 +119,24 @@ public class CalendarController {
                  
                 return cell;
             }
-
-
-
-
         });
+        
+    	Platform.runLater(new Runnable()
+    	{
+    	    @Override
+    	    public void run()
+    	    {
+    	        calenderList.requestFocus();
+    	        calenderList.getSelectionModel().select(0);
+    	        calenderList.getFocusModel().focus(0);
+    	        try {
+					generateCalendar(userList.get(0));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+    	    }
+    	});
     	
         calenderList.setOnMouseClicked(new EventHandler<Event>() {
 
@@ -125,8 +144,14 @@ public class CalendarController {
             public void handle(Event event) {
                 ObservableList<Employee> selectedItems =  calenderList.getSelectionModel().getSelectedItems();
 
+                
                 for(Employee s : selectedItems){
-                    System.out.println("selected item " + s.getUsername().getValue());
+                    try {
+						generateCalendar(s);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
                 }
 
             }
@@ -149,28 +174,9 @@ public class CalendarController {
     	weekLabel.setText(Integer.toString(weekNumber));
     	//generateExampleAppointment();
     	
-    	String str = Client.getAppointmentList();
-    	
-    	System.out.println(str);
+
     	
     	
-    	String[] appStrings = str.split(Pattern.quote("$%"));
-    	
-    	/*
-    	for(int i = 0; i < appStrings.length; i++) {
-    		System.out.println(appStrings[i] + "\n");
-    	}
-    	*/
-    	
-    	
-    	for(int i = 0; i < appStrings.length; i++) {
-    		if(appStrings[i].length() > 3) { //dirtyfix
-    			addAppointment(appStrings[i]);    			
-    		}
-    	}
-    	
-    	
-		generateCalendar();
 
 
 	}
@@ -186,21 +192,30 @@ public class CalendarController {
     	employee.setLastname(new SimpleStringProperty(fields[2]));
     	employee.setUsername(new SimpleStringProperty(fields[3]));
     	
-    	userList.add(employee);
+    	
+		if(employee.getUsername().getValue().equals(Client.username)) {
+			userList.add(employee);
+		}
+		else {
+			userListCopy.add(employee);
+		}
+		
     	
     }
 
     
     public void nextWeekButton(ActionEvent event){
     	
+
         Calendar c = Calendar.getInstance();     
         c.set(Calendar.getInstance().get(Calendar.YEAR), 0, 1);  
     	
     	if(weekNumber<c.getMaximum(Calendar.WEEK_OF_YEAR)){
     		weekNumber++;
     		weekLabel.setText(Integer.toString(weekNumber));
-    		generateCalendar();
+    		generateSelectedCalenders();
     	}
+
     	
     }
     
@@ -209,7 +224,7 @@ public class CalendarController {
     	if(weekNumber>0){
     	weekNumber--;
     	weekLabel.setText(Integer.toString(weekNumber));
-    	generateCalendar();;
+    	generateSelectedCalenders();;
     	}
     	
     }
@@ -292,8 +307,50 @@ public class CalendarController {
     	calendarGridPane.add(hour16, 0, 16);
     	
     }
+    
+    public void getAppointmentList(Employee employee) throws IOException {
+    	
+    	String str = Client.getAppointmentList(employee.getUsername().getValue());
+    	System.out.println("BAJSEMANN: " + employee.getUsername().getValue());
+    	
+    	
+    	
+    	String[] appStrings = str.split(Pattern.quote("$%"));
+    	
+    	/*
+    	for(int i = 0; i < appStrings.length; i++) {
+    		System.out.println(appStrings[i] + "\n");
+    	}
+    	*/
+    	
+    	
+    	for(int i = 0; i < appStrings.length; i++) {
+    		if(appStrings[i].length() > 3) { //dirtyfix
+    			addAppointment(appStrings[i]);    			
+    		}
+    	}
+    }
+    
+    public void generateSelectedCalenders() {
+        ObservableList<Employee> selectedItems =  calenderList.getSelectionModel().getSelectedItems();
+
+        
+        for(Employee s : selectedItems){
+            try {
+				generateCalendar(s);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
+    }
 	
-	public void generateCalendar(){
+	public void generateCalendar(Employee emp) throws IOException{
+		
+		
+		
+		PersonalAppointmentList.clear();
+		getAppointmentList(emp);
 		
 		//Clear calendar
 		calendarGridPane.getChildren().clear();
@@ -414,6 +471,10 @@ public class CalendarController {
 					}
 					
 					String status = appointment2.getStatus();
+					if(status == null) //dirtyfix
+					{
+						status = "nothing";
+					}
 					
 					if(youAreOwner.equals("true")) {
 						SVGPath man = new SVGPath();
