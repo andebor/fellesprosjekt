@@ -23,6 +23,12 @@ public class Employee {
 		this.setEmpNo(new SimpleIntegerProperty(12345));
 		
 	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return fullName.getValue();
+	}
 
 	public StringProperty getUsername() {
 		return username;
