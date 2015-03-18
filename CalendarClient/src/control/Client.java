@@ -10,8 +10,12 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Stack;
 
+import dateUtils.DateHelper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Appointment;
@@ -26,6 +30,7 @@ public class Client
 	public static DataOutputStream outToServer;
 	public static BufferedReader inFromServer;
 	public static String username;
+	private Stack<String> alarms;
 	
 	public Client() throws IOException {
 		init();
@@ -80,7 +85,7 @@ public class Client
 		String response = sendToServer("login" + "#%" + username + "#%" + password);
 
 		if (response.trim().equals("OK")) {
-			System.out.println("Class:Client - Successfull login!");
+			System.out.println("Class:Client - Successful login!");
 			Client.username = username;
 			return true;
 		}
@@ -323,14 +328,6 @@ public class Client
 		return response;
 	}
 	
-	public static void main(String [] args) throws Exception {
-	   
-	   //Client client = new Client();
-	   
-	   //Client.login("lol", "lol");
-	   
-	}
-
 	public static String getUser(String id) throws IOException {
 	   String response = sendToServer("GETUSER" + "#%" + id);
 	   return response;
@@ -339,5 +336,55 @@ public class Client
 	public static String deleteUser(String username) throws IOException {
 		String response = sendToServer("DELETEUSER" + "#%" + username);
 		return response;
+	}
+	
+	public static String getAlarms() {
+		String alarms;
+		//TODO: Hente alarmer fra server
+		return alarms;
+	}
+	
+	public void initAlarms(String seperator) {
+		this.alarms = new Stack<String>();
+		String alarms = getAlarms();
+		String [] alarmArray = alarms.split(seperator);
+		List<String> alarmList = Arrays.asList(alarmArray);
+		this.alarms.addAll(alarmList);
+		Thread t = Thread.currentThread();
+	}
+	
+	public void alarmListener(Stack<String> alarms) {
+		//int mariusmb = getEmpno("mariusmb");
+		//Stack<String> alarms = getAlarms(mariusmb);
+		LocalDateTime nextAlarm;
+		LocalDateTime now;
+		long interval = 1000;
+		while (!alarms.isEmpty()) {
+			nextAlarm = DateHelper.getDateTime(alarms.pop());
+			int second = 0;
+			while (true) {
+				now = LocalDateTime.now();
+				if (nextAlarm.isBefore(now)) {
+					System.out.println("HEI OG HOPP, PÅ TIDE Å STÅ OPP!");
+					break;
+				}else {
+					//System.out.println("Ikke ennå ..." + second++);
+					try {
+						Thread.sleep(interval);;
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+						break;
+					}
+				}
+			}
+		}
+	}
+	
+	public static void main(String [] args) throws Exception {
+		
+		//Client client = new Client();
+		
+		//Client.login("lol", "lol");
+		
 	}
 }
