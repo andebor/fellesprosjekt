@@ -18,6 +18,8 @@ import java.util.Stack;
 import dateUtils.DateHelper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import model.Appointment;
 
 //
@@ -415,7 +417,13 @@ public class Client
 				now = LocalDateTime.now();
 				if (nextAlarm.isBefore(now)) {
 					System.out.println("HEI OG HOPP, PÅ TIDE Å STÅ OPP!");
-					//TODO: Legge til dialogboks her
+					//TODO: Gi saklig melding til bruker
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Varsel");
+					alert.setHeaderText(null);
+					alert.setContentText("I have a great message for you!");
+
+					alert.showAndWait();
 					break;
 				}else {
 					//System.out.println("Ikke ennå ..." + second++);
