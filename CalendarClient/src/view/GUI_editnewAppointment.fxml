@@ -247,8 +247,6 @@
                      </children>
                   </HBox>
                   <Label fx:id="errorLabel" layoutX="811.0" layoutY="33.0" prefHeight="25.0" prefWidth="165.0" />
-                  <Label fx:id="cancelAppointmentLabel" layoutX="863.0" layoutY="681.0" text="Label" />
-                  <Button layoutX="749.0" layoutY="681.0" mnemonicParsing="false" onAction="#cancelApp" text="Avlys møte" />
                   <Button fx:id="generateRoomListButton" layoutX="644.0" layoutY="320.0" mnemonicParsing="false" onAction="#generateRoomList" prefHeight="25.0" prefWidth="237.0" text="Hent ledige møterom" />
                </children>
             </AnchorPane>
