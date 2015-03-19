@@ -487,6 +487,7 @@ public class CalendarController {
 					Rectangle rect = new Rectangle(0,0,width,height);
 					rect.setTranslateX(current * width);
 					rect.setFill(colors.get(appointment2.getColor()));
+					rect.setStroke(Color.BLACK);
 					calendarGridPane.add(rect, column2, row2);
 					currentMap.put("" + row2 + column2, currentMap.get("" + row2 + column2) + 1);
 					
