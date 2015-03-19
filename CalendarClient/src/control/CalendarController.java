@@ -42,6 +42,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Arc;
+import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.SVGPath;
 import javafx.util.Callback;
@@ -87,6 +89,7 @@ public class CalendarController {
 	Label desc;
 	Label sted;
 	Label attendees;
+	Arc arc;
 	//List<Employee> userList;
 	
 
@@ -569,7 +572,7 @@ public class CalendarController {
 				        	glow.setLevel(1.0);
 				        	rect.setEffect(glow);
 				        	
-				        	int xPadding = 150;
+				        	int xPadding = 110  + current * width + width / 2;
 				        	int xTextPadding = 10;
 				        	int yTextPadding = 5;
 				        	
@@ -579,6 +582,17 @@ public class CalendarController {
 							hoverBox.setTranslateY(rect.getLayoutY());
 							hoverBox.setOpacity(1.0);
 							hoverBox.setStroke(Color.BLACK);
+							
+							arc = new Arc();
+							arc.setRadiusX(50);
+							arc.setRadiusY(50);
+							arc.setStartAngle(85);
+							arc.setLength(13);
+							arc.setType(ArcType.ROUND);
+							arc.setFill(Color.LIGHTSALMON);
+							arc.setTranslateX(rect.getLayoutX() + 215 + current * width + width / 2);
+							arc.setTranslateY(rect.getLayoutY() + 120);
+							arc.setMouseTransparent(true);
 							
 							InnerShadow is = new InnerShadow();
 							//hoverBox.setEffect(is);
@@ -614,10 +628,12 @@ public class CalendarController {
 							attendees.setTranslateX(rect.getLayoutX() + xPadding + xTextPadding);
 							attendees.setTranslateY(rect.getLayoutY() + yTextPadding + 40);
 							
+							
 				    		anchorPane.getChildren().add(hoverBox);
 				    		anchorPane.getChildren().add(desc);
 				    		anchorPane.getChildren().add(sted);
 				    		anchorPane.getChildren().add(attendees);
+				    		anchorPane.getChildren().add(arc);
 				        }
 				    });
 				    
@@ -629,7 +645,8 @@ public class CalendarController {
 				        	anchorPane.getChildren().remove(hoverBox);
 				        	anchorPane.getChildren().remove(desc);
 				        	anchorPane.getChildren().remove(sted);	
-				        	anchorPane.getChildren().remove(attendees);		
+				        	anchorPane.getChildren().remove(attendees);
+				        	anchorPane.getChildren().remove(arc);
 				        }
 				    });
 				}
