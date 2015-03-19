@@ -488,6 +488,12 @@ public class Client
 		return response;
 	}
 	
+	public static String getAttendingStatus(int appointmentID) throws IOException {
+		String response = sendToServer("GETATTENDINGSTATUS" + "#%" + appointmentID);
+		return response;
+	}
+	
+	
 	public static void main(String [] args) throws Exception {
 		
 		//Client client = new Client();
