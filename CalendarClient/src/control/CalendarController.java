@@ -715,7 +715,7 @@ public class CalendarController {
     	String[] startTidList = startTid.split(":");
     	
     	String endTid = endDate[1];
-    	String[] endTidList = startTid.split(":");
+    	String[] endTidList = endTid.split(":");
     	
     	
     	String[] deltagere = z[8].split("@/@");
