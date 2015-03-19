@@ -31,6 +31,7 @@ public class AddUserController {
     	if (validUserInput()) {
     		UserManagementController.addUser(username_field.getText(), firstname_field.getText(), lastname_field.getText(), pwd_field.getText());
     		dialogStage.close();
+    		mainApp.showUserManagement();
     	}else{
     		missingfields_label.setVisible(true);
     		System.out.println("Not valid input.");
