@@ -75,11 +75,12 @@ public class MainApp extends Application {
         }
     }
     
-    public void loginSuccess() {
+    public void loginSuccess() throws IOException {
     	System.out.println("testing root init..");
     	initRootNav();
     	System.out.println("Navigation loaded, loading calendar...");
     	showCalendar();
+    	rootController.handleRefresh();
     }
 
     public void showLogin() {
