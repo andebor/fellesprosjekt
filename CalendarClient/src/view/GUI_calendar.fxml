@@ -82,5 +82,6 @@
             </GridPane>
          </children>
       </AnchorPane>
+      <Pane fx:id="userToColorPane" layoutX="19.0" layoutY="406.0" prefHeight="200.0" prefWidth="159.0" />
    </children>
 </AnchorPane>
