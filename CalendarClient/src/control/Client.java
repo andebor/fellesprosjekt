@@ -32,6 +32,7 @@ public class Client
 	public static DataOutputStream outToServer;
 	public static BufferedReader inFromServer;
 	public static String username;
+	public static String fullName;
 	private Stack<String> alarms;
 	
 	public Client() throws IOException {
@@ -41,7 +42,7 @@ public class Client
 	public void init() throws UnknownHostException, IOException {
 		
 		String host = "localhost";
-		int port = 6067;
+		int port = 6066;
 		
 		try {
 			s = new Socket(host, port);
@@ -51,6 +52,7 @@ public class Client
 			
 			
 			System.out.println("Connected to serverhost " + host + " with port " + port);
+			
 			
 			
 			
@@ -460,6 +462,11 @@ public class Client
 	
 	public static String getMyGroups(String username) throws IOException {
 		String response = sendToServer("GETMYGROUPS" + "#%" + username);
+		return response;
+	}
+	
+	public static String getName(String username) throws IOException {
+		String response = sendToServer("getName" + "#%" + username);
 		return response;
 	}
 	

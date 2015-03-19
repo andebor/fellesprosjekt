@@ -43,7 +43,7 @@ public class LoginController {
 			
 			//NotificationListener notificationListener = new NotificationListener();
 			//notificationListener.start();
-			
+			Client.fullName = Client.getName(Client.username);
 			Client.getAppointmentList();
 		}
 		else {
