@@ -619,7 +619,7 @@ public class CalendarController {
     	
     	String[] deltagere = z[8].split("@/@");
     	
-    	String yourID = Client.getUserID(Client.username);
+    	String yourID = Client.userID;
     	
     	for(int i = 0; i < deltagere.length; i++) {
     		String[] x = deltagere[i].split(" ");

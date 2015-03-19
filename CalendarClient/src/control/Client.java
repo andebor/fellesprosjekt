@@ -33,6 +33,7 @@ public class Client
 	public static BufferedReader inFromServer;
 	public static String username;
 	public static String fullName;
+	public static String userID;
 	private Stack<String> alarms;
 	
 	public Client() throws IOException {
@@ -100,12 +101,10 @@ public class Client
 	}
 	
 	public static String getAppointmentList() throws IOException {
-		System.out.println("see or not");
 		return getAppointmentList(Client.username);
 	}
 	
 	public static String getAppointmentList(String user) throws IOException {
-		System.out.println("only this please");
 		SyncTest();
 		Boolean isSynced = true;
 		String response = sendToServer("GETAPPOINTMENTLIST" + "#%" + user);
