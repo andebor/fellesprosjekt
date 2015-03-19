@@ -38,6 +38,7 @@ import javafx.scene.effect.Glow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.SVGPath;
@@ -59,7 +60,9 @@ public class CalendarController {
     
     @FXML
     ListView calenderList;
-   
+    
+    @FXML
+    Pane userToColorPane;
 
 
 	MainApp mainApp;
@@ -130,7 +133,9 @@ public class CalendarController {
     	        calenderList.getSelectionModel().select(0);
     	        calenderList.getFocusModel().focus(0);
     	        try {
-					generateCalendar(userList.get(0));
+    	        	PersonalAppointmentList.clear();
+    	        	getAppointmentList(userList.get(0), 0);
+					generateCalendar();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -142,18 +147,12 @@ public class CalendarController {
 
             @Override
             public void handle(Event event) {
-                ObservableList<Employee> selectedItems =  calenderList.getSelectionModel().getSelectedItems();
-
-                
-                for(Employee s : selectedItems){
-                    try {
-						generateCalendar(s);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-                }
-
+                try {
+					generateThatShit();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
 
         });
@@ -204,7 +203,7 @@ public class CalendarController {
     }
 
     
-    public void nextWeekButton(ActionEvent event){
+    public void nextWeekButton(ActionEvent event) throws IOException{
     	
 
         Calendar c = Calendar.getInstance();     
@@ -213,18 +212,18 @@ public class CalendarController {
     	if(weekNumber<c.getMaximum(Calendar.WEEK_OF_YEAR)){
     		weekNumber++;
     		weekLabel.setText(Integer.toString(weekNumber));
-    		generateSelectedCalenders();
+    		generateThatShit();
     	}
 
     	
     }
     
-    public void previousWeekButton(ActionEvent event){
+    public void previousWeekButton(ActionEvent event) throws IOException{
     	
     	if(weekNumber>0){
     	weekNumber--;
     	weekLabel.setText(Integer.toString(weekNumber));
-    	generateSelectedCalenders();;
+    	generateThatShit();
     	}
     	
     }
@@ -308,10 +307,9 @@ public class CalendarController {
     	
     }
     
-    public void getAppointmentList(Employee employee) throws IOException {
+    public void getAppointmentList(Employee employee, int colorIndex) throws IOException {
     	
     	String str = Client.getAppointmentList(employee.getUsername().getValue());
-    	System.out.println("BAJSEMANN: " + employee.getUsername().getValue());
     	
     	
     	
@@ -326,31 +324,53 @@ public class CalendarController {
     	
     	for(int i = 0; i < appStrings.length; i++) {
     		if(appStrings[i].length() > 3) { //dirtyfix
-    			addAppointment(appStrings[i]);    			
+    			addAppointment(appStrings[i], colorIndex);    			
     		}
     	}
     }
     
-    public void generateSelectedCalenders() {
+    public void generateThatShit() throws IOException {
+		PersonalAppointmentList.clear();
+		
         ObservableList<Employee> selectedItems =  calenderList.getSelectionModel().getSelectedItems();
 
         
-        for(Employee s : selectedItems){
+        for(int i = 0; i < selectedItems.size(); i++){
             try {
-				generateCalendar(s);
+            	getAppointmentList(selectedItems.get(i), i);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+        
+            
+            generateCalendar();
         }
     }
+    
+    public void generateColorToUserList() {
+    	
+    	ObservableList<Employee> selectedItems =  calenderList.getSelectionModel().getSelectedItems();
+    	userToColorPane.getChildren().clear();
+    	
+    	for(int i = 0; i < selectedItems.size(); i++) {
+    		Label label = new Label(selectedItems.get(i).getFirstname().getValue() + " " + userList.get(i).getLastname().getValue());
+    		label.setTranslateY(30 * i);
+    		label.setTranslateX(40);
+			Rectangle rect = new Rectangle(0,0,20 , 20);
+			rect.setTranslateY(30 * i);
+			rect.setFill(colors.get(i));
+    		userToColorPane.getChildren().add(label);
+    		userToColorPane.getChildren().add(rect);
+    	}
+    }
 	
-	public void generateCalendar(Employee emp) throws IOException{
+	public void generateCalendar() throws IOException{
 		
 		
 		
-		PersonalAppointmentList.clear();
-		getAppointmentList(emp);
+		generateColorToUserList();
+		
 		
 		//Clear calendar
 		calendarGridPane.getChildren().clear();
@@ -457,7 +477,7 @@ public class CalendarController {
 					
 					Rectangle rect = new Rectangle(0,0,width,height);
 					rect.setTranslateX(current * width);
-					rect.setFill(colors.get(current));
+					rect.setFill(colors.get(appointment2.getColor()));
 					calendarGridPane.add(rect, column2, row2);
 					currentMap.put("" + row2 + column2, currentMap.get("" + row2 + column2) + 1);
 					
@@ -515,7 +535,6 @@ public class CalendarController {
 				        	
 				        	mainApp.appointmentToSelect = appointment2;
 				        	
-				        	System.out.println("owner? " + youAreOwner);
 				        	
 				        	if(youAreOwner.equals("true")) {
 				        		mainApp.showAppointmentOverview();				        		
@@ -569,7 +588,7 @@ public class CalendarController {
     }
     
 
-    public void addAppointment(String str) throws IOException {
+    public void addAppointment(String str, int colorIndex) throws IOException {
     	Appointment appointment = new Appointment();
     	
 
@@ -623,6 +642,7 @@ public class CalendarController {
     	appointment.setRoomAmount(2);
     	appointment.setID(z[7]);
     	appointment.setOwner(z[5] + " " + z[6]);
+    	appointment.setColor(colorIndex);
     	
     	if(z[4].equals("null")){
     		appointment.setPlace(z[3]);
