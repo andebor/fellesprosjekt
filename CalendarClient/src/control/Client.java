@@ -32,6 +32,8 @@ public class Client
 	public static DataOutputStream outToServer;
 	public static BufferedReader inFromServer;
 	public static String username;
+	public static String fullName;
+	public static String userID;
 	private Stack<String> alarms;
 	
 	public Client() throws IOException {
@@ -41,7 +43,7 @@ public class Client
 	public void init() throws UnknownHostException, IOException {
 		
 		String host = "localhost";
-		int port = 6067;
+		int port = 6066;
 		
 		try {
 			s = new Socket(host, port);
@@ -51,6 +53,7 @@ public class Client
 			
 			
 			System.out.println("Connected to serverhost " + host + " with port " + port);
+			
 			
 			
 			
@@ -98,12 +101,10 @@ public class Client
 	}
 	
 	public static String getAppointmentList() throws IOException {
-		System.out.println("see or not");
 		return getAppointmentList(Client.username);
 	}
 	
 	public static String getAppointmentList(String user) throws IOException {
-		System.out.println("only this please");
 		SyncTest();
 		Boolean isSynced = true;
 		String response = sendToServer("GETAPPOINTMENTLIST" + "#%" + user);
@@ -142,6 +143,12 @@ public class Client
 			String[] emp = employee.split(" ");
 			String response2 = sendToServer("ADDEMPLOYEETOAPPOINTMENT" + "#%" + emp[emp.length-1] + "#%" + response1);
 		}
+		
+		//Set alarm
+		if(!(appointment.getAlarm()==0)){
+		sendToServer("SETALARM" + "#%" + username + "#%" + response1 + "#%" + appointment.getAlarm());
+		}
+
 		
 		
 		return true; //response1 returns appointmentID now
@@ -319,6 +326,12 @@ public class Client
 			
 		}
 		
+		//Set alarm
+		if(!(appointment.getAlarm()==0)){
+		sendToServer("SETALARM" + "#%" + username + "#%" + appointment.getID() + "#%" + appointment.getAlarm());
+		}
+
+		
 		sendToServer("FIRENOTIFICATION");
 		
 		
@@ -395,29 +408,30 @@ public class Client
 		return alarms;
 	}
 	
-	public void initAlarms(String seperator) throws IOException {
-		this.alarms = new Stack<String>();
+	public static Stack<String> initAlarms(String seperator) throws IOException {
+		// this.alarm = new Stack<String>();
+		Stack<String> alarmStack = new Stack<String>();
 		String alarms = getAlarms();
 		String [] alarmArray = alarms.split(seperator);
 		List<String> alarmList = Arrays.asList(alarmArray);
-		this.alarms.addAll(alarmList);
-		//Thread t = Thread.currentThread();
+		// this.alarms.addAll(alarmList);
+		alarmStack.addAll(alarmList);
+		Thread t = Thread.currentThread();
+		return alarmStack;
 	}
+
 	
-	public void alarmListener(Stack<String> alarms) {
+	public static void alarmListener(Stack<String> alarms) {
 		//int mariusmb = getEmpno("mariusmb");
 		//Stack<String> alarms = getAlarms(mariusmb);
 		LocalDateTime nextAlarm;
 		LocalDateTime now;
 		long interval = 60000; //One minute interval between polls
-		String name;
-		while (!this.alarms.isEmpty()) {
-			nextAlarm = DateHelper.getDateTime(alarms.pop());
-			System.out.println(nextAlarm);
-			name = alarms.pop();
-			System.out.println(name);
-			int second = 0;
-			int minute = 15; //TODO: Finne den faktiske verdien, 15 er en foreløpig placeholder.
+		while (!alarms.isEmpty()) {
+			String nextAlarmString = alarms.pop();
+			try {
+				System.out.println("User has no alarms: " + nextAlarmString.split("\n")[1]);
+			nextAlarm = DateHelper.getDateTime(nextAlarmString.split("\n")[1]);
 			while (true) {
 				now = LocalDateTime.now();
 				if (nextAlarm.isBefore(now)) {
@@ -426,12 +440,12 @@ public class Client
 					Alert alert = new Alert(AlertType.INFORMATION);
 					alert.setTitle("Varsel");
 					alert.setHeaderText(null);
-					alert.setContentText("Avtalen \"" + name + "\" starter om " + minute + " minutter!");
+					alert.setContentText("I have a great message for you!");
 
 					alert.showAndWait();
 					break;
 				}else {
-					System.out.println(second++);
+					//System.out.println("Ikke ennå ..." + second++);
 					try {
 						Thread.sleep(interval);;
 					} catch (InterruptedException e) {
@@ -440,8 +454,14 @@ public class Client
 					}
 				}
 			}
+			}
+			catch(Exception e){
+				System.out.println("User has no alarms: " + nextAlarmString);
+			}
+			int second = 0;
 		}
 	}
+	
 	
 	public static String getUserID(String username) throws IOException {
 		String response = sendToServer("GETUSERID" + "#%" + username);
@@ -460,6 +480,11 @@ public class Client
 	
 	public static String getMyGroups(String username) throws IOException {
 		String response = sendToServer("GETMYGROUPS" + "#%" + username);
+		return response;
+	}
+	
+	public static String getName(String username) throws IOException {
+		String response = sendToServer("getName" + "#%" + username);
 		return response;
 	}
 	

@@ -55,6 +55,7 @@ public class RootNavController {
 	private void gotoNotifications() throws IOException {
 		System.out.println("Opening NotificationsView..");
 		mainApp.showNotifications();
+		handleRefresh();
 	}
 	
 	@FXML
@@ -116,7 +117,17 @@ public class RootNavController {
         if (Client.username.equals("admin")) {
             btn_admin.setVisible(true);  
         }
+        // Initiate alarms
+        try {
+			Client.alarmListener(Client.initAlarms("¤%¤"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
     }
+    
  
     
     

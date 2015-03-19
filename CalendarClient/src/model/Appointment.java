@@ -30,6 +30,7 @@ public class Appointment {
 	private StringProperty romProperty = new SimpleStringProperty();
 	private String owner;
 	private String status;
+	private int colorIndex;
 	public Appointment() {
 		
 	}
@@ -259,6 +260,12 @@ public class Appointment {
 		return this.status;
 	}
 	
-
+	public void setColor(int colorIndex) {
+		this.colorIndex = colorIndex;
+	}
+	
+	public int getColor() {
+		return colorIndex;
+	}
 
 }
