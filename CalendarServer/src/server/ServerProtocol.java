@@ -293,6 +293,15 @@ public class ServerProtocol {
 				String myGroupsResponse = database.getMyGroups(input[1]);
 				
 				return myGroupsResponse;
+				
+			case "GETNAME":
+				
+				
+				int empno6 = database.getEmpno(input[1]);
+				
+				String getNameResponse = database.getEmployeeName(empno6);
+				
+				return getNameResponse;
 			}
 			
 			

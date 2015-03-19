@@ -32,6 +32,7 @@ public class Client
 	public static DataOutputStream outToServer;
 	public static BufferedReader inFromServer;
 	public static String username;
+	public static String fullName;
 	private Stack<String> alarms;
 	
 	public Client() throws IOException {
@@ -51,6 +52,7 @@ public class Client
 			
 			
 			System.out.println("Connected to serverhost " + host + " with port " + port);
+			
 			
 			
 			
@@ -89,6 +91,7 @@ public class Client
 		if (response.trim().equals("OK")) {
 			System.out.println("Class:Client - Successful login!");
 			Client.username = username;
+			Client.fullName = Client.getName(Client.username);
 			return true;
 		}
 		else {
@@ -460,6 +463,11 @@ public class Client
 	
 	public static String getMyGroups(String username) throws IOException {
 		String response = sendToServer("GETMYGROUPS" + "#%" + username);
+		return response;
+	}
+	
+	public static String getName(String username) throws IOException {
+		String response = sendToServer("getName" + "#%" + username);
 		return response;
 	}
 	

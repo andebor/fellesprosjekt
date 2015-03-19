@@ -483,12 +483,16 @@ public class CalendarController {
 					
 					
 					
-					try {
-						youAreOwner = Client.checkAppointmentOwnership(appointment2.getID());
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					Boolean bol = appointment2.getOwner().equals(Client.fullName);
+					System.out.println(appointment2.getOwner());
+					System.out.println(Client.fullName);
+					if(bol == true) {
+						youAreOwner = "true";
 					}
+					else {
+						youAreOwner = "false";
+					}
+					//youAreOwner = Client.checkAppointmentOwnership(appointment2.getID());
 					
 					String status = appointment2.getStatus();
 					if(status == null) //dirtyfix
