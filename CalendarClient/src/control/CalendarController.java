@@ -83,7 +83,7 @@ public class CalendarController {
 	private String youAreOwner;
 	ObservableList<Employee> userList = FXCollections.observableArrayList();
 	ArrayList<Employee> userListCopy = new ArrayList<Employee>();
-    Rectangle hoverBox = new Rectangle(0,0,200 , 85);
+    Rectangle hoverBox = new Rectangle(0,0,230 , 85);
 	Label desc;
 	Label sted;
 	Label attendees;
@@ -477,9 +477,9 @@ public class CalendarController {
 				if(column2 != 0 && row2 != 0) { //dirtyfix
 					//Label appointmentLabel = new Label(appointment2.getDescription());
 					//appointmentLabel.setTranslateX(30);
-					int width = 98 / totalMap.get("" + row2 + column2);
+					int width = 97 / totalMap.get("" + row2 + column2);
 					int current = currentMap.get("" + row2 + column2);
-					int height = 29;
+					int height = 26;
 					if(row2 == end2) {
 						height = 27;
 					}
@@ -587,13 +587,21 @@ public class CalendarController {
 							sted = new Label();
 							attendees = new Label();
 							
+							String descString = appointment2.getDescription();
 							String stedString = appointment2.getPlace();
 							if(stedString.equals("null")) {
 								stedString = appointment2.getRoom();
+								if(stedString.equalsIgnoreCase("null")) {
+									stedString = "Ikke spesifisert";
+								}
+							}
+							
+							if(descString.length() > 25) {
+								descString = descString.substring(0, 25) + "...";
 							}
 							
 							
-							desc.setText("Beskrivelse: " + appointment2.getDescription());
+							desc.setText("Beskrivelse: " + descString);
 							sted.setText("Sted: " + stedString);
 							attendees.setText("1/9 deltagere");
 							
