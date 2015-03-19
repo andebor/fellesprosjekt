@@ -69,6 +69,12 @@ public class ServerProtocol {
 				String location = input[5];
 				String meetingRoom = input[6];
 				String owner = String.valueOf(database.getEmpno(input[7]));
+				if(location.equals("null")){
+					location = null;
+				}
+				if(meetingRoom.equals("null")){
+					meetingRoom = null;
+				}
 				
 				System.out.println("description: " + description);
 				System.out.println("startTime: " + startTime);
@@ -77,7 +83,6 @@ public class ServerProtocol {
 				System.out.println("meetingRoom: " + meetingRoom);
 				System.out.println("owner: " + owner);
 				
-				System.out.println("database.addNewAppointment(" + description + ", " + startTime + ", " + endTime + ", " + location + ", " + meetingRoom + ", " + owner + ")");
 				Boolean response2 = database.addNewAppointment(description, startTime, endTime, location, meetingRoom, owner);
 				int response3 = database.getLatestAddition("avtale", "avtaleID");
 				return String.valueOf(response3);
@@ -120,6 +125,10 @@ public class ServerProtocol {
 				
 			case "EDITAPPOINTMENT":
 				
+			case "SETALARM":
+				
+				return String.valueOf(database.setAlarm(Integer.parseInt(input[2]), database.getEmpno(input[1]), Integer.parseInt(input[3])));
+				
 			case "HIDEAPPOINTMENT":
 				
 				
@@ -127,7 +136,6 @@ public class ServerProtocol {
 				
 				
 			case "GETALARMS":
-				
 				
 				return database.getAlarmsAsString(database.getEmpno(input[1]));
 			
@@ -235,7 +243,7 @@ public class ServerProtocol {
 				return String.valueOf(database.changeStatus(appointmentID, empNom1, selection));
 				
 			case "ADDNOTIFICATION":
-				int empNo5 = database.getEmpno(input[1]);
+				int empNo5 = Integer.parseInt(input[1]);
 				String msg = input[2];
 				
 				Boolean response9 = database.addNotification(empNo5, msg);
