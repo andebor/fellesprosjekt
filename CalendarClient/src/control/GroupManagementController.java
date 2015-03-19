@@ -113,9 +113,19 @@ public class GroupManagementController {
 		if (result.isPresent()){
 			String group = groupsTable.getSelectionModel().getSelectedItem().getGroupId().getValue().toString();
 			String user = result.get().getEmpNo().getValue().toString();
-		    System.out.println("Your choice: " + result.get().getFullName().getValue());
-		    Client.addMember(group, user);
-		    memberList.add(result.get());
+			int exist = 0;
+			for (Employee emp : memberList) {
+				if (result.get().getEmpNo().getValue().compareTo(emp.getEmpNo().getValue()) == 0 ) {
+					exist++;
+				}
+			}
+			if (exist != 0) {
+				System.out.println("User allready in group.");
+			}else{
+				Client.addMember(group, user);
+				memberList.add(result.get());
+				System.out.println(result.get().getFullName().getValue() + " was added to " + groupsTable.getSelectionModel().getSelectedItem().getGroupName().getValue());
+			}
 		}
 	}
 	
@@ -123,15 +133,14 @@ public class GroupManagementController {
 	private void handleRemoveUser() throws IOException {
 		//Get selected user to delete
 		label_missingUser.setVisible(false);
-		String user = membersTable.getSelectionModel().getSelectedItem().getEmpNo().getValue().toString();
-		String group = groupsTable.getSelectionModel().getSelectedItem().getGroupId().getValue().toString();
-		if (user == null) {
-			label_missingUser.setVisible(true);
-		}else {
+		if (membersTable.getSelectionModel().getSelectedItem() != null) {
+			String user = membersTable.getSelectionModel().getSelectedItem().getEmpNo().getValue().toString();
+			String group = groupsTable.getSelectionModel().getSelectedItem().getGroupId().getValue().toString();
 			System.out.println("Removing " + membersTable.getSelectionModel().getSelectedItem().getFullName().getValue() + " from selected group");
 			Client.removeMember(group, user);
-			memberList.remove(membersTable.getSelectionModel().getSelectedIndex());
-			
+			memberList.remove(membersTable.getSelectionModel().getSelectedIndex());			
+		}else {
+			label_missingUser.setVisible(true);
 		}
 	}
 	

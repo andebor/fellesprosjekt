@@ -401,7 +401,7 @@ public class Client
 		String [] alarmArray = alarms.split(seperator);
 		List<String> alarmList = Arrays.asList(alarmArray);
 		this.alarms.addAll(alarmList);
-		Thread t = Thread.currentThread();
+		//Thread t = Thread.currentThread();
 	}
 	
 	public void alarmListener(Stack<String> alarms) {
@@ -410,9 +410,14 @@ public class Client
 		LocalDateTime nextAlarm;
 		LocalDateTime now;
 		long interval = 60000; //One minute interval between polls
+		String name;
 		while (!this.alarms.isEmpty()) {
 			nextAlarm = DateHelper.getDateTime(alarms.pop());
+			System.out.println(nextAlarm);
+			name = alarms.pop();
+			System.out.println(name);
 			int second = 0;
+			int minute = 15; //TODO: Finne den faktiske verdien, 15 er en foreløpig placeholder.
 			while (true) {
 				now = LocalDateTime.now();
 				if (nextAlarm.isBefore(now)) {
@@ -421,12 +426,12 @@ public class Client
 					Alert alert = new Alert(AlertType.INFORMATION);
 					alert.setTitle("Varsel");
 					alert.setHeaderText(null);
-					alert.setContentText("I have a great message for you!");
+					alert.setContentText("Avtalen \"" + name + "\" starter om " + minute + " minutter!");
 
 					alert.showAndWait();
 					break;
 				}else {
-					//System.out.println("Ikke ennå ..." + second++);
+					System.out.println(second++);
 					try {
 						Thread.sleep(interval);;
 					} catch (InterruptedException e) {
