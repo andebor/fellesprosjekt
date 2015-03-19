@@ -437,8 +437,9 @@ public class NewAppointmentController implements Initializable {
 			
 			// If edit appointment is selected, the appointment selected to be edited will be updated instead of creating a new one. 
 
-
+			if(editNewAppointment){
 			appointment.setID(appointmentToEdit.getID());
+			}
 			appointment.setDescription(descriptionField.getText());
 			appointment.setDate(datePicker.getValue());
 			appointment.setStart(LocalTime.of(Integer.parseInt(startHourField.getValue().toString()), Integer.parseInt(startMinuteField.getValue().toString())));
@@ -459,7 +460,7 @@ public class NewAppointmentController implements Initializable {
 			
 			for(int i = 0; i < appointment.getUsers().size(); i++) {
 				if(!editNewAppointment){
-					Client.addNotification("Ny avtale er laget", appointment.getUsers().get(i));
+					Client.addNotification("Ny avtale er laget", appointment.getUsers().get(i).split(" ")[appointment.getUsers().get(i).split(" ").length -1]);
 				}
 			}
 			
