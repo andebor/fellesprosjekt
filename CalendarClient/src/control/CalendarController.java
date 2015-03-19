@@ -35,8 +35,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.effect.Bloom;
 import javafx.scene.effect.Glow;
+import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -63,6 +65,9 @@ public class CalendarController {
     
     @FXML
     Pane userToColorPane;
+    
+    @FXML
+    AnchorPane anchorPane;
 
 
 	MainApp mainApp;
@@ -78,6 +83,10 @@ public class CalendarController {
 	private String youAreOwner;
 	ObservableList<Employee> userList = FXCollections.observableArrayList();
 	ArrayList<Employee> userListCopy = new ArrayList<Employee>();
+    Rectangle hoverBox = new Rectangle(0,0,200 , 85);
+	Label desc;
+	Label sted;
+	Label attendees;
 	//List<Employee> userList;
 	
 
@@ -504,6 +513,7 @@ public class CalendarController {
 						man.setContent("M7.725,2.146c-1.016,0.756-1.289,1.953-1.239,2.59C6.55,5.515,6.708,6.529,6.708,6.529s-0.313,0.17-0.313,0.854C6.504,9.1,7.078,8.359,7.196,9.112c0.284,1.814,0.933,1.491,0.933,2.481c0,1.649-0.68,2.42-2.803,3.334C3.196,15.845,1,17,1,19v1h18v-1c0-2-2.197-3.155-4.328-4.072c-2.123-0.914-2.801-1.684-2.801-3.334c0-0.99,0.647-0.667,0.932-2.481c0.119-0.753,0.692-0.012,0.803-1.729c0-0.684-0.314-0.854-0.314-0.854s0.158-1.014,0.221-1.793c0.065-0.817-0.398-2.561-2.3-3.096c-0.333-0.34-0.558-0.881,0.466-1.424C9.439,0.112,8.918,1.284,7.725,2.146z");						
 						calendarGridPane.add(man, column2, row2);
 						man.setTranslateX(current * width + width/2 - 9);
+						man.setMouseTransparent(true);
 					}
 					else if(status.equals("Venter")) {
 						SVGPath questionmark = new SVGPath();
@@ -549,12 +559,56 @@ public class CalendarController {
 				    });
 				    
 				    rect.setOnMouseEntered(new EventHandler<MouseEvent>() {
+				    	
+
 
 				        @Override
 				        public void handle(MouseEvent event) {
 				        	Glow glow = new Glow();
 				        	glow.setLevel(1.0);
 				        	rect.setEffect(glow);
+				        	
+				        	int xPadding = 150;
+				        	int xTextPadding = 10;
+				        	int yTextPadding = 5;
+				        	
+				        	
+							hoverBox.setFill(Color.LIGHTSALMON);
+							hoverBox.setTranslateX(rect.getLayoutX() + xPadding);
+							hoverBox.setTranslateY(rect.getLayoutY());
+							hoverBox.setOpacity(1.0);
+							hoverBox.setStroke(Color.BLACK);
+							
+							InnerShadow is = new InnerShadow();
+							//hoverBox.setEffect(is);
+							
+							desc = new Label();
+							sted = new Label();
+							attendees = new Label();
+							
+							String stedString = appointment2.getPlace();
+							if(stedString.equals("null")) {
+								stedString = appointment2.getRoom();
+							}
+							
+							
+							desc.setText("Beskrivelse: " + appointment2.getDescription());
+							sted.setText("Sted: " + stedString);
+							attendees.setText("1/9 deltagere");
+							
+							desc.setTranslateX(rect.getLayoutX() + xPadding + xTextPadding);
+							desc.setTranslateY(rect.getLayoutY() + yTextPadding);
+							
+							sted.setTranslateX(rect.getLayoutX() + xPadding + xTextPadding);
+							sted.setTranslateY(rect.getLayoutY() + yTextPadding + 20);
+							
+							attendees.setTranslateX(rect.getLayoutX() + xPadding + xTextPadding);
+							attendees.setTranslateY(rect.getLayoutY() + yTextPadding + 40);
+							
+				    		anchorPane.getChildren().add(hoverBox);
+				    		anchorPane.getChildren().add(desc);
+				    		anchorPane.getChildren().add(sted);
+				    		anchorPane.getChildren().add(attendees);
 				        }
 				    });
 				    
@@ -563,6 +617,10 @@ public class CalendarController {
 				        @Override
 				        public void handle(MouseEvent event) {
 				        	rect.setEffect(null);
+				        	anchorPane.getChildren().remove(hoverBox);
+				        	anchorPane.getChildren().remove(desc);
+				        	anchorPane.getChildren().remove(sted);	
+				        	anchorPane.getChildren().remove(attendees);		
 				        }
 				    });
 				}
