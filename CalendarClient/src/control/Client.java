@@ -41,7 +41,7 @@ public class Client
 	public void init() throws UnknownHostException, IOException {
 		
 		String host = "localhost";
-		int port = 6066;
+		int port = 6067;
 		
 		try {
 			s = new Socket(host, port);
