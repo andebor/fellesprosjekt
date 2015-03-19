@@ -55,6 +55,7 @@ public class RootNavController {
 	private void gotoNotifications() throws IOException {
 		System.out.println("Opening NotificationsView..");
 		mainApp.showNotifications();
+		handleRefresh();
 	}
 	
 	@FXML
