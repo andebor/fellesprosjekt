@@ -42,7 +42,7 @@ public class Client
 	public void init() throws UnknownHostException, IOException {
 		
 		String host = "localhost";
-		int port = 6067;
+		int port = 6066;
 		
 		try {
 			s = new Socket(host, port);
@@ -91,7 +91,6 @@ public class Client
 		if (response.trim().equals("OK")) {
 			System.out.println("Class:Client - Successful login!");
 			Client.username = username;
-			Client.fullName = Client.getName(Client.username);
 			return true;
 		}
 		else {

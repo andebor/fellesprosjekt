@@ -300,6 +300,7 @@ public class ServerProtocol {
 				int empno6 = database.getEmpno(input[1]);
 				
 				String getNameResponse = database.getEmployeeName(empno6);
+	
 				
 				return getNameResponse;
 			}

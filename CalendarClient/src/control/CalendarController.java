@@ -484,8 +484,7 @@ public class CalendarController {
 					
 					
 					Boolean bol = appointment2.getOwner().equals(Client.fullName);
-					System.out.println(appointment2.getOwner());
-					System.out.println(Client.fullName);
+					
 					if(bol == true) {
 						youAreOwner = "true";
 					}
