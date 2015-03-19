@@ -310,7 +310,6 @@ public class CalendarController {
     public void getAppointmentList(Employee employee, int colorIndex) throws IOException {
     	
     	String str = Client.getAppointmentList(employee.getUsername().getValue());
-    	System.out.println("BAJSEMANN: " + employee.getUsername().getValue());
     	
     	
     	
@@ -536,7 +535,6 @@ public class CalendarController {
 				        	
 				        	mainApp.appointmentToSelect = appointment2;
 				        	
-				        	System.out.println("owner? " + youAreOwner);
 				        	
 				        	if(youAreOwner.equals("true")) {
 				        		mainApp.showAppointmentOverview();				        		
