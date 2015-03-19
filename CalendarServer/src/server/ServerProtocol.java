@@ -125,6 +125,10 @@ public class ServerProtocol {
 				
 			case "EDITAPPOINTMENT":
 				
+			case "SETALARM":
+				
+				return String.valueOf(database.setAlarm(Integer.parseInt(input[2]), database.getEmpno(input[1]), Integer.parseInt(input[3])));
+				
 			case "HIDEAPPOINTMENT":
 				
 				
@@ -132,7 +136,6 @@ public class ServerProtocol {
 				
 				
 			case "GETALARMS":
-				
 				
 				return database.getAlarmsAsString(database.getEmpno(input[1]));
 			
