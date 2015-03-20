@@ -172,7 +172,8 @@ public class AppointmentOverviewController {
     	ObservableList<String> usersList = FXCollections.observableArrayList();
     	
     	for(int i = 0; i < deltagere.length; i++) {
-    		usersList.add(deltagere[i]);
+    		String[] deltagereSplitString = deltagere[i].split(" ");
+    		usersList.add(deltagereSplitString[1] + " " + deltagereSplitString[2] + " " + deltagereSplitString[3]);
     	}
     	
     	
