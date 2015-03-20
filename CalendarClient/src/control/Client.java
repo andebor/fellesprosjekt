@@ -281,7 +281,18 @@ public class Client
 
 	public static String checkAppointmentOwnership(String ID) throws IOException {
 		
+		SyncTest();
+		Boolean isSynced = true;
 		String response = sendToServer("checkAppointmentOwnership" + "#%" + ID + "#%" + username);
+		while(isSynced){
+			if(response.equals("CHECK")){
+				response = sendToServer("checkAppointmentOwnership" + "#%" + ID + "#%" + username);
+			}
+			else {
+				isSynced = false;
+			}
+		}
+
 		return response.substring(0, 4);
 	}
 	
@@ -324,9 +335,19 @@ public class Client
 	
 	public static String getGroup(String groupID) throws IOException{
 		
-		
+		SyncTest();
+		Boolean isSynced = true;
 		String response = sendToServer("GETGROUP" + "#%" + groupID);
+		while(isSynced){
+			if(response.equals("CHECK")){
+				response = sendToServer("GETGROUP" + "#%" + groupID);
+			}
+			else {
+				isSynced = false;
+			}
+		}
 		return response;
+		
 		
 	}
 	
@@ -372,7 +393,18 @@ public class Client
 
 	public static String getRooms(String start, String end, String cap, String date) throws IOException{
 		
+		SyncTest();
+		Boolean isSynced = true;
 		String response = sendToServer("GETROOMS" + "#%" + start + "#%" + end + "#%" + cap + "#%" + date);
+		while(isSynced){
+			if(response.equals("CHECK")){
+				response = sendToServer("GETROOMS" + "#%" + start + "#%" + end + "#%" + cap + "#%" + date);
+			}
+			else {
+				isSynced = false;
+			}
+		}
+
 		return response;
 
 	}
