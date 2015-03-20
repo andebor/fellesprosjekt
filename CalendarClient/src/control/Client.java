@@ -289,10 +289,10 @@ public class Client
 		
 		SyncTest();
 		Boolean isSynced = true;
-		String response = sendToServer("GETEMPLOYEES");;
+		String response = sendToServer("GETEMPLOYEES");
 		while(isSynced){
 			if(response.equals("CHECK")){
-				response = sendToServer("GETEMPLOYEES");;
+				response = sendToServer("GETEMPLOYEES");
 			}
 			else {
 				isSynced = false;
@@ -305,11 +305,25 @@ public class Client
 	
 	public static String getGroups() throws IOException{
 		
-		return sendToServer("GETGROUPS");
+		
+		SyncTest();
+		Boolean isSynced = true;
+		String response = sendToServer("GETGROUPS");
+		while(isSynced){
+			if(response.equals("CHECK")){
+				response = sendToServer("GETGROUPS");
+			}
+			else {
+				isSynced = false;
+			}
+		}
+		return response;
+		
 		
 	}
 	
 	public static String getGroup(String groupID) throws IOException{
+		
 		
 		String response = sendToServer("GETGROUP" + "#%" + groupID);
 		return response;
