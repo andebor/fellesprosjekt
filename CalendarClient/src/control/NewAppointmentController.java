@@ -176,7 +176,11 @@ public class NewAppointmentController implements Initializable {
 			return false;
 		}
 		
+		
 		if (dateCheck.isAfter(LocalDate.now())){
+			return true;
+		}
+		else if(dateCheck.isEqual(LocalDate.now())){
 			return true;
 		}
 		else {
@@ -456,11 +460,13 @@ public class NewAppointmentController implements Initializable {
 			if(alarmButton.isSelected()){
 			appointment.setAlarm(Integer.parseInt(alarmField.getText()));
 			}
+
 			appointment.setUsers(addedTable.getItems());
 			
 			for(int i = 0; i < appointment.getUsers().size(); i++) {
 				if(!editNewAppointment){
-					Client.addNotification("Ny avtale er laget", appointment.getUsers().get(i).split(" ")[appointment.getUsers().get(i).split(" ").length -1]);
+				//	String message = "Ny avtale er laget: " + appointment.getDescription(); 
+				//	Client.addNotification(message, appointment.getUsers().get(i).split(" ")[appointment.getUsers().get(i).split(" ").length -1]);
 				}
 			}
 			

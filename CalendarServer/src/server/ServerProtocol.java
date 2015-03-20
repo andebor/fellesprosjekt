@@ -311,6 +311,12 @@ public class ServerProtocol {
 	
 				
 				return getNameResponse;
+				
+			case "GETATTENDINGSTATUS":
+				
+				String attendingResponse = database.getAttendingStatus(Integer.parseInt(input[1]));
+				
+				return attendingResponse;
 			
 			case "NEWALARMS":
 				

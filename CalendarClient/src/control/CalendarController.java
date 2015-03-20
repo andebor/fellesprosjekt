@@ -35,11 +35,15 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.effect.Bloom;
 import javafx.scene.effect.Glow;
+import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Arc;
+import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.SVGPath;
 import javafx.util.Callback;
@@ -63,6 +67,9 @@ public class CalendarController {
     
     @FXML
     Pane userToColorPane;
+    
+    @FXML
+    AnchorPane anchorPane;
 
 
 	MainApp mainApp;
@@ -78,6 +85,12 @@ public class CalendarController {
 	private String youAreOwner;
 	ObservableList<Employee> userList = FXCollections.observableArrayList();
 	ArrayList<Employee> userListCopy = new ArrayList<Employee>();
+    Rectangle hoverBox = new Rectangle(0,0,230 , 85);
+	Label desc;
+	Label sted;
+	Label attendees;
+	Arc arc;
+	String status;
 	//List<Employee> userList;
 	
 
@@ -448,19 +461,31 @@ public class CalendarController {
 			
 				//Find rows
 				start2 = appointment2.getStart().getHour();
+				
 				if(start2<8){
 					start2 = 0;
+				}
+				else if(start2>22){
+					start2 = start2 - 7;
 				}
 				else{
 					start2 = start2 - 6;
 				}
 				end2 = appointment2.getFrom().getHour();
+				System.out.println("BESKRIVELSE: " + appointment2.getDescription().toString());
+				System.out.println("START: " + appointment2.getStart().toString());
+				System.out.println("END: " + appointment2.getFrom().toString());
+				System.out.println("");
 				if(end2<8){
 					end2 = 0;
+				}
+				else if(end2>22){
+					end2 = end2 - 7;
 				}
 				else{
 					end2 = end2 - 6;
 				}
+		
 			}			
 		
 		// Generate appointment in calendar
@@ -468,9 +493,9 @@ public class CalendarController {
 				if(column2 != 0 && row2 != 0) { //dirtyfix
 					//Label appointmentLabel = new Label(appointment2.getDescription());
 					//appointmentLabel.setTranslateX(30);
-					int width = 98 / totalMap.get("" + row2 + column2);
+					int width = 97 / totalMap.get("" + row2 + column2);
 					int current = currentMap.get("" + row2 + column2);
-					int height = 29;
+					int height = 26;
 					if(row2 == end2) {
 						height = 27;
 					}
@@ -478,6 +503,7 @@ public class CalendarController {
 					Rectangle rect = new Rectangle(0,0,width,height);
 					rect.setTranslateX(current * width);
 					rect.setFill(colors.get(appointment2.getColor()));
+					rect.setStroke(Color.BLACK);
 					calendarGridPane.add(rect, column2, row2);
 					currentMap.put("" + row2 + column2, currentMap.get("" + row2 + column2) + 1);
 					
@@ -493,7 +519,7 @@ public class CalendarController {
 					}
 					//youAreOwner = Client.checkAppointmentOwnership(appointment2.getID());
 					
-					String status = appointment2.getStatus();
+					status = appointment2.getStatus();
 					if(status == null) //dirtyfix
 					{
 						status = "nothing";
@@ -504,24 +530,28 @@ public class CalendarController {
 						man.setContent("M7.725,2.146c-1.016,0.756-1.289,1.953-1.239,2.59C6.55,5.515,6.708,6.529,6.708,6.529s-0.313,0.17-0.313,0.854C6.504,9.1,7.078,8.359,7.196,9.112c0.284,1.814,0.933,1.491,0.933,2.481c0,1.649-0.68,2.42-2.803,3.334C3.196,15.845,1,17,1,19v1h18v-1c0-2-2.197-3.155-4.328-4.072c-2.123-0.914-2.801-1.684-2.801-3.334c0-0.99,0.647-0.667,0.932-2.481c0.119-0.753,0.692-0.012,0.803-1.729c0-0.684-0.314-0.854-0.314-0.854s0.158-1.014,0.221-1.793c0.065-0.817-0.398-2.561-2.3-3.096c-0.333-0.34-0.558-0.881,0.466-1.424C9.439,0.112,8.918,1.284,7.725,2.146z");						
 						calendarGridPane.add(man, column2, row2);
 						man.setTranslateX(current * width + width/2 - 9);
+						man.setMouseTransparent(true);
 					}
 					else if(status.equals("Venter")) {
 						SVGPath questionmark = new SVGPath();
 						questionmark.setContent("M14.09,2.233C12.95,1.411,11.518,1,9.794,1C8.483,1,7.376,1.289,6.477,1.868C5.05,2.774,4.292,4.313,4.2,6.483h3.307c0-0.633,0.185-1.24,0.553-1.828c0.369-0.586,0.995-0.879,1.878-0.879c0.898,0,1.517,0.238,1.854,0.713C12.131,4.966,12.3,5.493,12.3,6.071c0,0.504-0.252,0.965-0.557,1.383c-0.167,0.244-0.387,0.469-0.661,0.674c0,0-1.793,1.15-2.58,2.074c-0.456,0.535-0.497,1.338-0.538,2.488c-0.002,0.082,0.029,0.252,0.315,0.252c0.287,0,2.316,0,2.571,0c0.256,0,0.309-0.189,0.312-0.274c0.018-0.418,0.064-0.633,0.141-0.875c0.144-0.457,0.538-0.855,0.979-1.199l0.91-0.627c0.822-0.641,1.477-1.166,1.767-1.578c0.494-0.676,0.842-1.51,0.842-2.5C15.8,4.274,15.23,3.057,14.09,2.233z M9.741,14.924c-1.139-0.035-2.079,0.754-2.115,1.99c-0.035,1.234,0.858,2.051,1.998,2.084c1.189,0.035,2.104-0.727,2.141-1.963C11.799,15.799,10.931,14.959,9.741,14.924z");						
 						calendarGridPane.add(questionmark, column2, row2);
 						questionmark.setTranslateX(current * width + width/2 - 7);
+						questionmark.setMouseTransparent(true);
 					}
 					else if(status.equals("Deltar")) {
 						SVGPath check = new SVGPath();
 						check.setContent("M8.294,16.998c-0.435,0-0.847-0.203-1.111-0.553L3.61,11.724c-0.465-0.613-0.344-1.486,0.27-1.951c0.615-0.467,1.488-0.344,1.953,0.27l2.351,3.104l5.911-9.492c0.407-0.652,1.267-0.852,1.921-0.445c0.653,0.406,0.854,1.266,0.446,1.92L9.478,16.34c-0.242,0.391-0.661,0.635-1.12,0.656C8.336,16.998,8.316,16.998,8.294,16.998z");						
 						calendarGridPane.add(check, column2, row2);
 						check.setTranslateX(current * width + width/2 - 8);
+						check.setMouseTransparent(true);
 					}
 					else if(status.equals("Avkreftet") || status.equals("Avbud")) {
 						SVGPath cross = new SVGPath();
 						cross.setContent("M14.348,14.849c-0.469,0.469-1.229,0.469-1.697,0L10,11.819l-2.651,3.029c-0.469,0.469-1.229,0.469-1.697,0c-0.469-0.469-0.469-1.229,0-1.697l2.758-3.15L5.651,6.849c-0.469-0.469-0.469-1.228,0-1.697s1.228-0.469,1.697,0L10,8.183l2.651-3.031c0.469-0.469,1.228-0.469,1.697,0s0.469,1.229,0,1.697l-2.758,3.152l2.758,3.15C14.817,13.62,14.817,14.38,14.348,14.849z");						
 						calendarGridPane.add(cross, column2, row2);
 						cross.setTranslateX(current * width + width/2 - 7);
+						cross.setMouseTransparent(true);
 					}
 
 					
@@ -539,7 +569,7 @@ public class CalendarController {
 				        	mainApp.appointmentToSelect = appointment2;
 				        	
 				        	
-				        	if(youAreOwner.equals("true")) {
+				        	if(status.equals("nothing") || youAreOwner.equals("true")) {
 				        		mainApp.showAppointmentOverview();				        		
 				        	}
 				        	else {
@@ -549,12 +579,85 @@ public class CalendarController {
 				    });
 				    
 				    rect.setOnMouseEntered(new EventHandler<MouseEvent>() {
+				    	
+
 
 				        @Override
 				        public void handle(MouseEvent event) {
 				        	Glow glow = new Glow();
 				        	glow.setLevel(1.0);
 				        	rect.setEffect(glow);
+				        	
+				        	int xPadding = 103  + current * width + width / 2;
+				        	int xTextPadding = 10;
+				        	int yTextPadding = 5;
+				        	
+				        	
+							hoverBox.setFill(Color.LIGHTSALMON);
+							hoverBox.setTranslateX(rect.getLayoutX() + xPadding);
+							hoverBox.setTranslateY(rect.getLayoutY());
+							hoverBox.setOpacity(1.0);
+							hoverBox.setStroke(Color.BLACK);
+							
+							arc = new Arc();
+							arc.setRadiusX(50);
+							arc.setRadiusY(50);
+							arc.setStartAngle(85);
+							arc.setLength(13);
+							arc.setType(ArcType.ROUND);
+							arc.setFill(Color.LIGHTSALMON);
+							arc.setTranslateX(rect.getLayoutX() + 215 + current * width + width / 2);
+							arc.setTranslateY(rect.getLayoutY() + 120);
+							arc.setMouseTransparent(true);
+							
+							InnerShadow is = new InnerShadow();
+							//hoverBox.setEffect(is);
+							
+							desc = new Label();
+							sted = new Label();
+							attendees = new Label();
+							
+							String descString = appointment2.getDescription();
+							String stedString = appointment2.getPlace();
+							if(stedString.equals("null")) {
+								stedString = appointment2.getRoom();
+								if(stedString.equalsIgnoreCase("null")) {
+									stedString = "Ikke spesifisert";
+								}
+							}
+							
+							if(descString.length() > 25) {
+								descString = descString.substring(0, 25) + "...";
+							}
+							
+							
+							desc.setText("Beskrivelse: " + descString);
+							sted.setText("Sted: " + stedString);
+							try {
+								attendees.setText("" + Client.getAttendingStatus(Integer.parseInt(appointment2.getID())) + " deltagere");
+							} catch (NumberFormatException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							
+							desc.setTranslateX(rect.getLayoutX() + xPadding + xTextPadding);
+							desc.setTranslateY(rect.getLayoutY() + yTextPadding);
+							
+							sted.setTranslateX(rect.getLayoutX() + xPadding + xTextPadding);
+							sted.setTranslateY(rect.getLayoutY() + yTextPadding + 20);
+							
+							attendees.setTranslateX(rect.getLayoutX() + xPadding + xTextPadding);
+							attendees.setTranslateY(rect.getLayoutY() + yTextPadding + 40);
+							
+							
+				    		anchorPane.getChildren().add(hoverBox);
+				    		anchorPane.getChildren().add(desc);
+				    		anchorPane.getChildren().add(sted);
+				    		anchorPane.getChildren().add(attendees);
+				    		anchorPane.getChildren().add(arc);
 				        }
 				    });
 				    
@@ -563,6 +666,11 @@ public class CalendarController {
 				        @Override
 				        public void handle(MouseEvent event) {
 				        	rect.setEffect(null);
+				        	anchorPane.getChildren().remove(hoverBox);
+				        	anchorPane.getChildren().remove(desc);
+				        	anchorPane.getChildren().remove(sted);	
+				        	anchorPane.getChildren().remove(attendees);
+				        	anchorPane.getChildren().remove(arc);
 				        }
 				    });
 				}
@@ -614,7 +722,7 @@ public class CalendarController {
     	String[] startTidList = startTid.split(":");
     	
     	String endTid = endDate[1];
-    	String[] endTidList = startTid.split(":");
+    	String[] endTidList = endTid.split(":");
     	
     	
     	String[] deltagere = z[8].split("@/@");
@@ -640,7 +748,7 @@ public class CalendarController {
     	
     	appointment.setDate(LocalDate.of(Integer.parseInt(datoList[0]), Integer.parseInt(datoList[1]), Integer.parseInt(datoList[2])));
     	appointment.setStart(LocalTime.of(Integer.parseInt(startTidList[0]), Integer.parseInt(startTidList[1])));
-    	appointment.setFrom(LocalTime.of(11,30));
+    	appointment.setFrom((LocalTime.of(Integer.parseInt(endTidList[0]), Integer.parseInt(endTidList[1]))));
     	appointment.setUsers(usersList);
     	appointment.setRoomAmount(2);
     	appointment.setID(z[7]);

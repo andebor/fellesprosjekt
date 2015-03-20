@@ -41,7 +41,6 @@ public class Client
 	public final int MYSQLDATETIMELENGTH = 19;
 	private static String nextAlarmString;
 	
-	
 	//TODO: Slettede avtaler vil fortsatt få alarm.
 	public static Thread alarmListener = new Thread() {
 		public void run() {
@@ -70,24 +69,15 @@ public class Client
 				now = LocalDateTime.now();
 				long diff = now.until(nextAlarm, ChronoUnit.MINUTES);
 				System.out.println("Time until next alarm is " + diff + " minutes ...");
-//				if (Thread.interrupted()) {
-//					System.out.println("Interrupted!");
-//					alarms = getAlarms("\n");
-//					break;
-//				}
-//				now = LocalDateTime.now();
-				
+				//String[] args = {"IT WORKS!"};
+				//DialogApp.main(args);
 				try {
 					//System.out.println("Sleeping for " + diff + " minutes ...");
 					long milliseconds = diff * 60000;
 					Thread.sleep(milliseconds);
 					String msg = "Avtalen \"" + desc + "\" begynner om " + minute + " minutter.";
-					System.out.println(msg);
-					Alert alert = new Alert(AlertType.INFORMATION);
-					alert.setTitle("Varsel");
-					alert.setHeaderText(null);
-					alert.setContentText("Avtalen \"" + desc + "\" begynner om " + minute + " minutter.");
-					alert.showAndWait();
+					//String[] args = {msg};
+					Client.showAlert(msg);
 				} catch (InterruptedException e) {
 					//System.out.println("New alarm(s), resetting alarmstack");
 					alarms = getAlarms("\n");
@@ -122,6 +112,15 @@ public class Client
 			}
 		}
 	};
+	
+	public static void showAlert(String message) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		//alert.initOwner(null);
+		alert.setTitle("Varsel");
+		alert.setHeaderText(null);
+		alert.setContentText(message);
+		alert.showAndWait();
+	}
 	
 	public Client() throws IOException {
 		init();
@@ -180,11 +179,7 @@ public class Client
 			System.out.println("Class:Client - Successful login!");
 			Client.username = username;
 			Client.empNo = Client.getEmpNo(username);
-			System.out.println("Attempting to start alarmListener ...");
 			Client.alarmListener.start();
-			System.out.println("Alarmlistener started. Attempting  to start pollThread ...");
-			//Client.alarmListener.r
-			//System.out.println("Attempting to run pollthread ...");
 			Client.pollThread.start();
 			return true;
 		}
@@ -559,7 +554,7 @@ public class Client
 		String response = sendToServer("getName" + "#%" + username);
 		return response;
 	}
-	
+
 	public static String getEmpNo(String username) throws IOException {
 		String response = sendToServer("GETEMPNO" + "#%" + username);
 		return response;
@@ -578,13 +573,19 @@ public class Client
 			throw new IOException("Could not parse the response: " + response);
 		}
 	}
+
+	public static String getAttendingStatus(int appointmentID) throws IOException {
+		String response = sendToServer("GETATTENDINGSTATUS" + "#%" + appointmentID);
+		return response;
+	}
 	
 	public static void main(String [] args) throws Exception {
 		
 		Client c = new Client();
-		username = "mariusmb";
+		c.username = "mariusmb";
 		
-		String alarms = c.getAlarmString(username);
+		//String alarms = c.getAlarmString(username);
+		//c.showAlert("IJWDIJAIODHJUNGFRKLSE");
 		//String empNo = c.getEmpNo(c.username);
 		Client.login(username, username);
 		//System.out.println(c.hasNewAlarms());
@@ -599,5 +600,7 @@ public class Client
 //			System.out.println("Content: " + content + "\n");
 //			System.out.println("Alarm: " + alarm + "\n\n");
 //		}
+		//String [] args2 = {"test"};
+		//DialogApp.main(args2);
 	}
 }
