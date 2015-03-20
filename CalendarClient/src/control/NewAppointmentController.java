@@ -460,6 +460,7 @@ public class NewAppointmentController implements Initializable {
 			if(alarmButton.isSelected()){
 			appointment.setAlarm(Integer.parseInt(alarmField.getText()));
 			}
+
 			appointment.setUsers(addedTable.getItems());
 			
 			for(int i = 0; i < appointment.getUsers().size(); i++) {
