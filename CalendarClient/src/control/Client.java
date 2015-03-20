@@ -253,15 +253,17 @@ public class Client
 			String response2 = sendToServer("ADDEMPLOYEETOAPPOINTMENT" + "#%" + emp[emp.length-1] + "#%" + response1);
 		}
 		
-		//Set alarm
-		if(!(appointment.getAlarm()==0)){
-		sendToServer("SETALARM" + "#%" + username + "#%" + response1 + "#%" + appointment.getAlarm());
-		}
+
 
 		
 		
 		return true; //response1 returns appointmentID now
 		
+	}
+	
+	public static String setAlarm(String alarmTimer, String description) throws IOException {
+		String response = sendToServer("SETALARM" + "#%" + username + "#%" + description + "#%" + alarmTimer);
+		return response;
 	}
 	
 	public static String deleteAppointment(String ID) throws IOException {
@@ -435,10 +437,10 @@ public class Client
 			
 		}
 		
-		//Set alarm
-		if(!(appointment.getAlarm()==0)){
-		sendToServer("SETALARM" + "#%" + username + "#%" + appointment.getID() + "#%" + appointment.getAlarm());
-		}
+//		//Set alarm
+//		if(!(appointment.getAlarm()==0)){
+//		sendToServer("SETALARM" + "#%" + username + "#%" + appointment.getID() + "#%" + appointment.getAlarm());
+//		}
 
 		
 		sendToServer("FIRENOTIFICATION");

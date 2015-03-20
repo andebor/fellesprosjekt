@@ -419,11 +419,11 @@ public class NewAppointmentController implements Initializable {
 		
 
 		
-		if(alarmButton.isSelected()){
-			if(!alarmValidation(alarmField.getText())){
-				validationCheck--;
-			}
-		}
+//		if(alarmButton.isSelected()){
+//			if(!alarmValidation(alarmField.getText())){
+//				validationCheck--;
+//			}
+//		}
 		
 		if(reservationButton.isSelected()){
 			if(!roomAmountValidation()){
@@ -457,9 +457,9 @@ public class NewAppointmentController implements Initializable {
 				appointment.setPlace(placeField.getText());
 				appointment.setRoom("null");
 			}
-			if(alarmButton.isSelected()){
-			appointment.setAlarm(Integer.parseInt(alarmField.getText()));
-			}
+//			if(alarmButton.isSelected()){
+//			appointment.setAlarm(Integer.parseInt(alarmField.getText()));
+//			}
 
 			appointment.setUsers(addedTable.getItems());
 			

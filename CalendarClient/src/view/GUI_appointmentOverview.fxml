@@ -78,5 +78,7 @@
                </children></AnchorPane>
         </items>
       </SplitPane>
+      <TextField fx:id="alarmField" layoutX="499.0" layoutY="666.0" promptText="alarm (minutter før start)" />
+      <Button layoutX="656.0" layoutY="666.0" mnemonicParsing="false" onAction="#setAlarm" prefHeight="25.0" prefWidth="80.0" text="Sett alarm" />
    </children>
 </AnchorPane>

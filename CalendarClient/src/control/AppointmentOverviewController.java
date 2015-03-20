@@ -11,6 +11,8 @@ import java.util.regex.Pattern;
 
 
 
+
+
 //asd
 import model.Appointment;
 import javafx.application.Platform;
@@ -22,6 +24,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 
 
 public class AppointmentOverviewController {
@@ -47,6 +50,10 @@ public class AppointmentOverviewController {
 	Label deltagereLabel;
 	@FXML 
 	Label avtaleAdministrator;
+	
+	@FXML
+	TextField alarmField;
+
 	
 	MainApp mainApp;
 	int index;
@@ -216,6 +223,51 @@ public class AppointmentOverviewController {
     	
     }
     
+	public boolean alarmValidation(String alarmString){
+		
+		try { 
+	        Integer.parseInt(alarmString); 
+	   
+	    } catch(Exception e) { 
+	    	alarmField.setText("");
+	    	alarmField.setPromptText("Ugyldig input");
+	    	return false;
+	    }
+	    int alarmInt = Integer.parseInt(alarmString); 
+		if(alarmInt<0){
+			alarmField.setText("");
+			alarmField.setPromptText("Ugydlig input");
+			return false;
+		}
+		
+		return true;
+		
+	}
+	
+	public void setAlarm(ActionEvent event)  {
+		
+		try {
+			Appointment appointment = appointmentTable.getSelectionModel().getSelectedItem();
+			if(appointment == null){ // Check if any appointment is selected from list
+				return;
+			}
+			
+			if(alarmValidation(alarmField.getText())){
+				Client.setAlarm(alarmField.getText(), appointment.getID());
+				alarmField.setText("");
+				alarmField.setPromptText("Alarm satt!");
+			}
+			
+		}
+		catch(Exception e){
+			return;
+		}
+	}
+	
+		
+		
+	
+	
     
 
 	

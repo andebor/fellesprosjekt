@@ -42,10 +42,10 @@ public class editAppointmentController extends NewAppointmentController implemen
 	    super.endHourField.setValue(Integer.toString(appointmentToEdit.getFrom().getHour()));
 	    super.endMinuteField.setValue(Integer.toString(appointmentToEdit.getFrom().getMinute()));
 		ObservableList<String> list = FXCollections.observableArrayList(appointmentToEdit.getUsers());
-		if(!(appointmentToEdit.getAlarm()==0)){
-		super.alarmButton.setSelected(true);
-		super.alarmField.setText(Integer.toString(appointmentToEdit.getAlarm()));
-		}
+//		if(!(appointmentToEdit.getAlarm()==0)){
+//		super.alarmButton.setSelected(true);
+//		super.alarmField.setText(Integer.toString(appointmentToEdit.getAlarm()));
+//		}
 		super.generateGroupsList();
 		super.generateEmployersList();
 		for(String employer1 : list) {
