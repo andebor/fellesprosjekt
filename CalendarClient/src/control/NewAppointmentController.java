@@ -464,8 +464,8 @@ public class NewAppointmentController implements Initializable {
 			
 			for(int i = 0; i < appointment.getUsers().size(); i++) {
 				if(!editNewAppointment){
-					String message = "Ny avtale er laget: " + appointment.getDescription(); 
-					Client.addNotification(message, appointment.getUsers().get(i).split(" ")[appointment.getUsers().get(i).split(" ").length -1]);
+				//	String message = "Ny avtale er laget: " + appointment.getDescription(); 
+				//	Client.addNotification(message, appointment.getUsers().get(i).split(" ")[appointment.getUsers().get(i).split(" ").length -1]);
 				}
 			}
 			
