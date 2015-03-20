@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Stack;
 
 import dateUtils.DateHelper;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
@@ -83,7 +84,12 @@ public class Client
 					Thread.sleep(milliseconds);
 					String msg = "Avtalen \"" + desc + "\" begynner om " + minute + " minutter.";
 					//String[] args = {msg};
-					Client.showAlert(msg);
+					Platform.runLater(new Runnable() {
+						@Override
+						public void run() {
+							Client.showAlert(msg);
+						}
+					});
 				} catch (InterruptedException e) {
 					//System.out.println("New alarm(s), resetting alarmstack");
 					alarms = getAlarms("\n");
@@ -185,8 +191,13 @@ public class Client
 			System.out.println("Class:Client - Successful login!");
 			Client.username = username;
 			Client.empNo = Client.getEmpNo(username);
+			try {
 			Client.alarmListener.start();
 			Client.pollThread.start();
+			}
+			catch(IllegalThreadStateException e){
+				//Logg ut fiks. hindrer at alarmlistener starter opp mens den allerede går. 
+			}
 			return true;
 		}
 		else {
