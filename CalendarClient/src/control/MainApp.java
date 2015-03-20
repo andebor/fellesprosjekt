@@ -191,9 +191,9 @@ public class MainApp extends Application {
 			}
 			else { 
 				editAppointmentController controller = loader.getController();
+				controller.setMainApp(this);
 				controller.initAppointment(appointment);
 				controller.loadAppointment();
-				controller.setMainApp(this);
 			}
 
 			//return controller.isOkClicked();

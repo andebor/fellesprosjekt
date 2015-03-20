@@ -176,7 +176,11 @@ public class NewAppointmentController implements Initializable {
 			return false;
 		}
 		
+		
 		if (dateCheck.isAfter(LocalDate.now())){
+			return true;
+		}
+		else if(dateCheck.isEqual(LocalDate.now())){
 			return true;
 		}
 		else {
