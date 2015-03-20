@@ -10,7 +10,9 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
@@ -34,7 +36,92 @@ public class Client
 	public static String username;
 	public static String fullName;
 	public static String userID;
-	private Stack<String> alarms;
+	private static String empNo;
+	//private Stack<String> alarms;
+	public final int MYSQLDATETIMELENGTH = 19;
+	private static String nextAlarmString;
+	
+	
+	//TODO: Slettede avtaler vil fortsatt få alarm.
+	public static Thread alarmListener = new Thread() {
+		public void run() {
+			//System.out.println("Alarm listener thread running ...");
+			Stack<String> alarms = getAlarms("\n");
+			LocalDateTime nextAlarm;
+			LocalDateTime now;
+			long interval = 5000; //One minute interval between polls
+			String desc;
+			int minute = Integer.MAX_VALUE; //TODO: 15 er placeholder. Finn den faktiske verdien.
+			while (true) {
+				while (alarms.size() < 2) {
+					Client.nextAlarmString = null;
+					try {
+						//System.out.println("Sleeping while waiting for more alarms ...");
+						Thread.sleep(Long.MAX_VALUE);
+					} catch (InterruptedException e) {
+						//System.out.println("Interrupted! More alarms, I hope?");
+					}
+					alarms = getAlarms("\n");
+				}
+				Client.nextAlarmString = alarms.pop();
+				//System.out.println("Next alarm: " + Client.nextAlarmString);
+				desc = alarms.pop();
+				nextAlarm = DateHelper.getDateTime(Client.nextAlarmString);
+				now = LocalDateTime.now();
+				long diff = now.until(nextAlarm, ChronoUnit.MINUTES);
+				System.out.println("Time until next alarm is " + diff + " minutes ...");
+//				if (Thread.interrupted()) {
+//					System.out.println("Interrupted!");
+//					alarms = getAlarms("\n");
+//					break;
+//				}
+//				now = LocalDateTime.now();
+				
+				try {
+					//System.out.println("Sleeping for " + diff + " minutes ...");
+					long milliseconds = diff * 60000;
+					Thread.sleep(milliseconds);
+					String msg = "Avtalen \"" + desc + "\" begynner om " + minute + " minutter.";
+					System.out.println(msg);
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Varsel");
+					alert.setHeaderText(null);
+					alert.setContentText("Avtalen \"" + desc + "\" begynner om " + minute + " minutter.");
+					alert.showAndWait();
+				} catch (InterruptedException e) {
+					//System.out.println("New alarm(s), resetting alarmstack");
+					alarms = getAlarms("\n");
+				}
+					
+				}
+			}
+		};
+	
+	public static Thread pollThread = new Thread() {
+		public void run() {
+			//System.out.println("Poll thread running ...");
+			int interval = 20000; //How often the server should be polled for new alarms
+			while (true) {
+				try {
+					try {
+						Thread.sleep(interval);
+					} catch (InterruptedException e) {
+						System.out.println("pollThread: InterruptedException");
+					}
+					//System.out.println("Polling ...");
+					if (hasNewAlarms()) {
+						//System.out.println("New alarm(s), attempting to interrupt alarm listener thread ...");
+						Client.alarmListener.interrupt();
+					}else {
+						//System.out.println("No new alarms.");
+					}
+				} catch (IOException e) {
+					System.out.println("pollThread: Something went wrong.");
+					break;
+				}
+			}
+		}
+	};
 	
 	public Client() throws IOException {
 		init();
@@ -92,6 +179,13 @@ public class Client
 		if (response.trim().equals("OK")) {
 			System.out.println("Class:Client - Successful login!");
 			Client.username = username;
+			Client.empNo = Client.getEmpNo(username);
+			System.out.println("Attempting to start alarmListener ...");
+			Client.alarmListener.start();
+			System.out.println("Alarmlistener started. Attempting  to start pollThread ...");
+			//Client.alarmListener.r
+			//System.out.println("Attempting to run pollthread ...");
+			Client.pollThread.start();
 			return true;
 		}
 		else {
@@ -403,64 +497,42 @@ public class Client
 		return response;
 	}
 	
-	public static String getAlarms() throws IOException {
+	public static String getAlarmString(String username) throws IOException {
 		String alarms = sendToServer("GETALARMS" + "#%" + username); 
 		return alarms;
 	}
 	
-	public static Stack<String> initAlarms(String seperator) throws IOException {
+	private static Stack<String> getAlarms(String seperator) {
 		// this.alarm = new Stack<String>();
 		Stack<String> alarmStack = new Stack<String>();
-		String alarms = getAlarms();
+		String alarms = null;
+		try {
+			alarms = getAlarmString(Client.username);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		String [] alarmArray = alarms.split(seperator);
-		List<String> alarmList = Arrays.asList(alarmArray);
-		// this.alarms.addAll(alarmList);
-		alarmStack.addAll(alarmList);
-		Thread t = Thread.currentThread();
+		for (String alarm : alarmArray) {
+			int n = alarm.length();
+			int m = seperator.length();
+			if (n > m) {
+				alarmStack.push(alarm.substring(0, n-m));
+			}
+		}
+		String lastAlarm = alarmStack.pop() + "0";
+		alarmStack.push(lastAlarm);
 		return alarmStack;
+//		List<String> alarmList = Arrays.asList(alarmArray);
+//		// this.alarms.addAll(alarmList);
+//		alarmStack.addAll(alarmList);
+//		this.alarms = alarmStack;
 	}
 
 	
-	public static void alarmListener(Stack<String> alarms) {
-		//int mariusmb = getEmpno("mariusmb");
-		//Stack<String> alarms = getAlarms(mariusmb);
-		LocalDateTime nextAlarm;
-		LocalDateTime now;
-		long interval = 60000; //One minute interval between polls
-		while (!alarms.isEmpty()) {
-			String nextAlarmString = alarms.pop();
-			try {
-				System.out.println("User has no alarms: " + nextAlarmString.split("\n")[1]);
-			nextAlarm = DateHelper.getDateTime(nextAlarmString.split("\n")[1]);
-			while (true) {
-				now = LocalDateTime.now();
-				if (nextAlarm.isBefore(now)) {
-					System.out.println("HEI OG HOPP, PÅ TIDE Å STÅ OPP!");
-					//TODO: Gi saklig melding til bruker
-					Alert alert = new Alert(AlertType.INFORMATION);
-					alert.setTitle("Varsel");
-					alert.setHeaderText(null);
-					alert.setContentText("I have a great message for you!");
-
-					alert.showAndWait();
-					break;
-				}else {
-					//System.out.println("Ikke ennå ..." + second++);
-					try {
-						Thread.sleep(interval);;
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-						break;
-					}
-				}
-			}
-			}
-			catch(Exception e){
-				System.out.println("User has no alarms: " + nextAlarmString);
-			}
-			int second = 0;
-		}
-	}
+//	private void alarmListener() {
+//	}
+	
 	
 	
 	public static String getUserID(String username) throws IOException {
@@ -488,11 +560,44 @@ public class Client
 		return response;
 	}
 	
+	public static String getEmpNo(String username) throws IOException {
+		String response = sendToServer("GETEMPNO" + "#%" + username);
+		return response;
+	}
+	
+	private static boolean hasNewAlarms() throws IOException {
+		if (nextAlarmString == null) {
+			nextAlarmString = DateHelper.MAXMYSQLDATETIME;
+		}
+		String response = sendToServer("NEWALARMS" + "#%" + nextAlarmString + "#%" + empNo);
+		if (response.equals("TRUE")) {
+			return true;
+		}else if (response.equals("FALSE")) {
+			return false;
+		}else {
+			throw new IOException("Could not parse the response: " + response);
+		}
+	}
+	
 	public static void main(String [] args) throws Exception {
 		
-		//Client client = new Client();
+		Client c = new Client();
+		username = "mariusmb";
 		
-		//Client.login("lol", "lol");
-		
+		String alarms = c.getAlarmString(username);
+		//String empNo = c.getEmpNo(c.username);
+		Client.login(username, username);
+		//System.out.println(c.hasNewAlarms());
+		//System.out.println(c.empNo);
+		//System.out.println(alarms);
+		//c.initAlarms("\n");
+		//c.alarmListener();
+//		System.out.println(c.alarms);
+//		while (!c.alarms.isEmpty()) {
+//			String alarm = c.alarms.pop();
+//			String content = c.alarms.pop();
+//			System.out.println("Content: " + content + "\n");
+//			System.out.println("Alarm: " + alarm + "\n\n");
+//		}
 	}
 }

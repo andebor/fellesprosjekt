@@ -118,12 +118,12 @@ public class RootNavController {
             btn_admin.setVisible(true);  
         }
         // Initiate alarms
-        try {
-			Client.alarmListener(Client.initAlarms("¤%¤"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//        try {
+//			Client.alarmListener(Client.initAlarms("¤%¤"));
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 
 
     }

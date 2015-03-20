@@ -89,19 +89,15 @@ public class MainApp extends Application {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("/view/GUI_login.fxml"));
             loginView = (BorderPane) loader.load();
-
-        	
             //Create login stage
             Scene scene = new Scene(loginView);
             primaryStage.setResizable(false);
             primaryStage.setTitle("Kalender");
             primaryStage.setScene(scene);
             primaryStage.show();
-            
             // Give the controller access to the main app.
             LoginController controller = loader.getController();
             controller.setMainApp(this);
-            
         } catch (IOException e) {
             e.printStackTrace();
         }

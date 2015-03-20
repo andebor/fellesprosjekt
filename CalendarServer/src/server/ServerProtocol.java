@@ -311,8 +311,18 @@ public class ServerProtocol {
 	
 				
 				return getNameResponse;
-			}
 			
+			case "NEWALARMS":
+				
+				String alarm = input[1];
+				int empNo7 = Integer.parseInt(input[2]);
+				return database.hasEarlierAlarms(alarm, empNo7) ? "TRUE" : "FALSE";
+			
+			case "GETEMPNO":
+				String user = input[1];
+				int empNo8 = database.getEmpno(user);
+				return String.valueOf(empNo8);
+			}
 			
 			
 		} //Closing bracket for switch statement

@@ -13,6 +13,7 @@ public class DateHelper {
 	
 	public static final SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	public static final DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+	public static final String MAXMYSQLDATETIME = "9999-12-31 23:59:59";
 
 	public static String getMySQLDateTime() {
 		timeFormat.setTimeZone(TimeZone.getTimeZone("GMT+1"));
@@ -126,7 +127,9 @@ public class DateHelper {
 		String mysql = dh.getMySQLDatetime(date);
 		//System.out.println(dh.getMySQLDatetime(date));
 		long offset = 15;
-		System.out.println(dh.getMySQLDateTimePast(mysql, offset));
+		//System.out.println(dh.getMySQLDateTimePast(mysql, offset));
+		LocalDateTime date2 = dh.getDateTime("");
+		System.out.println(date2);
 	}
 
 }
