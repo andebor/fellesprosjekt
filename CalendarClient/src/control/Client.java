@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Stack;
 
 import dateUtils.DateHelper;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
@@ -38,7 +39,7 @@ public class Client
 	public static String userID;
 	private static String empNo;
 	//private Stack<String> alarms;
-	public final int MYSQLDATETIMELENGTH = 19;
+	public static final int MYSQLDATETIMELENGTH = 19;
 	private static String nextAlarmString;
 	
 	//TODO: Slettede avtaler vil fortsatt få alarm.
@@ -54,11 +55,12 @@ public class Client
 			Stack<String> alarms = getAlarms("\n");
 			LocalDateTime nextAlarm;
 			LocalDateTime now;
-			long interval = 5000; //One minute interval between polls
 			String desc;
-			int minute = Integer.MAX_VALUE; //TODO: 15 er placeholder. Finn den faktiske verdien.
+			String dateTime;
+			//int minute = Integer.MAX_VALUE; //TODO: 15 er placeholder. Finn den faktiske verdien.
+			long minute;
 			while (true) {
-				while (alarms.size() < 2) {
+				while (alarms.size() < 3) {
 					Client.nextAlarmString = null;
 					try {
 						//System.out.println("Sleeping while waiting for more alarms ...");
@@ -69,9 +71,10 @@ public class Client
 					alarms = getAlarms("\n");
 				}
 				Client.nextAlarmString = alarms.pop();
-				//System.out.println("Next alarm: " + Client.nextAlarmString);
 				desc = alarms.pop();
+				dateTime = alarms.pop().substring(0, DateHelper.MYSQLDATETIMELENGTH);
 				nextAlarm = DateHelper.getDateTime(Client.nextAlarmString);
+				minute = nextAlarm.until(DateHelper.getDateTime(dateTime), ChronoUnit.MINUTES);
 				now = LocalDateTime.now();
 				long diff = now.until(nextAlarm, ChronoUnit.MINUTES);
 				System.out.println("Time until next alarm is " + diff + " minutes ...");
@@ -83,7 +86,12 @@ public class Client
 					Thread.sleep(milliseconds);
 					String msg = "Avtalen \"" + desc + "\" begynner om " + minute + " minutter.";
 					//String[] args = {msg};
-					Client.showAlert(msg);
+					Platform.runLater(new Runnable() {
+						@Override
+						public void run() {
+							Client.showAlert(msg);
+						}
+					});
 				} catch (InterruptedException e) {
 					//System.out.println("New alarm(s), resetting alarmstack");
 					alarms = getAlarms("\n");
@@ -95,8 +103,9 @@ public class Client
 	
 	public static Thread pollThread = new Thread() {
 		public void run() {
+			setPriority(Thread.MIN_PRIORITY);
 			//System.out.println("Poll thread running ...");
-			int interval = 60010; //How often the server should be polled for new alarms
+			int interval = 60113; //How often the server should be polled for new alarms
 			while (true) {
 				try {
 					try {
@@ -504,13 +513,11 @@ public class Client
 	}
 	
 	private static Stack<String> getAlarms(String seperator) {
-		// this.alarm = new Stack<String>();
 		Stack<String> alarmStack = new Stack<String>();
 		String alarms = null;
 		try {
 			alarms = getAlarmString(Client.username);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		String [] alarmArray = alarms.split(seperator);
@@ -524,17 +531,7 @@ public class Client
 		String lastAlarm = alarmStack.pop() + "0";
 		alarmStack.push(lastAlarm);
 		return alarmStack;
-//		List<String> alarmList = Arrays.asList(alarmArray);
-//		// this.alarms.addAll(alarmList);
-//		alarmStack.addAll(alarmList);
-//		this.alarms = alarmStack;
 	}
-
-	
-//	private void alarmListener() {
-//	}
-	
-	
 	
 	public static String getUserID(String username) throws IOException {
 		String response = sendToServer("GETUSERID" + "#%" + username);

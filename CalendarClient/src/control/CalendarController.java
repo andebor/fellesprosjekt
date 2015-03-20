@@ -367,7 +367,7 @@ public class CalendarController {
     	userToColorPane.getChildren().clear();
     	
     	for(int i = 0; i < selectedItems.size(); i++) {
-    		Label label = new Label(selectedItems.get(i).getFirstname().getValue() + " " + userList.get(i).getLastname().getValue());
+    		Label label = new Label(selectedItems.get(i).getFirstname().getValue() + " " + selectedItems.get(i).getLastname().getValue());
     		label.setTranslateY(30 * i);
     		label.setTranslateX(40);
 			Rectangle rect = new Rectangle(0,0,20 , 20);
