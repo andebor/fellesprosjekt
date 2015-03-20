@@ -61,7 +61,7 @@
                         <Label fx:id="stedLabel" text="label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <Label fx:id="moteromLabel" text="label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                         <Label text="Deltagere" GridPane.rowIndex="6" />
-                        <Label fx:id="deltagereLabel" alignment="TOP_LEFT" prefHeight="119.0" prefWidth="171.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" GridPane.rowSpan="2" GridPane.valignment="CENTER">
+                        <Label fx:id="deltagereLabel" alignment="TOP_LEFT" prefHeight="119.0" prefWidth="278.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" GridPane.rowSpan="2" GridPane.valignment="CENTER">
                            <GridPane.margin>
                            </GridPane.margin>
                            <padding>
