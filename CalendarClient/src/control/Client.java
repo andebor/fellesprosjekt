@@ -194,8 +194,13 @@ public class Client
 			System.out.println("Class:Client - Successful login!");
 			Client.username = username;
 			Client.empNo = Client.getEmpNo(username);
+			try {
 			Client.alarmListener.start();
 			Client.pollThread.start();
+			}
+			catch(IllegalThreadStateException e){
+				//Logg ut fiks. hindrer at alarmlistener starter opp mens den allerede går. 
+			}
 			return true;
 		}
 		else {
