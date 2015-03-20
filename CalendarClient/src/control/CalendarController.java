@@ -465,6 +465,9 @@ public class CalendarController {
 				if(start2<8){
 					start2 = 0;
 				}
+				else if(start2>22){
+					start2 = start2 - 7;
+				}
 				else{
 					start2 = start2 - 6;
 				}
@@ -476,9 +479,13 @@ public class CalendarController {
 				if(end2<8){
 					end2 = 0;
 				}
+				else if(end2>22){
+					end2 = end2 - 7;
+				}
 				else{
 					end2 = end2 - 6;
 				}
+		
 			}			
 		
 		// Generate appointment in calendar
