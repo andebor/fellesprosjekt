@@ -287,7 +287,19 @@ public class Client
 	
 	public static String getEmployees() throws IOException{
 		
-		return sendToServer("GETEMPLOYEES");
+		SyncTest();
+		Boolean isSynced = true;
+		String response = sendToServer("GETEMPLOYEES");;
+		while(isSynced){
+			if(response.equals("CHECK")){
+				response = sendToServer("GETEMPLOYEES");;
+			}
+			else {
+				isSynced = false;
+			}
+		}
+		return response;
+		
 		
 	}
 	
@@ -386,6 +398,8 @@ public class Client
 		}
 		if(!appointment.getDate().toString().equals(oldAppointment.getDate().toString())){
 			date = appointment.getDate().toString();
+			start = appointment.getStart().toString();
+			end = appointment.getFrom().toString();
 		}
 		else{
 			date = oldAppointment.getDate().toString();
