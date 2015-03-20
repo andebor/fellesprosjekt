@@ -44,6 +44,12 @@ public class Client
 	//TODO: Slettede avtaler vil fortsatt få alarm.
 	public static Thread alarmListener = new Thread() {
 		public void run() {
+			setPriority(MIN_PRIORITY);
+			try {
+				Thread.sleep(20000);
+			} catch (InterruptedException e1) {
+				System.out.println("InterruptedException in alarmListener thread.");
+			}
 			//System.out.println("Alarm listener thread running ...");
 			Stack<String> alarms = getAlarms("\n");
 			LocalDateTime nextAlarm;
@@ -90,7 +96,7 @@ public class Client
 	public static Thread pollThread = new Thread() {
 		public void run() {
 			//System.out.println("Poll thread running ...");
-			int interval = 20000; //How often the server should be polled for new alarms
+			int interval = 60010; //How often the server should be polled for new alarms
 			while (true) {
 				try {
 					try {
